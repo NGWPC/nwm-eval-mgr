@@ -25,7 +25,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    'shapely~=2.1.2',                   # Match ngen-forcing
     'hydrotools.events==1.1.5',
     'hydrotools.metrics==1.3.3',
     'hydrotools.nwis_client==3.3.1',
