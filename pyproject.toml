@@ -1,20 +1,16 @@
 [build-system]
+requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
-requires = [
-  "setuptools>=42",
-  "wheel",
-]
 
 [project]
-name = "nwm.eval"
-version = "1.0.0"
-description = "A python library to perform evaluation of NextGen formulations"
-readme = { file = "README.md", content-type = "text/markdown" }
-requires-python = ">=3.10"
-license = { file = "LICENSE" }
-authors = [
-    { name = "Yuqiong Liu", email = "Yuqiong.Liu@ertcorp.com" }
+name = "nwm_eval_mgr"
+dynamic = ["version"]
+description = "Tools for conducting simulation evaluation and forecast verification."
+readme = "README.md"
+maintainers = [
+    { name = "Yuqiong Liu", email = "yuqiong.liu@entarian.com" },
 ]
+
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Education",
@@ -24,39 +20,75 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Hydrology",
     "Operating System :: OS Independent",
 ]
+
+requires-python = ">=3.10"
+
 dependencies = [
+    "contextily",
+    "dask",
+    "geopandas",
+    "cartopy",
+    "matplotlib",
+    "pandas",
+    "seaborn",
+    "distributed",
+    "pydantic",
+    "netCDF4==1.6.3",
+    "numpy<2",
+    "fastparquet",
+    "tenacity",
+    "dataretrieval==1.1.0",
+    "teehr @ git+https://github.com/RTIInternational/teehr@1204e014fd9e3b320d6ee5c8eea04efc524ce0a7",
     'hydrotools.events==1.1.5',
     'hydrotools.metrics==1.3.3',
     'hydrotools.nwis_client==3.3.1',
     'hydrotools_restclient',
-    'numpy<2',
-    'pandas',
     'scipy',
 ]
 
-[tool.setuptools]
-include-package-data = true
-
-[tool.setuptools.packages.find]
-where = ["src"]
-namespaces = true
-
-[tool.setuptools.package-dir]
-"" = "src"
-
 [project.optional-dependencies]
-develop = [
-    "pytest",
-    "pytest-mock",
-]
+dev = ["pytest~=8.4.1", "ruff~=0.12.10", "python-dotenv~=1.2.1", "boto3~=1.40.74"]
+docs = ["sphinx", "numpydoc", "sphinx_rtd_theme", "sphinx_design", "pydata-sphinx-theme", "sphinx-autodoc-typehints", "myst-parser"]
 
 [project.urls]
-Homepage = "https://github.com/NGWPC/nwm-eval-mgr.git"
+repository = "https://github.com/NGWPC/nwm-eval-mgr"
+
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nwm_eval_mgr*"]
+
+
+[tool.setuptools.dynamic]
+version = {attr = "nwm_eval_mgr.__version__"}
+
+[tool.sphinx]
+project = "nwm_eval_mgr"
+author = "Yuqiong Liu"
 
 [tool.ruff]
-line-length = 88  
+line-length = 88
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
 line-ending = "auto"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+
+filterwarnings = [
+    "ignore::DeprecationWarning"
+]
+
+python_files = "test_*.py *_tests.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+markers = [
+  "unit: fast unit tests",
+  "integration: lightweight pipeline tests",
+  "functional: tests that run the full pipeline and check outputs",
+  "slow: tests that take a long time (minutes to hours) to run",
+]
