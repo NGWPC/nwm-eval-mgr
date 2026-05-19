@@ -47,7 +47,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest~=8.4.1", "ruff~=0.12.10", "python-dotenv~=1.2.1", "boto3~=1.40.74"]
+#dev = ["pytest~=8.4.1", "ruff~=0.12.10", "python-dotenv~=1.2.1", "boto3~=1.40.74"]
+dev = ["pytest~=8.4.1", "ruff~=0.12.10", "python-dotenv~=1.2.1", "boto3"]
 docs = ["sphinx", "numpydoc", "sphinx_rtd_theme", "sphinx_design", "pydata-sphinx-theme", "sphinx-autodoc-typehints", "myst-parser"]
 
 [tool.setuptools.packages.find]

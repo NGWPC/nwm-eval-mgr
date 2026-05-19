@@ -11,28 +11,24 @@ general:
   location_set_name: vpu_03S  # user-specified name for the set of locations
   location_type: usgs_gage # location type
   location_filter: # filter locations based on column and value in the gage crosswalk file; if null, all locations in the crosswalk file will be used, unless location_list or location_list_file is specified
-    columns: ["vpuid"] 
-    values: ["03S"]  
-    #columns: ["vpu_id", "status"]  # NHF
-    #values: ["03S", "USGS-active"] # NHF
+    columns: ["vpu_id", "status"]  
+    values: ["03S", "USGS-active"] 
   variable_name: streamflow # currently only 'streamflow' is supported
   nwm_configuration: ngen_simulation    
   dataset_name: [gower, kmeans] # user-specified name of datasets (e.g., formualtion or algorithm name)
   nwm_version: [ngen, ngen] # list of NWM versions; must have the same length as 'dataset_name'
-  forecast_start_date: ['2022-10-01 00:00:00', '2022-10-01 00:00:00'] # list of start dates for simulation; must be same length as 'dataset_name'
-  forecast_end_date: ['2022-10-01 10:00:00', '2022-10-01 10:00:00'] # list of end dates for simulation; must be same length as 'dataset_name'
-  eval_start_date: ['2022-10-01 03:00:00', '2022-10-01 03:00:00'] # start date for evaluation period, only used for ngenSIM
-  eval_end_date: ['2022-10-01 10:00:00', '2022-10-01 10:00:00'] # end date for evaluation period, only used for ngenSIM
+  forecast_start_date: ['2012-10-01 00:00:00', '2012-10-01 00:00:00'] # list of start dates for simulation; must be same length as 'dataset_name'
+  forecast_end_date: ['2012-10-01 10:00:00', '2012-10-01 10:00:00'] # list of end dates for simulation; must be same length as 'dataset_name'
+  eval_start_date: ['2012-10-01 03:00:00', '2012-10-01 03:00:00'] # start date for evaluation period, only used for ngenSIM
+  eval_end_date: ['2012-10-01 10:00:00', '2012-10-01 10:00:00'] # end date for evaluation period, only used for ngenSIM
   separate_calibrated: true # whether to distinguish calibrated and regionalized locations in the evaluation
 
 #### configurations for various file paths
 file_paths:
-  base_dir: /ngen-app/nwm-verf/data/ # root directory to store data/outputs for verification
-  #location_list_file: '{base_dir}/inputs/regionalization/gage_list_conus_{location_set_name}.csv' # text file containing list of usgs gage IDs (one gage ID per line)
-  #gage_hydrofabric_file: '{base_dir}/inputs/gage_files/gage_hydrofabric_all_domains.parquet' # gage hydrofabric file (including geometry)
-  crosswalk_file: '{base_dir}/inputs/regionalization/usgs_{nwm_version}_crosswalk_{domain}.parquet' # crosswalk file mapping gage IDs to NWM/ngen link IDs
-  fcst_data_file: '/ngen-app/nwm-region-mgr/data/outputs/ngen/regionalization/{dataset_name}/{location_set_name}/Output/troute_output_{forecast_start_date}.nc' # forecast data directory (must be specified when nwm_forecast.data_source is set to ngenCERF)
-  calib_param_file: '/ngen-app/nwm-region-mgr/data/inputs/region/pseudo_calib_params/sampled_params_{domain}.csv' # calibration parameters file (used when separate_calibrated is True); must have column 'gage_id'
+  base_dir: ./ # root directory to store data/outputs for verification
+  crosswalk_file: '{base_dir}/data/inputs/nhf/usgs_{nwm_version}_crosswalk_{domain}.parquet' # crosswalk file mapping gage IDs to NWM/ngen link IDs
+  fcst_data_file: '{base_dir}/data/inputs/troute_output_201210010000_{dataset_name}.nc' # forecast data directory (must be specified when nwm_forecast.data_source is set to ngenCERF)
+  calib_param_file: '{base_dir}/../nwm-region-mgr/data/inputs/region/pseudo_calib_params/sampled_params_{domain}.csv' # calibration parameters file (used when separate_calibrated is True); must have column 'gage_id'
   output_dir: '{base_dir}/outputs/{location_set_name}' # output directory to store all datasets, metrics and plots
 
 nwm_forecast:
@@ -51,7 +47,7 @@ pair_data:
 metrics:  
   overwrite: true # whether to overwrite existing metric files
   library: nwm.eval # currently supported options: teehr, nwm.eval
-  metric_subset: [KGE, NSE, CORR, NNSE]
+  metric_subset: [KGE, NSE, CORR, NNSE, PKBIAS, PKTE, EVBIAS] # subset of metrics to calculate; if null, all available metrics will be calculated
   flow_threshold_categorical: 0.9 # non-exceedance probability threshold of streamflow to be used for categorical metrics in nwm.eval 
   flow_threshold_event: 0.9 # non-exceedance probability threshold of streamflow to be used for event-based metrics in nwm.eval
   lead_times: ['all'] # list of lead times (in hours) for which metrics should be calculated for  
