@@ -1,13 +1,13 @@
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Literal, Optional, Union
 
 import pandas as pd
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 logger = logging.getLogger(__name__)
-# logging.basicConfig(level=logging.INFO)
+
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - [%(levelname)s] - %(message)s"
 )
@@ -16,8 +16,17 @@ logging.basicConfig(
 class LocationFilter(BaseModel):
     """Data model for filtering locations based on column values in the crosswalk file."""
 
-    columns: str | List[str]
-    values: str | List[str]
+    columns: str | List[str] = Field(
+        description="Column name(s) in the crosswalk file to filter on. Can be a single string or a list of strings.",
+        examples=["vpu_id", "status"],
+        default=["vpu_id"],
+    )
+
+    values: str | List[str] = Field(
+        description="Value(s) to filter on for the corresponding columns. Can be a single string or a list of strings.",
+        examples=["03S", "USGS-active"],
+        default=["03S"],
+    )
 
     @model_validator(mode="before")
     @classmethod
@@ -71,78 +80,449 @@ class LocationFilter(BaseModel):
 class GeneralConfig(BaseModel):
     """Data model for the 'general' section of the config file."""
 
-    steps: Dict[str, bool]
-    domain: Optional[str] = None
-    assemble_domain: Optional[bool] = False
-    location_set_name: str
-    location_list: Optional[List[Union[str, int]]] = None
-    location_type: Optional[str] = None
-    location_filter: Optional[LocationFilter] = None
-    location_group_size: Optional[int] = 500
-    variable_name: str
-    nwm_configuration: str
-    dataset_name: List[str]
-    nwm_version: List[str]
-    forecast_start_date: List[str]
-    forecast_end_date: List[str]
-    eval_start_date: Optional[List[str]] = None
-    eval_end_date: Optional[List[str]] = None
+    steps: Dict[str, bool] = Field(
+        description=(
+            "Dictionary specifying which steps to run. Keys are step names (e.g., 'fetch_fcst_data', 'fetch_obs_data', "
+            "'pair_data', 'compute_metrics', 'plot_metrics'), and values are booleans indicating whether to run the step."
+            "Note that these steps need to run in order, since some steps depend on the output of previous steps "
+            "(e.g., one cannot compute metrics without first fetching data and pairing it)."
+        ),
+        examples={
+            "fetch_fcst_data": True,
+            "fetch_obs_data": True,
+            "pair_data": True,
+            "compute_metrics": True,
+            "plot_metrics": True,
+        },
+        default_factory=lambda: {
+            "fetch_fcst_data": True,
+            "fetch_obs_data": True,
+            "pair_data": True,
+            "compute_metrics": True,
+            "plot_metrics": True,
+        },
+    )
+
+    domain: Literal["conus", "hi", "ak", "prvi"] = Field(
+        default="conus",
+        examples=["conus"],
+        description="Domain for the evaluation. Valid options are 'conus', 'hi', 'ak', 'prvi' (case insensitive).",
+    )
+
+    assemble_domain: Optional[bool] = Field(
+        default=False,
+        examples=[False, True],
+        description=(
+            "Whether to assemble results from different VPUs across domains. This is only applicable when domain is 'conus', "
+            "since the CONUS domain is currently divided into VPUs while other domains are not. If True, "
+            "the script will look for metric files from each VPU, concatenate them, and save the assembled metric file "
+            "for the entire CONUS domain."
+        ),
+    )
+
+    location_set_name: str = Field(
+        description=(
+            "User-specified name for the set of locations (e.g., a specific VPU or a cluster from a "
+            "regionalization). This will be used in naming output files and directories."
+        ),
+        examples=["vpu_03S", "usgs_01123000"],
+        default="usgs_01123000",
+    )
+
+    location_list: Optional[List[Union[str]]] = Field(
+        default=None,
+        examples=[["01123000", "01123500"], ["50070900"]],
+        description="List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used.",
+    )
+
+    location_type: Literal["usgs_gage", "nwm30_link", "nwm22_link"] = Field(
+        default="usgs_gage",
+        examples=["usgs_gage", "nwm30_link", "nwm22_link"],
+        description=(
+            "Type of locations to evaluate. Valid options are 'usgs_gage', 'nwm30_link', and 'nwm22_link'. This will "
+            "determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data."
+        ),
+    )
+
+    location_filter: Optional[LocationFilter] = Field(
+        default_factory=LocationFilter,
+        examples={
+            "columns": ["vpu_id", "status"],
+            "values": ["03S", "USGS-active"],
+        },
+        description=(
+            "Optional configuration for filtering locations based on column values in the crosswalk file. "
+            "If provided, only locations that match the specified column-value pairs will be included in the evaluation."
+        ),
+    )
+
+    location_group_size: Optional[int] = Field(
+        default=200,
+        examples=[100, 200, 500],
+        description=(
+            "Number of locations to process in each group when pairing forecast and observation data. "
+            "This is used to manage memory usage during the pairing step. If None, all locations will be processed "
+            "in a single group."
+        ),
+    )
+
+    variable_name: str = Field(
+        default="streamflow",
+        examples=["streamflow"],
+        description=(
+            "Name of the variable to evaluate. Currently only 'streamflow' is supported, "
+            "but this field is included for future extensibility."
+        ),
+    )
+
+    nwm_configuration: str = Field(
+        description=(
+            "Name of the NWM configuration to evaluate. This can be 'ngen' for ngen-based simulations or match one of "
+            "the configurations defined in the forecast configuration file specified by 'file_paths.fcst_config_file'."
+        ),
+        examples=[
+            "ngen",
+            "short_range",
+            "medium_range_blend",
+            "standard_ana_puertorico",
+        ],
+        default="short_range",
+    )
+
+    dataset_name: List[str] = Field(
+        description=(
+            "User-specified name(s) for the dataset(s) to evaluate (e.g., formulation name or regionalization algorithm). "
+            "This will be used in naming output files and directories. If evaluating multiple datasets, this should be "
+            "a list of names with the same length as 'nwm_version', 'forecast_start_date', and 'forecast_end_date'."
+        ),
+        examples=[["noah_cfes", "noah_topmodel"], ["gower"]],
+        default="noah_cfes",
+    )
+
+    nwm_version: List[str] = Field(
+        description=(
+            "List of NWM versions to evaluate. Valid options include 'ngen', 'nwm30', 'nwm22', etc. This should be "
+            "a list of the same length as 'dataset_name', where each entry corresponds to the NWM version for the "
+            "dataset with the same index in 'dataset_name'."
+        ),
+        examples=[["ngen", "nwm30"], ["ngen"]],
+        default="ngen",
+    )
+
+    forecast_start_date: List[str] = Field(
+        description=(
+            "List of start dates for the forecast data to evaluate. This should be a list of the same length as 'dataset_name', "
+            "where each entry corresponds to the start date for the dataset with the same index in 'dataset_name'"
+        ),
+        examples=[
+            ["2022-12-01 00:00:00", "2022-12-15 00:00:00"],
+            ["2022-12-01 00:00:00"],
+        ],
+        default="2022-12-01 00:00:00",
+    )
+
+    forecast_end_date: List[str] = Field(
+        description=(
+            "List of end dates for the forecast data to evaluate. This should be a list of the same length as 'dataset_name', "
+            "where each entry corresponds to the end date for the dataset with the same index in 'dataset_name'"
+        ),
+        examples=[
+            ["2022-12-31 00:00:00", "2023-01-15 00:00:00"],
+            ["2022-12-31 00:00:00"],
+        ],
+        default="2022-12-31 00:00:00",
+    )
+
+    eval_start_date: Optional[List[str]] = Field(
+        default="2022-12-11 00:00:00",
+        description=(
+            "List of start dates for the evaluation period. This should be a list of the same length as 'dataset_name', "
+            "where each entry corresponds to the start date for the evaluation period of the dataset with the same index "
+            "in 'dataset_name'. If not provided, the evaluation will start from the earliest available date in the paired "
+            "forecast and observation data for each dataset."
+        ),
+        examples=[
+            ["2022-12-11 00:00:00", "2022-12-25 00:00:00"],
+            ["2022-12-11 00:00:00"],
+        ],
+    )
+
+    eval_end_date: Optional[List[str]] = Field(
+        default="2022-12-31 00:00:00",
+        description=(
+            "List of end dates for the evaluation period. This should be a list of the same length as 'dataset_name', "
+            "where each entry corresponds to the end date for the evaluation period of the dataset with the same index "
+            "in 'dataset_name'. If not provided, the evaluation will end at the latest available date in the paired "
+            "forecast and observation data for each dataset."
+        ),
+        examples=[
+            ["2022-12-31 00:00:00", "2023-01-15 00:00:00"],
+            ["2022-12-31 00:00:00"],
+        ],
+    )
+
     separate_calibrated: Optional[bool] = Field(
         default=False,
+        examples=[False, True],
         description="Whether to distinguish calibrated and regionalized locations in the evaluation",
     )
 
+    @field_validator("domain", mode="before")
+    @classmethod
+    def normalize_domain(cls, v):
+        """Normalize domain string to lowercase."""
+        if isinstance(v, str):
+            return v.lower()
+        return v
+
 
 class FilePathsConfig(BaseModel):
-    """Data model for the 'file_paths' section of the config file"""
+    """Data model for the 'file_paths' section of the config file."""
 
-    base_dir: Path
-    location_list_file: Optional[Path | str] = None
-    crosswalk_file: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = None
-    fcst_config_file: Optional[str | Path] = None
-    fcst_data_file: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = None
-    fcst_data_dir: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = None
-    calib_param_file: Optional[Path | str] = None
-    txdot_gage_file: Optional[Path | str] = None
-    output_dir: str | Path
+    base_dir: Path = Field(
+        description=(
+            "Root directory to store data and outputs for the evaluation. The script will create subdirectories under "
+            "this base directory for different datasets and types of outputs (e.g., noah_cfes, usgs, joined, metrics, plots)."
+        ),
+        examples=["~/ngen_evaluation/"],
+        default=None,
+    )
+
+    location_list_file: Optional[Path | str] = Field(
+        default="data/inputs/gage_files/usgs_gages_link_CONUS_calib100.csv",
+        examples=[Path("~/location_list.csv")],
+        description=(
+            "Path to a file containing the list of locations to evaluate, only used if 'general.location_list' is not provided. "
+            "If neither is provided, locations from the crosswalk file will be used, filtered by 'general.location_filter'."
+        ),
+    )
+
+    crosswalk_file: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = Field(
+        default="data/inputs/gage_files/usgs_ngen_crosswalk_all_domains.parquet",
+        examples=[
+            Path("~/crosswalk.csv"),
+            {
+                "ngen": Path("~/crosswalk_ngen.csv"),
+                "nwm30": Path("~/crosswalk_nwm30.csv"),
+            },
+        ],
+        description=(
+            "Path to a crosswalk file or a dictionary of crosswalk files, corresponding to different nwm versions. "
+            "The crosswalk file maps location identifiers to other relevant information."
+        ),
+    )
+
+    fcst_config_file: Optional[str | Path] = Field(
+        default="data/inputs/nwm_forecast_configuration.yaml",
+        description=(
+            "Path to the forecast configuration file. This file defines the parameters for different NWM configurations. "
+            "For each forecast configuration, a list that specify the following parameters (in order): "
+            "cycle_start: start time of forecast cycles in Zulu time or UTC (e.g., 0Z);"
+            "cycle_end: end time of forecast cycles in Zulu time or UTC (e.g., 23Z);"
+            "cycle_freq: frequency of forecast cycles in hours (e.g., 1);"
+            "fcst_win: forecast window in hours (e.g., 18);"
+            "fcst_timestep: forecast timestep in hours (e.g., 1);"
+        ),
+    )
+
+    fcst_data_file: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = Field(
+        default="01123000_output.csv",
+        description="Path to the forecast data file or a dictionary of forecast data files.",
+    )
+
+    fcst_data_dir: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = Field(
+        default="data/inputs/hindcasts/",
+        description="Path to the directory containing forecast data files or a dictionary of directories.",
+    )
+
+    calib_param_file: Optional[Path | str] = Field(
+        default="data/inputs/calib_params.csv",
+        description="Path to the calibration parameter file.",
+    )
+
+    txdot_gage_file: Optional[Path | str] = Field(
+        default="data/inputs/gage_files/tx_gauges.csv",
+        description="Path to the TxDOT gage file. This is only needed if evaluating TxDOT locations, for which streamflow "
+        "observations are retrieved differently than USGS gages. If not provided, the default TxDOT list defined in settings.py will be used. ",
+    )
+
+    output_dir: str | Path = Field(
+        description=(
+            "Directory to save outputs such as paired data, computed metrics, and plots. "
+        ),
+        example="ngen_evaluation/outputs/usgs_01123000/",
+        default="ngen_evaluation/outputs/usgs_01123000/",
+    )
 
 
 class NWMForecastConfig(BaseModel):
-    """Data model for the 'nwm_forecast' section of the config file"""
+    """Data model for the 'nwm_forecast' section of the config file."""
 
-    data_source: str
-    fetch_fcst: Optional[List[bool]] = None
-    output_type: Optional[str] = None
-    t_minus: Optional[List[int]] = None
-    kerchunk_method: Optional[str] = None
-    process_by_z_hour: Optional[bool] = None
-    stepsize: Optional[int] = 100
-    ignore_missing_file: Optional[bool] = True
-    overwrite_output: Optional[bool] = False
-    memory_per_worker_gb: Optional[int] = (
-        3  # configurable memory (in GB) assigned to each worker
+    data_source: Literal["ngenCERF", "ngenSIM", "hindcast", "GCS"] = Field(
+        description=(
+            "Data source for the NWM forecast. This specifies the source from which forecast data will be retrieved."
+            "Valid options are: "
+            "'ngenCERF' for ngen-based single-location forecasts for a single reference time (T0), "
+            "'hindcast' for ngen-based single-location hindcast data for multiple reference times (T0), "
+            "'ngenSIM' for large-scale ngen-based simulations (e.g., across a VPU from regionalization), "
+            "'GCS' for large-scale operational NWM forecasts on Google Cloud Storage."
+        ),
+        default="ngenCERF",
+        examples=["ngenCERF", "ngenSIM", "hindcast", "GCS"],
+    )
+
+    fetch_fcst: Optional[List[bool]] = Field(
+        default=True,
+        examples=[[True], [True, False]],
+        description=(
+            "List of booleans indicating whether to fetch forecast data for each dataset. "
+            "If False, forecast data will be retrieved regardless of whether it already exists locally. "
+            "Otherwise, skip fetching if forecast data file already exists locally. "
+        ),
+    )
+
+    output_type: str = Field(
+        default="channel_rt",
+        examples=["channel_rt", "land", "terrain_rt"],
+        description=(
+            "Type of NWM output to retrieve. Currently only 'channel_rt' is supported. Only applicable when data_source='GCS'. "
+        ),
+    )
+
+    t_minus: Optional[List[int]] = Field(
+        default=[0, 1, 2],
+        examples=[[0], [0, 1, 2]],
+        description=(
+            "List of integers indicating the T-minus hours for which to retrieve NWM forecasts. "
+            "Only applicable when data_source='GCS' and nwm_configuration is an AnA run (analysis & assimilation)."
+        ),
+    )
+
+    kerchunk_method: str = Field(
+        default="local",
+        examples=["zarr", "parquet"],
+        description=(
+            "Specifies the preference in creating Kerchunk reference json files. Only needed for data_source = 'GCS'. "
+            "'local' - always create new json files from netcdf files in GCS and save locally, if they do not already exist; "
+            "'remote' - read the CIROH pre-generated jsons from s3, ignoring any that are unavailable; "
+            "'auto' - read the CIROH pre-generated jsons from s3, and create any that are unavailable, storing locally"
+        ),
+    )
+    process_by_z_hour: bool = Field(
+        default=True,
+        examples=[False, True],
+        description=(
+            "Only applicable when data_source='GCS'. If True, NWM files will be processed by z-hour per day. "
+            "If False, files will be processed in chunks (defined by STEPSIZE). This can help if you want to read many reaches "
+            "at once (all ~2.7 million for medium range for example)."
+        ),
+    )
+
+    stepsize: int = Field(
+        default=100,
+        examples=[50, 100, 200],
+        description=(
+            "Only applicable when data_source='GCS' and process_by_z_hour=False. Controls how many files are processed "
+            "in memory at once. Higher values can increase performance at the expense on memory. "
+        ),
+    )
+
+    ignore_missing_file: bool = Field(
+        default=True,
+        examples=[False, True],
+        description=(
+            "Only applicable when data_source='GCS'. If True, the missing file(s) will be skipped and the process will resume. "
+            "If False, TEEHR will fail if a missing NWM file is encountered."
+        ),
+    )
+
+    overwrite_output: bool = Field(
+        default=False,
+        examples=[False, True],
+        description=(
+            "Whether to overwrite existing forecast data files. If False, the script will check if the forecast "
+            "data file already exists locally before attempting to fetch it. If True, the script will fetch "
+            "the forecast data and overwrite any existing local file with the same name."
+        ),
+    )
+
+    memory_per_worker_gb: int = Field(
+        default=3,
+        examples=[1, 2, 3, 4],
+        description="Configurable memory (in GB) assigned to each worker or process.",
+    )
+
+
+class USGSConfig(BaseModel):
+    """Configuration for USGS flow observations."""
+
+    chunk_by: Literal["day", "month", "year"] = Field(
+        default="month",
+        description="How downloaded data are chunked into parquet files.",
+    )
+
+    overwrite_output: bool = Field(
+        default=True,
+        description=(
+            "If True, existing output files are overwritten. "
+            "If False, existing files are retained."
+        ),
+    )
+
+    memory_per_worker_gb: int = Field(
+        default=3,
+        ge=1,
+        description="Memory assigned to each worker in GB.",
     )
 
 
 class FlowObservationConfig(BaseModel):
-    """Data model for the 'flow_observation' section of the config file"""
+    """Data model for the flow_observation section."""
 
-    usgs: Dict[str, Union[str, int, bool]]
+    usgs: USGSConfig
 
 
 class PairDataConfig(BaseModel):
-    """Data model for the 'pair_data' section of the config file"""
+    """Data model for the 'pair_data' section of the config file."""
 
-    overwrite: bool
-    group_size: Optional[int] = 200
+    overwrite: bool = Field(
+        default=True,
+        examples=[False, True],
+        description=(
+            "Whether to overwrite existing paired data files. If False, the script will check if the paired data file "
+            "already exists locally before attempting to pair data. If True, the script will pair the data and overwrite "
+            "any existing local file with the same name."
+        ),
+    )
+    group_size: int = Field(
+        default=200,
+        examples=[100, 200, 500],
+        description=(
+            "Number of locations to process in each group when pairing forecast and observation data. This is used to "
+            "manage memory usage during the pairing step. If None, all locations will be processed in a single group."
+        ),
+    )
 
 
 class LeadTimesMixin(BaseModel):
-    lead_times: Optional[List[str]] = None
+    """Mixin class to add lead_times field and validation to metric and plot configs."""
+
+    lead_times: List[str] = Field(
+        default=["all", "1-5", "5-10", "10-15", "all_aggregated"],
+        description=(
+            "List of lead times to compute metrics or make plots for. Each lead time can be specified as an integer "
+            "(e.g., 6), a numeric string (e.g., '6.0'), or a range string (e.g., '1-6'). "
+            "Range strings will be expanded to include all integer lead times within the range. "
+            "`all` can be used to represent all available individual lead times for a given nwm configuration. "
+            "`all_aggregated` can be used to represent a range that includes all lead times for a given nwm configuration, "
+            "(e.g., 1-18 for short_range)."
+        ),
+    )
 
     @field_validator("lead_times", mode="before")
     @classmethod
     def normalize_lead_times(cls, v):
+        """Normalize lead_times to a list of strings, and validate that each entry is either an integer, a numeric string, or a range string."""
         if v is None:
             return []
         if not isinstance(v, list):
@@ -151,11 +531,21 @@ class LeadTimesMixin(BaseModel):
 
 
 class ReferenceTimesMixin(BaseModel):
-    reference_times: Optional[List[datetime]] = None
+    """Mixin class to add reference_times field and validation to metric and plot configs."""
+
+    reference_times: List[datetime] = Field(
+        default=["2022-12-01 00:00:00", "2022-12-15 00:00:00"],
+        examples=[["2022-12-01 00:00:00", "2022-12-15 00:00:00"]],
+        description=(
+            "List of reference times (T0s) to compute metrics or make plots for. Each reference time can be specified "
+            "as a datetime object or a string in a format recognized by pandas.to_datetime."
+        ),
+    )
 
     @field_validator("reference_times", mode="before")
     @classmethod
     def normalize_reference_times(cls, v):
+        """Normalize reference_times to a list of datetime objects."""
         if v is None:
             return []
         if not isinstance(v, list):
@@ -164,50 +554,155 @@ class ReferenceTimesMixin(BaseModel):
 
 
 class MetricsConfig(LeadTimesMixin):
-    """Data model for the 'metrics' section of the config file"""
+    """Data model for the 'metrics' section of the config file."""
 
-    overwrite: bool
-    library: str
-    metric_subset: Union[str, List[str]]
-    metric_exclude: Optional[List[str]] = None
-    flow_threshold_categorical: Optional[float] = 0.9
-    flow_threshold_event: Optional[float] = 0.9
-    file_format: Optional[str] = "parquet"
+    overwrite: bool = Field(
+        default=True,
+        examples=[False, True],
+        description=("Whether to overwrite existing metric files. "),
+    )
+
+    library: str = Field(
+        default="nwm.eval",
+        examples=["nwm.eval", "teehr"],
+        description=(
+            "Library to use for metric computation. Valid options: nwm.eval, teehr. "
+        ),
+    )
+
+    metric_subset: Union[str, List[str]] = Field(
+        default="all",
+        examples=["all", ["NSE", "KGE"]],
+        description=(
+            "Subset of metrics to compute. Can be 'all' or a list of metric names. If 'all', all available metrics in "
+            "the specified library will be computed. If a list of metric names is provided, only those metrics will be computed."
+        ),
+    )
+
+    metric_exclude: List[str] = Field(
+        default=["HSEG_FDC", "MSEG_FDC", "LSEG_FDC"],
+        examples=[["HSEG_FDC", "MSEG_FDC", "LSEG_FDC"], ["NSE"]],
+        description=(
+            "List of metric names to exclude from metric_subset for computation. "
+        ),
+    )
+
+    flow_threshold_categorical: float = Field(
+        default=0.9,
+        examples=[0.85, 0.9, 0.95],
+        description="Threshold for categorical flow metrics.",
+    )
+
+    flow_threshold_event: float = Field(
+        default=0.9,
+        examples=[0.85, 0.9, 0.95],
+        description="Threshold for event-based flow metrics.",
+    )
+
+    file_format: str = Field(
+        default="parquet",
+        examples=["parquet", "csv"],
+        description="File format for output files. Valid options are 'parquet' and 'csv'.",
+    )
 
 
 Number = Union[int, float]
 
 
 class BasePlotConfig(LeadTimesMixin):
-    """Common fields for all plot configs"""
+    """Common fields for all plot configs."""
 
-    plot: Optional[bool] = False
-    metric_subset: Optional[List[str]] = []
-    tag: Optional[str] = None
+    plot: bool = Field(
+        default=False,
+        examples=[False, True],
+        description=(
+            "Whether to generate this type of plot. If False, the script will skip generating this type of plot. "
+            "If True, the script will generate this type of plot for the specified lead times."
+        ),
+    )
+
+    metric_subset: Union[str, List[str]] = Field(
+        default="all",
+        examples=["all", ["NSE", "KGE"]],
+        description=(
+            "List of metric names to include in the plots. If not defined, all available metrics will be included in the plots. "
+        ),
+    )
+
+    tag: str = Field(
+        default="",
+        description=(
+            "Optional tag to include in the plot titles and filenames. This can be used to distinguish "
+            "different configurations in the plot outputs."
+        ),
+    )
 
 
 class HistogramConfig(BasePlotConfig):
-    """Config for histogram plots"""
+    """Config for histogram plots."""
 
-    binning: Optional[Dict[str, List[Number]]] = None
+    binning: Dict[str, List[Number]] = Field(
+        default={
+            "NSE": [-1, -0.5, 0, 0.5, 1],
+            "KGE": [-1, -0.5, 0, 0.5, 1],
+        },
+        examples=[
+            {
+                "NSE": [-1, -0.5, 0, 0.5, 1],
+                "KGE": [-1, -0.5, 0, 0.5, 1],
+            }
+        ],
+        description=(
+            "Dictionary specifying the binning for histogram plots. Keys are metric names, and values are lists of "
+            "numbers defining the bin edges for the corresponding metric. If a metric is not included in this dictionary, "
+            "binning is determined by dividing the range of metric values into 8 equal-width bins. "
+        ),
+    )
 
 
 class BoxPlotConfig(BasePlotConfig):
-    """Config for box plots"""
+    """Config for box plots."""
 
-    show_outliers: Optional[bool] = False
+    show_outliers: bool = Field(
+        default=True,
+        examples=[False, True],
+        description=(
+            "Whether to show outliers in box plots. If True, outliers will be shown as individual points. If False, "
+            "outliers will be omitted."
+        ),
+    )
 
 
 class SpatialMapConfig(BasePlotConfig):
-    """Config for spatial maps"""
+    """Config for spatial maps."""
 
-    scaling: Optional[Dict[str, List[Number]]] = None
+    scaling: Dict[str, List[Number]] = Field(
+        default={
+            "NSE": [-0.5, 1.0],
+            "KGE": [-0.5, 1.0],
+        },
+        examples=[
+            {
+                "NSE": [-0.5, 1.0],
+                "KGE": [-0.5, 1.0],
+            }
+        ],
+        description=(
+            "Dictionary specifying the scaling for spatial maps. Keys are metric names, and values are lists of "
+            "numbers defining the scaling range for the corresponding metric. If a metric is not included in this dictionary, "
+            "metric data will not be scaled and hence the resulting spatial map may be difficult to interpret if there are extreme outliers."
+        ),
+    )
 
 
 class TimeSeriesConfig(BasePlotConfig, ReferenceTimesMixin):
     """Config for time series plots."""
 
-    lead_times: Optional[List[int]] = None
+    lead_times: List[int] = Field(
+        default=[1, 2, 3],
+        examples=[[1, 2, 3], [6, 12, 24]],
+        description="List of lead times for time series plots. Each lead time should be an integer representing the forecast lead time in hours.",
+    )
 
     @field_validator("lead_times", mode="before")
     @classmethod
@@ -241,42 +736,82 @@ class TimeSeriesConfig(BasePlotConfig, ReferenceTimesMixin):
 
 
 class TablePlotConfig(BasePlotConfig):
-    """Config for table plots displaying metric values"""
+    """Config for table plots displaying metric values."""
 
     pass
 
 
 class BarChartConfig(BasePlotConfig):
-    """Config for bar charts"""
+    """Config for bar charts."""
 
     pass
 
 
 class PlotsConfig(BaseModel):
-    """Data model for the 'plots' section of the config file"""
+    """Data model for the 'plots' section of the config file."""
 
-    histogram: Optional[HistogramConfig] = None
-    boxplot: Optional[BoxPlotConfig] = None
-    spatial_map: Optional[SpatialMapConfig] = None
-    time_series: Optional[TimeSeriesConfig] = None
-    metric_table: Optional[TablePlotConfig] = None
-    barchart: Optional[BarChartConfig] = None
+    histogram: HistogramConfig = Field(
+        default_factory=HistogramConfig,
+        description="Configuration for histogram plots.",
+    )
+
+    boxplot: BoxPlotConfig = Field(
+        default_factory=BoxPlotConfig,
+        description="Configuration for box plot.",
+    )
+    spatial_map: SpatialMapConfig = Field(
+        default_factory=SpatialMapConfig,
+        description="Configuration for spatial map plots.",
+    )
+    time_series: TimeSeriesConfig = Field(
+        default_factory=TimeSeriesConfig,
+        description="Configuration for time series plots.",
+    )
+    metric_table: TablePlotConfig = Field(
+        default_factory=TablePlotConfig,
+        description="Configuration for metric table plots.",
+    )
+    barchart: BarChartConfig = Field(
+        default_factory=BarChartConfig,
+        description="Configuration for bar chart plots.",
+    )
 
 
 class Config(BaseModel):
-    """Define a data model for each section in the config file"""
+    """Define a data model for each section in the config file."""
 
-    general: GeneralConfig
-    file_paths: FilePathsConfig
-    nwm_forecast: NWMForecastConfig
-    flow_observation: FlowObservationConfig
-    pair_data: PairDataConfig
-    metrics: MetricsConfig
-    plots: PlotsConfig
+    general: GeneralConfig = Field(
+        default_factory=GeneralConfig,
+        description="General configuration for the evaluation, including dataset information and evaluation settings.",
+    )
+    file_paths: FilePathsConfig = Field(
+        default_factory=FilePathsConfig,
+        description="Configuration for file paths used in the evaluation, including input data and output directories.",
+    )
+    nwm_forecast: NWMForecastConfig = Field(
+        default_factory=NWMForecastConfig,
+        description="Configuration for NWM forecast data.",
+    )
+    flow_observation: FlowObservationConfig = Field(
+        default_factory=FlowObservationConfig,
+        description="Configuration for flow observation data.",
+    )
+    pair_data: PairDataConfig = Field(
+        default_factory=PairDataConfig,
+        description="Configuration for paired data.",
+    )
+    metrics: MetricsConfig = Field(
+        default_factory=MetricsConfig,
+        description="Configuration for metrics.",
+    )
+    plots: PlotsConfig = Field(
+        default_factory=PlotsConfig,
+        description="Configuration for plots.",
+    )
 
     @model_validator(mode="after")
     def check_dataset_configuration(self):
-        """Check that the following fields has the same lenght as dataset_name.
+        """Check that the following fields has the same length as dataset_name.
 
         Fields include: nwm_version, forecast_start_date, forecast_end_date, eval_start_date, eval_end_date.
         """
