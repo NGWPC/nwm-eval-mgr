@@ -87,6 +87,9 @@ class GeneralConfig(BaseModel):
             "Note that these steps need to run in order, since some steps depend on the output of previous steps "
             "(e.g., one cannot compute metrics without first fetching data and pairing it)."
         ),
+        json_schema_extra={
+            "description_short": "Steps to run in the evaluation process."
+        },
         examples={
             "fetch_fcst_data": True,
             "fetch_obs_data": True,
@@ -118,6 +121,9 @@ class GeneralConfig(BaseModel):
             "the script will look for metric files from each VPU, concatenate them, and save the assembled metric file "
             "for the entire CONUS domain."
         ),
+        json_schema_extra={
+            "description_short": "Whether to assemble results across VPUs for the CONUS domain."
+        },
     )
 
     location_set_name: str = Field(
@@ -125,6 +131,9 @@ class GeneralConfig(BaseModel):
             "User-specified name for the set of locations (e.g., a specific VPU or a cluster from a "
             "regionalization). This will be used in naming output files and directories."
         ),
+        json_schema_extra={
+            "description_short": "Name for the set of locations to evaluate."
+        },
         examples=["vpu_03S", "usgs_01123000"],
         default="usgs_01123000",
     )
@@ -142,6 +151,9 @@ class GeneralConfig(BaseModel):
             "Type of locations to evaluate. Valid options are 'usgs_gage', 'nwm30_link', and 'nwm22_link'. This will "
             "determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data."
         ),
+        json_schema_extra={
+            "description_short": "Type of locations to evaluate, which determines how locations are identified and processed."
+        },
     )
 
     location_filter: Optional[LocationFilter] = Field(
@@ -154,6 +166,9 @@ class GeneralConfig(BaseModel):
             "Optional configuration for filtering locations based on column values in the crosswalk file. "
             "If provided, only locations that match the specified column-value pairs will be included in the evaluation."
         ),
+        json_schema_extra={
+            "description_short": "Configuration for filtering locations based on column values."
+        },
     )
 
     location_group_size: Optional[int] = Field(
@@ -164,6 +179,9 @@ class GeneralConfig(BaseModel):
             "This is used to manage memory usage during the pairing step. If None, all locations will be processed "
             "in a single group."
         ),
+        json_schema_extra={
+            "description_short": "Number of locations to process in each group when pairing forecast and observation data."
+        },
     )
 
     variable_name: str = Field(
@@ -180,6 +198,7 @@ class GeneralConfig(BaseModel):
             "Name of the NWM configuration to evaluate. This can be 'ngen' for ngen-based simulations or match one of "
             "the configurations defined in the forecast configuration file specified by 'file_paths.fcst_config_file'."
         ),
+        json_schema_extra={"description_short": "NWM configuration to evaluate."},
         examples=[
             "ngen",
             "short_range",
@@ -195,6 +214,9 @@ class GeneralConfig(BaseModel):
             "This will be used in naming output files and directories. If evaluating multiple datasets, this should be "
             "a list of names with the same length as 'nwm_version', 'forecast_start_date', and 'forecast_end_date'."
         ),
+        json_schema_extra={
+            "description_short": "User-specified name(s) for the dataset(s) to evaluate."
+        },
         examples=[["noah_cfes", "noah_topmodel"], ["gower"]],
         default="noah_cfes",
     )
@@ -205,6 +227,7 @@ class GeneralConfig(BaseModel):
             "a list of the same length as 'dataset_name', where each entry corresponds to the NWM version for the "
             "dataset with the same index in 'dataset_name'."
         ),
+        json_schema_extra={"description_short": "NWM version(s) to evaluate."},
         examples=[["ngen", "nwm30"], ["ngen"]],
         default="ngen",
     )
@@ -214,6 +237,9 @@ class GeneralConfig(BaseModel):
             "List of start dates for the forecast data to evaluate. This should be a list of the same length as 'dataset_name', "
             "where each entry corresponds to the start date for the dataset with the same index in 'dataset_name'"
         ),
+        json_schema_extra={
+            "description_short": "Start date(s) for the forecast data to evaluate."
+        },
         examples=[
             ["2022-12-01 00:00:00", "2022-12-15 00:00:00"],
             ["2022-12-01 00:00:00"],
@@ -226,6 +252,9 @@ class GeneralConfig(BaseModel):
             "List of end dates for the forecast data to evaluate. This should be a list of the same length as 'dataset_name', "
             "where each entry corresponds to the end date for the dataset with the same index in 'dataset_name'"
         ),
+        json_schema_extra={
+            "description_short": "End date(s) for the forecast data to evaluate."
+        },
         examples=[
             ["2022-12-31 00:00:00", "2023-01-15 00:00:00"],
             ["2022-12-31 00:00:00"],
@@ -241,6 +270,9 @@ class GeneralConfig(BaseModel):
             "in 'dataset_name'. If not provided, the evaluation will start from the earliest available date in the paired "
             "forecast and observation data for each dataset."
         ),
+        json_schema_extra={
+            "description_short": "Start date(s) for the evaluation period."
+        },
         examples=[
             ["2022-12-11 00:00:00", "2022-12-25 00:00:00"],
             ["2022-12-11 00:00:00"],
@@ -255,6 +287,9 @@ class GeneralConfig(BaseModel):
             "in 'dataset_name'. If not provided, the evaluation will end at the latest available date in the paired "
             "forecast and observation data for each dataset."
         ),
+        json_schema_extra={
+            "description_short": "End date(s) for the evaluation period."
+        },
         examples=[
             ["2022-12-31 00:00:00", "2023-01-15 00:00:00"],
             ["2022-12-31 00:00:00"],
@@ -284,6 +319,9 @@ class FilePathsConfig(BaseModel):
             "Root directory to store data and outputs for the evaluation. The script will create subdirectories under "
             "this base directory for different datasets and types of outputs (e.g., noah_cfes, usgs, joined, metrics, plots)."
         ),
+        json_schema_extra={
+            "description_short": "Root directory for storing data and outputs."
+        },
         examples=["~/ngen_evaluation/"],
         default=None,
     )
@@ -295,6 +333,9 @@ class FilePathsConfig(BaseModel):
             "Path to a file containing the list of locations to evaluate, only used if 'general.location_list' is not provided. "
             "If neither is provided, locations from the crosswalk file will be used, filtered by 'general.location_filter'."
         ),
+        json_schema_extra={
+            "description_short": "Path to a file containing the list of locations to evaluate"
+        },
     )
 
     crosswalk_file: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = Field(
@@ -310,6 +351,9 @@ class FilePathsConfig(BaseModel):
             "Path to a crosswalk file or a dictionary of crosswalk files, corresponding to different nwm versions. "
             "The crosswalk file maps location identifiers to other relevant information."
         ),
+        json_schema_extra={
+            "description_short": "Path to a crosswalk file or a dictionary of crosswalk files."
+        },
     )
 
     fcst_config_file: Optional[str | Path] = Field(
@@ -323,6 +367,9 @@ class FilePathsConfig(BaseModel):
             "fcst_win: forecast window in hours (e.g., 18);"
             "fcst_timestep: forecast timestep in hours (e.g., 1);"
         ),
+        json_schema_extra={
+            "description_short": "Path to the forecast configuration file defining parameters for different NWM configurations."
+        },
     )
 
     fcst_data_file: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = Field(
@@ -344,6 +391,7 @@ class FilePathsConfig(BaseModel):
         default="data/inputs/gage_files/tx_gauges.csv",
         description="Path to the TxDOT gage file. This is only needed if evaluating TxDOT locations, for which streamflow "
         "observations are retrieved differently than USGS gages. If not provided, the default TxDOT list defined in settings.py will be used. ",
+        json_schema_extra={"description_short": "Path to the TxDOT gage file."},
     )
 
     output_dir: str | Path = Field(
@@ -367,6 +415,9 @@ class NWMForecastConfig(BaseModel):
             "'ngenSIM' for large-scale ngen-based simulations (e.g., across a VPU from regionalization), "
             "'GCS' for large-scale operational NWM forecasts on Google Cloud Storage."
         ),
+        json_schema_extra={
+            "description_short": "Data source for the NWM forecast. Valid options include 'ngenCERF', 'ngenSIM', 'hindcast', and 'GCS'."
+        },
         default="ngenCERF",
         examples=["ngenCERF", "ngenSIM", "hindcast", "GCS"],
     )
@@ -379,6 +430,9 @@ class NWMForecastConfig(BaseModel):
             "If False, forecast data will be retrieved regardless of whether it already exists locally. "
             "Otherwise, skip fetching if forecast data file already exists locally. "
         ),
+        json_schema_extra={
+            "description_short": "Whether to fetch forecast data for each dataset, with local file existence check."
+        },
     )
 
     output_type: str = Field(
@@ -396,6 +450,9 @@ class NWMForecastConfig(BaseModel):
             "List of integers indicating the T-minus hours for which to retrieve NWM forecasts. "
             "Only applicable when data_source='GCS' and nwm_configuration is an AnA run (analysis & assimilation)."
         ),
+        json_schema_extra={
+            "description_short": "T-minus hours for which to retrieve NWM forecasts, only applicable for AnA runs on GCS."
+        },
     )
 
     kerchunk_method: str = Field(
@@ -407,6 +464,9 @@ class NWMForecastConfig(BaseModel):
             "'remote' - read the CIROH pre-generated jsons from s3, ignoring any that are unavailable; "
             "'auto' - read the CIROH pre-generated jsons from s3, and create any that are unavailable, storing locally"
         ),
+        json_schema_extra={
+            "description_short": "Preference for creating Kerchunk reference json files, only applicable for GCS data source."
+        },
     )
     process_by_z_hour: bool = Field(
         default=True,
@@ -416,6 +476,9 @@ class NWMForecastConfig(BaseModel):
             "If False, files will be processed in chunks (defined by STEPSIZE). This can help if you want to read many reaches "
             "at once (all ~2.7 million for medium range for example)."
         ),
+        json_schema_extra={
+            "description_short": "Whether to process NWM files by z-hour per day, only applicable for GCS data source."
+        },
     )
 
     stepsize: int = Field(
@@ -425,6 +488,9 @@ class NWMForecastConfig(BaseModel):
             "Only applicable when data_source='GCS' and process_by_z_hour=False. Controls how many files are processed "
             "in memory at once. Higher values can increase performance at the expense on memory. "
         ),
+        json_schema_extra={
+            "description_short": "Number of files to process in memory at once when processing GCS data without z-hour chunking."
+        },
     )
 
     ignore_missing_file: bool = Field(
@@ -434,6 +500,9 @@ class NWMForecastConfig(BaseModel):
             "Only applicable when data_source='GCS'. If True, the missing file(s) will be skipped and the process will resume. "
             "If False, TEEHR will fail if a missing NWM file is encountered."
         ),
+        json_schema_extra={
+            "description_short": "Whether to ignore missing NWM files and continue processing, only applicable for GCS data source."
+        },
     )
 
     overwrite_output: bool = Field(
@@ -444,6 +513,9 @@ class NWMForecastConfig(BaseModel):
             "data file already exists locally before attempting to fetch it. If True, the script will fetch "
             "the forecast data and overwrite any existing local file with the same name."
         ),
+        json_schema_extra={
+            "description_short": "Whether to overwrite existing forecast data files."
+        },
     )
 
     memory_per_worker_gb: int = Field(
@@ -493,6 +565,9 @@ class PairDataConfig(BaseModel):
             "already exists locally before attempting to pair data. If True, the script will pair the data and overwrite "
             "any existing local file with the same name."
         ),
+        json_schema_extra={
+            "description_short": "Whether to overwrite existing paired data files."
+        },
     )
     group_size: int = Field(
         default=200,
@@ -501,6 +576,9 @@ class PairDataConfig(BaseModel):
             "Number of locations to process in each group when pairing forecast and observation data. This is used to "
             "manage memory usage during the pairing step. If None, all locations will be processed in a single group."
         ),
+        json_schema_extra={
+            "description_short": "Number of locations to process in each group when pairing forecast and observation data."
+        },
     )
 
 
@@ -510,13 +588,17 @@ class LeadTimesMixin(BaseModel):
     lead_times: List[str] = Field(
         default=["all", "1-5", "5-10", "10-15", "all_aggregated"],
         description=(
-            "List of lead times to compute metrics or make plots for. Each lead time can be specified as an integer "
-            "(e.g., 6), a numeric string (e.g., '6.0'), or a range string (e.g., '1-6'). "
-            "Range strings will be expanded to include all integer lead times within the range. "
-            "`all` can be used to represent all available individual lead times for a given nwm configuration. "
-            "`all_aggregated` can be used to represent a range that includes all lead times for a given nwm configuration, "
+            "List of lead times to compute metrics or make plots for. Each lead time can be specified as a number "
+            "(e.g., 6 or 6.0), a numeric string (e.g., '6.0'), or a range string (e.g., '1-6'). "
+            "`all` represents all available individual lead times for a given nwm configuration. "
+            "Range strings will be expanded to include all individual lead times within the range. "
+            "`all_aggregated` represents a range that includes all lead times for a given nwm configuration, "
             "(e.g., 1-18 for short_range)."
+            "Note lead times defined in `plots` must be a subset of those defined in `metrics`."
         ),
+        json_schema_extra={
+            "description_short": "Lead times to include in the evaluation."
+        },
     )
 
     @field_validator("lead_times", mode="before")
@@ -540,6 +622,9 @@ class ReferenceTimesMixin(BaseModel):
             "List of reference times (T0s) to compute metrics or make plots for. Each reference time can be specified "
             "as a datetime object or a string in a format recognized by pandas.to_datetime."
         ),
+        json_schema_extra={
+            "description_short": "Reference times (T0s) to include in the evaluation."
+        },
     )
 
     @field_validator("reference_times", mode="before")
@@ -577,6 +662,9 @@ class MetricsConfig(LeadTimesMixin):
             "Subset of metrics to compute. Can be 'all' or a list of metric names. If 'all', all available metrics in "
             "the specified library will be computed. If a list of metric names is provided, only those metrics will be computed."
         ),
+        json_schema_extra={
+            "description_short": "Subset of metrics to compute, either 'all' or a list of metric names."
+        },
     )
 
     metric_exclude: List[str] = Field(
@@ -619,6 +707,9 @@ class BasePlotConfig(LeadTimesMixin):
             "Whether to generate this type of plot. If False, the script will skip generating this type of plot. "
             "If True, the script will generate this type of plot for the specified lead times."
         ),
+        json_schema_extra={
+            "description_short": "Whether to generate this type of plot."
+        },
     )
 
     metric_subset: Union[str, List[str]] = Field(
@@ -627,6 +718,9 @@ class BasePlotConfig(LeadTimesMixin):
         description=(
             "List of metric names to include in the plots. If not defined, all available metrics will be included in the plots. "
         ),
+        json_schema_extra={
+            "description_short": "List of metric names to include in the plots."
+        },
     )
 
     tag: str = Field(
@@ -635,6 +729,9 @@ class BasePlotConfig(LeadTimesMixin):
             "Optional tag to include in the plot titles and filenames. This can be used to distinguish "
             "different configurations in the plot outputs."
         ),
+        json_schema_extra={
+            "description_short": "Optional tag to include in plot titles and filenames."
+        },
     )
 
 
@@ -657,6 +754,9 @@ class HistogramConfig(BasePlotConfig):
             "numbers defining the bin edges for the corresponding metric. If a metric is not included in this dictionary, "
             "binning is determined by dividing the range of metric values into 8 equal-width bins. "
         ),
+        json_schema_extra={
+            "description_short": "Dictionary specifying the binning for histogram plots, with metric names as keys and lists of bin edges as values."
+        },
     )
 
 
@@ -692,44 +792,60 @@ class SpatialMapConfig(BasePlotConfig):
             "numbers defining the scaling range for the corresponding metric. If a metric is not included in this dictionary, "
             "metric data will not be scaled and hence the resulting spatial map may be difficult to interpret if there are extreme outliers."
         ),
+        json_schema_extra={
+            "description_short": "Dictionary specifying the scaling for spatial maps, with metric names as keys and lists of scaling ranges as values."
+        },
     )
 
 
 class TimeSeriesConfig(BasePlotConfig, ReferenceTimesMixin):
     """Config for time series plots."""
 
-    lead_times: List[int] = Field(
-        default=[1, 2, 3],
-        examples=[[1, 2, 3], [6, 12, 24]],
-        description="List of lead times for time series plots. Each lead time should be an integer representing the forecast lead time in hours.",
+    lead_times: List[float] = Field(
+        default=[1.0, 2.0, 3.0],
+        examples=[[1.0, 2.0, 3.0], [6, 12.5, 24]],
+        description=(
+            "List of lead times for time series plots. "
+            "Each lead time should be a number representing "
+            "the forecast lead time in hours."
+        ),
     )
 
     @field_validator("lead_times", mode="before")
     @classmethod
     def validate_lead_times(cls, v):
-        """Validate that lead_times is a list of integers or numeric strings, and convert to integers."""
+        """Validate that lead_times is a list of numbers or numeric strings, and convert to floats."""
         if v is None:
             return None
+
         if not isinstance(v, list):
             raise ValueError("lead_times must be a list")
 
         cleaned = []
-        for item in v:
-            # Accept int directly
-            if isinstance(item, int):
-                cleaned.append(item)
 
-            # Accept numeric strings like "6"
+        for item in v:
+            # Accept int/float directly
+            if isinstance(item, (int, float)):
+                cleaned.append(float(item))
+
+            # Accept numeric strings like "6" or "6.5"
             elif isinstance(item, str):
-                if item.isdigit():
-                    cleaned.append(int(item))
-                else:
+                try:
+                    cleaned.append(float(item))
+
+                except ValueError:
                     logger.info(
-                        f"Invalid lead_time '{item}'. Must be integer-like (e.g., '6'), not ranges like '1-5'. Skip this lead time."
+                        f"Invalid lead_time '{item}'. "
+                        "Must be numeric (e.g., '6' or '6.5'), "
+                        "not ranges like '1-5'. "
+                        "Skip this lead time."
                     )
+
             else:
                 logger.info(
-                    f"Invalid type {type(item)} in lead_times. Must be int or numeric string. Skip this lead time."
+                    f"Invalid type {type(item)} in lead_times. "
+                    "Must be numeric or numeric string. "
+                    "Skip this lead time."
                 )
 
         return cleaned or None
