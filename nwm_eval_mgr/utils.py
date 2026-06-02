@@ -30,12 +30,19 @@ __all__ = [
 ]
 
 
-# function to remove rows with NaN and infinite values for a given column from a pandas dataframe or geo-dataframe
-# this is useful for cleaning the data before plotting
-# or performing calculations to avoid errors due to NaN or infinite values
 def clean_data(
     df: pd.DataFrame | gpd.GeoDataFrame, column: str
 ) -> pd.DataFrame | gpd.GeoDataFrame:
+    """Clean the data by replacing inf values with NaN and dropping rows with NaN in the specified column.
+
+    Args:
+        df (pd.DataFrame | gpd.GeoDataFrame): The input DataFrame or GeoDataFrame to clean.
+        column (str): The name of the column to check for inf values and NaNs.
+
+    Returns:
+        pd.DataFrame | gpd.GeoDataFrame: The cleaned DataFrame or GeoDataFrame.
+
+    """
     df[column] = df[column].replace([np.inf, -np.inf], np.nan)
     df = df.dropna(subset=[column])
     return df
@@ -48,6 +55,19 @@ def create_time_sequence(
     start_hour: float = 0,
     end_hour: float = 0,
 ) -> list[pd.Timestamp]:
+    """Create a sequence of timestamps between start and end dates with specified frequency and hours.
+
+    Args:
+        start_date (str | pd.Timestamp): The start date of the sequence.
+        end_date (str | pd.Timestamp): The end date of the sequence.
+        freq_hour (float): The frequency of the timestamps in hours.
+        start_hour (float): The hour to start the sequence on the start date.
+        end_hour (float): The hour to end the sequence on the end date.
+
+    Returns:
+        list[pd.Timestamp]: A list of timestamps between start and end dates.
+
+    """
     start_dt = pd.to_datetime(start_date) + pd.Timedelta(hours=start_hour)
     end_dt = pd.to_datetime(end_date) + pd.Timedelta(hours=end_hour)
     if start_dt > end_dt:  # swap if start is after end
@@ -56,13 +76,30 @@ def create_time_sequence(
     return pd.date_range(start=start_dt, end=end_dt, freq=f"{freq_hour}H").to_list()
 
 
-# get key from dictionary given value
 def get_key_from_value(d, value):
+    """Get the key from a dictionary given a value.
+
+    Args:
+        d (dict): The dictionary to search.
+        value: The value to find the corresponding key for.
+
+    Returns:
+        The key corresponding to the given value, or None if not found.
+
+    """
     return next((key for key, val in d.items() if val == value), None)
 
 
-# determine number of workers to use for parallel jobs dynamically based on system resources available
 def get_n_workers(memory_per_worker_gb: int) -> int:
+    """Determine the number of workers to use for parallel jobs dynamically based on system resources available.
+
+    Args:
+        memory_per_worker_gb (int): The amount of memory (in GB) required per worker.
+
+    Returns:
+        int: The number of workers to use.
+
+    """
     # System resources
     total_cores = os.cpu_count()
     total_memory_gb = psutil.virtual_memory().total // (1024**3)
@@ -74,10 +111,6 @@ def get_n_workers(memory_per_worker_gb: int) -> int:
     # Safety check
     n_workers = max(n_workers, 1)
 
-    # logger.info(
-    #     f"  Using {n_workers} workers, with ~{memory_per_worker_gb} GB per worker."
-    # )
-
     return n_workers
 
 
@@ -86,6 +119,29 @@ def expand_with_lists(template_str: str, context: dict) -> dict | str:
 
     Always returns a dict if any list placeholders are involved — even if only one result.
     Otherwise, returns a plain substituted string.
+
+    Args:
+        template_str (str): The string template containing placeholders in the form {key}.
+        context (dict): A dictionary where keys correspond to placeholders in the template string.
+                        Values can be either single values or lists. If a value is a list, the function will
+                        generate all combinations of the list items for that placeholder.
+
+    Returns:
+        dict or str: If any placeholders correspond to list values, returns a dictionary where keys are
+                    concatenated string representations of the list items and values are the template string
+                    with those items substituted. If no placeholders correspond to list values, returns the
+                    template string with simple substitution.
+
+    Example:
+        Given template_str = "file_{region}_{year}.csv" and context = {"region": ["north", "south"],
+        "year": [2020, 2021]}, the function will return:
+        {
+            "north_2020": "file_north_2020.csv",
+            "north_2021": "file_north_2021.csv",
+            "south_2020": "file_south_2020.csv",
+            "south_2021": "file_south_2021.csv"
+        }
+
     """
     # Find all list-type keys in context used in the string
     list_keys = [
@@ -112,7 +168,16 @@ def expand_with_lists(template_str: str, context: dict) -> dict | str:
 
 
 def recursive_substitute(obj: Any, context: dict) -> Any:
-    """Recursively substitute placeholders in nested structures."""
+    """Recursively substitute placeholders in nested structures.
+
+    Args:
+        obj: The object to perform substitution on, which can be a string, dictionary, list, or Pydantic BaseModel.
+        context: A dictionary containing the values to substitute into the string placeholders.
+
+    Returns:
+        The object with placeholders substituted according to the context. The structure of the object is preserved.
+
+    """
     if isinstance(obj, BaseModel):
         data = obj.model_dump()
         substituted = recursive_substitute(data, context)
@@ -213,15 +278,11 @@ def remove_nulls(d: dict | list) -> dict | list:
     This function traverses the input data structure and removes any keys with None values
     or any elements that are None in lists. It also removes empty dictionaries.
 
-    Parameters
-    ----------
-    d : dict or list
-        The input data structure to clean. It can be a dictionary or a list.
+    Args:
+        d (dict or list): The input data structure to clean. It can be a dictionary or a list.
 
-    Returns
-    -------
-    dict or list
-        The cleaned data structure with None values and empty dictionaries removed.
+    Returns:
+        dict or list: The cleaned data structure with None values and empty dictionaries removed.
 
     """
     if isinstance(d, dict):

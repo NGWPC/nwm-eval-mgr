@@ -1,19 +1,10 @@
-"""Logging configuration (simplified and safer).
+"""Functions to set up logging with noise suppression for distributed workloads (e.g., Dask, Tornado).
 
-Key improvements compared to the original:
-- No permanent mutation of record.levelname
-- Use root logger instead of per-package handler wiring
-- Remove redundant filter attachments
-- Make stderr filtering clearly optional and explicit
-- Centralize noisy logger configuration
-
-The stderr filter removes messages containing certain keywords like "CommClosedError", "StreamClosedError",
-"Failed to communicate with scheduler during heartbeat", and related exceptions, which are common in Dask/Tornado
-environments but not actionable for users. This keeps logs cleaner without losing important information.
-
-    CommClosedError: Stream is closed
-    Failed to communicate with scheduler during heartbeat
-    tornado.iostream.StreamClosedError
+Functions:
+    - `setup_logging`: Configure logging with custom formatting and noise suppression.
+    - `CustomLoggingFormatter`: Custom formatter to map ERROR→SEVERE and CRITICAL→FATAL without mutating log records.
+    - `NoisyDistributedFilter`: Filter to suppress noisy Dask/Tornado connection and heartbeat errors.
+    - `StderrFilter`: Filter to suppress noisy stderr output that bypasses logging (e.g., in MPI/SLURM environments).
 
 """
 
@@ -84,7 +75,20 @@ def setup_logging(
     file_level: Optional[Union[int, str]] = None,
     filter_stderr: bool = False,
 ):
-    """Configure logging with noise suppression for distributed workloads."""
+    """Configure logging with noise suppression for distributed workloads.
+
+    Args:
+        level (int | str): Logging level for console output (default: logging.INFO).
+        log_file (str | Path, optional): Optional path to a log file for file output.
+        file_level (int | str, optional): Optional logging level for file output (defaults to console level if not provided).
+        filter_stderr (bool, optional): If True, redirect sys.stderr to a filter that suppresses noisy output (use with caution).
+
+    Returns:
+        None. Configures logging globally.
+
+    Note: Enabling stderr filtering can suppress important error messages from libraries that write directly to stderr. Use with caution and consider the implications for debugging and monitoring in production environments.
+
+    """
     # Normalize log levels
     level_map = {
         "debug": logging.DEBUG,
@@ -151,5 +155,4 @@ def setup_logging(
 
     # Optional stderr filtering
     if filter_stderr:
-        # logging.getLogger(__name__).warning("Redirecting sys.stderr to filtered stream (use cautiously).")
         sys.stderr = StderrFilter()

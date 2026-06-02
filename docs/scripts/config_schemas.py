@@ -14,6 +14,7 @@ from typing import Any, Dict, List, Literal, get_args, get_origin
 
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
+from pydantic_core import PydanticUndefined
 
 import nwm_eval_mgr.configuration as configuration
 from nwm_eval_mgr.configuration import Config
@@ -54,16 +55,18 @@ DOCS_TO_CREATE = {
         "example_file_class": (Config,),
         "schemas": get_all_schema_models(configuration),
         "sample_files": [
+            "configs/config_template.yaml",
             "configs/config_ngencerf.yaml",
             "configs/config_hindcast.yaml",
             "configs/config_nwm.yaml",
             "configs/config_ngensim.yaml",
         ],
         "sample_file_desc": {
-            "configs/config_ngencerf.yaml": "Example config for verifying a single ngenCERF forecast at one location.",
-            "configs/config_hindcast.yaml": "Example config for verifying (multiple) ngenCERF hindcasts at one location.",
-            "configs/config_nwm.yaml": "Example config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).",
-            "configs/config_ngensim.yaml": "Example config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains.",
+            "configs/config_template.yaml": "Config template generated from the pydantic model, with default or example values defined for each field. This can be used as a starting point for creating your own configuration files.",
+            "configs/config_ngencerf.yaml": "Sample config for verifying a single ngenCERF forecast at one location.",
+            "configs/config_hindcast.yaml": "Sample config for verifying multiple ngenCERF hindcasts at one location.",
+            "configs/config_nwm.yaml": "Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).",
+            "configs/config_ngensim.yaml": "Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains.",
         },
     }
 }
@@ -109,17 +112,17 @@ def field_to_dict(
             default_value = field.default_factory()
         except Exception:
             default_value = "<factory>"
-    elif getattr(field, "default", ...) is not ...:
+    elif field.default is not PydanticUndefined:
         default_value = field.default
     else:
-        default_value = "required"
+        default_value = None
 
     # Prefer explicit field examples if present
     example = getattr(field, "examples", None)
     if isinstance(example, list):
         example = example[0] if example else None
     if example is None:
-        example = default_value if default_value != "required" else ""
+        example = default_value if default_value is not None else ""
 
     sub_dict = None
 
@@ -292,11 +295,12 @@ def pydantic_dict_to_lines(dict_rep: dict, indent: int = 0) -> list[str]:
             continue
 
         # Skip fields without examples
-        if v.get("examples") is None and v.get("default") is None:
+        if v.get("example") is None and v.get("default") is None:
             continue
 
         # Convert value to string; if more than one example is provided, use the first one
-        val = v["examples"][0] if v.get("examples") is not None else v["default"]
+        # val = v["example"] if v.get("example") is not None else v["default"]
+        val = v.get("default") if v.get("default") is not None else v.get("example")
         if isinstance(val, str):
             val = f"'{val}'"
         elif isinstance(val, dict):
@@ -425,52 +429,58 @@ def main(docs_to_create: dict) -> None:
     intro_block.append("### Introduction\n")
     intro_block.append(
         "This page provides detailed documentation for configuring the NWM Evaluation Manager (nwm-eval-mgr) tool for "
-        "different applications of simulation evaluation or forecast verification.\n"
+        "a variety of simulation evaluation or forecast verification applications.\n"
     )
     intro_block.append(
-        "Template and sample files as well as schemas for all configuration fields and subfields are included below. "
-        "You can navigate to each config file or schema section using the tabs on the right or the Table of Contents below.\n"
+        "Template files, sample configuration files, and schemas for all configuration fields and subfields are included below. "
+        "You can navigate to individual configuration files or schema sections using the tabs on the right or the Table of Contents below.\n"
     )
 
+    for i in docs_to_create:
+        sample_files = docs_to_create[i].get("sample_files", [])
+        for sample_file in sample_files:
+            sample_path = Path(sample_file)
+            intro_block.append(
+                "- `"
+                + sample_path.name
+                + "`: "
+                + docs_to_create[i]["sample_file_desc"].get(sample_file, "")
+            )
+    intro_block.append("\n")
     intro_block = "\n".join(intro_block)
 
     # Generate sections for each config file
     lines = []
     for i in docs_to_create:
-        # lines.append(f"### {config_desc.get(i, '')}\n")
-
         lines.append("### Sample Files\n")
-
-        lines.append("#### YAML Template\n")
-        lines.append(
-            "Below is a YAML template generated from the pydantic model, with default values defined for each field. "
-            "This can be used as a starting point for creating your own configuration files.\n"
-        )
-        lines.append("```yaml")
-        lines.append(generate_yaml_template(*docs_to_create[i]["example_file_class"]))
-        lines.append("```")
 
         # Insert sample config files for different use cases
         sample_files = docs_to_create[i].get("sample_files", [])
 
         for sample_file in sample_files:
-            idx1 = sample_files.index(sample_file) + 1
             sample_path = Path(sample_file)
 
             lines.append("")
-            lines.append(f"#### Customized example {idx1}: `{sample_path.name}`\n")
+            lines.append(f"#### `{sample_path.name}`\n")
             lines.append(docs_to_create[i]["sample_file_desc"].get(sample_file, ""))
             lines.append("")
 
-            if sample_path.exists():
-                yaml_text = sample_path.read_text(encoding="utf-8")
+            lines.append("```yaml")
 
-                lines.append("```yaml")
-                lines.append(yaml_text.rstrip())
-                lines.append("```")
+            if sample_path.name == "config_template.yaml":
+                yaml = generate_yaml_template(*docs_to_create[i]["example_file_class"])
+                lines.append(yaml)
 
+                # save the generated template to the sample file path
+                sample_path.write_text(yaml, encoding="utf-8")
             else:
-                lines.append(f"> Warning: sample file not found: {sample_file}")
+                if sample_path.exists():
+                    yaml_text = sample_path.read_text(encoding="utf-8")
+                    lines.append(yaml_text.rstrip())
+                else:
+                    lines.append(f"> Warning: sample file not found: {sample_file}")
+
+            lines.append("```")
 
         lines.append("### Schemas\n")
         for j, model_cls in docs_to_create[i]["schemas"].items():

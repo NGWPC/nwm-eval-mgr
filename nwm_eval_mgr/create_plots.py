@@ -1,3 +1,21 @@
+"""Module for creating plots to visualize the metrics calculated for NWM evaluation.
+
+Functions:
+    - get_metric_long_name: Get long names for metrics based on the library used for calculating the metrics.
+    - filter_by_lead_metric: Filter the metric DataFrame by lead times and metrics based on the configuration.
+    - gather_all_metrics: Gather metrics from all datasets into a single DataFrame.
+    - add_tag_to_filename: Add a tag to the filename if it exists in the config.
+    - save_plot: Save the plot to a file with a name based on the metric, lead time, dataset, and other parameters.
+    - group_df_by_location: Group DataFrame by location and return a tuple of DataFrames (in_list, out_list).
+    - get_metric_dataframe: Get the metric DataFrame by gathering all metrics and then filtering by metric subset and lead times.
+    - create_spatial_map: Create spatial maps for each dataset, metric, and lead time.
+    - set_up_figure: Set up a matplotlib figure with dynamic sizing based on data.
+    - add_shared_legend: Add a shared legend to the figure.
+    - create_boxplot: Create boxplots for each metric in the configuration.
+    - create_histogram: Create histograms for each metric in the configuration.
+
+"""
+
 import logging
 from functools import reduce
 from pathlib import Path
@@ -26,7 +44,16 @@ logging.basicConfig(level=logging.INFO)
 
 
 def get_metric_long_name(metrics: list, library: str):
-    """Get long names for metrics."""
+    """Get long names for metrics.
+
+    Args:
+        metrics: A list of short names for metrics.
+        library: The library used for calculating the metrics, which determines the mapping of short names to long names. Valid options: "teehr", "nwm.eval".
+
+    Returns:
+        A list of metric long names corresponding to the input short names. If a short name does not have a mapping, the original short name is returned in the long names list.
+
+    """
     if library == "teehr":
         dict1 = dict_teehr_metrics
     elif library == "nwm.eval":
@@ -47,7 +74,18 @@ def get_metric_long_name(metrics: list, library: str):
 def filter_by_lead_metric(
     df_metrics: pd.DataFrame, conf: dict, nwm_config: str, fcst_config_file: str
 ):
-    """Filter the metric DataFrame by lead times and metrics."""
+    """Filter the metric DataFrame by lead times and metrics.
+
+    Args:
+        df_metrics: A DataFrame containing the metrics to be filtered, with columns including "lead_group" and "metric".
+        conf: A dictionary containing the configuration for filtering, which may include "lead_times" and "metric_subset".
+        nwm_config: A string representing the NWM configuration, used for interpreting lead times.
+        fcst_config_file: A string representing the path to the forecast configuration file, used for interpreting lead times.
+
+    Returns:
+        A filtered DataFrame containing only the specified lead times and metrics, sorted by lead times in a logical order.
+
+    """
     # first filter by lead times
     lead_times = conf.get("lead_times", [])
     if lead_times:
@@ -73,15 +111,26 @@ def filter_by_lead_metric(
         df_metrics = df_metrics[df_metrics["metric"].isin(metrics)]
 
     # sort the data by lead times in a logical order (e.g., 1, 2, 3, ..., 12, 1-5, 6-10, etc.)
-    def lead_key(x):
-        x = str(x)
+    def parse_lead_value(v):
+        v = str(v).lower()
 
-        if x.startswith("m"):
-            return (0, float(x[1:]))  # m-values first
-        elif "-" in x:
-            return (2, float(x.split("-")[0]))  # ranges last
+        if v.startswith("m"):
+            return -float(v[1:])
+
+        return float(v)
+
+    def lead_key(x):
+        x = str(x).lower()
+
+        if x.startswith("m") and "-" not in x:
+            return (0, parse_lead_value(x))  # m-values first
+
+        elif "-" in x[1:]:
+            start = x.split("-", 1)[0]
+            return (2, parse_lead_value(start))  # ranges last
+
         else:
-            return (1, float(x))  # singles in the middle
+            return (1, parse_lead_value(x))  # singles in middle
 
     df_metrics["lead_group"] = pd.Categorical(
         df_metrics["lead_group"].astype(str),
@@ -95,7 +144,16 @@ def filter_by_lead_metric(
 
 
 def gather_all_metrics(datasets: list, data_paths: dict):
-    """Gather metrics from all datasets into a single DataFrame."""
+    """Gather metrics from all datasets into a single DataFrame.
+
+    Args:
+        datasets: A list of dataset names to gather metrics for.
+        data_paths: A dictionary containing the paths to the metric files for each dataset.
+
+    Returns:
+        A DataFrame containing the gathered metrics from all datasets.
+
+    """
     df_metrics = pd.DataFrame()
     dfs = []
     for dataset in datasets:
@@ -131,7 +189,16 @@ def gather_all_metrics(datasets: list, data_paths: dict):
 
 
 def add_tag_to_filename(conf: dict, file_name: str) -> str:
-    """Add a tag to the filename if it exists in the config."""
+    """Add a tag to the filename if it exists in the config.
+
+    Args:
+        conf: A dictionary containing the configuration, which may include a "tag" key.
+        file_name: The original filename to which the tag should be added.
+
+    Returns:
+        A string representing the filename with the tag added if it exists, or the original filename if no tag is specified in the config.
+
+    """
     path = Path(file_name)
     tag = conf.get("tag")
     if tag:
@@ -151,7 +218,24 @@ def save_plot(
     metric: str = None,
     location: str = None,
 ) -> Path:
-    """Save the plot to a file."""
+    """Save the plot to a file.
+
+    Args:
+        plt: The plot object to be saved.
+        conf: A dictionary containing the configuration, which may include a "tag" key.
+        data_paths: A dictionary containing the paths to the data files.
+        plt_type: The type of the plot.
+        plt_name: The name of the plot.
+        lead: The lead time for the plot.
+        ref_time: The reference time for the plot.
+        dataset: The dataset name for the plot.
+        metric: The metric name for the plot.
+        location: The location name for the plot.
+
+    Returns:
+        A Path object representing the saved plot file.
+
+    """
     fig_dir = Path(data_paths["plots"], plt_type)
     fig_dir.mkdir(parents=True, exist_ok=True)
 
@@ -177,14 +261,34 @@ def save_plot(
 def group_df_by_location(
     df: pd.DataFrame | gpd.GeoDataFrame, location_list: list, location_col: str
 ) -> tuple:
-    """Group DataFrame by location and return a tuple of DataFrames (in_list, out_list)."""
+    """Group DataFrame by location and return a tuple of DataFrames (in_list, out_list).
+
+    Args:
+        df: A DataFrame or GeoDataFrame containing the data to be grouped.
+        location_list: A list of location identifiers to be used for grouping.
+        location_col: The name of the column in the DataFrame that contains the location identifiers.
+
+    Returns:
+        A tuple of two DataFrames: (df_inlist, df_outlist), where df_inlist contains rows with location identifiers in the location_list, and df_outlist contains rows with location identifiers not in the location_list.
+
+    """
     df_inlist = df[df[location_col].isin(location_list)]
     df_outlist = df[~df[location_col].isin(location_list)]
     return df_inlist, df_outlist
 
 
 def get_metric_dataframe(conf: dict, data_paths: dict, plot_type: str) -> pd.DataFrame:
-    """Get the metric DataFrame by gathering all metrics and then filtering by metric subset and lead times."""
+    """Get the metric DataFrame by gathering all metrics and then filtering by metric subset and lead times.
+
+    Args:
+        conf: A dictionary containing the configuration for gathering and filtering the metrics, which may include "lead_times" and "metric_subset".
+        data_paths: A dictionary containing the paths to the metric files for each dataset.
+        plot_type: The type of the plot for which the metric DataFrame is being prepared, used to determine which lead times and metrics to filter by.
+
+    Returns:
+        A DataFrame containing the filtered metrics.
+
+    """
     # gather all metrics calcualted
     datasets = conf["general"]["dataset_name"]
     df_metrics = gather_all_metrics(datasets, data_paths["metrics"])
@@ -204,7 +308,16 @@ def get_metric_dataframe(conf: dict, data_paths: dict, plot_type: str) -> pd.Dat
 
 
 def create_spatial_map(conf: dict, data_paths: dict):
-    """Create spatial maps for each dataset, metric, and lead time."""
+    """Create spatial maps for each dataset, metric, and lead time.
+
+    Args:
+        conf: A dictionary containing the configuration for creating spatial maps, which may include "lead_times", "metric_subset", and plotting parameters.
+        data_paths: A dictionary containing the paths to the metric files for each dataset and the crosswalk file.
+
+    Returns:
+        None
+
+    """
     # get metric dataframe filtered by metric subset and lead times
     df_metrics = get_metric_dataframe(conf, data_paths, "spatial_map")
     leads = df_metrics["lead_group"].unique()
@@ -361,7 +474,17 @@ def create_spatial_map(conf: dict, data_paths: dict):
 
 
 def set_up_figure(df1: pd.DataFrame, df2: pd.DataFrame, plot_type: str = "boxplot"):
-    """Set up a matplotlib figure with dynamic sizing based on data."""
+    """Set up a matplotlib figure with dynamic sizing based on data.
+
+    Args:
+        df1: A DataFrame containing the data for the first subplot.
+        df2: A DataFrame containing the data for the second subplot.
+        plot_type: The type of plot to create, used to determine figure sizing.
+
+    Returns:
+        A tuple containing the figure and axes objects.
+
+    """
     # Determine if multiple subplots are needed
     multi_plot = len(df1) > 0
 
@@ -411,7 +534,18 @@ def set_up_figure(df1: pd.DataFrame, df2: pd.DataFrame, plot_type: str = "boxplo
 
 
 def add_shared_legend(fig, axes, dataset_names, palette):
-    """Add a shared legend to the figure."""
+    """Add a shared legend to the figure.
+
+    Args:
+        fig: The figure object to which the legend will be added.
+        axes: A list of axes objects from which individual legends will be removed.
+        dataset_names: A list of dataset names to be included in the legend.
+        palette: A dictionary mapping dataset names to colors, used for creating legend handles.
+
+    Returns:
+        None
+
+    """
     # Create manual legend handles
     handles_labels = {
         name: Patch(color=palette[name], label=name) for name in dataset_names
@@ -439,7 +573,16 @@ def add_shared_legend(fig, axes, dataset_names, palette):
 
 
 def create_boxplot(conf: dict, data_paths: dict):
-    """Create boxplots for each metric in the configuration."""
+    """Create boxplots for each metric in the configuration.
+
+    Args:
+        conf: A dictionary containing the configuration for creating boxplots, which may include "lead_times", "metric_subset", and plotting parameters.
+        data_paths: A dictionary containing the paths to the metric files for each dataset.
+
+    Returns:
+        None
+
+    """
     # get metric dataframe filtered by metric subset and lead times
     df_metrics = get_metric_dataframe(conf, data_paths, "boxplot")
     metrics = df_metrics["metric"].unique()
@@ -552,7 +695,16 @@ def create_boxplot(conf: dict, data_paths: dict):
 
 
 def create_histogram(conf: dict, data_paths: dict):
-    """Create histograms for each metric in the configuration."""
+    """Create histograms for each metric in the configuration.
+
+    Args:
+        conf: A dictionary containing the configuration for creating histograms, which may include "lead_times", "metric_subset", and plotting parameters.
+        data_paths: A dictionary containing the paths to the metric files for each dataset.
+
+    Returns:
+        None
+
+    """
     # get metric dataframe filtered by metric subset and lead times
     df_metrics = get_metric_dataframe(conf, data_paths, "histogram")
     leads = df_metrics["lead_group"].unique()
@@ -689,6 +841,20 @@ def plot_time_series(
     lead: str = None,
     ref_time: str = None,
 ):
+    """Plot time series of observed and forecasted streamflow for a single location.
+
+    Args:
+        conf: A dictionary containing the configuration for plotting, which may include plotting parameters.
+        data_paths: A dictionary containing the paths to the data files.
+        df: A DataFrame containing the time series data to be plotted, with columns including "value_time", "primary_value", and forecast dataset columns.
+        unit: A string representing the measurement unit for the streamflow values, used for labeling the y-axis.
+        lead: A string representing the lead time for the plot, used for labeling the title. Optional if ref_time is provided.
+        ref_time: A string representing the reference time for the plot, used for labeling the title. Optional if lead is provided.
+
+    Returns:
+        A string representing the file path of the saved plot image.
+
+    """
     # lead and ref_time cannot be both not None
     if lead is not None and ref_time is not None:
         msg = (
@@ -756,7 +922,16 @@ def get_time_series(
 ) -> tuple[pd.DataFrame, str]:
     """Get forecast or observed time series data (and unit) from forecast or observed data file.
 
-    Cannot use paired data file which has forecast data trimmed to the time range of observed data by teehr)
+    Cannot use paired data file which has forecast data trimmed to the time range of observed data by teehr.
+
+    Args:
+        data_paths: A dictionary containing the paths to the data files.
+        data_type: A string indicating the type of data to retrieve, either "observed" or "forecast".
+        dataset: A string representing the dataset name for forecast data. Optional for observed data but required for forecast data.
+
+    Returns:
+        A tuple containing a DataFrame with the time series data and a string representing the measurement unit for the streamflow values.
+
     """
     if data_type == "observed":
         path_str = "obs"
@@ -821,7 +996,16 @@ def get_time_series(
 
 
 def create_time_series(conf: dict, data_paths: dict):
-    """Create a time series plot for each dataset in the configuration."""
+    """Create a time series plot for each dataset in the configuration.
+
+    Args:
+        conf: A dictionary containing the configuration for creating time series plots, which may include "lead_times", "reference_times", and plotting parameters.
+        data_paths: A dictionary containing the paths to the observed and forecast data files.
+
+    Returns:
+        None
+
+    """
     # get observed data (same for all datasets )
     merged_df, unit_obs = get_time_series(data_paths, "observed")
     merged_df.drop(columns=["reference_time"], inplace=True)
@@ -920,7 +1104,15 @@ def create_time_series(conf: dict, data_paths: dict):
 
 
 def get_metric_groups() -> dict:
-    """Get metric groups for the configuration."""
+    """Get metric groups for the configuration.
+
+    Args:
+        None
+
+    Returns:
+        A dictionary mapping metric group names to lists of metric short names.
+
+    """
     # Split metric columns into groups
     metric_groups = {
         "Standard": [
@@ -943,7 +1135,16 @@ def get_metric_groups() -> dict:
 
 
 def create_metric_table(conf: dict, data_paths: dict):
-    """Create a metric table based on the configuration."""
+    """Create a metric table based on the configuration.
+
+    Args:
+        conf: A dictionary containing the configuration for creating metric tables, which may include "lead_times", "metric_subset", and plotting parameters.
+        data_paths: A dictionary containing the paths to the metric files for each dataset.
+
+    Returns:
+        None
+
+    """
     # get metric dataframe filtered by metric subset and lead times
     df_metrics_all = get_metric_dataframe(conf, data_paths, "metric_table")
     leads = df_metrics_all["lead_group"].unique()
@@ -1050,7 +1251,16 @@ def create_metric_table(conf: dict, data_paths: dict):
 
 
 def create_barchart(conf: dict, data_paths: dict):
-    """Create a bar chart comparing datasets for each metric and lead time."""
+    """Create a bar chart comparing datasets for each metric and lead time.
+
+    Args:
+        conf: A dictionary containing the configuration for creating bar charts, which may include "lead_times", "metric_subset", and plotting parameters.
+        data_paths: A dictionary containing the paths to the metric files for each dataset.
+
+    Returns:
+        None
+
+    """
     # get metric dataframe filtered by metric subset and lead times
     df_metrics = get_metric_dataframe(conf, data_paths, "barchart")
 
@@ -1062,7 +1272,17 @@ def create_barchart(conf: dict, data_paths: dict):
 
 
 def barchart_by_metric(df_metrics: pd.DataFrame, conf: dict, data_paths: dict):
-    """Create a bar chart comparing datasets for each metric and lead time."""
+    """Create a bar chart comparing datasets for each metric and lead time.
+
+    Args:
+        df_metrics: A DataFrame containing the metric values to be plotted, with columns including "primary_location_id", "metric", "lead_group", "dataset", and "value".
+        conf: A dictionary containing the configuration for creating bar charts, which may include plotting parameters.
+        data_paths: A dictionary containing the paths to the metric files for each dataset.
+
+    Returns:
+        None
+
+    """
     # get location ID
     location = df_metrics["primary_location_id"].unique()[0]
     location = location.split("-")[-1]
@@ -1120,7 +1340,17 @@ def barchart_by_metric(df_metrics: pd.DataFrame, conf: dict, data_paths: dict):
 
 
 def barchart_all_metrics(df_metrics: pd.DataFrame, conf: dict, data_paths: dict):
-    """Create a bar chart comparing datasets for each metric."""
+    """Create a bar chart comparing datasets for each metric.
+
+    Args:
+        df_metrics: A DataFrame containing the metric values to be plotted, with columns including "primary_location_id", "metric", "dataset", and "value".
+        conf: A dictionary containing the configuration for creating bar charts, which may include plotting parameters.
+        data_paths: A dictionary containing the paths to the metric files for each dataset.
+
+    Returns:
+        None
+
+    """
     # get location ID
     location = df_metrics["primary_location_id"].unique()[0]
     location = location.split("-")[-1]
@@ -1201,7 +1431,16 @@ def barchart_all_metrics(df_metrics: pd.DataFrame, conf: dict, data_paths: dict)
 
 
 def create_all_plots(conf: dict, data_paths: dict):
-    """Create all plots based on the configuration."""
+    """Create all plots based on the configuration.
+
+    Args:
+        conf: A dictionary containing the configuration for creating plots, which may include "lead_times", "metric_subset", and plotting parameters.
+        data_paths: A dictionary containing the paths to the data files.
+
+    Returns:
+        None
+
+    """
     plot_types = list(PlotsConfig.model_fields.keys())
     plot_functions = {
         pt: globals()[f"create_{pt}"]

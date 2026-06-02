@@ -14,6 +14,20 @@ logging.basicConfig(level=logging.INFO)
 
 
 def join_time_series(data_paths: dict, dataset: str, nwm_version: str) -> Path:
+    """Join the observation and forecast time series data.
+
+    Join the observation and forecast time series data for a given dataset and NWM version,
+    and store the joined data in a temporary DuckDB database.
+
+    Args:
+        data_paths (dict): A dictionary containing paths to the observation, forecast, and crosswalk data.
+        dataset (str): A string indicating the dataset name (e.g., 'streamflow').
+        nwm_version (str): A string indicating the NWM version (e.g., 'nwm_v2.1').
+
+    Returns:
+        Path: A Path object pointing to the temporary DuckDB database containing the joined time series data.
+
+    """
     output_dir = data_paths.get("obs").parent.resolve(strict=True)
     primary_data_files = f"{str(data_paths.get('obs'))}/*.parquet"
     secondary_data_files = f"{str(data_paths.get('fcst_link')[dataset])}/*.parquet"
@@ -60,19 +74,14 @@ def replace_values_with_nan(
 ):
     """Replace specified values in DataFrame with NaN.
 
-    Parameters
-    ----------
-    df : pd.DataFrame
-        Input DataFrame.
-    colnames : list of str or str
-        List of column names to check for replacement.
-    replace_values : list of float
-        List of values to be replaced with NaN.
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+        colnames (list of str or str): List of column names to check for replacement.
+        replace_values (list of float): List of values to be replaced with NaN.
+        tol (float, optional): Tolerance for comparing floating-point values (default is 1e-12).
 
-    Returns
-    -------
-    pd.DataFrame
-        DataFrame with specified values replaced by NaN.
+    Returns:
+        pd.DataFrame: DataFrame with specified values replaced by NaN.
 
     """
     if isinstance(colnames, str):
@@ -94,6 +103,20 @@ def export_location_groups_with_lead_time(
     start_time: str = None,
     end_time: str = None,
 ):
+    """Export paired data with lead time by location groups.
+
+    Args:
+        db_path (Path): Path to the DuckDB database containing the joined time series data.
+        output_path (Path): Path to the output Parquet file for the paired data with lead time.
+        table_name (str): Name of the table in the DuckDB database containing the joined time series data (default is "joined_timeseries").
+        group_size (int): Number of unique location IDs to include in each output file (default is 200).
+        start_time (str, optional): Optional string in "YYYY-MM-DD HH:MM:SS" format to filter reference_time (inclusive).
+        end_time (str, optional): Optional string in "YYYY-MM-DD HH:MM:SS" format to filter reference_time (inclusive).
+
+    Returns:
+        None. The function exports the paired data with lead time to the specified output path, split by location groups if necessary.
+
+    """
     # Get sorted list of unique primary_location_id values
     con = duckdb.connect(str(db_path))
 
@@ -212,6 +235,21 @@ def create_pairs(
     end_time: str = None,
     overwrite: bool = False,
 ) -> Path:
+    """Create paired data with lead time for a given dataset and NWM version.
+
+    Args:
+        data_paths (dict): Dictionary containing paths to the data.
+        dataset (str): Name of the dataset.
+        nwm_version (str): NWM version.
+        group_size (int, optional): Size of each location group. Defaults to 200.
+        start_time (str, optional): Start time for filtering reference_time. Defaults to None.
+        end_time (str, optional): End time for filtering reference_time. Defaults to None.
+        overwrite (bool, optional): Whether to overwrite existing paired data. Defaults to False.
+
+    Returns:
+        Path: Path to the created paired data file.
+
+    """
     # check if paired data already exist; if not, create it
     pair_file = data_paths.get("joined")[dataset]
     existing_pair_files = list(

@@ -1,5 +1,20 @@
+"""Functions for calculating metrics.
+
+Functions:
+    - `check_metrics`: Validate a list of metric names against a known mapping (here a metrics library).
+    - `calc_teehr_metrics`: Calculate TEEHR metrics for a given dataframe of paired data.
+    - `func_calc_metrics`: Helper function to calculate nwm.eval metrics for a given dataframe of paired data.
+    - `calc_nwm_eval_metrics`: Calculate nwm.eval metrics for a given dataframe of paired data.
+    - `parse_lead`: Parse a lead time string, handling 'm' prefix for negative values.
+    - `parse_lead_range`: Parse lead strings of various formats.
+    - `calc_metrics_group`: Calculate metrics for a group of paired data.
+    - `calc_metrics`: Calculate metrics for all datasets as specified in the config.
+
+"""
+
 import gc
 import logging
+import re
 import warnings
 from multiprocessing import Pool, cpu_count
 from pathlib import Path
@@ -69,7 +84,17 @@ def calc_teehr_metrics(
     geometry: Path,
     metrics: list[str],
 ) -> pd.DataFrame:
-    """Calculate TEEHR metrics for a given dataframe of paired data."""
+    """Calculate TEEHR metrics for a given dataframe of paired data.
+
+    Args:
+        pairs: Path to the parquet file containing paired data.
+        geometry: Path to the geometry file (e.g., crosswalk) needed for TEEHR metrics.
+        metrics: List of metric names to calculate.
+
+    Returns:
+        A DataFrame containing the calculated metrics for each location and lead group.
+
+    """
     # paired data parquet
     joined_data = DuckDBJoinedParquet(
         joined_parquet_filepath=pairs, geometry_filepath=geometry
@@ -87,9 +112,19 @@ def calc_teehr_metrics(
 
 
 def func_calc_metrics(
-    df: pd.DataFrame, metrics: list[str], lead_time: int, thresholds: list = [0.9, 0.9]
+    df: pd.DataFrame, metrics: list[str], thresholds: list = [0.9, 0.9]
 ) -> pd.DataFrame:
-    """Calculate nwm.eval metrics for a given dataframe of paired data."""
+    """Calculate nwm.eval metrics for a given dataframe of paired data.
+
+    Args:
+        df: DataFrame containing paired data.
+        metrics: List of metric names to calculate.
+        thresholds: List of thresholds for categorical and event-based metrics.
+
+    Returns:
+        A DataFrame containing the calculated metrics for each location and lead group.
+
+    """
     if len(df) >= 2:  # need at least 2 data points to calculate metrics
         df1 = df.copy(deep=True)
         df1 = df1.set_index("value_time", inplace=False)
@@ -111,7 +146,17 @@ def calc_nwm_eval_metrics(
     metrics: list[str],
     thresholds: Optional[list] = [0.9, 0.9],
 ) -> pd.DataFrame:
-    """Calculate nwm.eval metrics for a given dataframe of paired data."""
+    """Calculate nwm.eval metrics for a given dataframe of paired data.
+
+    Args:
+        pairs: Path to the parquet file containing paired data.
+        metrics: List of metric names to calculate.
+        thresholds: List of thresholds for categorical and event-based metrics.
+
+    Returns:
+        A DataFrame containing the calculated metrics for each location and lead group.
+
+    """
     # read in paired data parquet
     df_pairs = pd.read_parquet(pairs)
 
@@ -146,9 +191,7 @@ def calc_nwm_eval_metrics(
                     continue  # skip empty inputs
 
                 results.append(
-                    pool.apply_async(
-                        func_calc_metrics, args=(df2, metrics, l2, thresholds)
-                    )
+                    pool.apply_async(func_calc_metrics, args=(df2, metrics, thresholds))
                 )
 
         new_dfs = [result.get() for result in results]
@@ -163,8 +206,72 @@ def calc_nwm_eval_metrics(
     return df_metrics
 
 
+def parse_lead(x):
+    """Parse a lead time string, handling 'm' prefix for negative values.
+
+    Args:
+        x: A string representing a lead time, which may start with 'm' to indicate a negative value.
+
+    Returns:
+        An integer representing the lead time, with negative values for 'm' prefix.
+
+    """
+    if isinstance(x, str) and x.lower().startswith("m"):
+        return -int(x[1:])
+    return int(x)
+
+
+def parse_lead_range(l1):
+    """Parse lead strings of various formats.
+
+    Supported formats include:
+        "5"
+        "-2"
+        "1-3"
+        "-2-4"
+        "m2"
+        "m2-4"
+        "-2--1"
+
+    Args:
+        l1: A string representing a lead time or range of lead times.
+
+    Returns:
+        A tuple of two floats representing the start and end of the lead time range.
+
+    """
+    pattern = r"^(m?\-?\d+(?:\.\d+)?)(?:-(m?\-?\d+(?:\.\d+)?))?$"
+
+    match = re.fullmatch(pattern, l1.strip())
+
+    if not match:
+        raise ValueError(f"Invalid lead specification: {l1!r}")
+
+    start_str = match.group(1)
+    end_str = match.group(2)
+
+    # single value -> duplicate
+    if end_str is None:
+        end_str = start_str
+
+    start = parse_lead(start_str)
+    end = parse_lead(end_str)
+
+    return start, end
+
+
 def calc_metrics_group(conf: dict, pair_file: Path, geofile: Path) -> pd.DataFrame:
-    """Calculate metrics for a group of paired data."""
+    """Calculate metrics for a group of paired data.
+
+    Args:
+        conf: A dictionary containing the configuration for metric calculation.
+        pair_file: A Path object pointing to the file containing paired data.
+        geofile: A Path object pointing to the file containing geometry data.
+
+    Returns:
+        A DataFrame containing the calculated metrics for each location and lead group.
+
+    """
     # metrics to be calculated
     conf_met = conf["metrics"]
     metrics = conf_met["metric_subset"]
@@ -174,6 +281,8 @@ def calc_metrics_group(conf: dict, pair_file: Path, geofile: Path) -> pd.DataFra
             if conf_met["library"] == "teehr"
             else list(dict_nwm_eval_metrics.keys())
         )
+
+        print(f"Calculating all available metrics for {conf_met['library']}: {metrics}")
 
     # exclude metrics as requested
     metrics_exclude = conf_met["metric_exclude"] or []
@@ -266,7 +375,16 @@ def calc_metrics_group(conf: dict, pair_file: Path, geofile: Path) -> pd.DataFra
 
 
 def calc_metrics(conf: dict, data_paths: dict):
-    """Calculate metrics for all datasets as specified in the config."""
+    """Calculate metrics for all datasets as specified in the config.
+
+    Args:
+        conf: A dictionary containing the configuration for metric calculation.
+        data_paths: A dictionary containing the paths to the data files.
+
+    Returns:
+        None
+
+    """
     # library for calculating metrics
     supported_libraries = {"teehr", "nwm.eval"}
     if "library" not in conf["metrics"]:
@@ -355,7 +473,8 @@ def calc_metrics(conf: dict, data_paths: dict):
 
         # exit if no metric files were created for a dataset
         if not metric_file.is_file():
-            msg = (
+            msg = (  # start, end = parse_lead_range(l1)
+                # step = float(lead_step)
                 f"  No metric file created for dataset {dataset} at {metric_file}. "
                 f"Please check if paired data files are correct. Verification cannot proceed. Exiting."
             )

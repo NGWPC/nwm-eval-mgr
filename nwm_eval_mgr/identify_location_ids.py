@@ -1,3 +1,17 @@
+"""Functions to identify location IDs based on the provided crosswalk file.
+
+Functions:
+    - get_link_by_gage: Get location link ID (NWM feature or reach id) based on USGS gage ID and crosswalk file.
+    - get_gage_by_link: Get location gage ID (USGS gage ID) based on NWM link ID and crosswalk file.
+    - get_link_id_from_file: Get location link IDs (NWM feature or reach id) from locations in a file.
+    - get_locations_from_config_list: Get list of locations as either "gage" or "link" based on location_list provided in config file.
+    - get_nwm_link_ids: Get NWM link IDs for the locations defined in the config file based on the provided crosswalk file.
+    - get_gage_id_from_file: Get location gage ID (USGS gage ID) from a file based on the provided crosswalk file.
+    - get_usgs_gage_ids: Get USGS gage IDs for the locations defined in the config file based on the provided crosswalk file.
+    - identify_locations: Identify location IDs based on the provided crosswalk file.
+
+"""
+
 import logging
 from pathlib import Path
 from typing import List, Optional
@@ -17,11 +31,21 @@ __all__ = [
     "get_gage_by_link",
     "get_gage_id_from_file",
     "get_usgs_gage_ids",
+    "identify_locations",
 ]
 
 
-# get location link ID based on gage ID and crosswalk
 def get_link_by_gage(gages: List[str], crosswalk_file: str):
+    """Get location link ID (NWM feature or reach id) based on USGS gage ID and crosswalk file.
+
+    Args:
+        gages (list of str): List of USGS gage IDs (without "usgs-" prefix).
+        crosswalk_file (str): Path to the crosswalk file.
+
+    Returns:
+        tuple: A tuple of two lists: gages and corresponding link IDs.
+
+    """
     cwt = read_data(crosswalk_file)
     cwt.rename(columns={"primary_location_id": "gage"}, inplace=True)
 
@@ -43,6 +67,16 @@ def get_link_by_gage(gages: List[str], crosswalk_file: str):
 
 # get location gage ID based on link ID and crosswalk
 def get_gage_by_link(links: int, crosswalk_file: str):
+    """Get location gage ID (USGS gage ID) based on NWM link ID and crosswalk file.
+
+    Args:
+        links (list of int): List of NWM link IDs.
+        crosswalk_file (str): Path to the crosswalk file.
+
+    Returns:
+        list of str: List of corresponding USGS gage IDs.
+
+    """
     cwt = read_data(crosswalk_file)
     cwt.rename(columns={"primary_location_id": "gage"}, inplace=True)
     cwt.rename(columns={"secondary_location_id": "link"}, inplace=True)
@@ -65,6 +99,17 @@ def get_link_id_from_file(
     nwm_ver: str,
     crosswalk_file: Optional[str] = None,
 ) -> list:
+    """Get location link IDs (NWM feature or reach id) from locations in a file.
+
+    Args:
+        id_file (str): Path to the file containing location IDs.
+        nwm_ver (str): NWM version (e.g., "nwm30").
+        crosswalk_file (str, optional): Path to the crosswalk file (optional).
+
+    Returns:
+        list: List of location link IDs.
+
+    """
     f1 = Path(id_file).absolute()
     if not f1.exists():
         raise FileNotFoundError(f1)
@@ -85,11 +130,20 @@ def get_link_id_from_file(
     return locations
 
 
-# get list of locations as either "gage" or "link" based on location_list provided in config file,
-# i.e., not via a location_list_file
 def get_locations_from_config_list(
     conf: dict, id_type: str, nwm_ver: Optional[str] = None
 ) -> list:
+    """Get list of locations as either "gage" or "link" based on location_list provided in config file.
+
+    Args:
+        conf (dict): Dictionary defining the configurations (e.g., config.yaml).
+        id_type (str): Type of location ID to retrieve ("gage" or "link").
+        nwm_ver (str, optional): NWM version (e.g., "nwm30").
+
+    Returns:
+        list: List of location IDs.
+
+    """
     locations = []
     loc_list = conf["general"]["location_list"]
     loc_type = conf["general"]["location_type"]
@@ -125,8 +179,17 @@ def get_locations_from_config_list(
     return locations
 
 
-# get nwm link ids for the locations for retrieveing the forecasts
 def get_nwm_link_ids(conf: dict, nwm_ver: str) -> list:
+    """Get NWM link IDs for the locations defined in the config file based on the provided crosswalk file.
+
+    Args:
+        conf (dict): Dictionary defining the configurations (e.g., config.yaml).
+        nwm_ver (str): NWM version (e.g., "nwm30").
+
+    Returns:
+        list: List of NWM link IDs.
+
+    """
     location_list = conf["general"]["location_list"]
     location_list_file = conf["file_paths"]["location_list_file"]
     crosswalk_file = conf["file_paths"]["crosswalk_file"]
@@ -147,7 +210,7 @@ def get_nwm_link_ids(conf: dict, nwm_ver: str) -> list:
             raise ValueError(f"Crosswalk file for {nwm_ver} is not provided")
     else:
         raise ValueError(
-            f"Either location_list or location_list_file must be provided in configuration yaml file"
+            "Either location_list or location_list_file must be provided in configuration yaml file"
         )
 
     logger.info(f"  Total number of nwm locations: {len(locations)}")
@@ -155,11 +218,20 @@ def get_nwm_link_ids(conf: dict, nwm_ver: str) -> list:
     return locations
 
 
-# get USGS gage ID for locations from the location_list_file
 def get_gage_id_from_file(
     id_file: str,
     crosswalk_file: Optional[dict] = None,
 ) -> list:
+    """Get location gage ID (USGS gage ID) from a file based on the provided crosswalk file.
+
+    Args:
+        id_file (str): Path to the file containing location IDs.
+        crosswalk_file (dict, optional): Dictionary containing paths to crosswalk files for different NWM versions (optional).
+
+    Returns:
+        list: List of USGS gage IDs.
+
+    """
     f1 = Path(id_file).absolute()
     if not f1.exists():
         raise FileNotFoundError(f1)
@@ -191,8 +263,16 @@ def get_gage_id_from_file(
     return locations
 
 
-# get USGS ID for the locations from config.yaml or a separate file
 def get_usgs_gage_ids(conf: dict) -> list:
+    """Get USGS gage IDs for the locations defined in the config file based on the provided crosswalk file.
+
+    Args:
+        conf (dict): Dictionary defining the configurations (e.g., config.yaml).
+
+    Returns:
+        list: List of USGS gage IDs.
+
+    """
     location_list = conf["general"]["location_list"]
     location_list_file = conf["file_paths"]["location_list_file"]
     crosswalk_file = conf["file_paths"]["crosswalk_file"]
@@ -276,6 +356,15 @@ def get_usgs_gage_ids(conf: dict) -> list:
 
 
 def identify_locations(conf: dict) -> dict:
+    """Identify location IDs based on the provided crosswalk file.
+
+    Args:
+        conf: Dictionary defining the configurations (e.g., config.yaml).
+
+    Returns:
+        Dictionary containing primary and secondary location IDs for each dataset.
+
+    """
     # get USGS gage ID for verification locations
     locations_usgs = get_usgs_gage_ids(conf)
 

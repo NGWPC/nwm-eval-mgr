@@ -1,3 +1,21 @@
+"""Settings and configurations for NWM evaluation.
+
+Functions:
+    - `get_metric_colormap`: Define the color maps for each metric for creating the spatial maps (in create_plots.py).
+    - `get_metric_bins`: Define the binnings for each metric for creating the histograms (in create_plots.py).
+    - `data_paths`: Define the data paths for observations, forecasts, and outputs based on the configuration file.
+
+Constants:
+    - `metric_value_bins_default`: Default bins for each metric for creating the histograms (in create_plots.py).
+    - `metric_color_scale_default`: Default color maps for each metric for creating the spatial maps (in create_plots.py).
+    - `metric_groups`: Define different groups of metrics based on whether higher or lower values are better, and whether absolute values are applicable.
+    - `dict_teehr_metrics`: Mapping of metric names to TEEHR metric names.
+    - `dict_nwm_eval_metrics`: Mapping of metric names to NWM evaluation metric names.
+    - `conus_vpu_list`: List of CONUS VPU identifiers.
+    - `default_txdot_gage_list`: List of default TXDOT gage identifiers.
+
+"""
+
 import logging
 from pathlib import Path
 
@@ -75,8 +93,8 @@ metric_groups = dict(
 )
 
 
-# function to define the colormaps and scaling of spatial maps
 def get_metric_colormap(conf: dict, plot_type: str) -> dict:
+    """Define the color maps for each metric for creating the spatial maps (in create_plots.py)."""
     metric_cmaps = dict()
     for m1 in conf["metric_subset"]:
         metric_cmaps[m1] = dict()
@@ -110,8 +128,8 @@ def get_metric_colormap(conf: dict, plot_type: str) -> dict:
     return metric_cmaps
 
 
-# function to define the binnings for creating the histograms
 def get_metric_bins(conf: dict) -> dict:
+    """Define the binnings for each metric for creating the histograms (in create_plots.py)."""
     metric_bins = dict()
     for m1 in conf["metric_subset"]:
         if (
@@ -191,6 +209,7 @@ dict_nwm_eval_metrics = {
 
 
 def data_paths(conf: dict) -> dict:
+    """Define the data paths for observations, forecasts, and outputs based on the configuration file."""
     conf1 = conf["general"]
     conf2 = conf["file_paths"]
     root_dir = conf2["base_dir"]

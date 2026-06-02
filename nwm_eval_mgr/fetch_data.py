@@ -1,3 +1,21 @@
+"""Module for fetching forecast and observation data based on the provided configuration.
+
+Functions:
+    - get_fcst_info: Get the forecast window size, time step, and reference time for a given NWM configuration.
+    - check_existing_obs_data: Check existing parquet files of USGS observations and get the dates for previously downloaded data.
+    - check_missing_obs_data: Check for missing observation data in the specified directory.
+    - safe_fetch_usgs: Fetch USGS streamflow data for a list of gage IDs and a date range, and save to parquet files.
+    - get_txdot_gage_list: Get the list of gage IDs for retrieving TxDOT streamflow observations.
+    - process_txdot_data: Process raw TxDOT streamflow data for a specific gage ID.
+    - fetch_txdot_gage_data: Fetch streamflow data for a list of TxDOT gage IDs and a date range, and resample temporally as needed.
+    - retrieve_usgs_obs: Retrieve USGS streamflow observations given configuration and a list of gage IDs.
+    - get_fcst_files: Get the list of forecast files for a given dataset.
+    - retrieve_fcsts_ngencerf: Retrieve NWM forecasts given the configurations and list of locations from the ngenCERF data source.
+    - retrieve_fcsts_gcs: Retrieve NWM forecasts from Google Cloud Storage based on the provided configuration and list of locations.
+    - retrieve_fcsts: Retrieve NWM forecast data for the specified locations and configuration.
+
+"""
+
 import gc
 import glob
 import os
@@ -33,7 +51,15 @@ dask.config.set({"distributed.worker.profile.enabled": False})
 
 
 def get_fcst_info(conf: dict) -> tuple[int, int, list[pd.Timestamp]]:
-    """Get the forecast window size, time step, and reference time for a given NWM configuration."""
+    """Get the forecast window size, time step, and reference time for a given NWM configuration.
+
+    Args:
+        conf: Dictionary containing NWM configuration.
+
+    Returns:
+        Tuple containing forecast window size, time step, and list of reference times.
+
+    """
     # validate forecast cycle
     nwm_config = conf["general"]["nwm_configuration"]
     fc = ForecastConfig(conf["file_paths"]["fcst_config_file"])
@@ -46,7 +72,15 @@ def get_fcst_info(conf: dict) -> tuple[int, int, list[pd.Timestamp]]:
 
 
 def check_existing_obs_data(obs_dir: str | Path) -> list:
-    """Check existing parquet files of usgs obs and get the dates for previously downloaded data."""
+    """Check existing parquet files of usgs obs and get the dates for previously downloaded data.
+
+    Args:
+        obs_dir (str | Path): Directory containing the observation parquet files.
+
+    Returns:
+        list: List of dates for which observation data is available.
+
+    """
     dates0 = list()
     parquet_files = glob.glob(str(obs_dir) + "/*.parquet")
     if len(parquet_files):
@@ -65,7 +99,17 @@ def check_existing_obs_data(obs_dir: str | Path) -> list:
 
 
 def check_missing_obs_data(obs_dir: str | Path, conf: dict, gages: list):
-    """Check for missing observation data in the specified directory."""
+    """Check for missing observation data in the specified directory.
+
+    Args:
+        obs_dir (str | Path): Directory containing the observation parquet files.
+        conf (dict): Dictionary containing NWM configuration.
+        gages (list): List of gage IDs to check for missing data.
+
+    Returns:
+        None
+
+    """
     # Get existing observation dates
     df = pd.DataFrame()
     parquet_files = glob.glob(str(obs_dir) + "/*.parquet")
@@ -163,6 +207,19 @@ def check_missing_obs_data(obs_dir: str | Path, conf: dict, gages: list):
 def safe_fetch_usgs(
     site_codes: list, dates: list, conf: dict, out_dir: str, hourly: bool = True
 ):
+    """Fetch USGS streamflow data for a list of gage IDs and a date range, and save to parquet files.
+
+    Args:
+        site_codes (list): List of USGS gage IDs.
+        dates (list): List of dates for which to fetch data.
+        conf (dict): Dictionary containing configuration options.
+        out_dir (str | Path): Directory to save the parquet files.
+        hourly (bool): Whether to filter data to hourly values.
+
+    Returns:
+        None
+
+    """
     try:
         usgs_to_parquet(
             sites=site_codes,
@@ -185,7 +242,15 @@ def safe_fetch_usgs(
 
 
 def get_txdot_gage_list(config: dict) -> list:
-    """Get the list of gage IDs for retrieving TxDOT streamflow observations."""
+    """Get the list of gage IDs for retrieving TxDOT streamflow observations.
+
+    Args:
+        config (dict): Dictionary containing configuration options.
+
+    Returns:
+        list: List of TxDOT gage IDs.
+
+    """
     txdot_gage_file = config["file_paths"].get("txdot_gage_file", None)
     if not txdot_gage_file:
         return default_txdot_gage_list
@@ -207,7 +272,17 @@ def get_txdot_gage_list(config: dict) -> list:
 
 
 def process_txdot_data(df: pd.DataFrame, gage_id: str, freq: str = "H") -> pd.DataFrame:
-    """Process raw TxDOT streamflow data for a specific gage ID."""
+    """Process raw TxDOT streamflow data for a specific gage ID.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing raw TxDOT streamflow data.
+        gage_id (str): Gage ID for which to process data.
+        freq (str): Frequency for resampling the data ("H" for hourly, "D" for daily).
+
+    Returns:
+        pd.DataFrame: DataFrame containing processed TxDOT streamflow data.
+
+    """
     CFS_TO_CMS = 0.3048**3
 
     flow_cols = [
@@ -246,7 +321,19 @@ def process_txdot_data(df: pd.DataFrame, gage_id: str, freq: str = "H") -> pd.Da
 def fetch_txdot_gage_data(
     site_codes: list, dates: list, conf: dict, out_dir: str, hourly: bool = True
 ):
-    """Fetch streamflow data for a list of TxDOT gage IDs and a date range, and resample temporally as needed."""
+    """Fetch streamflow data for a list of TxDOT gage IDs and a date range, and resample temporally as needed.
+
+    Args:
+        site_codes (list): List of TxDOT gage IDs.
+        dates (list): List of dates for which to fetch data.
+        conf (dict): Dictionary containing configuration options.
+        out_dir (str | Path): Directory to save the parquet files.
+        hourly (bool): Whether to filter data to hourly values.
+
+    Returns:
+        None
+
+    """
     dates_str = list(dict.fromkeys(d.strftime("%Y-%m-%d") for d in dates))
     date_start = min(dates_str)
     date_end = max(dates_str)
@@ -305,9 +392,9 @@ def retrieve_usgs_obs(locations: dict, conf: dict, output_dir: Path):
     """Retrieve USGS streamflow observations given configuration and a list of gage IDs.
 
     Args:
-        locations: dictionary containing USGS gage IDs for which observations are to be retrieved
-        conf: dictionary defining the configurations (e.g., config.yaml)
-        output_dir: path to store the observation data
+        locations (dict): Dictionary containing USGS gage IDs for which observations are to be retrieved.
+        conf (dict): Dictionary defining the configurations (e.g., config.yaml).
+        output_dir (Path): Path to store the observation data.
 
     Data retrieved will be saved in parquet files by chunk (e.g., month) in the data directory defined in conf
 
@@ -456,7 +543,16 @@ def retrieve_usgs_obs(locations: dict, conf: dict, output_dir: Path):
 
 
 def get_fcst_files(conf: dict, dataset: str) -> list[Path]:
-    """Get the list of forecast files for a given dataset."""
+    """Get the list of forecast files for a given dataset.
+
+    Args:
+        conf (dict): Dictionary containing configuration options.
+        dataset (str): Name of the dataset for which to get forecast files.
+
+    Returns:
+        list[Path]: List of Path objects representing the forecast files.
+
+    """
     fcst_path = conf["file_paths"].get("fcst_data_dir", None)
     if fcst_path:
         fcst_path = Path(fcst_path[dataset])
@@ -500,9 +596,18 @@ def get_fcst_files(conf: dict, dataset: str) -> list[Path]:
 
 
 def retrieve_fcsts_ngencerf(locations: dict, conf: dict, data_paths: dict):
-    """Retrieve NWM forecasts given the configurations and list of locations from the NGENCERF data source.
+    """Retrieve NWM forecasts given the configurations and list of locations from the ngenCERF data source.
 
     The forecast files are generated by ngenCERF on the server.
+
+    Args:
+        locations (dict): Dictionary containing secondary ID (NWM link IDs) for which forecasts are to be retrieved.
+        conf (dict): Dictionary defining the configurations (e.g., config.yaml).
+        data_paths (dict): Dictionary containing paths to store the data.
+
+    Returns:
+        None
+
     """
     # get time step and forecast window for the configuration and cycle
     win_size, time_step = get_fcst_info(conf)
@@ -531,10 +636,20 @@ def retrieve_fcsts_ngencerf(locations: dict, conf: dict, data_paths: dict):
             # order the dataframe by time
             df_fcst = df_fcst.sort_values("Time")
 
-            # assume reference time is one time step before the first time in the forecast data
-            start_time = df_fcst["Time"].min()
-            end_time = start_time + pd.Timedelta(hours=win_size - time_step)
-            reference_time = start_time - pd.Timedelta(hours=time_step)
+            # assume reference time is one timestep before the first datetime in the forecast data when win_size is positive,
+            # or one timestep after the last datetime when win_size is negative.
+            if win_size > 0:
+                start_time = df_fcst["Time"].min()
+                end_time = start_time + pd.Timedelta(hours=win_size - time_step)
+                reference_time = start_time - pd.Timedelta(hours=time_step)
+            elif win_size < 0:
+                end_time = df_fcst["Time"].max()
+                start_time = end_time + pd.Timedelta(hours=win_size + time_step)
+                reference_time = end_time + pd.Timedelta(hours=time_step)
+            else:
+                msg = "Forecast window size cannot be zero."
+                logger.error(msg)
+                raise ValueError(msg)
 
             # make sure the time period covers the forecast window
             if df_fcst["Time"].max() < end_time:
@@ -610,11 +725,13 @@ def retrieve_fcsts_ngencerf(locations: dict, conf: dict, data_paths: dict):
 def retrieve_fcsts_gcs(locations: dict, conf: dict, data_paths: dict):
     """Retrieve NWM forecasts given the configurations and list of locations from Google Cloud Storage.
 
-    locations: dictionary containing secondary ID (NWM link IDs) for which forecasts are to be retrieved
-    conf: dictionary defining the configurations (e.g., config.yaml)
-    data_paths: dictionary containing paths to store the data
+    Args:
+        locations (dict): Dictionary containing secondary ID (NWM link IDs) for which forecasts are to be retrieved.
+        conf (dict): Dictionary defining the configurations (e.g., config.yaml).
+        data_paths (dict): Dictionary containing paths to store the data.
 
-    Data retrieved will be saved in parquet files by forecast cycle in the data directory defined in conf
+    Returns:
+        None. Data retrieved will be saved in parquet files by forecast cycle in the data directory defined in conf.
 
     """
     output_dir = data_paths.get("fcst")
@@ -749,13 +866,13 @@ def extract_flow_for_gages(
     """Extract time and flow for specific gages from a NetCDF file.
 
     Args:
-        nc_file: Path to NetCDF file.
-        locations: dictionary containing secondary ID (NWM link IDs) and primary ID (USGS gage IDs)
-        start_time: Start time for filtering (optional).
-        end_time: End time for filtering (optional).
-        flow_var: Name of flow variable in NetCDF.
-        feature_id_var: Name of feature_id variable in NetCDF.
-        time_var: Name of time variable in NetCDF.
+        nc_file (Path): Path to NetCDF file.
+        locations (dict): Dictionary containing secondary ID (NWM link IDs) and primary ID (USGS gage IDs).
+        start_time (pd.Timestamp, optional): Start time for filtering.
+        end_time (pd.Timestamp, optional): End time for filtering.
+        flow_var (str): Name of flow variable in NetCDF.
+        feature_id_var (str): Name of feature_id variable in NetCDF.
+        time_var (str): Name of time variable in NetCDF.
 
     Returns:
         pd.DataFrame with columns ['time', 'location_id', 'value'].
@@ -804,6 +921,15 @@ def retrieve_ngen_simulation(locations: dict, conf: dict, data_paths: dict):
     """Retrieve NGEN simulation data for the specified configuration.
 
     Based on the data source specified in the configuration, the appropriate retrieval function is called.
+
+    Args:
+        locations (dict): Dictionary containing secondary ID (NWM feature IDs) and primary ID (USGS gage IDs).
+        conf (dict): Dictionary defining the configurations (e.g., config.yaml).
+        data_paths (dict): Dictionary containing paths to store the data.
+
+    Returns:
+        None. Data retrieved will be saved in parquet files by forecast cycle in the data directory defined in conf.
+
     """
     # read forecast data from file for each dataset
     for idx, (dataset, nwm_ver) in enumerate(
@@ -858,6 +984,15 @@ def retrieve_fcsts(locations: dict, conf: dict, data_paths: dict):
     """Retrieve NWM forecast data for the specified locations and configuration.
 
     Based on the data source specified in the configuration, the appropriate retrieval function is called.
+
+    Args:
+        locations (dict): Dictionary containing secondary ID (NWM link IDs) for which forecasts are to be retrieved.
+        conf (dict): Dictionary defining the configurations (e.g., config.yaml).
+        data_paths (dict): Dictionary containing paths to store the data.
+
+    Returns:
+        None. Data retrieved will be saved in parquet files by forecast cycle in the data directory defined in conf.
+
     """
     if conf["nwm_forecast"]["data_source"].upper() == "GCS":
         retrieve_fcsts_gcs(locations, conf, data_paths)

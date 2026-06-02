@@ -1,4 +1,18 @@
-"""Functions to compute event-based metrics."""
+"""Functions to compute event-based metrics.
+
+Functions:
+    - identify_events: Conduct first-round event detection using hydrotools.events.event_detection.
+    - separate_compound_events: Separate compound/multi-peak events into single-peak events.
+    - pair_events: One-to-one pairing of observed and model events with optional virtual events.
+    - compute_event_metrics: Compute event-based metrics given paired observed and model events.
+    - preprocess_series: Resample to hourly and interpolate short gaps.
+    - split_into_valid_chunks: Split time series into continuous NaN-free chunks.
+    - plot_event_timeseries: Plot observed and simulated streamflow time series with event peak markers.
+    - validate_events: Validate event chronology and non-overlap.
+    - event_based_metrics: Compute event-based metrics: PKBIAS, PKTE, EVBIAS. Optionally, plot time series with event markers.
+    - get_event_peaks: Get observed and modeled event peaks.
+
+"""
 
 import datetime as dt
 import logging
@@ -82,19 +96,14 @@ def merge_short_events(
     """Merge events shorter than the minimum duration with the nearest neighboring event.
 
     Args:
-        events : pd.DataFrame
-            Event dataframe containing:
-            start, end
+        events (pd.DataFrame): Event dataframe containing: start, end
 
-        data : pd.Series
-            Original streamflow series.
+        data (pd.Series): Original streamflow series.
 
-        minimum_event_duration : str
-            Minimum allowed duration.
+        minimum_event_duration (str): Minimum allowed duration.
 
     Returns:
-        pd.DataFrame
-            Updated event dataframe.
+        pd.DataFrame: updated event dataframe.
 
     """
     if events.empty:
@@ -558,7 +567,17 @@ def compute_event_metrics(
 
 
 def preprocess_series(y: pd.Series) -> pd.Series:
-    """Resample to hourly and interpolate short gaps."""
+    """Resample to hourly and interpolate short gaps.
+
+    Resample the input series to hourly frequency using forward fill, then linearly interpolate gaps of up to 5 hours in length. This ensures a continuous hourly time series for event detection while avoiding excessive interpolation over long gaps.
+
+    Args:
+        y: Input time series with arbitrary frequency and potential missing values.
+
+    Returns:
+        A time series resampled to hourly frequency with short gaps interpolated.
+
+    """
     return (
         y.copy()
         .resample("h")
@@ -568,7 +587,16 @@ def preprocess_series(y: pd.Series) -> pd.Series:
 
 
 def split_into_valid_chunks(y: pd.Series, min_len: int = 10):
-    """Split time series into continuous NaN-free chunks."""
+    """Split time series into continuous NaN-free chunks.
+
+    Args:
+        y: Input time series with potential missing values.
+        min_len: Minimum length of chunks to retain.
+
+    Returns:
+        A list of continuous NaN-free chunks with length >= min_len.
+
+    """
     chunks = np.split(y, np.where(np.isnan(y))[0])
     chunks = [c[~np.isnan(c)] for c in chunks if not isinstance(c, np.ndarray)]
 
@@ -585,7 +613,22 @@ def plot_event_timeseries(
     threshold: Optional[float] = None,
     plot_filename: Optional[str] = None,
 ):
-    """Plot observed and simulated streamflow time series with event peak markers."""
+    """Plot observed and simulated streamflow time series with event peak markers.
+
+    Args:
+        y_true: observed streamflow series
+        y_pred: simulated streamflow series
+        events_obs: observed events with columns "start", "end", "peak", "peak_value"
+        events_sim: simulated events with columns "start", "end", "peak", "peak_value"
+        start_time: optional start time to subset the series for plotting
+        end_time: optional end time to subset the series for plotting
+        threshold: optional quantile threshold to plot as a horizontal line
+        plot_filename: optional filename to save the plot
+
+    Returns:
+        None (saves plot to file if plot_filename is provided)
+
+    """
     # Subset time range
     if start_time is not None:
         y_true = y_true.loc[start_time:]
@@ -676,7 +719,15 @@ def plot_event_timeseries(
 
 
 def validate_events(events: pd.DataFrame) -> bool:
-    """Validate event chronology and non-overlap."""
+    """Validate event chronology and non-overlap.
+
+    Args:
+        events: DataFrame containing event start and end times with columns "start" and "end".
+
+    Returns:
+        bool: True if events are valid, False otherwise.
+
+    """
     if events.empty:
         return True
 

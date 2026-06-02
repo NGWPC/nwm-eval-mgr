@@ -1,4 +1,3 @@
-#### configuration for the verification run
 general:   
   steps: # define which of the 5 steps to run; each step can be run independently,
     fetch_fcst_data: true
@@ -12,7 +11,7 @@ general:
   location_type: usgs_gage # location type
   location_filter: # filter locations based on column and value in the gage crosswalk file; if null, all locations in the crosswalk file will be used, unless location_list or location_list_file is specified
     columns: ["vpu_id", "status"]  
-    values: ["03S", "USGS-active"] 
+    values: ["03S", "USGS-active"]
   variable_name: streamflow # currently only 'streamflow' is supported
   nwm_configuration: ngen_simulation    
   dataset_name: [gower, kmeans] # user-specified name of datasets (e.g., formualtion or algorithm name)
@@ -23,12 +22,11 @@ general:
   eval_end_date: ['2012-10-01 10:00:00', '2012-10-01 10:00:00'] # end date for evaluation period, only used for ngenSIM
   separate_calibrated: true # whether to distinguish calibrated and regionalized locations in the evaluation
 
-#### configurations for various file paths
 file_paths:
-  base_dir: ./ # root directory to store data/outputs for verification
-  crosswalk_file: '{base_dir}/data/inputs/nhf/usgs_{nwm_version}_crosswalk_{domain}.parquet' # crosswalk file mapping gage IDs to NWM/ngen link IDs
-  fcst_data_file: '{base_dir}/data/inputs/troute_output_201210010000_{dataset_name}.nc' # forecast data directory (must be specified when nwm_forecast.data_source is set to ngenCERF)
-  calib_param_file: '{base_dir}/../nwm-region-mgr/data/inputs/region/pseudo_calib_params/sampled_params_{domain}.csv' # calibration parameters file (used when separate_calibrated is True); must have column 'gage_id'
+  base_dir: ~/repos/nwm-eval-mgr/data/ # root directory to store data/outputs for verification
+  crosswalk_file: '{base_dir}/inputs/nhf/usgs_{nwm_version}_crosswalk_{domain}.parquet' # crosswalk file mapping gage IDs to NWM/ngen link IDs
+  fcst_data_file: '{base_dir}/inputs/troute_output_201210010000_{dataset_name}.nc' # forecast data directory (must be specified when nwm_forecast.data_source is set to ngenCERF)
+  calib_param_file: '{base_dir}/../../nwm-region-mgr/data/inputs/region/pseudo_calib_params/sampled_params_{domain}.csv' # calibration parameters file (used when separate_calibrated is True); must have column 'gage_id'
   output_dir: '{base_dir}/outputs/{location_set_name}' # output directory to store all datasets, metrics and plots
 
 nwm_forecast:

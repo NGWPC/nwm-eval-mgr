@@ -1,3 +1,18 @@
+"""Classes and functions for handling NWM forecast configurations, including cycle information and lead time interpretation.
+
+Classes:
+    - `CycleConfig`: A Pydantic model for validating forecast cycle configurations.
+    - `ForecastConfig`: A class for reading forecast configurations from a YAML file and interpreting cycle information and lead times.
+
+Functions of `ForecastConfig`:
+    - `get_cycle_info`: Get cycle information for a specific forecast configuration.
+    - `validate_cycle_info`: Validate the cycle information for a specific forecast configuration.
+    - `get_valid_cycles`: Get the valid forecast cycles for a given forecast configuration.
+    - `get_fcst_window_timestep`: Get the forecast window and timestep for a given forecast configuration and cycle.
+    - `interpret_lead_times`: Interpret lead times based on the NWM configuration, returning the lead time groups given the forecast configuration.
+
+"""
+
 from asyncio.log import logger
 from pathlib import Path
 from typing import List, Union
@@ -8,13 +23,23 @@ from pydantic import BaseModel, field_validator
 
 
 class CycleConfig(BaseModel):
-    """A forecast cycle configuration defined with 5 numbers: first 4 ints, last a float."""
+    """A forecast cycle configuration defined with 5 numbers: first 4 ints, last a float.
+
+    The 5 numbers represent:
+        1. cycle_start: the starting cycle hour (e.g., 0 for 00Z)
+        2. cycle_end: the ending cycle hour (e.g., 21 for 21Z)
+        3. cycle_freq: the frequency of cycles in hours (e.g., 3 for every 3 hours)
+        4. fcst_win: the forecast window in hours (e.g., 48 for 48-hour forecast)
+        5. fcst_timestep: the forecast timestep in hours
+
+    """
 
     values: List[Union[int, float]]
 
     @field_validator("values")
     @classmethod
     def check_config(cls, v: List[Union[int, float]]) -> List[Union[int, float]]:
+        """Validate the cycle configuration values."""
         if len(v) != 5:
             raise ValueError(
                 f"Cycle configuration must have exactly 5 elements, got {len(v)}"
@@ -76,7 +101,7 @@ class ForecastConfig:
         """Return the valid cycles for the given forecast configuration.
 
         Args:
-            fcst_config: a string indicating the forecast configuration.
+            fcst_config (str): a string indicating the forecast configuration.
 
         """
         cycles = []
@@ -92,10 +117,11 @@ class ForecastConfig:
         """Return the forecast window for the given forecast configuration and cycle.
 
         Args:
-            fcst_config: a string indicating the forecast configuration.
-            fcst_cycle: an integer indicating the forecast cycle hour.
+            fcst_config (str): a string indicating the forecast configuration.
+            fcst_cycle (int, optional): an integer indicating the forecast cycle hour.
 
-        Returns: a tuple containing the forecast window and timestep for the given configuration and cycle.
+        Returns:
+            tuple: A tuple containing the forecast window and timestep for the given configuration and cycle.
 
         """
         try:
@@ -116,12 +142,12 @@ class ForecastConfig:
         """Interpret lead times based on the NWM configuration.
 
         Args:
-            lead_times: a list of lead time strings (e.g., ['1','1-5','all', 'all-aggregated'])
-            fcst_config: a string indicating the NWM configuration.
-            leads: a list of computed lead times  (optional)
+            lead_times (list of str): a list of lead time strings (e.g., ['1','1-5','all', 'all-aggregated'])
+            fcst_config (str): a string indicating the NWM configuration.
+            leads (list of int, optional): a list of computed lead times  (optional)
 
         Returns:
-            a list of strings representing the lead time groups given forecast configuration.
+            list of str: a list of strings representing the lead time groups given forecast configuration.
 
         """
         if fcst_config == "ngen_simulation":  # for simulation, only lead time 0
@@ -146,12 +172,31 @@ class ForecastConfig:
         ]  # ensure all are strings, prepend 'm' for negative leads
 
         def clean_num(x):
+            # keep strings like "m2", "m3.5" unchanged
+            if isinstance(x, str) and x.lower().startswith("m"):
+                try:
+                    int(x[1:])  # validate numeric part
+                except ValueError:
+                    msg = (
+                        f"Invalid lead time value: {x!r}. "
+                        "Expected format like 'm2' or 'm3.5'."
+                    )
+                    logger.error(msg)
+                    raise ValueError(msg)
+
+                return x.lower()
+
             try:
-                f = float(x)
+                f = int(x)
+
             except (ValueError, TypeError):
-                msg = f"Invalid lead time value: {x!r}. Must be numerical or a string representing a number."
+                msg = (
+                    f"Invalid lead time value: {x!r}. "
+                    "Must be numerical or a string representing a number."
+                )
                 logger.error(msg)
                 raise ValueError(msg)
+
             return f"{f:g}"
 
         existing_leads = [clean_num(l1) for l1 in existing_leads]

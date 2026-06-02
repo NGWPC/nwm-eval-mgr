@@ -1,4 +1,3 @@
-#### configuration for the verification run
 general:   
   steps: # define which of the 5 steps to run; each step can be run independently,
     fetch_fcst_data: true
@@ -16,7 +15,6 @@ general:
   forecast_start_date: ['2025-08-20 00:00:00', '2025-08-20 00:00:00'] # list of start dates for verification; must be same length as 'dataset_name'
   forecast_end_date: ['2025-08-22 06:00:00', '2025-08-22 06:00:00'] # list of end dates for verification; must be same length as 'dataset_name'
 
-#### configurations for various file paths
 file_paths:
   base_dir: ~/repos/nwm-eval-mgr/data/ # root directory to store data/outputs for verification
   crosswalk_file: '{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet' # crosswalk file mapping gage IDs to NWM/ngen link IDs

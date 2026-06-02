@@ -1,3 +1,5 @@
+"""Module to process and validate configuration for NWM verification."""
+
 import logging
 import os
 import re
@@ -292,10 +294,8 @@ class ProcessConfig(BaseModel):
         # Substitute placeholders in the config
         self.substitute_placeholders()
 
-        # validate file paths
+        # exclude file paths from validation as appropriate
         exclude_files = set()
-        # if self.config.nwm_forecast.data_source not in ["ngenCERF", "ngenSIM"]:
-        #    exclude_files.add("fcst_data_file")
         if self.config.general.location_list or self.config.general.assemble_domain:
             exclude_files.add("location_list_file")
         if not self.config.general.separate_calibrated:
