@@ -32,7 +32,7 @@ Follow one of the following sample config files (nwm-eval-mgr/configs) to set up
 - `config_ngensim.yaml`: large-scale NGEN simulation evaluation (e.g., from regionalized simulations for a VPU)
 - `config_template.yaml`: a template config file containing all possible configuration options generated from the pydantic schema, which can be used as a reference for setting up your own config file.
 
-For detailed instructions on how to set up the configuration file, please refer to the {doc}`Configuration <config>` page.
+For detailed instructions on how to set up the configuration file, please refer to the [Configuration](https://ngwpc.github.io/nwm-eval-mgr/config.html) page.
 
 1) run evaluation/verification
 
