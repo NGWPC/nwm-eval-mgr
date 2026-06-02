@@ -4,7 +4,7 @@ This script generates markdown documentation for the configuration schemas used 
     (nwm-eval-mgr) tool. It creates example YAML configuration files and detailed markdown tables describing each
     field in the configuration schemas, including their types, descriptions, default values, and examples.
 
-The generated markdown file is saved to `docs/source/config_builder/index.md`.
+The generated markdown file is saved to `docs/source/config.md`.
 """
 
 import inspect
@@ -518,7 +518,7 @@ def main(docs_to_create: dict) -> None:
     # Prepend intro and TOC
     md_text = intro_block + toc_block + md_text
 
-    Path("docs/source/config_builder/index.md").write_text(md_text, encoding="utf-8")
+    Path("docs/source/config.md").write_text(md_text, encoding="utf-8")
 
 
 if __name__ == "__main__":

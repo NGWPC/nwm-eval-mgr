@@ -40,7 +40,7 @@ h3:not(#hero h3) {
 
 User Guide<user_guide.rst>
 FAQ<faq.rst>
-Configuration<config_builder/index.rst>
+Configuration<config.md>
 Technical Reference <tech_reference/index.md>
 API </API/index.rst>
 :::

@@ -8,23 +8,33 @@ A standalone Python library for conducting evaluation/verification for NWM/NextG
 
 ## Installation
 
-Install directly from GitHub:
+Create a virtual environment and install directly from GitHub:
 
 ```bash
+
+cd [VENV_ROOT]
+/usr/bin/python3.11 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+
 pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@development"
 ```
+Where `[VENV_ROOT]` is the path to the directory where you want to create the virtual environment.
 
 ### Usage
 
 1) set up configuration yaml file
 
 Follow one of the following sample config files (nwm-eval-mgr/configs) to set up the configurations for your evaluation/verification application:
-- `config_ngencerf.yaml`: ngenCERF forecasts verification
-- `config_nwm.yaml`: NWM v30 forecasts verification
-- `config_ngensim.yaml`: regionalized NGEN simulation evaluation
-- `config_hindcast.yaml`: hindcast verification
+- `config_ngencerf.yaml`: ngenCERF-based single-location single-forecast verification
+- `config_hindcast.yaml`: ngenCERF-based single-location multiple-hindcast verification
+- `config_nwm.yaml`: NWM v30 operational forecasts verification
+- `config_ngensim.yaml`: large-scale NGEN simulation evaluation (e.g., from regionalized simulations for a VPU)
+- `config_template.yaml`: a template config file containing all possible configuration options generated from the pydantic schema, which can be used as a reference for setting up your own config file.
 
-2) run evaluation/verification
+For detailed instructions on how to set up the configuration file, please refer to the {doc}`Configuration <config>` page.
+
+1) run evaluation/verification
 
 ```bash
 python -m nwm_eval_mgr <path-to-config-file>
