@@ -1,18 +1,15 @@
 # Technical Reference
 
-The following pages provide technical details of formulation and parameters regionalization processes, inputs and outputs.
+The following pages provide technical details for the workflow, inputs and outputs of nwm-eval-mgr.
 
 :::{toctree}
 :maxdepth: 1
 :caption: Subsections
 
-Formulation Regionalization<formreg>
-Parameter Regionalization<parreg>
-
-Input Data<input_data>
+Workflow<workflow>
+Input data<input_data>
+Output directory structure<output_tree>
 Output Tables<output_data>
 Output Plots<output_plot>
 
-Input directory structure<input_tree>
-Output directory structure<output_tree>
 :::
