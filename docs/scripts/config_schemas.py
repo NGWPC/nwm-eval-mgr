@@ -68,6 +68,13 @@ DOCS_TO_CREATE = {
             "configs/config_nwm.yaml": "Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).",
             "configs/config_ngensim.yaml": "Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains.",
         },
+        "sample_file_anchor": {
+            "configs/config_template.yaml": "config-template-yaml",
+            "configs/config_ngencerf.yaml": "config-ngencerf-yaml",
+            "configs/config_hindcast.yaml": "config-hindcast-yaml",
+            "configs/config_nwm.yaml": "config-nwm-yaml",
+            "configs/config_ngensim.yaml": "config-ngensim-yaml",
+        },
     }
 }
 
@@ -461,6 +468,10 @@ def main(docs_to_create: dict) -> None:
             sample_path = Path(sample_file)
 
             lines.append("")
+            # add MyST anchor for the sample file, so that it can be linked to from other pages
+            lines.append(
+                f"({docs_to_create[i]['sample_file_anchor'].get(sample_file, '')})="
+            )
             lines.append(f"#### `{sample_path.name}`\n")
             lines.append(docs_to_create[i]["sample_file_desc"].get(sample_file, ""))
             lines.append("")

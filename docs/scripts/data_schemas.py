@@ -10,7 +10,9 @@ The generated RST files are saved in the `docs/source/tech_reference` directory:
 To add a new file schema to the documentation:
 1. Upload a sample file to S3 and get the path.
 2. Add a description CSV in `docs/scripts/data_desc/inputs` or `docs/scripts/data_desc/outputs`
-with a `sample_file_path` entry pointing to the sample file on S3.
+with a `sample_file_path` entry pointing to the sample file on S3. Draft description CSV files can be created by
+running the `create_draft_data_desc_files.py` script to extract column names. Then manually update these draft csv
+files to add column descriptions.
 3. Run this script to regenerate the RST files with the new schema included. Prior to running, ensure your AWS
 credentials are up to date in the `.env` file or environment variables for S3 access.
 """
@@ -26,12 +28,11 @@ import boto3
 import fiona
 import geopandas as gpd
 import pandas as pd
-import yaml
 from dotenv import load_dotenv
 
-S3_DATA_DIR = "regionalization/data"
-INPUT_DATA_DIR = S3_DATA_DIR + "/inputs/region"
-OUTPUT_DATA_DIR = S3_DATA_DIR + "/sample_outputs/test"
+S3_DATA_DIR = "nwm-eval-mgr/data"  # relative path to S3 data directory (default bucket: ngwpc-dev)
+INPUT_DATA_DIR = S3_DATA_DIR + "/inputs"
+OUTPUT_DATA_DIR = S3_DATA_DIR + "/outputs"
 
 DATA_DESC_DIR = "docs/scripts/data_desc"
 OUTPUT_DESC_DIR = DATA_DESC_DIR + "/outputs"
