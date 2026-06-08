@@ -39,7 +39,7 @@ Spatial Map for a Specific Metric/Lead Time/Dataset
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Description: This spatial map visualizes the spatial distribution of a specific metric (e.g., KGE) for a specific lead 
-time (e.g., 1-5 hour lead time) and dataset (e.g., ``v3_oct``) at selected locations in the domain. The color of each point 
+time (e.g., 1 hour) and dataset (e.g., ``v3_oct``) at selected locations in the domain. The color of each point 
 represents the metric score for that location, with a colorbar indicating the score range.
 
 .. figure:: ../_images/nwm/map_KGE_h1_v3_oct.png
@@ -101,7 +101,8 @@ Time Series of Forecast vs. Observations for a Reference Time (T0)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Description: These time series plots compare the forecasted streamflow values with the observed streamflow values for 
 a single location and reference time (T0) over the forecast window. The x-axis represents time (covering the forecast 
-window), and the y-axis represents streamflow values. Here the time series compares two datasets: ``noah_cfes`` and ``noah_sac``.
+window that varies with NWM configuration, e.g., 18 hours for short range), and the y-axis represents streamflow values. 
+Here the time series compares two datasets: ``noah_cfes`` and ``noah_sac``.
 
 .. figure:: ../_images/hindcast/time_series_T0_20250820T00.png
    :alt: Time series of forecast vs. observations for a reference time (T0) for hindcast verification
@@ -111,9 +112,9 @@ window), and the y-axis represents streamflow values. Here the time series compa
 Time Series of Forecast vs. Observations for a Specific Lead Time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Description: These time series plots compare the forecasted streamflow values with the observed streamflow values for 
-a single location and lead time (e.g., 1-hour lead time) over the forecast window. The x-axis represents time (covering 
-the forecast window), and the y-axis represents streamflow values. Here the time series compares two datasets: 
-``noah_cfes`` and ``noah_sac``.
+a single location and lead time (e.g., 1-hour). The x-axis represents time (covering the hindcast time period,  
+defined by ``general.forecast_start_time`` and ``general.forecast_end_time``), and the y-axis represents streamflow 
+values. Here the time series compares two datasets: ``noah_cfes`` and ``noah_sac``.
 
 .. figure:: ../_images/hindcast/time_series_lead_h1.png
    :alt: Time series of forecast vs. observations for a specific lead time for hindcast verification
@@ -137,7 +138,7 @@ Boxplot of a Specific Metric
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Description: This boxplot shows the distribution of a specific metric (here ``NNSE``) for simulation evaluation, across 
 selected locations within the domain. Here the boxplot compares two datasets representing two different regionalization 
-algorithms: ``kmeans`` and ``gower``. The locations are broken into two different groups: calibrated and non-calibrated basins.
+algorithms: ``kmeans`` and ``gower``. The locations are divided into two groups: calibrated and non-calibrated basins.
 
 .. figure:: ../_images/ngensim/boxplot_NNSE.png
    :alt: Boxplot of NNSE scores for simulation evaluation
@@ -148,7 +149,7 @@ Histogram of a Specific Metric
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Description: This histogram shows the distribution of a specific metric (here ``CORR``) for simulation evaluation 
 across selected locations within the domain. Here the histogram compares two datasets representing two different 
-regionalization algorithms: ``kmeans`` and ``gower``. The locations are broken into two different groups: calibrated 
+regionalization algorithms: ``kmeans`` and ``gower``. The locations are divided into two groups: calibrated
 and non-calibrated basins.
 
 .. figure:: ../_images/ngensim/hist_CORR.png
