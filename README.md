@@ -21,20 +21,20 @@ pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@development"
 ```
 Where `[VENV_ROOT]` is the path to the directory where you want to create the virtual environment.
 
-### Usage
+## Usage
 
-1) set up configuration yaml file
+### Set up configuration yaml file
 
-Follow one of the following sample config files (nwm-eval-mgr/configs) to set up the configurations for your evaluation/verification application:
+Follow one of the sample config files (see `nwm-eval-mgr/configs`) to set up the configurations for your evaluation/verification application:
 - `config_ngencerf.yaml`: ngenCERF-based single-location single-forecast verification
 - `config_hindcast.yaml`: ngenCERF-based single-location multiple-hindcast verification
 - `config_nwm.yaml`: NWM v30 operational forecasts verification
 - `config_ngensim.yaml`: large-scale NGEN simulation evaluation (e.g., from regionalized simulations for a VPU)
-- `config_template.yaml`: a template config file containing all possible configuration options generated from the pydantic schema, which can be used as a reference for setting up your own config file.
+- `config_template.yaml`: a template config file containing all available configuration options generated from the pydantic schema, which can be used as a reference for setting up your own config file.
 
-For detailed instructions on how to set up the configuration file, please refer to the [Configuration](https://ngwpc.github.io/nwm-eval-mgr/config.html) page.
+For detailed instructions on how to set up the configuration file, please refer to the [Configuration](https://ngwpc.github.io/nwm-eval-mgr/config.html) and [FAQ](https://ngwpc.github.io/nwm-eval-mgr/faq.html) pages of the `nwm-eval-mgr` [documentation](https://ngwpc.github.io/nwm-eval-mgr/).
 
-1) run evaluation/verification
+### Run evaluation/verification
 
 ```bash
 python -m nwm_eval_mgr <path-to-config-file>

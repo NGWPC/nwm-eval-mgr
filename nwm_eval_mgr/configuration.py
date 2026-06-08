@@ -548,7 +548,13 @@ class USGSConfig(BaseModel):
 class FlowObservationConfig(BaseModel):
     """Data model for the flow_observation section."""
 
-    usgs: USGSConfig
+    usgs: USGSConfig = Field(
+        default_factory=USGSConfig,
+        description=(
+            "Configuration for USGS flow observations. This is currently the only supported source of flow observations, "
+            "but this section is included for future extensibility to other sources."
+        ),
+    )
 
 
 class PairDataConfig(BaseModel):

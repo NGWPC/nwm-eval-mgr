@@ -43,6 +43,7 @@ Template files, sample configuration files, and schemas for all configuration fi
 ### Sample Files
 
 
+(config-template-yaml)=
 #### `config_template.yaml`
 
 Config template generated from the pydantic model, with default or example values defined for each field. This can be used as a starting point for creating your own configuration files.
@@ -152,6 +153,7 @@ plots:     # Configuration for plots.
     tag: ''     # Optional tag to include in plot titles and filenames.
 ```
 
+(config-ngencerf-yaml)=
 #### `config_ngencerf.yaml`
 
 Sample config for verifying a single ngenCERF forecast at one location.
@@ -164,17 +166,15 @@ general:
     pair_data: true
     compute_metrics: true
     plot_metrics: true
-  location_set_name: usgs_50070900  # user-specified name for the set of locations
-  location_list: ['50070900'] # list of usgs gage IDs
+  location_set_name: usgs_01123000  # user-specified name for the set of locations
+  location_list: ['01123000'] # list of usgs gage IDs
   location_type: usgs_gage # location type
   variable_name: streamflow # currently only 'streamflow' is supported
-  nwm_configuration: standard_ana_puertorico  # must match one of the configurations defined in fcst_config_file  
+  nwm_configuration: short_range # must match one of the configurations defined in fcst_config_file  
   dataset_name: [noah_cfes] # user-specified name of datasets (e.g., formualtion name
   nwm_version: [ngen] # list of NWM versions; must have the same length as 'dataset_name'
-  #forecast_start_date: ['2022-12-01 00:00:00'] # list of start dates for verification; must be same length as 'dataset_name'
-  #forecast_end_date: ['2022-12-01 00:00:00'] # list of end dates for verification; must be same length as 'dataset_name'
-  forecast_start_date: ['2026-02-10 00:00:00'] # list of start dates for simulation; must be same length as 'dataset_name'
-  forecast_end_date: ['2026-02-10 00:00:00']
+  forecast_start_date: ['2022-12-01 00:00:00'] # list of start dates for verification; must be same length as 'dataset_name'
+  forecast_end_date: ['2022-12-01 00:00:00'] # list of end dates for verification; must be same length as 'dataset_name'
 
 file_paths:
   base_dir: ~/repos/nwm-eval-mgr/data/ # root directory to store data/outputs for verification
@@ -214,6 +214,7 @@ plots:
     plot: true  # whether to create barchart plots
 ```
 
+(config-hindcast-yaml)=
 #### `config_hindcast.yaml`
 
 Sample config for verifying multiple ngenCERF hindcasts at one location.
@@ -280,6 +281,7 @@ plots:
     lead_times: [1, 5, 10, 18, 1-5, 6-10, 11-18, "all_aggregated"] # list of lead times (in hours) for which barchart plots should be created
 ```
 
+(config-nwm-yaml)=
 #### `config_nwm.yaml`
 
 Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).
@@ -491,6 +493,7 @@ plots:
     tag:
 ```
 
+(config-ngensim-yaml)=
 #### `config_ngensim.yaml`
 
 Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains.
