@@ -109,10 +109,12 @@ metrics:     # Configuration for metrics.
   library: 'nwm.eval'     # Library to use for metric computation. Valid options: nwm.eval, teehr. 
   metric_subset: 'all'     # Subset of metrics to compute, either 'all' or a list of metric names.
   metric_exclude: ['HSEG_FDC', 'MSEG_FDC', 'LSEG_FDC']     # List of metric names to exclude from metric_subset for computation. 
-  threshold_categorical: 0.9     # Threshold for categorical flow metrics.
-  threshold_categorical_type: 'quantile'     # ("Type of threshold for categorical flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",)
-  threshold_event: 0.9     # Threshold for event-based flow metrics.
-  threshold_event_type: 'quantile'     # ("Type of threshold for event-based flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",)
+  threshold_categorical:     # Threshold for categorical metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.
+    value: 0.9
+    type: quantile
+  threshold_event:     # Threshold for event-based metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.
+    value: 0.9
+    type: quantile
   file_format: 'parquet'     # File format for output files. Valid options are 'parquet' and 'csv'.
 plots:     # Configuration for plots.
   histogram:     # Configuration for histogram plots.
@@ -202,10 +204,12 @@ metrics:
   overwrite: true # whether to overwrite existing metric files
   library: nwm.eval # currently supported options: teehr, nwm.eval
   metric_subset: 'all'
-  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
-  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
-  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
-  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_categorical:
+    value: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+    type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event:
+    value: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+    type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: ['all_aggregated'] # list of lead times (in hours) for which metrics should be calculated for  
   file_format: parquet # file format for metrics. Options are: parquet, csv. Default is parquet.
 
@@ -266,10 +270,12 @@ metrics:
   overwrite: true # whether to overwrite existing metric files
   library: nwm.eval # currently supported options: teehr, nwm.eval
   metric_subset: 'all'
-  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
-  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
-  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
-  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_categorical:
+    value: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+    type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event:
+    value: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+    type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: [all, 1-5, 6-10, 11-18, all_aggregated] # list of lead times (in hours) for which metrics should be calculated for  
   file_format: parquet # file format for metrics. Options are: parquet, csv. Default is parquet.
 
@@ -295,10 +301,10 @@ Sample config for verifying operational NWM v3 forecasts across multiple locatio
 ```yaml
 general: # define which of the 5 steps to run; each step can be run independently, assuming data from previous steps (from previous runs) are available for use
   steps:
-    fetch_fcst_data: false
-    fetch_obs_data: false
-    pair_data: false
-    compute_metrics: false
+    fetch_fcst_data: true
+    fetch_obs_data: true
+    pair_data: true
+    compute_metrics: true
     plot_metrics: true
 
   location_set_name: calib_basin_group1 # user-specified name for the set of locations
@@ -343,10 +349,12 @@ metrics:
   library: nwm.eval # library to be used for metric calculation; currently supported options: teehr, nwm.eval
   metric_subset: 'all' # list of metrics to be calculated; if set to 'all', all available metrics will be calculated 
   metric_exclude: [PKBIAS, PKTE, EVBIAS, FBIAS] # list of metrics to be excluded from calculation (leave blank if no need to exclude any metrics)
-  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
-  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
-  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
-  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_categorical:
+    value: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+    type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event:
+    value: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+    type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: [all, 1-5, 6-10, 11-18] # list of lead times (in hours) for which metrics should be calculated for
 
 # For each type of plots (histogram, boxplot, spatial map), 
@@ -450,10 +458,12 @@ metrics:
   overwrite: true # whether to overwrite existing metric files
   library: nwm.eval # currently supported options: teehr, nwm.eval
   metric_subset: [KGE, NSE, CORR, NNSE, PKBIAS, PKTE, EVBIAS] # subset of metrics to calculate; if null, all available metrics will be calculated
-  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
-  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
-  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
-  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_categorical:
+    value: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+    type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event:
+    value: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+    type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: ['all'] # list of lead times (in hours) for which metrics should be calculated for  
   file_format: parquet # file format for metrics. Options are: parquet, csv. Default is parquet.
 
@@ -589,10 +599,8 @@ plots:
 | library | str \| NoneType | Library to use for metric computation. Valid options: nwm.eval, teehr.  | nwm.eval | nwm.eval |
 | metric_subset | str \| List[str] | Subset of metrics to compute. Can be 'all' or a list of metric names. If 'all', all available metrics in the specified library will be computed. If a list of metric names is provided, only those metrics will be computed. | None | all |
 | metric_exclude | List[str] \| NoneType | List of metric names to exclude from metric_subset for computation.  | None | ['HSEG_FDC', 'MSEG_FDC', 'LSEG_FDC'] |
-| threshold_categorical | float \| NoneType | Threshold for categorical flow metrics. | 0.9 | 0.85 |
-| threshold_categorical_type | str = quantile \| absolute \| NoneType | ("Type of threshold for categorical flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",) | quantile | quantile |
-| threshold_event | float \| NoneType | Threshold for event-based flow metrics. | 0.9 | 0.85 |
-| threshold_event_type | str = quantile \| absolute \| NoneType | ("Type of threshold for event-based flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",) | quantile | quantile |
+| threshold_categorical | Dict[str, float \| str] \| NoneType | Threshold for categorical metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value. | {'value': 0.9, 'type': 'quantile'} | {'value': 0.9, 'type': 'quantile'} |
+| threshold_event | Dict[str, float \| str] \| NoneType | Threshold for event-based metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value. | {'value': 0.9, 'type': 'quantile'} | {'value': 0.9, 'type': 'quantile'} |
 | file_format | str \| NoneType | File format for output files. Valid options are 'parquet' and 'csv'. | parquet | parquet |
 
 #### `NWMForecastConfig`

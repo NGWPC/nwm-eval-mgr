@@ -48,10 +48,12 @@ metrics:
   library: nwm.eval # library to be used for metric calculation; currently supported options: teehr, nwm.eval
   metric_subset: 'all' # list of metrics to be calculated; if set to 'all', all available metrics will be calculated 
   metric_exclude: [PKBIAS, PKTE, EVBIAS, FBIAS] # list of metrics to be excluded from calculation (leave blank if no need to exclude any metrics)
-  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
-  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
-  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
-  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_categorical:
+    value: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+    type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event:
+    value: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+    type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: [all, 1-5, 6-10, 11-18] # list of lead times (in hours) for which metrics should be calculated for
 
 # For each type of plots (histogram, boxplot, spatial map), 

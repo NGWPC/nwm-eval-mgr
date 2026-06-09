@@ -58,10 +58,12 @@ metrics:     # Configuration for metrics.
   library: 'nwm.eval'     # Library to use for metric computation. Valid options: nwm.eval, teehr. 
   metric_subset: 'all'     # Subset of metrics to compute, either 'all' or a list of metric names.
   metric_exclude: ['HSEG_FDC', 'MSEG_FDC', 'LSEG_FDC']     # List of metric names to exclude from metric_subset for computation. 
-  threshold_categorical: 0.9     # Threshold for categorical flow metrics.
-  threshold_categorical_type: 'quantile'     # ("Type of threshold for categorical flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",)
-  threshold_event: 0.9     # Threshold for event-based flow metrics.
-  threshold_event_type: 'quantile'     # ("Type of threshold for event-based flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",)
+  threshold_categorical:     # Threshold for categorical metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.
+    value: 0.9
+    type: quantile
+  threshold_event:     # Threshold for event-based metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.
+    value: 0.9
+    type: quantile
   file_format: 'parquet'     # File format for output files. Valid options are 'parquet' and 'csv'.
 plots:     # Configuration for plots.
   histogram:     # Configuration for histogram plots.

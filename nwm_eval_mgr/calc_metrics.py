@@ -355,20 +355,14 @@ def calc_metrics_group(conf: dict, pair_file: Path, geofile: Path) -> pd.DataFra
             )
 
         elif conf_met["library"] == "nwm.eval":
-            threshold_categorical = {
-                "value": conf_met["threshold_categorical"],
-                "type": conf_met["threshold_categorical_type"],
-            }
-            threshold_event = {
-                "value": conf_met["threshold_event"],
-                "type": conf_met["threshold_event_type"],
-            }
-
             df_metrics = pd.concat(
                 [
                     df_metrics,
                     calc_nwm_eval_metrics(
-                        pair_file1, metrics, threshold_categorical, threshold_event
+                        pair_file1,
+                        metrics,
+                        conf_met["threshold_categorical"],
+                        conf_met["threshold_event"],
                     ),
                 ],
                 ignore_index=True,

@@ -681,35 +681,29 @@ class MetricsConfig(LeadTimesMixin):
         ),
     )
 
-    threshold_categorical: float | None = Field(
-        default=0.9,
-        examples=[0.85, 0.9, 0.95],
-        description="Threshold for categorical flow metrics.",
-    )
-
-    threshold_categorical_type: Literal["quantile", "absolute"] | None = Field(
-        default="quantile",
-        examples=["quantile", "absolute"],
+    threshold_categorical: Optional[dict[str, Union[float, str]]] = Field(
+        default={"value": 0.9, "type": "quantile"},
+        examples=[
+            {"value": 0.9, "type": "quantile"},
+            {"value": 10.0, "type": "absolute"},
+        ],
         description=(
-            "Type of threshold for categorical flow metrics. Valid options are 'quantile' and 'absolute'. "
+            "Threshold for categorical metrics. Valid options for type are 'quantile' and 'absolute'. "
             "If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. "
-            "If 'absolute', the threshold will be the specified absolute flow value.",
+            "If 'absolute', the threshold will be the specified absolute flow value."
         ),
     )
 
-    threshold_event: float | None = Field(
-        default=0.9,
-        examples=[0.85, 0.9, 0.95],
-        description="Threshold for event-based flow metrics.",
-    )
-
-    threshold_event_type: Literal["quantile", "absolute"] | None = Field(
-        default="quantile",
-        examples=["quantile", "absolute"],
+    threshold_event: Optional[dict[str, Union[float, str]]] = Field(
+        default={"value": 0.9, "type": "quantile"},
+        examples=[
+            {"value": 0.9, "type": "quantile"},
+            {"value": 10.0, "type": "absolute"},
+        ],
         description=(
-            "Type of threshold for event-based flow metrics. Valid options are 'quantile' and 'absolute'. "
+            "Threshold for event-based metrics. Valid options for type are 'quantile' and 'absolute'. "
             "If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. "
-            "If 'absolute', the threshold will be the specified absolute flow value.",
+            "If 'absolute', the threshold will be the specified absolute flow value."
         ),
     )
 
