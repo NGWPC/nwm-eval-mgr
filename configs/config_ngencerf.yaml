@@ -5,17 +5,15 @@ general:
     pair_data: true
     compute_metrics: true
     plot_metrics: true
-  location_set_name: usgs_50070900  # user-specified name for the set of locations
-  location_list: ['50070900'] # list of usgs gage IDs
+  location_set_name: usgs_01123000  # user-specified name for the set of locations
+  location_list: ['01123000'] # list of usgs gage IDs
   location_type: usgs_gage # location type
   variable_name: streamflow # currently only 'streamflow' is supported
-  nwm_configuration: standard_ana_puertorico  # must match one of the configurations defined in fcst_config_file  
+  nwm_configuration: short_range # must match one of the configurations defined in fcst_config_file  
   dataset_name: [noah_cfes] # user-specified name of datasets (e.g., formualtion name
   nwm_version: [ngen] # list of NWM versions; must have the same length as 'dataset_name'
-  #forecast_start_date: ['2022-12-01 00:00:00'] # list of start dates for verification; must be same length as 'dataset_name'
-  #forecast_end_date: ['2022-12-01 00:00:00'] # list of end dates for verification; must be same length as 'dataset_name'
-  forecast_start_date: ['2026-02-10 00:00:00'] # list of start dates for simulation; must be same length as 'dataset_name'
-  forecast_end_date: ['2026-02-10 00:00:00']
+  forecast_start_date: ['2022-12-01 00:00:00'] # list of start dates for verification; must be same length as 'dataset_name'
+  forecast_end_date: ['2022-12-01 00:00:00'] # list of end dates for verification; must be same length as 'dataset_name'
 
 file_paths:
   base_dir: ~/repos/nwm-eval-mgr/data/ # root directory to store data/outputs for verification
@@ -41,8 +39,10 @@ metrics:
   overwrite: true # whether to overwrite existing metric files
   library: nwm.eval # currently supported options: teehr, nwm.eval
   metric_subset: 'all'
-  flow_threshold_categorical: 0.9 # non-exceedance probability threshold of streamflow to be used for categorical metrics in nwm.eval 
-  flow_threshold_event: 0.9 # non-exceedance probability threshold of streamflow to be used for event-based metrics in nwm.eval
+  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: ['all_aggregated'] # list of lead times (in hours) for which metrics should be calculated for  
   file_format: parquet # file format for metrics. Options are: parquet, csv. Default is parquet.
 

@@ -172,6 +172,7 @@ def rmse_std_ratio(
     y_true: pd.Series,
     y_pred: pd.Series,
     root: Optional[bool] = False,
+    warning_msg: Optional[bool] = False,
 ) -> float:
     """Compute ratio of RMSE between simulation and observation to standard deviation of observation.
 
@@ -179,19 +180,21 @@ def rmse_std_ratio(
         y_true (pd.Series): Ground truth or observations
         y_pred (pd.Series): Modeled values or simulations
         root (bool, optional): When True, compute RMSE for the numerator; when False, compute MSE for the numerator.
+        warning_msg (bool, optional): When True, display a warning message if the denominator is zero.
 
     Returns:
         float: Ratio of RMSE and standard deviation of observation
 
     """
-    rmse = root_mean_squared_error(y_true, y_pred, root=True)
+    rmse = root_mean_squared_error(y_true, y_pred, root=root)
     denominator = np.std(y_true)
 
     if denominator != 0:
         rsr = rmse / denominator
     else:
         rsr = np.nan
-        warnings.warn("'np.std(y_true) = 0', can't compute RSR")
+        if warning_msg:
+            logger.warning("'np.std(y_true) = 0', can't compute RSR")
 
     return rsr
 
@@ -199,12 +202,14 @@ def rmse_std_ratio(
 def percent_bias(
     y_true: pd.Series,
     y_pred: pd.Series,
+    warning_msg: Optional[bool] = False,
 ) -> float:
     """Compute mean squared error, or optionally root mean squared error.
 
     Args:
         y_true (pd.Series): Ground truth or observations
         y_pred (pd.Series): Modeled values or simulations
+        warning_msg (bool, optional): When True, display a warning message if the denominator is zero.
 
     Returns:
         float: Percent bias
@@ -216,7 +221,8 @@ def percent_bias(
     if denominator != 0:
         return pbias
     else:
-        logger.warning("'np.sum(y_true) = 0', can't compute PBIAS")
+        if warning_msg:
+            logger.warning("'np.sum(y_true) = 0', can't compute PBIAS")
         return np.nan
 
 
@@ -226,6 +232,7 @@ def nse(
     fun: Optional[str] = None,
     epsilon: Union[None, str] = [None, "Pushpalatha2012"],
     normalized: Optional[bool] = False,
+    warning_msg: Optional[bool] = False,
 ) -> float:
     """Compute Nash-Sutcliffe efficiency.
 
@@ -266,7 +273,8 @@ def nse(
             return 1.0 / (1.0 + numerator / denominator)
         return 1.0 - numerator / denominator
     else:
-        logger.warning("'denominator = 0', can't compute NSE")
+        if warning_msg:
+            logger.warning("'denominator = 0', can't compute NSE")
         return np.nan
 
 
@@ -401,7 +409,9 @@ def pbias_fdc(
     else:
         pbias_hseg_fdc = np.nan
         if warning_msg:
-            warnings.warn("'denominator = 0', can't compute PBIAS for peak flow of FDC")
+            logger.warning(
+                "'denominator = 0', can't compute PBIAS for peak flow of FDC"
+            )
 
     # Compute pbias of midsegment slope of FDC
     term1 = y_pred_sort[np.abs(y_pred_prob - hqthr).argmin()]
@@ -417,11 +427,13 @@ def pbias_fdc(
         else:
             pbias_mseg_fdc = np.nan
             if warning_msg:
-                warnings.warn("'denominator = 0', can't compute PBIAS for slope of FDC")
+                logger.warning(
+                    "'denominator = 0', can't compute PBIAS for slope of FDC"
+                )
     else:
         pbias_mseg_fdc = np.nan
         if warning_msg:
-            warnings.warn(
+            logger.warning(
                 "'0 as argument for np.log', can't compute PBIAS for slope of FDC"
             )
 
@@ -443,13 +455,13 @@ def pbias_fdc(
         else:
             pbias_lseg_fdc = np.nan
             if warning_msg:
-                warnings.warn(
+                logger.warning(
                     "'denominator = 0', can't compute PBIAS for low flow of FDC"
                 )
     else:
         pbias_lseg_fdc = np.nan
         if warning_msg:
-            warnings.warn(
+            logger.warning(
                 "'0 as argument for np.log', can't compute PBIAS for low flow of FDC"
             )
 
@@ -463,23 +475,25 @@ def pbias_fdc(
 def categorical_score(
     y_true: pd.Series,
     y_pred: pd.Series,
-    threshold: Optional[float] = 0.9,
+    threshold: float,
 ) -> Dict[str, float]:
     """Compute probability of detection (POD), probability of false_alarm (FAR), cirtical success index (CSI) and frequency bias (FBIAS).
 
     Args:
         y_true (pd.Series) : Ground truth or observations
         y_pred (pd.Series) : Modeled values or simulations
-        threshold (float, optional): threshold value in percentile (or non-exceedance probability). Default is 0.9
+        threshold (float): threshold value for categorizing observations and simulations.
+
 
     Returns:
         Dictionary of categorical score values
 
     """
-    thresh_val = y_true.quantile(threshold)
+    if threshold is None or pd.isna(threshold):
+        return {"POD": np.nan, "FAR": np.nan, "CSI": np.nan, "FBIAS": np.nan}
 
-    observed = y_true > thresh_val
-    simulated = y_pred > thresh_val
+    observed = y_true > threshold
+    simulated = y_pred > threshold
     contingency_table = hm.compute_contingency_table(observed, simulated)
     pod = hm.probability_of_detection(contingency_table)
     far = hm.probability_of_false_alarm(contingency_table)
@@ -487,6 +501,29 @@ def categorical_score(
     fbias = hm.frequency_bias(contingency_table)
 
     return {"POD": pod, "FAR": far, "CSI": csi, "FBIAS": fbias}
+
+
+def get_threshold_value(data: pd.Series, threshold: dict) -> float:
+    """Get threshold value based on the specified threshold type and value.
+
+    Args:
+        data (pd.Series): time series data (e.g., observed values) used to calculate threshold value when threshold type is "quantile"
+        threshold (dict): Dictionary containing threshold value and type. Example: {"value": 0.9, "type": "quantile"} or {"value": 10, "type": "absolute"}
+
+    Returns:
+        float: threshold value
+
+    """
+    if threshold["type"] == "quantile":
+        thresh_val = data.quantile(threshold["value"])
+    elif threshold["type"] == "absolute":
+        thresh_val = threshold["value"]
+    else:
+        msg = f"Unsupported threshold type: {threshold['type']}. Please use 'quantile' or 'absolute'."
+        logger.error(msg)
+        raise Exception(msg)
+
+    return thresh_val
 
 
 _all_metric_funcs = {
@@ -540,17 +577,17 @@ def calculate_metrics(
     y_true: pd.Series,
     y_pred: pd.Series,
     metrics: Optional[list] = [],
-    threshold: Optional[float] = 0.9,
-    threshold_event: Optional[float] = 0.9,
+    threshold_categorical: Optional[dict] = {"value": 0.9, "type": "quantile"},
+    threshold_event: Optional[dict] = {"value": 0.9, "type": "quantile"},
 ) -> Dict[str, float]:
-    """Compute All Statistical Metrics between simulation and observation.
+    """Compute all statistical metrics between simulation and observation.
 
     Args:
         y_true (pd.Series): Ground truth or observations
         y_pred (pd.Series): Modeled values or simulations
-        metrics (list, optional): list of metrics to be calcualted; if undefined, calcualte all metrics
-        threshold (float, optional): threshold value for calculating categorical scores. Default is 0.9.
-        threshold_event (float, optional): non-exceedance probability threshold for defining events. Default is 0.9.
+        metrics (list, optional): list of metrics to be calculated; if undefined, calculate all metrics
+        threshold_categorical (dict, optional): threshold value for calculating categorical scores. Default is {"value": 0.9, "type": "quantile"}.
+        threshold_event (dict, optional): threshold value for defining events. Default is {"value": 0.9, "type": "quantile"}.
 
     Returns:
         Dict[str, float]: dictionary of metric values
@@ -587,11 +624,15 @@ def calculate_metrics(
         elif m1 == "NNSE":
             result.update({m1: f1(y_true, y_pred, normalized=True)})
         elif m1 in ["POD", "FAR", "CSI", "FBIAS"]:
-            result.update(f1(y_true, y_pred))
+            result.update(
+                f1(y_true, y_pred, get_threshold_value(y_true, threshold_categorical))
+            )
         elif m1 in ["HSEG_FDC", "MSEG_FDC", "LSEG_FDC"]:
-            result.update(f1(y_true, y_pred, threshold))
+            result.update(f1(y_true, y_pred))
         elif m1 in ["PKBIAS", "PKTE", "EVBIAS"]:
-            result.update(f1(y_true, y_pred, threshold_event))
+            result.update(
+                f1(y_true, y_pred, get_threshold_value(y_true, threshold_event))
+            )
         else:
             raise Exception(f"Unsupported metric: {m1}")
 

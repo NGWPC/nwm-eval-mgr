@@ -96,7 +96,7 @@ nwm_forecast:     # Configuration for NWM forecast data.
   overwrite_output: False     # Whether to overwrite existing forecast data files.
   memory_per_worker_gb: 3     # Configurable memory (in GB) assigned to each worker or process.
 flow_observation:     # Configuration for flow observation data.
-  usgs:
+  usgs:     # Configuration for USGS flow observations. This is currently the only supported source of flow observations, but this section is included for future extensibility to other sources.
     chunk_by: 'month'     # How downloaded data are chunked into parquet files.
     overwrite_output: True     # If True, existing output files are overwritten. If False, existing files are retained.
     memory_per_worker_gb: 3     # Memory assigned to each worker in GB.
@@ -109,8 +109,10 @@ metrics:     # Configuration for metrics.
   library: 'nwm.eval'     # Library to use for metric computation. Valid options: nwm.eval, teehr. 
   metric_subset: 'all'     # Subset of metrics to compute, either 'all' or a list of metric names.
   metric_exclude: ['HSEG_FDC', 'MSEG_FDC', 'LSEG_FDC']     # List of metric names to exclude from metric_subset for computation. 
-  flow_threshold_categorical: 0.9     # Threshold for categorical flow metrics.
-  flow_threshold_event: 0.9     # Threshold for event-based flow metrics.
+  threshold_categorical: 0.9     # Threshold for categorical flow metrics.
+  threshold_categorical_type: 'quantile'     # ("Type of threshold for categorical flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",)
+  threshold_event: 0.9     # Threshold for event-based flow metrics.
+  threshold_event_type: 'quantile'     # ("Type of threshold for event-based flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",)
   file_format: 'parquet'     # File format for output files. Valid options are 'parquet' and 'csv'.
 plots:     # Configuration for plots.
   histogram:     # Configuration for histogram plots.
@@ -200,8 +202,10 @@ metrics:
   overwrite: true # whether to overwrite existing metric files
   library: nwm.eval # currently supported options: teehr, nwm.eval
   metric_subset: 'all'
-  flow_threshold_categorical: 0.9 # non-exceedance probability threshold of streamflow to be used for categorical metrics in nwm.eval 
-  flow_threshold_event: 0.9 # non-exceedance probability threshold of streamflow to be used for event-based metrics in nwm.eval
+  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: ['all_aggregated'] # list of lead times (in hours) for which metrics should be calculated for  
   file_format: parquet # file format for metrics. Options are: parquet, csv. Default is parquet.
 
@@ -262,8 +266,10 @@ metrics:
   overwrite: true # whether to overwrite existing metric files
   library: nwm.eval # currently supported options: teehr, nwm.eval
   metric_subset: 'all'
-  flow_threshold_categorical: 0.9 # non-exceedance probability threshold of streamflow to be used for categorical metrics in nwm.eval 
-  flow_threshold_event: 0.9 # non-exceedance probability threshold of streamflow to be used for event-based metrics in nwm.eval
+  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: [all, 1-5, 6-10, 11-18, all_aggregated] # list of lead times (in hours) for which metrics should be calculated for  
   file_format: parquet # file format for metrics. Options are: parquet, csv. Default is parquet.
 
@@ -287,91 +293,40 @@ plots:
 Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).
 
 ```yaml
-general:
-
-  # define which of the 5 steps to run; each step can be run independently, 
-  # assuming data from previous steps (from previous runs) are available for use
+general: # define which of the 5 steps to run; each step can be run independently, assuming data from previous steps (from previous runs) are available for use
   steps:
-    fetch_fcst_data: true
-    fetch_obs_data: true
-    pair_data: true
-    compute_metrics: true
+    fetch_fcst_data: false
+    fetch_obs_data: false
+    pair_data: false
+    compute_metrics: false
     plot_metrics: true
 
-  # user-specified name for the set of locations to carry out verification for
-  # this name is used to create a folder in 'data_dir_root' (in 'file_paths' section) to store all the datasets and outputs
-  # see function 'data_paths' in nwm-verf/src/nwm/verf/settings.py to see how the overall data directory structure is defined
-  location_set_name: calib_basin_group1
-
-  # [optional] list of usgs gage IDs or NWM links IDs; if blank, a location_list_file must be provided in 'file_paths' section
-  # if both location_list and location_list_file are provided, location_list takes precedence
-  location_list:
-
-  # [optional] must be specified if locaiton_list is not blank; currently supported options: usgs_gage, nwm30_link 
-  location_type:
-
+  location_set_name: calib_basin_group1 # user-specified name for the set of locations
   variable_name: streamflow # currently only 'streamflow' is supported
   nwm_configuration: short_range   # Currently, only short_range, short_range_alaska, short_range_hawaii, and short_range_puertorico are supported
+  dataset_name: [v3_sep, v3_oct] # user-specified name of datasets (used for creating sub-folders for datasets and plots) 
+  nwm_version: [nwm30, nwm30] # list of NWM versions; must have the same length as 'dataset_name'.
+  forecast_start_date: ['2024-09-01 00:00:00', '2024-10-01 00:00:00'] # list of start date for forecast verification period; list must have the same length as 'dataset_name'
+  forecast_end_date: ['2024-09-30 23:00:00', '2024-10-30 23:00:00'] # list of end date for forecast verification period; list must have the same length as 'dataset_name'
 
-  # user-specified name of datasets (used for creating sub-folders for datasets and plots)
-  # must be a list of one or more strings
-  dataset_name: [v3_sep, v3_oct]
-
-  # list of NWM versions; must have the same length as 'dataset_name'. Currently only option is "nwm30"
-  nwm_version: [nwm30, nwm30]
-
-  # list of start/end dates for forecast verification period; list must have the same length as 'dataset_name'
-  # date ranges specified must be applicable to the corresponding NWM archive in Google Cloud 
-  forecast_start_date: ['2024-09-01 00:00:00', '2024-10-01 00:00:00']
-  forecast_end_date: ['2024-09-30 23:00:00', '2024-10-30 23:00:00']
-
-file_paths:
-
-  # root directory to store the downloaded NWM forecast and flow observation data
-  base_dir: ~/repos/nwm-verf/data/ 
-
-  # [optional] but either location_list (in 'general' section) or location_list_file must be specifed
-  # tab or comma delimited csv file, and must contain either a "gage" or 
-  # a "link" column (e.g., nwm30_link) specifying the locations to conduct verification for 
-  # sample files for different domains are available at nwm-verf/sample_files/gage_files
-  # below is a sample file with 100 calibrated USGS gages for CONUS domain
-  location_list_file: "{base_dir}/inputs/gage_files/usgs_gages_link_CONUS_calib100.csv"
-
-  # parquet files containing the crosswalk between NWM feature_id and usgs gage id
-  # note a crosswalk file should be provided for each NWM version listed in 'general/nwm_version'
-  crosswalk_file: '{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet'
-
-  # NWM forecast configuration file
-  fcst_config_file: '{base_dir}/inputs/nwm_forecast_configuration.yaml'
-
-  # output directory to store all datasets and plots
-  output_dir: '{base_dir}/outputs/{location_set_name}'
+file_paths:  
+  base_dir: ~/repos/nwm-eval-mgr/data/  # root directory to store the downloaded NWM forecast and flow observation data
+  location_list_file: "{base_dir}/inputs/gage_files/usgs_gages_link_CONUS_calib100.csv" # [optional] file path for the list of locations (e.g., gage IDs or NWM link IDs)
+  crosswalk_file: '{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet' # parquet files containing the crosswalk between NWM feature_id and usgs gage id  
+  fcst_config_file: '{base_dir}/inputs/nwm_forecast_configuration.yaml' # NWM forecast configuration file  
+  output_dir: '{base_dir}/outputs/{location_set_name}' # output directory to store all datasets and plots
 
 nwm_forecast:
   data_source: GCS    # Specifies the source to retrieve the model forecast or simulation data. Currently supported options: GCS, ngenCERF, ngenSIM
-  # fields below are only needed when data_source is set to "GCS"
   fetch_fcst: [true, true]  # whether to fetch the forecast data for each dataset listed in ['general']['dataset_name']  
   output_type: channel_rt
   t_minus: [0, 1, 2]  # Only used if an assimilation run is selected
-  kerchunk_method: local  # When data_source = "GCS", specifies the preference in creating Kerchunk reference json files.
-                          # "local" - always create new json files from netcdf files in GCS and save locally, if they do not already exist
-                          # "remote" - read the CIROH pre-generated jsons from s3, ignoring any that are unavailable
-                          # "auto" - read the CIROH pre-generated jsons from s3, and create any that are unavailable, storing locally
-
-  process_by_z_hour: true  # If True, NWM files will be processed by z-hour per day. If False, files will be
-                         # processed in chunks (defined by STEPSIZE). This can help if you want to read many reaches
-                         # at once (all ~2.7 million for medium range for example).
-
+  kerchunk_method: local  
+  process_by_z_hour: true  
   stepsize: 100  # Only used if PROCESS_BY_Z_HOUR = False. Controls how many files are processed in memory at once
-                # Higher values can increase performance at the expense on memory  (default value: 100)
-
-  ignore_missing_file: false  # If True, the missing file(s) will be skipped and the process will resume
-                           # If False, TEEHR will fail if a missing NWM file is encountered
-
+  ignore_missing_file: false  # If True, the missing file(s) will be skipped and the process will resume; if False, TEEHR will fail if a missing NWM file is encountered
   overwrite_output: false  # If True, existing output files will be overwritten; if False, existing files are retained
-
   memory_per_worker_gb: 3  # configurable memory (in GB) assigned to each worker
-
 
 flow_observation:
   usgs: # flow obs retrieved will be stored at [data_dir_root]/[location_set_name]/usgs
@@ -379,84 +334,40 @@ flow_observation:
     overwrite_output: false  # If True, existing output files will be overwritten; if False, existing files are retained
     memory_per_worker_gb: 3  # configurable memory (in GB) assigned to each worker
 
+pair_data:  
+  overwrite: true # whether to overwrite existing joined parquet files
+  group_size: 200 # break large location list into smaller groups (for pair_data and cacl_metrics steps) to avoid potential memory issues and to speed up processing
 
-pair_data:
-
-  # whether to overwrite existing joined parquet files
-  overwrite: true
-
-  # break large location list into smaller groups (for pair_data and cacl_metrics steps) to avoid potential memory issues and to speed up processing
-  group_size: 200
-
-metrics:
-
-  # whether to overwrite existing metric files
-  overwrite: true
-
-  # library to be used for metric calculation; currently supported options: teehr, nwm.eval
-  # see the lists of supported metrics toward the end of sample config.yaml file (also nwm-verf/src/nwm/verf/settings.py)
-  library: nwm.eval
-
-  # list of metrics to be calculated 
-  # if set to 'all', all available metrics will be calculated
-  # [caution] some metrics available in nwm.eval (e.g., event-based metrics) may be time consuming to compute
-  #metric_subset: [KGE, NSE, CORR, NNSE]
-  metric_subset: 'all'
-
-  # list of metrics to be excluded from calculation (leave blank if no need to exclude any metrics)
-  # here the event-based metrics are excluded because they are time consuming to run
-  metric_exclude: [PKBIAS, PKTE, EVBIAS, FBIAS]
-
-  # non-exceedance probability threshold of streamflow to be used for categorical metrics in nwm.eval
-  flow_threshold_categorical: 0.9
-
-  # non-exceedance probability threshold of streamflow to be used for event-based metrics in nwm.eval
-  flow_threshold_event: 0.9
-
-  # list of lead times (in hours) for which metrics should be calculated for
-  # the lead times can be integers (e.g., 1,2), or an interval (e.g., 1-3), or 'all'
-  # if set to 'all', all raw lead times (i.e., 1, 2, ..., 18 in the case of short-range forecasts) will be calculated
-  #lead_times: [1,3,5,'1-3','1-5','4-6','6-10']
-  lead_times: [all, 1-5, 6-10, 11-18]
+metrics:  
+  overwrite: true # whether to overwrite existing metric files
+  library: nwm.eval # library to be used for metric calculation; currently supported options: teehr, nwm.eval
+  metric_subset: 'all' # list of metrics to be calculated; if set to 'all', all available metrics will be calculated 
+  metric_exclude: [PKBIAS, PKTE, EVBIAS, FBIAS] # list of metrics to be excluded from calculation (leave blank if no need to exclude any metrics)
+  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
+  lead_times: [all, 1-5, 6-10, 11-18] # list of lead times (in hours) for which metrics should be calculated for
 
 # For each type of plots (histogram, boxplot, spatial map), 
 #   1) 'metric_subset' must be a subset of metrics defined for calculation (i.e., 'metric_subset' defined in Section 'metrics')
 #   2) 'lead_times' must be a subset of lead times defined for metrics calculation (i.e., 'lead_times' defined in Section 'metrics')
 plots:
   histogram:
-
-    # whether to create histogram plots
-    plot: true
-
-    # list of metrics to create histogram plots for
-    metric_subset: [KGE, NSE, CORR, NNSE]
-
-    # for each metric, define list of bin edges for generating the histogram plot
-    # For 'KGE','NSE','CORR' and 'NNSE', default bins (see settings.py) will be used if not defined. 
-    # For other metrics, the data will be cut into 8 equal-width bins if bin edges are not provided 
-    binning:
+    plot: true # whether to create histogram plots    
+    metric_subset: [KGE, NSE, CORR, NNSE] # list of metrics to create histogram plots for
+    binning: # for each metric, define list of bin edges for generating the histogram plot
       KGE: [-inf, -1, -0.5, 0, 0.2, 0.4, 0.6, 0.8, 1.0]
       NSE: [-inf, -1, -0.5, 0, 0.2, 0.4, 0.6, 0.8, 1.0]
       NNSE: [0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0]
-      CORR: [-1, -0.5, 0, 0.2, 0.4, 0.6, 0.8, 1.0]
+      CORR: [-1, -0.5, 0, 0.2, 0.4, 0.6, 0.8, 1.0]    
+    lead_times: [1, 3, 5, 10, 15, 18, 1-5, 6-10, 11-18] # list of lead times (in hours) to create histograms for
+    tag:  # optional string that gets added to the filename of histogram plots to differentiate between runs
 
-    # list of lead times (in hours) to create histograms for
-    lead_times: [1, 3, 5, 10, 15, 18, 1-5, 6-10, 11-18]
-
-    # define a string that gets added to the filename of histogram plots to differentiate between plots 
-    # of different lead time groups or different binning scenarios, to avoid overwriting the existing plots. 
-    # Leave it blank if overwriting is desired
-    tag:
-
-  boxplot: # the same comments for histogram apply here (except for binning)
+  boxplot: 
     plot: true
-    metric_subset: [KGE, NSE, CORR, NNSE]
-
-    # Define an appropriate range (min/max) for each metric to scale the boxplot.
-    # Default ranges (see settings.py) will be applied for 'KGE', 'NSE', 'CORR', and 'NNSE' if not specified.
-    # For other metrics, if a range is not defined, values will remain unscaled, 
-    #    which may result in improperly displayed statistics due to outliers.    
-    scaling:
+    metric_subset: [KGE, NSE, CORR, NNSE]   
+    scaling:  # Define an appropriate range (min/max) for each metric to scale the values for better visualization of boxplot
       KGE: [-0.5, 1]
       NSE: [-0.5, 1]
       CORR: [-0.5, 1]
@@ -465,19 +376,14 @@ plots:
       MAE: [0, 5]
       RMSE: [0, 20]
       PBIAS: [-100, 300]
-
     lead_times: [1, 3, 5, 10, 15, 18, 1-5, 6-10, 11-18]
     show_outliers: false
     tag:
 
   spatial_map:
-    plot: true
-
-    # list of metrics to create spatial maps for
-    metric_subset: [KGE, NSE, CORR, NNSE]
-
-    # Define an appropriate range (min/max) for each metric to scale the values for the spatial map
-    scaling:
+    plot: true    
+    metric_subset: [KGE, NSE, CORR, NNSE]    
+    scaling: # Define an appropriate range (min/max) for each metric to scale the values for the spatial map
       KGE: [-0.5, 1]
       NSE: [-0.5, 1]
       CORR: [-0.5, 1]
@@ -486,10 +392,7 @@ plots:
       MAE: [0, 20]
       RMSE: [0, 20]
       PBIAS: [-100, 300]
-
     lead_times: [1, 3, 5, 10, 15, 18, 1-5, 6-10, 11-18]
-
-    # define a string that gets added to the filename of spatial map plots to avoid overwriting the existing ones (if any)
     tag:
 ```
 
@@ -547,8 +450,10 @@ metrics:
   overwrite: true # whether to overwrite existing metric files
   library: nwm.eval # currently supported options: teehr, nwm.eval
   metric_subset: [KGE, NSE, CORR, NNSE, PKBIAS, PKTE, EVBIAS] # subset of metrics to calculate; if null, all available metrics will be calculated
-  flow_threshold_categorical: 0.9 # non-exceedance probability threshold of streamflow to be used for categorical metrics in nwm.eval 
-  flow_threshold_event: 0.9 # non-exceedance probability threshold of streamflow to be used for event-based metrics in nwm.eval
+  threshold_categorical: 0.9 # threshold value to be used for categorical metrics in nwm.eval 
+  threshold_categorical_type: quantile # type of threshold for categorical metrics in nwm.eval; options are 'quantile' or 'absolute'
+  threshold_event: 0.9 # threshold value to be used for event-based metrics in nwm.eval
+  threshold_event_type: quantile # type of threshold for event-based metrics in nwm.eval; options are 'quantile' or 'absolute'
   lead_times: ['all'] # list of lead times (in hours) for which metrics should be calculated for  
   file_format: parquet # file format for metrics. Options are: parquet, csv. Default is parquet.
 
@@ -633,7 +538,7 @@ plots:
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
-| usgs | USGSConfig | No description provided | None |  |
+| usgs | USGSConfig | Configuration for USGS flow observations. This is currently the only supported source of flow observations, but this section is included for future extensibility to other sources. | chunk_by='month' overwrite_output=True memory_per_worker_gb=3 | chunk_by='month' overwrite_output=True memory_per_worker_gb=3 |
 
 #### `GeneralConfig`
 
@@ -684,8 +589,10 @@ plots:
 | library | str \| NoneType | Library to use for metric computation. Valid options: nwm.eval, teehr.  | nwm.eval | nwm.eval |
 | metric_subset | str \| List[str] | Subset of metrics to compute. Can be 'all' or a list of metric names. If 'all', all available metrics in the specified library will be computed. If a list of metric names is provided, only those metrics will be computed. | None | all |
 | metric_exclude | List[str] \| NoneType | List of metric names to exclude from metric_subset for computation.  | None | ['HSEG_FDC', 'MSEG_FDC', 'LSEG_FDC'] |
-| flow_threshold_categorical | float \| NoneType | Threshold for categorical flow metrics. | 0.9 | 0.85 |
-| flow_threshold_event | float \| NoneType | Threshold for event-based flow metrics. | 0.9 | 0.85 |
+| threshold_categorical | float \| NoneType | Threshold for categorical flow metrics. | 0.9 | 0.85 |
+| threshold_categorical_type | str = quantile \| absolute \| NoneType | ("Type of threshold for categorical flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",) | quantile | quantile |
+| threshold_event | float \| NoneType | Threshold for event-based flow metrics. | 0.9 | 0.85 |
+| threshold_event_type | str = quantile \| absolute \| NoneType | ("Type of threshold for event-based flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",) | quantile | quantile |
 | file_format | str \| NoneType | File format for output files. Valid options are 'parquet' and 'csv'. | parquet | parquet |
 
 #### `NWMForecastConfig`

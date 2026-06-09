@@ -611,6 +611,7 @@ def plot_event_timeseries(
     start_time: Optional[str] = None,
     end_time: Optional[str] = None,
     threshold: Optional[float] = None,
+    threshold_unit: Optional[str] = "m3/s",
     plot_filename: Optional[str] = None,
 ):
     """Plot observed and simulated streamflow time series with event peak markers.
@@ -622,7 +623,7 @@ def plot_event_timeseries(
         events_sim: simulated events with columns "start", "end", "peak", "peak_value"
         start_time: optional start time to subset the series for plotting
         end_time: optional end time to subset the series for plotting
-        threshold: optional quantile threshold to plot as a horizontal line
+        threshold: optional event threshold to plot as a horizontal line
         plot_filename: optional filename to save the plot
 
     Returns:
@@ -689,10 +690,10 @@ def plot_event_timeseries(
     # Plot threshold line if provided
     if threshold is not None:
         ax.axhline(
-            y=y_true.quantile(threshold),
+            y=threshold,
             color="gray",
             linestyle="--",
-            label=f"{int(threshold * 100)}th percentile threshold",
+            label=f"Event threshold: {threshold} {threshold_unit}",
         )
 
     # Clean duplicate legend entries
@@ -754,7 +755,7 @@ def validate_events(events: pd.DataFrame) -> bool:
 def event_based_metrics(
     y_true: pd.Series,
     y_pred: pd.Series,
-    threshold: float = 0.9,
+    threshold: float,
     aggregation: str = "mean",
     separate_compound: bool = True,
     virtual_strategy: str = "both",
@@ -766,7 +767,7 @@ def event_based_metrics(
     Args:
         y_true: observed streamflow series
         y_pred: simulated streamflow series
-        threshold: quantile threshold for event detection
+        threshold: flow threshold for event detection
         aggregation: method to aggregate metrics across events ("mean" or "median")
         separate_compound: whether to separate compound events into single-peak events
         virtual_strategy: strategy for handling unmatched events by creating virtual events ("none", "obs", "mod", "both")
@@ -777,6 +778,9 @@ def event_based_metrics(
         Dictionary with keys "PKBIAS", "PKTE", and "EVBIAS" containing the corresponding metric values.
 
     """
+    if threshold is None or np.isnan(threshold):
+        return {"PKBIAS": np.nan, "PKTE": np.nan, "EVBIAS": np.nan}
+
     # Step 1: preprocessing (resample + interpolate)
     y_true0 = preprocess_series(y_true)
     y_pred0 = preprocess_series(y_pred)
@@ -791,7 +795,6 @@ def event_based_metrics(
     events_all = []
 
     # Step 3: per-chunk event processing
-    thresh_val = y_true0.quantile(threshold)
     for y_true_chunk in y_true_chunks:
         y_pred_chunk = y_pred0.loc[y_true_chunk.index]
 
@@ -823,7 +826,7 @@ def event_based_metrics(
         events_paired = pair_events(
             events_obs,
             events_mod,
-            thresh_val,
+            threshold,
             virtual_strategy=virtual_strategy,
         )
 

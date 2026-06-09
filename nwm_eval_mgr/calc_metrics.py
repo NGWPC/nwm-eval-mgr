@@ -112,14 +112,18 @@ def calc_teehr_metrics(
 
 
 def func_calc_metrics(
-    df: pd.DataFrame, metrics: list[str], thresholds: list = [0.9, 0.9]
+    df: pd.DataFrame,
+    metrics: list[str],
+    threshold_categorical: Optional[dict] = {"value": 0.9, "type": "quantile"},
+    threshold_event: Optional[dict] = {"value": 0.9, "type": "quantile"},
 ) -> pd.DataFrame:
     """Calculate nwm.eval metrics for a given dataframe of paired data.
 
     Args:
         df: DataFrame containing paired data.
         metrics: List of metric names to calculate.
-        thresholds: List of thresholds for categorical and event-based metrics.
+        threshold_categorical: Threshold for categorical metrics.
+        threshold_event: Threshold for event-based metrics.
 
     Returns:
         A DataFrame containing the calculated metrics for each location and lead group.
@@ -132,8 +136,8 @@ def func_calc_metrics(
             pd.Series(df1["primary_value"]),
             pd.Series(df1["secondary_value"]),
             metrics,
-            thresholds[0],
-            thresholds[1],
+            threshold_categorical,
+            threshold_event,
         )
         values["lead_group"] = df1["lead_group"].unique()[0]
         values["primary_location_id"] = df1["primary_location_id"].unique()[0]
@@ -144,14 +148,16 @@ def func_calc_metrics(
 def calc_nwm_eval_metrics(
     pairs: Path,
     metrics: list[str],
-    thresholds: Optional[list] = [0.9, 0.9],
+    threshold_categorical: Optional[dict] = {"value": 0.9, "type": "quantile"},
+    threshold_event: Optional[dict] = {"value": 0.9, "type": "quantile"},
 ) -> pd.DataFrame:
     """Calculate nwm.eval metrics for a given dataframe of paired data.
 
     Args:
         pairs: Path to the parquet file containing paired data.
         metrics: List of metric names to calculate.
-        thresholds: List of thresholds for categorical and event-based metrics.
+        threshold_categorical: Threshold for categorical metrics.
+        threshold_event: Threshold for event-based metrics.
 
     Returns:
         A DataFrame containing the calculated metrics for each location and lead group.
@@ -191,7 +197,10 @@ def calc_nwm_eval_metrics(
                     continue  # skip empty inputs
 
                 results.append(
-                    pool.apply_async(func_calc_metrics, args=(df2, metrics, thresholds))
+                    pool.apply_async(
+                        func_calc_metrics,
+                        args=(df2, metrics, threshold_categorical, threshold_event),
+                    )
                 )
 
         new_dfs = [result.get() for result in results]
@@ -282,8 +291,6 @@ def calc_metrics_group(conf: dict, pair_file: Path, geofile: Path) -> pd.DataFra
             else list(dict_nwm_eval_metrics.keys())
         )
 
-        print(f"Calculating all available metrics for {conf_met['library']}: {metrics}")
-
     # exclude metrics as requested
     metrics_exclude = conf_met["metric_exclude"] or []
     if metrics_exclude:
@@ -348,12 +355,22 @@ def calc_metrics_group(conf: dict, pair_file: Path, geofile: Path) -> pd.DataFra
             )
 
         elif conf_met["library"] == "nwm.eval":
-            thresholds = [
-                conf_met["flow_threshold_categorical"],
-                conf_met["flow_threshold_event"],
-            ]
+            threshold_categorical = {
+                "value": conf_met["threshold_categorical"],
+                "type": conf_met["threshold_categorical_type"],
+            }
+            threshold_event = {
+                "value": conf_met["threshold_event"],
+                "type": conf_met["threshold_event_type"],
+            }
+
             df_metrics = pd.concat(
-                [df_metrics, calc_nwm_eval_metrics(pair_file1, metrics, thresholds)],
+                [
+                    df_metrics,
+                    calc_nwm_eval_metrics(
+                        pair_file1, metrics, threshold_categorical, threshold_event
+                    ),
+                ],
                 ignore_index=True,
             )
 

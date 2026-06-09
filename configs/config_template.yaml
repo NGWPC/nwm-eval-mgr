@@ -45,7 +45,7 @@ nwm_forecast:     # Configuration for NWM forecast data.
   overwrite_output: False     # Whether to overwrite existing forecast data files.
   memory_per_worker_gb: 3     # Configurable memory (in GB) assigned to each worker or process.
 flow_observation:     # Configuration for flow observation data.
-  usgs:
+  usgs:     # Configuration for USGS flow observations. This is currently the only supported source of flow observations, but this section is included for future extensibility to other sources.
     chunk_by: 'month'     # How downloaded data are chunked into parquet files.
     overwrite_output: True     # If True, existing output files are overwritten. If False, existing files are retained.
     memory_per_worker_gb: 3     # Memory assigned to each worker in GB.
@@ -58,8 +58,10 @@ metrics:     # Configuration for metrics.
   library: 'nwm.eval'     # Library to use for metric computation. Valid options: nwm.eval, teehr. 
   metric_subset: 'all'     # Subset of metrics to compute, either 'all' or a list of metric names.
   metric_exclude: ['HSEG_FDC', 'MSEG_FDC', 'LSEG_FDC']     # List of metric names to exclude from metric_subset for computation. 
-  flow_threshold_categorical: 0.9     # Threshold for categorical flow metrics.
-  flow_threshold_event: 0.9     # Threshold for event-based flow metrics.
+  threshold_categorical: 0.9     # Threshold for categorical flow metrics.
+  threshold_categorical_type: 'quantile'     # ("Type of threshold for categorical flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",)
+  threshold_event: 0.9     # Threshold for event-based flow metrics.
+  threshold_event_type: 'quantile'     # ("Type of threshold for event-based flow metrics. Valid options are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value.",)
   file_format: 'parquet'     # File format for output files. Valid options are 'parquet' and 'csv'.
 plots:     # Configuration for plots.
   histogram:     # Configuration for histogram plots.

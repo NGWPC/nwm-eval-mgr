@@ -148,6 +148,7 @@ def setup_logging(
         "distributed.comm": logging.ERROR,
         "dask": logging.WARNING,
         "tornado": logging.ERROR,
+        "botocore": logging.WARNING,
     }
 
     for name, lvl in noisy_loggers.items():

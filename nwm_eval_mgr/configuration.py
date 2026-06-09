@@ -369,6 +369,7 @@ class FilePathsConfig(BaseModel):
     )
 
     fcst_data_file: Optional[Path | str | Dict[str, Path] | Dict[str, str]] = Field(
+        default=None,
         examples=["01123000_output.csv"],
         description="Path to the forecast data file or a dictionary of forecast data files.",
     )
@@ -680,16 +681,36 @@ class MetricsConfig(LeadTimesMixin):
         ),
     )
 
-    flow_threshold_categorical: float | None = Field(
+    threshold_categorical: float | None = Field(
         default=0.9,
         examples=[0.85, 0.9, 0.95],
         description="Threshold for categorical flow metrics.",
     )
 
-    flow_threshold_event: float | None = Field(
+    threshold_categorical_type: Literal["quantile", "absolute"] | None = Field(
+        default="quantile",
+        examples=["quantile", "absolute"],
+        description=(
+            "Type of threshold for categorical flow metrics. Valid options are 'quantile' and 'absolute'. "
+            "If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. "
+            "If 'absolute', the threshold will be the specified absolute flow value.",
+        ),
+    )
+
+    threshold_event: float | None = Field(
         default=0.9,
         examples=[0.85, 0.9, 0.95],
         description="Threshold for event-based flow metrics.",
+    )
+
+    threshold_event_type: Literal["quantile", "absolute"] | None = Field(
+        default="quantile",
+        examples=["quantile", "absolute"],
+        description=(
+            "Type of threshold for event-based flow metrics. Valid options are 'quantile' and 'absolute'. "
+            "If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. "
+            "If 'absolute', the threshold will be the specified absolute flow value.",
+        ),
     )
 
     file_format: str | None = Field(
