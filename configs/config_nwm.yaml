@@ -1,9 +1,9 @@
 general: # define which of the 5 steps to run; each step can be run independently, assuming data from previous steps (from previous runs) are available for use
   steps:
-    fetch_fcst_data: false
-    fetch_obs_data: false
-    pair_data: false
-    compute_metrics: false
+    fetch_fcst_data: true
+    fetch_obs_data: true
+    pair_data: true
+    compute_metrics: true
     plot_metrics: true
 
   location_set_name: calib_basin_group1 # user-specified name for the set of locations
