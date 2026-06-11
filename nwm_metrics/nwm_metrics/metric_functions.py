@@ -55,6 +55,7 @@ def treat_values(
     remove_neg: Optional[bool] = False,
     remove_na: Optional[bool] = False,
     replace_zero: Optional[bool] = False,
+    replace_inf: Optional[bool] = False,
 ) -> pd.DataFrame:
     """Remove NaN, inf and negative values, and replace zero values of time series.
 
@@ -66,6 +67,8 @@ def treat_values(
             the ith element of both observation or simulation is removed.
         replace_zero (bool, optional): If True, when the zero value occurs at the ith element of observation or simulation,
             all observation and simulation are added with 1/100 of mean of observation according to Pushpalatha et al (2012).
+        replace_inf (bool, optional): If True, when the inf value occurs at the ith element of observation or simulation,
+            the ith element of both observation or simulation is replaced with a large finite value.
 
     Returns:
         pd.DataFrame: New DataFrame with treated values
@@ -96,10 +99,15 @@ def treat_values(
     # Replace zero values
     if replace_zero:
         if df[colnames[1:]].min().values.min() <= 0.0001:
-            df[colnames[1:]] = (
-                df[colnames[1:]] + 1.0 / 100.0 * df[colnames[1]].mean()
-            )  # this treatment does not work when mean is zero
-            # df[colnames[1:]] = df[colnames[1:]] + 0.00001
+            # df[colnames[1:]] = (
+            #     df[colnames[1:]] + 1.0 / 100.0 * df[colnames[1]].mean()
+            # )  # this treatment does not work when mean is zero
+            df[colnames[1:]] = df[colnames[1:]] + 0.00001
+
+    # Remove inf values
+    if replace_inf:
+        inf_index = df.isin([np.inf, -np.inf])
+        df[inf_index] = np.nan
 
     return df
 

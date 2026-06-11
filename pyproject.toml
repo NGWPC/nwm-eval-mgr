@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nwm_eval_mgr"
+name = "nwm-eval-mgr"
 dynamic = ["version"]
 description = "Tools for conducting simulation evaluation and forecast verification."
 readme = "README.md"
@@ -23,44 +23,12 @@ classifiers = [
 
 requires-python = ">=3.10"
 
-dependencies = [
-    "contextily",
-    "dask",
-    "geopandas",
-    "cartopy",
-    "matplotlib",
-    "pandas",
-    "seaborn",
-    "distributed",
-    "pydantic",
-    "netCDF4==1.6.3",
-    "numpy<2",
-    "fastparquet",
-    "tenacity",
-    "dataretrieval==1.1.0",
-    "teehr @ git+https://github.com/RTIInternational/teehr@1204e014fd9e3b320d6ee5c8eea04efc524ce0a7",
-    'hydrotools.events==1.1.5',
-    'hydrotools.metrics==1.3.3',
-    'hydrotools.nwis_client==3.3.1',
-    'hydrotools_restclient',
-    'scipy',
-]
-
 [project.optional-dependencies]
-#dev = ["pytest~=8.4.1", "ruff~=0.12.10", "python-dotenv~=1.2.1", "boto3~=1.40.74"]
 dev = ["pytest~=8.4.1", "ruff~=0.12.10", "python-dotenv~=1.2.1", "boto3"]
 docs = ["sphinx", "numpydoc", "sphinx_rtd_theme", "sphinx_design", "pydata-sphinx-theme", "sphinx-autodoc-typehints", "myst-parser"]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["nwm_eval_mgr*"]
-
-
-[tool.setuptools.dynamic]
-version = {attr = "nwm_eval_mgr.__version__"}
-
 [tool.sphinx]
-project = "nwm_eval_mgr"
+project = "nwm-eval-mgr"
 author = "Yuqiong Liu"
 
 [tool.ruff]

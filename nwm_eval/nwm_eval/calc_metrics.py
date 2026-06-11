@@ -22,9 +22,9 @@ from typing import Optional
 
 import numpy as np
 import pandas as pd
+from nwm_metrics import metric_functions as mf
 from teehr.classes.duckdb_joined_parquet import DuckDBJoinedParquet
 
-from . import metric_functions as mf
 from .nwm_configs import ForecastConfig
 from .settings import dict_nwm_eval_metrics, dict_teehr_metrics
 
