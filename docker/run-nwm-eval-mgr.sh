@@ -2,7 +2,7 @@
 # Define valid commands
 VALID_COMMANDS=("verification")
 
-SCRIPT_TO_RUN="nwm_eval_mgr"
+SCRIPT_TO_RUN="nwm_eval"
 
 # Set the umask so files and directories are created with 777 permissions
 umask 000
@@ -19,8 +19,8 @@ show_help() {
   echo "STDOUT_FILE (optional): Path to the stdout file where the script's console output will be saved."
   echo ""
   echo "Examples:"
-  echo "  $(basename "$0") verification test_data/eval_config.yaml"
-  echo "  $(basename "$0") verification test_data/eval_config.yaml /path/to/output/nwm-eval.log"
+  echo "  $(basename "$0") verification test_data/verf_config.yaml"
+  echo "  $(basename "$0") verification test_data/verf_config.yaml /path/to/output/nwm-eval.log"
   echo ""
   exit 1
 }

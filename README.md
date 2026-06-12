@@ -1,29 +1,134 @@
 # nwm-eval-mgr
 
-## Name
-NWM/NextGen Evaluation Manager
+A monorepo for evaluation and verification tools for the National Water Model (NWM) and NextGen simulations.
 
-## Description
-A standalone Python library for conducting evaluation/verification for NWM/NextGen simulations, hindcasts, and forecasts.
+This repository provides two Python packages:
+
+| Package | Description |
+|----------|-------------|
+| `nwm_metrics` | Core statistical metrics and evaluation functions |
+| `nwm_eval` | End-to-end workflows for data retrieval, pairing, metrics calculation, and visualization |
+
+---
+
+## Repository Structure
+
+```text
+nwm-eval-mgr/
+├── nwm_metrics/     # Core metrics library
+├── nwm_eval/        # Evaluation workflow package
+├── configs/         # Sample configuration files for nwm_eval workflows
+├── docs/            # Sphinx documentation
+└── tests/           # Shared test suite
+```
+
+---
+
+## Package Relationship
+
+```text
+nwm_eval
+    └── depends on
+        nwm_metrics
+```
+
+- `nwm_metrics` provides reusable statistical and hydrologic evaluation functions.
+- `nwm_eval` builds on these metrics to implement full evaluation and verification workflows.
+
+---
 
 ## Installation
 
-Create a virtual environment and install directly from GitHub:
+### Quick Install (Recommended)
+
+Install directly from GitHub (no cloning required).
+
+#### Install metrics only
 
 ```bash
+pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@development#subdirectory=nwm_metrics"
+```
 
-cd [VENV_ROOT]
+#### Install evaluation workflows
+
+```bash
+pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@development#subdirectory=nwm_eval"
+```
+
+#### Install both packages
+
+```bash
+pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@development#subdirectory=nwm_metrics"
+pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@development#subdirectory=nwm_eval"
+```
+
+---
+
+### Reproducible Install (Pinned Version)
+
+For CI or reproducible workflows, install from a specific commit:
+
+```bash
+pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@<commit_sha>#subdirectory=nwm_metrics"
+pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@<commit_sha>#subdirectory=nwm_eval"
+```
+
+Example:
+
+```bash
+pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@87bcac530ca36a604da1ee27401f161a767f5c44#subdirectory=nwm_metrics"
+```
+
+---
+
+### Development Install
+
+Create a virtual environment
+
+```bash
 /usr/bin/python3.11 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
-
-pip install "git+https://github.com/NGWPC/nwm-eval-mgr.git@development"
 ```
-Where `[VENV_ROOT]` is the path to the directory where you want to create the virtual environment.
+
+Clone the repository:
+
+```bash
+git clone https://github.com/NGWPC/nwm-eval-mgr.git
+cd nwm-eval-mgr
+```
+
+Install packages in editable mode:
+
+```bash
+pip install -e nwm_metrics
+pip install -e nwm_eval
+```
+
+Install development and documentation dependencies:
+
+```bash
+pip install -e .[dev,docs]
+```
+
+---
 
 ## Usage
 
-### Set up configuration yaml file
+### Using `nwm_metrics`
+
+```python
+from nwm_metrics import metric_functions as mf
+
+kge = mf.kge(obs, sim)
+nse = mf.nse(obs, sim)
+```
+
+---
+
+### Running an evaluation workflow using `nwm_eval`
+
+#### Set up configuration yaml file
 
 Follow one of the sample config files (see `nwm-eval-mgr/configs`) to set up the configurations for your evaluation/verification application:
 - `config_ngencerf.yaml`: ngenCERF-based single-location single-forecast verification
@@ -34,55 +139,128 @@ Follow one of the sample config files (see `nwm-eval-mgr/configs`) to set up the
 
 For detailed instructions on how to set up the configuration file, please refer to the [Configuration](https://ngwpc.github.io/nwm-eval-mgr/config.html) and [FAQ](https://ngwpc.github.io/nwm-eval-mgr/faq.html) pages of the `nwm-eval-mgr` [documentation](https://ngwpc.github.io/nwm-eval-mgr/).
 
-### Run evaluation/verification
+#### Run evaluation/verification
 
 ```bash
-python -m nwm_eval_mgr <path-to-config-file>
+python -m nwm_eval <path-to-config-file>
 ```
+Example
+
+```bash
+python -m nwm_eval configs/config_hindcast.yaml
+```
+
+---
+
+## Development
+
+### Run tests
+
+```bash
+pytest
+```
+
+Markers available:
+
+- `unit` – fast unit tests
+- `integration` – pipeline integration tests
+- `functional` – full workflow tests
+- `slow` – long-running tests
+
 Example:
 
 ```bash
-python -m nwm_eval_mgr configs/config_hindcast.yaml
+pytest -m unit
 ```
 
-## Docker container
+---
+
+### Code style
+
+This project uses `ruff` for linting and formatting:
+
+```bash
+ruff check .
+ruff format .
+```
+
+---
+
+## Documentation
+
+Documentation is built using Sphinx and located in the `docs/` directory. See Github Pages for the hosted documentation 
+site: https://ngwpc.github.io/nwm-eval-mgr/
+
+To build docs:
+
+```bash
+pip install -e .[docs]
+make -C docs html
+```
+
+## Docker Container
 
 ### Requirements
 
-To build and run nwm-eval-mgr, you will need the following software installed and running on your system:
-- Docker Engine
+To build and run `nwm_eval`, you will need:
 
-You will also need the following data:
-- a GitLab Personal Access Token (PAT)
+* Docker Engine
 
 ### Build
 
-To build the nwm-eval-mgr container, execute the following command:
-```
-GITLAB_TOKEN=$(cat ~/.gitlab_token) docker build --secret id=GITLAB_TOKEN,env=GITLAB_TOKEN --tag=nwm-eval-mgr .
+From the repository root, build the container image:
+
+```bash
+docker build --tag nwm_eval .
 ```
 
 ### Running
 
-To run the nwm-eval-mgr applicaton, execute the following command:
-```
-docker run nwm-eval-mgr
+To display the container help message:
+
+```bash
+docker run nwm_eval
 ```
 
-This will print a usage statement for the container:
-```
+This will print the available commands:
+
+```text
 Usage: run-nwm-eval-mgr.sh <command> <config_file> [stdout_file]
-
 
 COMMAND:
   verification          Run verification script.
 
-CONFIG_FILE: Path to the config yaml file for a verification run.
-STDOUT_FILE (optional): Path to the stdout file where the script's console output will be saved.
+CONFIG_FILE: Path to the configuration YAML file for a verification run.
+STDOUT_FILE (optional): Path to a file where console output will be saved.
 
 Examples:
   run-nwm-eval-mgr.sh verification test_data/verf_config.yaml
-  run-nwm-eval-mgr.sh verification test_data/verf_config.yaml /path/to/output/nwm-eval-mgr.log
+  run-nwm-eval-mgr.sh verification test_data/verf_config.yaml /path/to/output/nwm-eval.log
 ```
 
-The path provided for any files should match the path within the container, as well as the paths inside your configuration file.
+### Running a Verification Workflow
+
+When running an evaluation or verification workflow, you will typically need to mount local data and configuration files into the container.
+
+Example:
+
+```bash
+docker run \
+  -v $(pwd):$(pwd) \
+  -w $(pwd) \
+  nwm_eval \
+  verification $(pwd)/configs/verf_config.yaml
+```
+
+### Notes
+
+* File paths provided to the container must correspond to paths visible from within the container.
+* Any paths referenced in the configuration file must also be valid within the container environment.
+* If your workflow requires access to external datasets, ensure the corresponding directories are mounted into the container using Docker volume mounts (`-v`).
+
+
+---
+
+## License
+
+License information to be added.
