@@ -18,10 +18,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install .[docs]
+          pip install -e ./nwm_metrics
+          pip install -e ./nwm_eval
       - name: Debug Python imports
         run: |
-          python -c "import nwm_eval.configuration; print('Import nwm_eval OK')"
-          python -c "import nwm_metrics.calculate_metrics; print('Import nwm_metrics OK')"
+          python -c "import nwm_eval; print('nwm_eval:', nwm_eval.__file__)"
+          python -c "import nwm_metrics; print('nwm_metrics:', nwm_metrics.__file__)"
       - name: Sphinx build
         run: |
           sphinx-build docs/source docs/build
