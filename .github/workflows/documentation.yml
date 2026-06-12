@@ -20,7 +20,8 @@ jobs:
           pip install .[docs]
       - name: Debug Python imports
         run: |
-          python -c "import nwm_eval_mgr.configuration; print('Import OK')"
+          python -c "import nwm_eval.configuration; print('Import nwm_eval OK')"
+          python -c "import nwm_metrics.calculate_metrics; print('Import nwm_metrics OK')"
       - name: Sphinx build
         run: |
           sphinx-build docs/source docs/build
