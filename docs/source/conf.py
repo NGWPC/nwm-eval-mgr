@@ -1,26 +1,40 @@
-"""Configuration file for the Sphinx documentation builder.
-
-For the full list of built-in configuration values, see the documentation:
-https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""
+Configuration file for the Sphinx documentation builder.
 """
 
-import os
+from pathlib import Path
 import sys
 
-sys.path.insert(0, os.path.abspath("../.."))
+# ---------------------------------------------------------------------
+# Ensure both packages are importable from src/ layout
+# ---------------------------------------------------------------------
+ROOT = Path(__file__).resolve().parents[2]
 
-import nwm_eval_mgr
+sys.path.insert(0, str(ROOT / "nwm_eval" / "src"))
+sys.path.insert(0, str(ROOT / "nwm_metrics" / "src"))
 
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+# ---------------------------------------------------------------------
+# Import version safely (do NOT rely on __version__)
+# ---------------------------------------------------------------------
+from importlib.metadata import version as get_version, PackageNotFoundError
 
-project = "nwm_eval_mgr"
+try:
+    version = get_version("nwm_eval")
+except PackageNotFoundError:
+    version = "development"
+
+release = version
+
+# ---------------------------------------------------------------------
+# Project information
+# ---------------------------------------------------------------------
+project = "nwm_eval"
 copyright = "2026, RTX"
 author = "Yuqiong Liu"
 
-# -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
+# ---------------------------------------------------------------------
+# General configuration
+# ---------------------------------------------------------------------
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
@@ -30,8 +44,7 @@ extensions = [
     "myst_parser",
     "sphinx.ext.napoleon",
     "sphinx_design",
-    # "sphinxcontrib.rsvgconverter",
-    "sphinx.ext.viewcode",  # adds [source] links
+    "sphinx.ext.viewcode",
 ]
 
 source_suffix = {
@@ -40,7 +53,6 @@ source_suffix = {
     ".md": "markdown",
 }
 
-# MyST
 myst_enable_extensions = [
     "colon_fence",
     "deflist",
@@ -55,8 +67,10 @@ exclude_patterns = ["production"]
 
 master_doc = "index"
 
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+# ---------------------------------------------------------------------
+# HTML output
+# ---------------------------------------------------------------------
+html_theme = "pydata_sphinx_theme"
 
 html_css_files = ["custom.css"]
 
@@ -68,8 +82,6 @@ html_js_files = [
     "https://unpkg.com/@popperjs/core@2",
     "https://unpkg.com/tippy.js@6",
 ]
-
-html_theme = "pydata_sphinx_theme"
 
 html_theme_options = {
     "navbar_start": ["navbar-logo", "navbar-version"],
@@ -83,7 +95,3 @@ html_sidebars = {
     "user_guide": [],
     "faq": [],
 }
-
-
-# Substitutions
-version = str(nwm_eval_mgr.__version__)

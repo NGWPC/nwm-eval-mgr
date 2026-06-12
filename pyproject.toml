@@ -4,28 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nwm-eval-mgr"
-dynamic = ["version"]
+version = "0.0.0"
 description = "Tools for conducting simulation evaluation and forecast verification."
 readme = "README.md"
 maintainers = [
     { name = "Yuqiong Liu", email = "yuqiong.liu@entarian.com" },
 ]
 
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Education",
-    "Intended Audience :: Science/Research",
-    "License :: Free To Use But Restricted",
-    "Programming Language :: Python :: 3.11",
-    "Topic :: Scientific/Engineering :: Hydrology",
-    "Operating System :: OS Independent",
-]
-
-requires-python = ">=3.10"
-
 [project.optional-dependencies]
 dev = ["pytest~=8.4.1", "ruff~=0.12.10", "python-dotenv~=1.2.1", "boto3"]
 docs = ["sphinx", "numpydoc", "sphinx_rtd_theme", "sphinx_design", "pydata-sphinx-theme", "sphinx-autodoc-typehints", "myst-parser"]
+
+[tool.setuptools]
+packages = []
 
 [tool.sphinx]
 project = "nwm-eval-mgr"

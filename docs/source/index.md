@@ -27,7 +27,11 @@ h3:not(#hero h3) {
 
 # NWM Evaluation & Verification
 
-`nwm_eval_mgr` is a Python package that conducts evaluation and verification for NWM/NextGen simulations, hindcasts, and forecasts. It provides tools for data retrieval, forecast and observation pairing, metric computation, and visualization to assess the performance of NWM/NextGen products against observations and reference datasets. The package is designed to be flexible and customizable, allowing users to tailor their evaluation workflows to specific needs and datasets. With `nwm_eval_mgr`, users can gain insights into the strengths and weaknesses of NWM/NextGen products, identify areas for improvement, and ultimately enhance the skill of hydrologic forecasts.
+`nwm-eval-mgr` is a repository of tools for evaluating and verifying NWM/NextGen simulations, hindcasts, and forecasts.
+It supports data retrieval, forecast and observation pairing, metric computation, and visualization to assess model 
+performance against observations and reference datasets. It is flexible and customizable, allowing users to adapt 
+evaluation workflows to different datasets and use cases. It helps users understand model strengths and weaknesses, 
+identify areas for improvement, and ultimately enhance the skill of hydrologic forecasts.
 
 ![overview](_images/plots_collage.png)
 

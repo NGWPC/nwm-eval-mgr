@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from nwm_eval_mgr.utils import read_data
+from nwm_eval.utils import read_data
 
 # output files
 dir1 = "~/repos/nwm-eval-mgr/data/outputs"

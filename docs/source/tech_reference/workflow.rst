@@ -100,16 +100,16 @@ you can skip the first two steps and start directly from the pairing step. Simil
 evaluation metrics, you can skip directly to the visualization step. This flexibility allows users to efficiently 
 manage their evaluation workflow based on their specific needs and data availability.
 
-Example Configuration:
+Example Configuration to skip data download/pairing and directly compute metrics and generate plots from existing paired datasets:
 
 .. code-block:: yaml
 
    general:   
 
       steps: # define which of the 5 steps to run; each step can be run independently,
-         fetch_fcst_data: true
-         fetch_obs_data: true
-         pair_data: true
+         fetch_fcst_data: false
+         fetch_obs_data: false
+         pair_data: false
          compute_metrics: true
          plot_metrics: true
 

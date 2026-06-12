@@ -3,19 +3,19 @@ from unittest.mock import patch
 import numpy as np
 import pandas as pd
 
-from nwm_eval_mgr.metric_functions import event_based_metrics
+from nwm_eval.metric_functions import event_based_metrics
 
 
-@patch("nwm_eval_mgr.event_metric_functions.preprocess_series")
-@patch("nwm_eval_mgr.event_metric_functions.split_into_valid_chunks")
-@patch("nwm_eval_mgr.event_metric_functions.identify_events")
-@patch("nwm_eval_mgr.event_metric_functions.merge_short_events")
-@patch("nwm_eval_mgr.event_metric_functions.separate_compound_events")
-@patch("nwm_eval_mgr.event_metric_functions.pair_events")
-@patch("nwm_eval_mgr.event_metric_functions.validate_events")
-@patch("nwm_eval_mgr.event_metric_functions.get_event_peaks")
-@patch("nwm_eval_mgr.event_metric_functions.plot_event_timeseries")
-@patch("nwm_eval_mgr.event_metric_functions.compute_event_metrics")
+@patch("nwm_metrics.event_metric_functions.preprocess_series")
+@patch("nwm_metrics.event_metric_functions.split_into_valid_chunks")
+@patch("nwm_metrics.event_metric_functions.identify_events")
+@patch("nwm_metrics.event_metric_functions.merge_short_events")
+@patch("nwm_metrics.event_metric_functions.separate_compound_events")
+@patch("nwm_metrics.event_metric_functions.pair_events")
+@patch("nwm_metrics.event_metric_functions.validate_events")
+@patch("nwm_metrics.event_metric_functions.get_event_peaks")
+@patch("nwm_metrics.event_metric_functions.plot_event_timeseries")
+@patch("nwm_metrics.event_metric_functions.compute_event_metrics")
 def test_event_based_metrics_happy_path(
     mock_compute,
     mock_plot,
@@ -125,7 +125,7 @@ def test_event_based_metrics_all_nan():
     assert np.isnan(result["EVBIAS"])
 
 
-@patch("nwm_eval_mgr.event_metric_functions.identify_events")
+@patch("nwm_metrics.event_metric_functions.identify_events")
 def test_event_based_metrics_no_observed_events(mock_identify):
     """Test the event_based_metrics function when there are no observed events, which should result in NaN metrics."""
     index = pd.date_range("2020-01-01", periods=24, freq="h")
@@ -146,10 +146,10 @@ def test_event_based_metrics_no_observed_events(mock_identify):
     assert np.isnan(result["EVBIAS"])
 
 
-@patch("nwm_eval_mgr.event_metric_functions.compute_event_metrics")
-@patch("nwm_eval_mgr.event_metric_functions.pair_events")
-@patch("nwm_eval_mgr.event_metric_functions.separate_compound_events")
-@patch("nwm_eval_mgr.event_metric_functions.identify_events")
+@patch("nwm_metrics.event_metric_functions.compute_event_metrics")
+@patch("nwm_metrics.event_metric_functions.pair_events")
+@patch("nwm_metrics.event_metric_functions.separate_compound_events")
+@patch("nwm_metrics.event_metric_functions.identify_events")
 def test_event_based_metrics_no_paired_events(
     mock_identify,
     mock_separate,

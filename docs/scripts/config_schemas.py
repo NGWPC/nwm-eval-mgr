@@ -16,8 +16,8 @@ from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from pydantic_core import PydanticUndefined
 
-import nwm_eval_mgr.configuration as configuration
-from nwm_eval_mgr.configuration import Config
+import nwm_eval.configuration as configuration
+from nwm_eval.configuration import Config
 
 INDENT_LEVEL = 2
 YAML_COMMENT_BUFFER = 5

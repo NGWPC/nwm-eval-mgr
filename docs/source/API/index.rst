@@ -6,4 +6,5 @@ API Reference
     :toctree: _autosummary
     :recursive:
 
-    nwm_eval_mgr
+    nwm_eval
+    nwm_metrics

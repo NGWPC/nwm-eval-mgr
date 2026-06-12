@@ -1,3 +1,3 @@
-"""Evaluation and Verification Manager for NextGen."""
+"""NWM metrics package."""
 
 __version__ = "0.1.0"

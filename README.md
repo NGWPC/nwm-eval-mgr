@@ -214,7 +214,7 @@ From the repository root, build the container image:
 docker build --tag nwm_eval .
 ```
 
-### Running
+### Container help
 
 To display the container help message:
 
@@ -222,7 +222,7 @@ To display the container help message:
 docker run nwm_eval
 ```
 
-This will print the available commands:
+This will print the available commands supported by the container CLI:
 
 ```text
 Usage: run-nwm-eval-mgr.sh <command> <config_file> [stdout_file]
@@ -244,14 +244,24 @@ When running an evaluation or verification workflow, you will typically need to 
 
 Example:
 
-```bash
-docker run \
-  -v $(pwd):$(pwd) \
-  -w $(pwd) \
-  nwm_eval \
-  verification $(pwd)/configs/verf_config.yaml
-```
+  ```bash
+  docker run \
+    -v $(pwd):$(pwd) \
+    -w $(pwd) \
+    nwm_eval \
+    verification $(pwd)/configs/verf_config.yaml
+  ```
 
+Optionally redirect output to a file:
+
+  ```bash
+  docker run \
+    -v $(pwd):$(pwd) \
+    -w $(pwd) \
+    nwm_eval \
+    verification $(pwd)/configs/verf_config.yaml \
+    $(pwd)/nwm_eval_output.log
+  ```
 ### Notes
 
 * File paths provided to the container must correspond to paths visible from within the container.
