@@ -188,8 +188,8 @@ ruff format .
 
 ## Documentation
 
-Documentation is built using Sphinx and located in the `docs/` directory. See Github Pages for the hosted documentation 
-site: https://ngwpc.github.io/nwm-eval-mgr/
+Documentation is built using Sphinx and located in the `docs/` directory, and hosted on 
+[Github Pages](https://ngwpc.github.io/nwm-eval-mgr/).
 
 To build docs:
 
