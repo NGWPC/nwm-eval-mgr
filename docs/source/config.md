@@ -81,6 +81,8 @@ file_paths:     # Configuration for file paths used in the evaluation, including
   fcst_config_file: 'data/inputs/nwm_forecast_configuration.yaml'     # Path to the forecast configuration file defining parameters for different NWM configurations.
   fcst_data_file: '01123000_output.csv'     # Path to the forecast data file or a dictionary of forecast data files.
   fcst_data_dir: 'data/inputs/hindcasts/'     # Path to the directory containing forecast data files or a dictionary of directories.
+  obs_data_file: 'data/inputs/obs/01123000_hourly_discharge.csv'     # Path to the observation data file. Both obs_data_file and obs_data_dir can be specified. The run will read all .csv and .parquet files in obs_data_dir and obs_data_file and remove duplicates.If neither obs_data_file nor obs_data_dir is provided, an observation data source must be specified in the 'flow_observation.usgs' section.
+  obs_data_dir: 'data/inputs/obs/'     # ("Path to the observation data directory where one or more observation data files are stored. The run will look for all .csv and .parquet files in this directory. Each file can contain observation data for a single location (with the filename starting with the location identifier), or multiple locations with a 'location_id' column specifying the location identifiers.",)
   calib_param_file: 'data/inputs/calib_params.csv'     # Path to the calibration parameter file.
   txdot_gage_file: 'data/inputs/gage_files/tx_gauges.csv'     # Path to the TxDOT gage file.
   output_dir: 'ngen_evaluation/outputs/usgs_01123000/'     # Directory to save outputs such as paired data, computed metrics, and plots. 
@@ -96,10 +98,7 @@ nwm_forecast:     # Configuration for NWM forecast data.
   overwrite_output: False     # Whether to overwrite existing forecast data files.
   memory_per_worker_gb: 3     # Configurable memory (in GB) assigned to each worker or process.
 flow_observation:     # Configuration for flow observation data.
-  usgs:     # Configuration for USGS flow observations. This is currently the only supported source of flow observations, but this section is included for future extensibility to other sources.
-    chunk_by: 'month'     # How downloaded data are chunked into parquet files.
-    overwrite_output: True     # If True, existing output files are overwritten. If False, existing files are retained.
-    memory_per_worker_gb: 3     # Memory assigned to each worker in GB.
+  usgs: ''     # Configuration for USGS flow observations. If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section, 
 pair_data:     # Configuration for paired data.
   overwrite: True     # Whether to overwrite existing paired data files.
   group_size: 200     # Number of locations to process in each group when pairing forecast and observation data.
@@ -540,6 +539,8 @@ plots:
 | fcst_config_file | str \| Path \| NoneType | Path to the forecast configuration file. This file defines the parameters for different NWM configurations. For each forecast configuration, a list that specify the following parameters (in order): cycle_start: start time of forecast cycles in Zulu time or UTC (e.g., 0Z);cycle_end: end time of forecast cycles in Zulu time or UTC (e.g., 23Z);cycle_freq: frequency of forecast cycles in hours (e.g., 1);fcst_win: forecast window in hours (e.g., 18);fcst_timestep: forecast timestep in hours (e.g., 1); | None | data/inputs/nwm_forecast_configuration.yaml |
 | fcst_data_file | Path \| str \| Dict[str, Path] \| Dict[str, str] \| NoneType | Path to the forecast data file or a dictionary of forecast data files. | None | 01123000_output.csv |
 | fcst_data_dir | Path \| str \| Dict[str, Path] \| Dict[str, str] \| NoneType | Path to the directory containing forecast data files or a dictionary of directories. | None | data/inputs/hindcasts/ |
+| obs_data_file | Path \| str \| NoneType | Path to the observation data file. Both obs_data_file and obs_data_dir can be specified. The run will read all .csv and .parquet files in obs_data_dir and obs_data_file and remove duplicates.If neither obs_data_file nor obs_data_dir is provided, an observation data source must be specified in the 'flow_observation.usgs' section. | None | data/inputs/obs/01123000_hourly_discharge.csv |
+| obs_data_dir | Path \| str \| NoneType | ("Path to the observation data directory where one or more observation data files are stored. The run will look for all .csv and .parquet files in this directory. Each file can contain observation data for a single location (with the filename starting with the location identifier), or multiple locations with a 'location_id' column specifying the location identifiers.",) | None | data/inputs/obs/ |
 | calib_param_file | Path \| str \| NoneType | Path to the calibration parameter file. | None | data/inputs/calib_params.csv |
 | txdot_gage_file | Path \| str \| NoneType | Path to the TxDOT gage file. This is only needed if evaluating TxDOT locations, for which streamflow observations are retrieved differently than USGS gages. If not provided, the default TxDOT list defined in settings.py will be used.  | None | data/inputs/gage_files/tx_gauges.csv |
 | output_dir | str \| Path | Directory to save outputs such as paired data, computed metrics, and plots.  | None | ngen_evaluation/outputs/usgs_01123000/ |
@@ -548,7 +549,7 @@ plots:
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
-| usgs | USGSConfig | Configuration for USGS flow observations. This is currently the only supported source of flow observations, but this section is included for future extensibility to other sources. | chunk_by='month' overwrite_output=True memory_per_worker_gb=3 | chunk_by='month' overwrite_output=True memory_per_worker_gb=3 |
+| usgs | USGSConfig \| NoneType | Configuration for USGS flow observations. If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section,  | None |  |
 
 #### `GeneralConfig`
 

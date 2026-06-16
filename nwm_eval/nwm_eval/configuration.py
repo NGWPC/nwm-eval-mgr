@@ -398,7 +398,7 @@ class FilePathsConfig(BaseModel):
             "Path to the observation data directory where one or more observation data files are stored. "
             "The run will look for all .csv and .parquet files in this directory. "
             "Each file can contain observation data for a single location (with the filename starting with the location "
-            "identifier), or multiple locations with a 'location_id' column specifying the location identifiers.",
+            "identifier), or multiple locations with a 'location_id' column specifying the location identifiers."
         ),
     )
 
