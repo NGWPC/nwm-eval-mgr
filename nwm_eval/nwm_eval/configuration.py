@@ -380,6 +380,28 @@ class FilePathsConfig(BaseModel):
         description="Path to the directory containing forecast data files or a dictionary of directories.",
     )
 
+    obs_data_file: Optional[Path | str] = Field(
+        default=None,
+        examples=["data/inputs/obs/01123000_hourly_discharge.csv"],
+        description=(
+            "Path to the observation data file. Both obs_data_file and obs_data_dir can be specified. "
+            "The run will read all .csv and .parquet files in obs_data_dir and obs_data_file and remove duplicates."
+            "If neither obs_data_file nor obs_data_dir is provided, an observation data source must be specified in "
+            "the 'flow_observation.usgs' section."
+        ),
+    )
+
+    obs_data_dir: Optional[Path | str] = Field(
+        default=None,
+        examples=["data/inputs/obs/"],
+        description=(
+            "Path to the observation data directory where one or more observation data files are stored. "
+            "The run will look for all .csv and .parquet files in this directory. "
+            "Each file can contain observation data for a single location (with the filename starting with the location "
+            "identifier), or multiple locations with a 'location_id' column specifying the location identifiers.",
+        ),
+    )
+
     calib_param_file: Path | str | None = Field(
         default=None,
         examples=["data/inputs/calib_params.csv"],
@@ -549,11 +571,11 @@ class USGSConfig(BaseModel):
 class FlowObservationConfig(BaseModel):
     """Data model for the flow_observation section."""
 
-    usgs: USGSConfig = Field(
-        default_factory=USGSConfig,
+    usgs: USGSConfig | None = Field(
+        default=None,
         description=(
-            "Configuration for USGS flow observations. This is currently the only supported source of flow observations, "
-            "but this section is included for future extensibility to other sources."
+            "Configuration for USGS flow observations. "
+            "If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section, "
         ),
     )
 
@@ -945,6 +967,14 @@ class Config(BaseModel):
         description="Configuration for plots.",
     )
 
+    @field_validator("flow_observation", mode="before")
+    @classmethod
+    def default_flow_observation(cls, v):
+        """Provide a default empty configuration for flow_observation if it is not provided in the config file."""
+        if v is None:
+            return {}
+        return v
+
     @model_validator(mode="after")
     def check_dataset_configuration(self):
         """Check that the following fields has the same length as dataset_name.
@@ -986,6 +1016,20 @@ class Config(BaseModel):
             msg += "nwm_forecast.data_source is not 'GCS'"
             logger.error(msg)
             raise ValueError(msg)
+        return self
+
+    @model_validator(mode="after")
+    def check_obs_source(self):
+        """Check that at least one observation data source is provided (USGS or obs_data_file)."""
+        has_usgs = self.flow_observation.usgs is not None
+        has_obs_file = self.file_paths.obs_data_file is not None
+        has_obs_dir = self.file_paths.obs_data_dir is not None
+
+        if not has_usgs and not has_obs_file and not has_obs_dir:
+            msg = "Either 'flow_observation.usgs', 'file_paths.obs_data_file', or 'file_paths.obs_data_dir' must be provided."
+            logger.error(msg)
+            raise ValueError(msg)
+
         return self
 
     @model_validator(mode="after")
