@@ -136,14 +136,6 @@ RUN set -eux; \
         python3.10 -m venv ${VIRTUAL_ENV}
 ENV PATH=${VIRTUAL_ENV}/bin:${PATH}
 
-# ARG NWM_EVAL_MGR_REF=development
-# RUN set -eux; \
-#     pip3 install \
-#       "git+https://github.com/NGWPC/nwm-eval-mgr.git@${NWM_EVAL_MGR_REF}#subdirectory=nwm_metrics" ; \
-#     pip3 install \
-#       "git+https://github.com/NGWPC/nwm-eval-mgr.git@${NWM_EVAL_MGR_REF}#subdirectory=nwm_eval" ; \
-#     pip3 cache purge
-
 COPY . /ngen-app/nwm-eval-mgr/
 WORKDIR /ngen-app/nwm-eval-mgr/
 RUN set -eux; \
