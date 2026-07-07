@@ -1,8 +1,13 @@
 #!/bin/bash
-# Define valid commands
+
+LOG_PREFIX="[run-nwm-eval.sh]"
+
+# This shell script lives in the nwm-eval repo.
+# It is used by CerfServer runtime containers to invoke nwm-verf scripts.
+
 VALID_COMMANDS=("verification")
 
-SCRIPT_TO_RUN="nwm_eval"
+SCRIPT_MODULE="nwm_eval"
 
 # Set the umask so files and directories are created with 777 permissions
 umask 000
@@ -11,12 +16,11 @@ umask 000
 show_help() {
   echo "Usage: $(basename "$0") <command> <config_file> [stdout_file]"
   echo ""
-  echo ""
   echo "COMMAND:"
-  echo "  verification          Run verification script."
+  echo "  verification Run verification script."
   echo ""
   echo "CONFIG_FILE: Path to the config yaml file for a verification run."
-  echo "STDOUT_FILE (optional): Path to the stdout file where the script's console output will be saved."
+  echo "STDOUT_FILE: Optional path where script console output will be saved."
   echo ""
   echo "Examples:"
   echo "  $(basename "$0") verification test_data/verf_config.yaml"
@@ -32,7 +36,7 @@ fi
 
 # Check if the command for the script is provided as the first argument
 if [ -z "$1" ]; then
-  echo "Error: No script command provided. Allowable commands are: ${VALID_COMMANDS[*]}."
+  echo "$LOG_PREFIX Error: No script command provided. Allowable commands are: ${VALID_COMMANDS[*]}."
   show_help
 fi
 
@@ -42,65 +46,70 @@ shift 1
 
 case "$SCRIPT_COMMAND" in
   "verification")
-    SCRIPT_PATH=$SCRIPT_TO_RUN
     REQUIRED_ARGS=1
     ;;
   *)
-    echo "Error: Invalid script command: '$SCRIPT_COMMAND'. Allowable commands are: ${VALID_COMMANDS[*]}."
+    echo "$LOG_PREFIX Error: Invalid script command: '$SCRIPT_COMMAND'. Allowable commands are: ${VALID_COMMANDS[*]}."
     show_help
     ;;
 esac
 
 # Check if the correct number of arguments are provided for the selected command
-if [ $# -lt $REQUIRED_ARGS ]; then
-  echo "Error: Insufficient arguments. $SCRIPT_COMMAND requires $REQUIRED_ARGS arguments."
+if [ $# -lt "$REQUIRED_ARGS" ]; then
+  echo "$LOG_PREFIX Error: Insufficient arguments. $SCRIPT_COMMAND requires $REQUIRED_ARGS arguments."
   show_help
 fi
 
 CONFIG_FILE=$1
-shift $REQUIRED_ARGS
+shift 1
 
-echo "CONFIG_FILE: ${CONFIG_FILE}"
+echo "$LOG_PREFIX CONFIG_FILE: $CONFIG_FILE"
 
 # Check if the configuration file exists
-if [ ! -f "${CONFIG_FILE}" ]; then
-  echo "Configuration file not found at ${CONFIG_FILE}"
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "$LOG_PREFIX Fatal: Configuration file not found at $CONFIG_FILE"
+  exit 1
 fi
 
+STDOUT_FILE=""
 if [ $# -ge 1 ]; then
   STDOUT_FILE=$1
-  echo "Output file: $STDOUT_FILE"
-
-  # Create output directory if it doesn't exist
-  STDOUT_DIR=$(dirname "$STDOUT_FILE")
-  if [ ! -d "$STDOUT_DIR" ]; then
-    mkdir --parents "$STDOUT_DIR"
-  fi
-
   shift 1
+
+  echo "$LOG_PREFIX Output file: $STDOUT_FILE"
+
+  STDOUT_DIR=$(dirname "$STDOUT_FILE")
+  mkdir --parents "$STDOUT_DIR"
+fi
+
+if [ $# -gt 0 ]; then
+  echo "$LOG_PREFIX Error: Unexpected extra arguments: $*"
+  show_help
 fi
 
 # Run the Python script, redirecting its output if an output file is provided
-echo "   Running $(basename "$SCRIPT_PATH") with input file: $CONFIG_FILE"
+echo "$LOG_PREFIX Running $SCRIPT_MODULE with input file: $CONFIG_FILE"
+
 if [ -z "$STDOUT_FILE" ]; then
-  python -m "${SCRIPT_PATH}" "${CONFIG_FILE}"
+  python -m "$SCRIPT_MODULE" "$CONFIG_FILE"
 else
-  python -m "${SCRIPT_PATH}" "${CONFIG_FILE}" &> "${STDOUT_FILE}"
+  python -m "$SCRIPT_MODULE" "$CONFIG_FILE" > "$STDOUT_FILE" 2>&1
 fi
 
 python_exit_code=$?
+
 if [ $python_exit_code -ne 0 ]; then
-  echo "$(basename "$SCRIPT_PATH") exited with code $python_exit_code"
+  echo "$LOG_PREFIX $SCRIPT_MODULE exited with code $python_exit_code"
 fi
 
 # Display output if redirected to a file
 if [ -n "$STDOUT_FILE" ]; then
-  echo "Output from running $(basename "$SCRIPT_PATH")"
+  echo "$LOG_PREFIX Output from running $SCRIPT_MODULE"
   echo "-------------- start of $STDOUT_FILE -----------------------------"
   cat "$STDOUT_FILE"
   echo "---------------- end of $STDOUT_FILE -----------------------------"
 fi
 
-echo "Done running $(basename "$SCRIPT_PATH")"
+echo "$LOG_PREFIX Done running $SCRIPT_MODULE"
 
 exit $python_exit_code
