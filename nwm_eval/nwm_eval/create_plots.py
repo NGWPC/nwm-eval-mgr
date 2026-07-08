@@ -370,7 +370,10 @@ def create_spatial_map(conf: dict, data_paths: dict):
                         cmap1[metric1]["clim"][1],
                     )
 
-                # draw points color coded with the metric value
+                # convert to EPSG:4326 for plotting
+                filtered_gdf = filtered_gdf.to_crs("EPSG:4326")
+
+                # set up the figure and axes with Cartopy projection
                 fig, ax = plt.subplots(
                     figsize=(8.5, 6), subplot_kw={"projection": ccrs.PlateCarree()}
                 )
@@ -408,6 +411,7 @@ def create_spatial_map(conf: dict, data_paths: dict):
                 sc1 = ax.scatter(
                     gdf_noncalib.geometry.x,
                     gdf_noncalib.geometry.y,
+                    transform=ccrs.PlateCarree(),
                     c=gdf_noncalib["value"],
                     cmap=cmap1[metric1]["cmap"],
                     marker="o",
@@ -423,6 +427,7 @@ def create_spatial_map(conf: dict, data_paths: dict):
                     sc2 = ax.scatter(
                         gdf_calib.geometry.x,
                         gdf_calib.geometry.y,
+                        transform=ccrs.PlateCarree(),
                         c=gdf_calib["value"],
                         cmap=cmap1[metric1]["cmap"],
                         marker="^",
