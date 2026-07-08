@@ -8,22 +8,25 @@ import fiona
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import pandas as pd
-
-from nwm.verf.settings import conus_vpu_list, default_txdot_gage_list
+from nwm_eval.settings import conus_vpu_list, default_txdot_gage_list
 
 ALL_VPUS = {
     "conus": conus_vpu_list,
-    "prvi": ["prvi"],
-    "hi": ["hi"],
-    "ak": ["ak"],
+    "prvi": ["21"],
+    "hi": ["20"],
+    "ak": ["19"],
 }
+
+HF_VERSION = "nhf_1.2.0"
 
 
 def create_crosswalk(domain: str, vpu: str, out_dir: str | Path) -> gpd.GeoDataFrame:
     """Create crosswalk for a specific VPU."""
     print(f"Creating crosswalk for VPU {vpu}...")
 
-    gpkg_file = Path(f"~/data/hydrofabric/gpkg_nhf/vpu_{vpu}.gpkg").expanduser()
+    gpkg_file = Path(
+        f"~/data/hydrofabric/gpkg_{HF_VERSION}/vpu_{vpu}.gpkg"
+    ).expanduser()
     if not gpkg_file.exists():
         print(f"Error: GeoPackage file {gpkg_file} does not exist.")
         return gpd.GeoDataFrame()
@@ -39,7 +42,7 @@ def create_crosswalk(domain: str, vpu: str, out_dir: str | Path) -> gpd.GeoDataF
     # read gages layer
     gdf_gages = gpd.read_file(gpkg_file, layer="gages")
     gdf_gages = gdf_gages[
-        ["site_no", "fp_id", "USGS_basin_km2", "status", "geometry"]
+        ["site_no", "div_id", "USGS_basin_km2", "status", "geometry"]
     ].copy()
 
     # add vpu_id  and domain columns
@@ -47,13 +50,16 @@ def create_crosswalk(domain: str, vpu: str, out_dir: str | Path) -> gpd.GeoDataF
     gdf_gages["domain"] = domain.upper()
 
     # round basin area and elevation to 2 decimal places
+    gdf_gages["USGS_basin_km2"] = pd.to_numeric(
+        gdf_gages["USGS_basin_km2"], errors="coerce"
+    )
     gdf_gages["USGS_basin_km2"] = gdf_gages["USGS_basin_km2"].round(2)
 
     # rename columns to match crosswalk format
     gdf_gages.rename(
         columns={
             "site_no": "primary_location_id",
-            "fp_id": "secondary_location_id",
+            "div_id": "secondary_location_id",
             "USGS_basin_km2": "basin_area_km2",
         },
         inplace=True,
@@ -252,7 +258,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create crosswalk for all gages.")
     parser.add_argument(
         "--out_dir",
-        default=Path("~/repos/nwm-verf/data/inputs/nhf").expanduser(),
+        default=Path(f"~/repos/nwm-eval-mgr/data/inputs/{HF_VERSION}").expanduser(),
         help="Output directory for the crosswalk files",
     )
     parser.add_argument(
@@ -266,8 +272,11 @@ if __name__ == "__main__":
     # create crosswalk file for all gages and save to output directory
     cwt_file = main(args.domain, args.out_dir)
 
-    print("Checking if all TxDOT gages are included in the crosswalk file...")
-    check_gages_in_crosswalk(cwt_file, default_txdot_gage_list, "TxDOT", args.domain)
+    if args.domain == "conus":
+        print("Checking if all TxDOT gages are included in the crosswalk file...")
+        check_gages_in_crosswalk(
+            cwt_file, default_txdot_gage_list, "TxDOT", args.domain
+        )
 
     print(
         "Checking if all calibratable headwater gages are included in the crosswalk file..."
