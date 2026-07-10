@@ -172,31 +172,12 @@ class ForecastConfig:
         ]  # ensure all are strings, prepend 'm' for negative leads
 
         def clean_num(x):
-            # keep strings like "m2", "m3.5" unchanged
-            if isinstance(x, str) and x.lower().startswith("m"):
-                try:
-                    int(x[1:])  # validate numeric part
-                except ValueError:
-                    msg = (
-                        f"Invalid lead time value: {x!r}. "
-                        "Expected format like 'm2' or 'm3.5'."
-                    )
-                    logger.error(msg)
-                    raise ValueError(msg)
-
-                return x.lower()
-
             try:
-                f = int(x)
-
+                f = float(x)
             except (ValueError, TypeError):
-                msg = (
-                    f"Invalid lead time value: {x!r}. "
-                    "Must be numerical or a string representing a number."
-                )
+                msg = f"Invalid lead time value: {x!r}. Must be numerical or a string representing a number."
                 logger.error(msg)
                 raise ValueError(msg)
-
             return f"{f:g}"
 
         existing_leads = [clean_num(l1) for l1 in existing_leads]
