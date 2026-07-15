@@ -177,6 +177,10 @@ def main(config_file: str | Path):
 
     if conf["general"]["assemble_domain"]:
         # assemble results from different VPUs across a domain
+        logger.info(
+            "Assembling metric results from different VPUs across "
+            f"{conf['general']['domain'].upper()} based on existing metric files for each VPU."
+        )
         assemble_domain_results(conf)
         return
     else:
