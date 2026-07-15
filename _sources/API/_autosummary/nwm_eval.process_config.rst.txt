@@ -1,0 +1,35 @@
+nwm\_eval.process\_config
+=========================
+
+.. automodule:: nwm_eval.process_config
+
+    
+        
+    
+
+    
+        
+            .. rubric:: Classes
+
+            .. autosummary::
+                :toctree:
+                :nosignatures:
+                :template: autosummary/class.rst
+                
+                    ProcessConfig
+
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+
+    
+
+

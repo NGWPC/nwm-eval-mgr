@@ -1,0 +1,6 @@
+nwm\_eval.utils.create\_time\_sequence
+======================================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: create_time_sequence

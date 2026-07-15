@@ -1,0 +1,6 @@
+nwm\_metrics.metric\_functions.percent\_bias
+============================================
+
+.. currentmodule:: nwm_metrics.metric_functions
+
+.. autofunction:: percent_bias

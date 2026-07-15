@@ -1,0 +1,6 @@
+nwm\_eval.pair\_data.join\_time\_series
+=======================================
+
+.. currentmodule:: nwm_eval.pair_data
+
+.. autofunction:: join_time_series

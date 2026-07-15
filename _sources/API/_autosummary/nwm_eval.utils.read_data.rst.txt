@@ -1,0 +1,6 @@
+nwm\_eval.utils.read\_data
+==========================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: read_data

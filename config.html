@@ -1,0 +1,1709 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Configuration for Evaluation/Verification &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/jquery.js?v=5d32c60e"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'config';</script>
+    <script src="_static/form2yaml.js?v=4b298b11"></script>
+    <script src="_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Technical Reference" href="tech_reference/index.html" />
+    <link rel="prev" title="Frequently Asked Questions" href="faq.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Configuratio...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="configuration-for-evaluation-verification">
+<h1>Configuration for Evaluation/Verification<a class="headerlink" href="#configuration-for-evaluation-verification" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>This page provides detailed documentation for configuring the NWM Evaluation Manager (nwm-eval-mgr) tool for a variety of simulation evaluation or forecast verification applications.</p>
+<p>Template files, sample configuration files, and schemas for all configuration fields and subfields are included below. You can navigate to individual configuration files or schema sections using the tabs on the right or the Table of Contents below.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">config_template.yaml</span></code>: Config template generated from the pydantic model, with default or example values defined for each field. This can be used as a starting point for creating your own configuration files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_ngencerf.yaml</span></code>: Sample config for verifying a single ngenCERF forecast at one location.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_hindcast.yaml</span></code>: Sample config for verifying multiple ngenCERF hindcasts at one location.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_nwm.yaml</span></code>: Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_ngensim.yaml</span></code>: Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains.</p></li>
+</ul>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#sample-files"><span class="xref myst">Sample Files</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#config-template-yaml"><code class="docutils literal notranslate"><span class="pre">config_template.yaml</span></code></a></p></li>
+<li><p><a class="reference internal" href="#config-ngencerf-yaml"><code class="docutils literal notranslate"><span class="pre">config_ngencerf.yaml</span></code></a></p></li>
+<li><p><a class="reference internal" href="#config-hindcast-yaml"><code class="docutils literal notranslate"><span class="pre">config_hindcast.yaml</span></code></a></p></li>
+<li><p><a class="reference internal" href="#config-nwm-yaml"><code class="docutils literal notranslate"><span class="pre">config_nwm.yaml</span></code></a></p></li>
+<li><p><a class="reference internal" href="#config-ngensim-yaml"><code class="docutils literal notranslate"><span class="pre">config_ngensim.yaml</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#schemas"><span class="xref myst">Schemas</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#barchartconfig-inherits-from-baseplotconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">BarChartConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</span></a></p></li>
+<li><p><a class="reference internal" href="#baseplotconfig-inherits-from-leadtimesmixin"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code>)</span></a></p></li>
+<li><p><a class="reference internal" href="#boxplotconfig-inherits-from-baseplotconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">BoxPlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</span></a></p></li>
+<li><p><a class="reference internal" href="#filepathsconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">FilePathsConfig</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#flowobservationconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">FlowObservationConfig</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#generalconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">GeneralConfig</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#histogramconfig-inherits-from-baseplotconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">HistogramConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</span></a></p></li>
+<li><p><a class="reference internal" href="#leadtimesmixin"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#locationfilter"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">LocationFilter</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#metricsconfig-inherits-from-leadtimesmixin"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">MetricsConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code>)</span></a></p></li>
+<li><p><a class="reference internal" href="#nwmforecastconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">NWMForecastConfig</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#pairdataconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">PairDataConfig</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#plotsconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">PlotsConfig</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#referencetimesmixin"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ReferenceTimesMixin</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#spatialmapconfig-inherits-from-baseplotconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">SpatialMapConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</span></a></p></li>
+<li><p><a class="reference internal" href="#tableplotconfig-inherits-from-baseplotconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">TablePlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</span></a></p></li>
+<li><p><a class="reference internal" href="#timeseriesconfig-inherits-from-baseplotconfig-referencetimesmixin"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">TimeSeriesConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig,</span> <span class="pre">ReferenceTimesMixin</span></code>)</span></a></p></li>
+<li><p><a class="reference internal" href="#usgsconfig"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">USGSConfig</span></code></span></a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sample-files">
+<h2>Sample Files<a class="headerlink" href="#sample-files" title="Link to this heading">#</a></h2>
+<section id="config-template-yaml">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">config_template.yaml</span></code><a class="headerlink" href="#config-template-yaml" title="Link to this heading">#</a></h3>
+<p>Config template generated from the pydantic model, with default or example values defined for each field. This can be used as a starting point for creating your own configuration files.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">general</span><span class="p">:</span><span class="w">     </span><span class="c1"># General configuration for the evaluation, including dataset information and evaluation settings.</span>
+<span class="w">  </span><span class="nt">steps</span><span class="p">:</span><span class="w">     </span><span class="c1"># Steps to run in the evaluation process.</span>
+<span class="w">    </span><span class="nt">fetch_fcst_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">    </span><span class="nt">fetch_obs_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">    </span><span class="nt">pair_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">    </span><span class="nt">compute_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">    </span><span class="nt">plot_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;conus&#39;</span><span class="w">     </span><span class="c1"># Domain for the evaluation. Valid options are &#39;conus&#39;, &#39;hi&#39;, &#39;ak&#39;, &#39;prvi&#39; (case insensitive).</span>
+<span class="w">  </span><span class="nt">assemble_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to assemble results across VPUs for the CONUS domain.</span>
+<span class="w">  </span><span class="nt">location_set_name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;usgs_01123000&#39;</span><span class="w">     </span><span class="c1"># Name for the set of locations to evaluate.</span>
+<span class="w">  </span><span class="nt">location_list</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;01123000&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;01123500&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used.</span>
+<span class="w">  </span><span class="nt">location_type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;usgs_gage&#39;</span><span class="w">     </span><span class="c1"># Type of locations to evaluate, which determines how locations are identified and processed.</span>
+<span class="w">  </span><span class="nt">location_filter</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for filtering locations based on column values.</span>
+<span class="w">    </span><span class="nt">columns</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;vpu_id&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;status&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;03S&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;USGS-active&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">location_group_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w">     </span><span class="c1"># Number of locations to process in each group when pairing forecast and observation data.</span>
+<span class="w">  </span><span class="nt">variable_name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;streamflow&#39;</span><span class="w">     </span><span class="c1"># Name of the variable to evaluate. Currently only &#39;streamflow&#39; is supported, but this field is included for future extensibility.</span>
+<span class="w">  </span><span class="nt">nwm_configuration</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ngen&#39;</span><span class="w">     </span><span class="c1"># NWM configuration to evaluate.</span>
+<span class="w">  </span><span class="nt">dataset_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;noah_cfes&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;noah_topmodel&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># User-specified name(s) for the dataset(s) to evaluate.</span>
+<span class="w">  </span><span class="nt">nwm_version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;ngen&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;nwm30&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># NWM version(s) to evaluate.</span>
+<span class="w">  </span><span class="nt">forecast_start_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2022-12-01</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2022-12-15</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Start date(s) for the forecast data to evaluate.</span>
+<span class="w">  </span><span class="nt">forecast_end_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2022-12-31</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2023-01-15</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># End date(s) for the forecast data to evaluate.</span>
+<span class="w">  </span><span class="nt">eval_start_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2022-12-11</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2022-12-25</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Start date(s) for the evaluation period.</span>
+<span class="w">  </span><span class="nt">eval_end_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2022-12-31</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2023-01-15</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># End date(s) for the evaluation period.</span>
+<span class="w">  </span><span class="nt">separate_calibrated</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to distinguish calibrated and regionalized locations in the evaluation</span>
+<span class="nt">file_paths</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for file paths used in the evaluation, including input data and output directories.</span>
+<span class="w">  </span><span class="nt">base_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;~/ngen_evaluation/&#39;</span><span class="w">     </span><span class="c1"># Root directory for storing data and outputs.</span>
+<span class="w">  </span><span class="nt">location_list_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/location_list.csv</span><span class="w">     </span><span class="c1"># Path to a file containing the list of locations to evaluate</span>
+<span class="w">  </span><span class="nt">crosswalk_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/crosswalk.csv</span><span class="w">     </span><span class="c1"># Path to a crosswalk file or a dictionary of crosswalk files.</span>
+<span class="w">  </span><span class="nt">fcst_config_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;data/inputs/nwm_forecast_configuration.yaml&#39;</span><span class="w">     </span><span class="c1"># Path to the forecast configuration file defining parameters for different NWM configurations.</span>
+<span class="w">  </span><span class="nt">fcst_data_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;01123000_output.csv&#39;</span><span class="w">     </span><span class="c1"># Path to the forecast data file or a dictionary of forecast data files.</span>
+<span class="w">  </span><span class="nt">fcst_data_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;data/inputs/hindcasts/&#39;</span><span class="w">     </span><span class="c1"># Path to the directory containing forecast data files or a dictionary of directories.</span>
+<span class="w">  </span><span class="nt">obs_data_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;data/inputs/obs/01123000_hourly_discharge.csv&#39;</span><span class="w">     </span><span class="c1"># Path to the observation data file. Both obs_data_file and obs_data_dir can be specified. The run will read all .csv and .parquet files in obs_data_dir and obs_data_file and remove duplicates.If neither obs_data_file nor obs_data_dir is provided, an observation data source must be specified in the &#39;flow_observation.usgs&#39; section.</span>
+<span class="w">  </span><span class="nt">obs_data_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;data/inputs/obs/&#39;</span><span class="w">     </span><span class="c1"># (&quot;Path to the observation data directory where one or more observation data files are stored. The run will look for all .csv and .parquet files in this directory. Each file can contain observation data for a single location (with the filename starting with the location identifier), or multiple locations with a &#39;location_id&#39; column specifying the location identifiers.&quot;,)</span>
+<span class="w">  </span><span class="nt">calib_param_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;data/inputs/calib_params.csv&#39;</span><span class="w">     </span><span class="c1"># Path to the calibration parameter file.</span>
+<span class="w">  </span><span class="nt">txdot_gage_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;data/inputs/gage_files/tx_gauges.csv&#39;</span><span class="w">     </span><span class="c1"># Path to the TxDOT gage file.</span>
+<span class="w">  </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ngen_evaluation/outputs/usgs_01123000/&#39;</span><span class="w">     </span><span class="c1"># Directory to save outputs such as paired data, computed metrics, and plots. </span>
+<span class="nt">nwm_forecast</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for NWM forecast data.</span>
+<span class="w">  </span><span class="nt">data_source</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ngenCERF&#39;</span><span class="w">     </span><span class="c1"># Data source for the NWM forecast. Valid options include &#39;ngenCERF&#39;, &#39;ngenSIM&#39;, &#39;hindcast&#39;, and &#39;GCS&#39;.</span>
+<span class="w">  </span><span class="nt">fetch_fcst</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">True</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Whether to fetch forecast data for each dataset, with local file existence check.</span>
+<span class="w">  </span><span class="nt">output_type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;channel_rt&#39;</span><span class="w">     </span><span class="c1"># Type of NWM output to retrieve. Currently only &#39;channel_rt&#39; is supported. Only applicable when data_source=&#39;GCS&#39;. </span>
+<span class="w">  </span><span class="nt">t_minus</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># T-minus hours for which to retrieve NWM forecasts, only applicable for AnA runs on GCS.</span>
+<span class="w">  </span><span class="nt">kerchunk_method</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;local&#39;</span><span class="w">     </span><span class="c1"># Preference for creating Kerchunk reference json files, only applicable for GCS data source.</span>
+<span class="w">  </span><span class="nt">process_by_z_hour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w">     </span><span class="c1"># Whether to process NWM files by z-hour per day, only applicable for GCS data source.</span>
+<span class="w">  </span><span class="nt">stepsize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">     </span><span class="c1"># Number of files to process in memory at once when processing GCS data without z-hour chunking.</span>
+<span class="w">  </span><span class="nt">ignore_missing_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w">     </span><span class="c1"># Whether to ignore missing NWM files and continue processing, only applicable for GCS data source.</span>
+<span class="w">  </span><span class="nt">overwrite_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to overwrite existing forecast data files.</span>
+<span class="w">  </span><span class="nt">memory_per_worker_gb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">     </span><span class="c1"># Configurable memory (in GB) assigned to each worker or process.</span>
+<span class="nt">flow_observation</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for flow observation data.</span>
+<span class="w">  </span><span class="nt">usgs</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">     </span><span class="c1"># Configuration for USGS flow observations. If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section, </span>
+<span class="nt">pair_data</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for paired data.</span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w">     </span><span class="c1"># Whether to overwrite existing paired data files.</span>
+<span class="w">  </span><span class="nt">group_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w">     </span><span class="c1"># Number of locations to process in each group when pairing forecast and observation data.</span>
+<span class="nt">metrics</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for metrics.</span>
+<span class="w">  </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;1-5&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;5-10&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;10-15&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;all_aggregated&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Lead times to include in the evaluation.</span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w">     </span><span class="c1"># Whether to overwrite existing metric files. </span>
+<span class="w">  </span><span class="nt">library</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;nwm.eval&#39;</span><span class="w">     </span><span class="c1"># Library to use for metric computation. Valid options: nwm.eval, teehr. </span>
+<span class="w">  </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;all&#39;</span><span class="w">     </span><span class="c1"># Subset of metrics to compute, either &#39;all&#39; or a list of metric names.</span>
+<span class="w">  </span><span class="nt">metric_exclude</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;HSEG_FDC&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;MSEG_FDC&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;LSEG_FDC&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of metric names to exclude from metric_subset for computation. </span>
+<span class="w">  </span><span class="nt">threshold_categorical</span><span class="p">:</span><span class="w">     </span><span class="c1"># Threshold for categorical metrics. Valid options for type are &#39;quantile&#39; and &#39;absolute&#39;. If &#39;quantile&#39;, the threshold will be determined as the specified quantile of the observed flow values. If &#39;absolute&#39;, the threshold will be the specified absolute flow value.</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span>
+<span class="w">  </span><span class="nt">threshold_event</span><span class="p">:</span><span class="w">     </span><span class="c1"># Threshold for event-based metrics. Valid options for type are &#39;quantile&#39; and &#39;absolute&#39;. If &#39;quantile&#39;, the threshold will be determined as the specified quantile of the observed flow values. If &#39;absolute&#39;, the threshold will be the specified absolute flow value.</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span>
+<span class="w">  </span><span class="nt">file_format</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;parquet&#39;</span><span class="w">     </span><span class="c1"># File format for output files. Valid options are &#39;parquet&#39; and &#39;csv&#39;.</span>
+<span class="nt">plots</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for plots.</span>
+<span class="w">  </span><span class="nt">histogram</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for histogram plots.</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;1-5&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;5-10&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;10-15&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;all_aggregated&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Lead times to include in the evaluation.</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to generate this type of plot.</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;NSE&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;KGE&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of metric names to include in the plots.</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">     </span><span class="c1"># Optional tag to include in plot titles and filenames.</span>
+<span class="w">    </span><span class="nt">binning</span><span class="p">:</span><span class="w">     </span><span class="c1"># Dictionary specifying the binning for histogram plots, with metric names as keys and lists of bin edges as values.</span>
+<span class="w">      </span><span class="nt">NSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">KGE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">boxplot</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for box plot.</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;1-5&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;5-10&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;10-15&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;all_aggregated&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Lead times to include in the evaluation.</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to generate this type of plot.</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;NSE&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;KGE&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of metric names to include in the plots.</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">     </span><span class="c1"># Optional tag to include in plot titles and filenames.</span>
+<span class="w">    </span><span class="nt">show_outliers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to show outliers in box plots. If True, outliers will be shown as individual points. If False, outliers will be omitted.</span>
+<span class="w">  </span><span class="nt">spatial_map</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for spatial map plots.</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;1-5&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;5-10&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;10-15&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;all_aggregated&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Lead times to include in the evaluation.</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to generate this type of plot.</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;NSE&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;KGE&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of metric names to include in the plots.</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">     </span><span class="c1"># Optional tag to include in plot titles and filenames.</span>
+<span class="w">    </span><span class="nt">scaling</span><span class="p">:</span><span class="w">     </span><span class="c1"># Dictionary specifying the scaling for spatial maps, with metric names as keys and lists of scaling ranges as values.</span>
+<span class="w">      </span><span class="nt">NSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">KGE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">time_series</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for time series plots.</span>
+<span class="w">    </span><span class="nt">reference_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2022-12-01</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2022-12-15</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Reference times (T0s) to include in the evaluation.</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of lead times for time series plots. Each lead time should be a number representing the forecast lead time in hours.</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to generate this type of plot.</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;NSE&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;KGE&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of metric names to include in the plots.</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">     </span><span class="c1"># Optional tag to include in plot titles and filenames.</span>
+<span class="w">  </span><span class="nt">metric_table</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for metric table plots.</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;1-5&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;5-10&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;10-15&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;all_aggregated&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Lead times to include in the evaluation.</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to generate this type of plot.</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;NSE&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;KGE&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of metric names to include in the plots.</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">     </span><span class="c1"># Optional tag to include in plot titles and filenames.</span>
+<span class="w">  </span><span class="nt">barchart</span><span class="p">:</span><span class="w">     </span><span class="c1"># Configuration for bar chart plots.</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;1-5&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;5-10&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;10-15&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;all_aggregated&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># Lead times to include in the evaluation.</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w">     </span><span class="c1"># Whether to generate this type of plot.</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;NSE&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;KGE&#39;</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># List of metric names to include in the plots.</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w">     </span><span class="c1"># Optional tag to include in plot titles and filenames.</span>
+</pre></div>
+</div>
+</section>
+<section id="config-ngencerf-yaml">
+<span id="id2"></span><h3><code class="docutils literal notranslate"><span class="pre">config_ngencerf.yaml</span></code><a class="headerlink" href="#config-ngencerf-yaml" title="Link to this heading">#</a></h3>
+<p>Sample config for verifying a single ngenCERF forecast at one location.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">general</span><span class="p">:</span><span class="w">   </span>
+<span class="w">  </span><span class="nt">steps</span><span class="p">:</span><span class="w"> </span><span class="c1"># define which of the 5 steps to run; each step can be run independently,</span>
+<span class="w">    </span><span class="nt">fetch_fcst_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">fetch_obs_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">pair_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">compute_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">plot_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">location_set_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usgs_01123000</span><span class="w">  </span><span class="c1"># user-specified name for the set of locations</span>
+<span class="w">  </span><span class="nt">location_list</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;01123000&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of usgs gage IDs</span>
+<span class="w">  </span><span class="nt">location_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usgs_gage</span><span class="w"> </span><span class="c1"># location type</span>
+<span class="w">  </span><span class="nt">variable_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">streamflow</span><span class="w"> </span><span class="c1"># currently only &#39;streamflow&#39; is supported</span>
+<span class="w">  </span><span class="nt">nwm_configuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">short_range</span><span class="w"> </span><span class="c1"># must match one of the configurations defined in fcst_config_file  </span>
+<span class="w">  </span><span class="nt">dataset_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">noah_cfes</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># user-specified name of datasets (e.g., formualtion name</span>
+<span class="w">  </span><span class="nt">nwm_version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ngen</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of NWM versions; must have the same length as &#39;dataset_name&#39;</span>
+<span class="w">  </span><span class="nt">forecast_start_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2022-12-01</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of start dates for verification; must be same length as &#39;dataset_name&#39;</span>
+<span class="w">  </span><span class="nt">forecast_end_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2022-12-01</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of end dates for verification; must be same length as &#39;dataset_name&#39;</span>
+
+<span class="nt">file_paths</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">base_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/repos/nwm-eval-mgr/data/</span><span class="w"> </span><span class="c1"># root directory to store data/outputs for verification</span>
+<span class="w">  </span><span class="nt">crosswalk_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet&#39;</span><span class="w"> </span><span class="c1"># crosswalk file mapping gage IDs to NWM/ngen link IDs</span>
+<span class="w">  </span><span class="nt">fcst_config_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/nwm_forecast_configuration.yaml&#39;</span><span class="w"> </span><span class="c1"># NWM forecast configuration file</span>
+<span class="w">  </span><span class="nt">fcst_data_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/{location_set_name}/{dataset_name}/{nwm_configuration}.csv&#39;</span><span class="w"> </span><span class="c1"># forecast data directory (must be specified when nwm_forecast.data_source is set to ngenCERF)</span>
+<span class="w">  </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/outputs/{location_set_name}&#39;</span><span class="w"> </span><span class="c1"># output directory to store all datasets, metrics and plots</span>
+
+<span class="nt">nwm_forecast</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">data_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ngenCERF</span><span class="w">    </span><span class="c1"># Specifies the source to retrieve the model forecast or simulation data. Currently supported options: GCS, ngenCERF, ngenSIM</span>
+
+<span class="nt">flow_observation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">usgs</span><span class="p">:</span><span class="w"> </span><span class="c1"># flow obs retrieved will be stored at [data_dir_root]/[location_set_name]/usgs</span>
+<span class="w">    </span><span class="nt">chunk_by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">month</span><span class="w">   </span><span class="c1"># data are saved in parquet files by day/month/year</span>
+<span class="w">    </span><span class="nt">overwrite_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w">  </span><span class="c1"># If True, existing output files will be overwritten; if False, existing files are retained</span>
+<span class="w">    </span><span class="nt">memory_per_worker_gb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">  </span><span class="c1"># configurable memory (in GB) assigned to each worker</span>
+
+<span class="nt">pair_data</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to overwrite existing joined parquet files</span>
+<span class="w">  </span><span class="nt">group_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w"> </span><span class="c1"># break large location list into smaller groups (for pair_data and cacl_metrics steps) to avoid potential memory issues and to speed up processing</span>
+
+<span class="nt">metrics</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to overwrite existing metric files</span>
+<span class="w">  </span><span class="nt">library</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nwm.eval</span><span class="w"> </span><span class="c1"># currently supported options: teehr, nwm.eval</span>
+<span class="w">  </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;all&#39;</span>
+<span class="w">  </span><span class="nt">threshold_categorical</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"> </span><span class="c1"># threshold value to be used for categorical metrics in nwm.eval </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span><span class="w"> </span><span class="c1"># type of threshold for categorical metrics in nwm.eval; options are &#39;quantile&#39; or &#39;absolute&#39;</span>
+<span class="w">  </span><span class="nt">threshold_event</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"> </span><span class="c1"># threshold value to be used for event-based metrics in nwm.eval</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span><span class="w"> </span><span class="c1"># type of threshold for event-based metrics in nwm.eval; options are &#39;quantile&#39; or &#39;absolute&#39;</span>
+<span class="w">  </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all_aggregated&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of lead times (in hours) for which metrics should be calculated for  </span>
+<span class="w">  </span><span class="nt">file_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parquet</span><span class="w"> </span><span class="c1"># file format for metrics. Options are: parquet, csv. Default is parquet.</span>
+
+<span class="nt">plots</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">time_series</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># whether to create time series plots</span>
+<span class="w">  </span><span class="nt">metric_table</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># whether to create metric table plots</span>
+<span class="w">  </span><span class="nt">barchart</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># whether to create barchart plots</span>
+</pre></div>
+</div>
+</section>
+<section id="config-hindcast-yaml">
+<span id="id3"></span><h3><code class="docutils literal notranslate"><span class="pre">config_hindcast.yaml</span></code><a class="headerlink" href="#config-hindcast-yaml" title="Link to this heading">#</a></h3>
+<p>Sample config for verifying multiple ngenCERF hindcasts at one location.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">general</span><span class="p">:</span><span class="w">   </span>
+<span class="w">  </span><span class="nt">steps</span><span class="p">:</span><span class="w"> </span><span class="c1"># define which of the 5 steps to run; each step can be run independently,</span>
+<span class="w">    </span><span class="nt">fetch_fcst_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">fetch_obs_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">pair_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">compute_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">plot_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">location_set_name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;usgs_01123000&#39;</span><span class="w">  </span><span class="c1"># user-specified name for the set of locations</span>
+<span class="w">  </span><span class="nt">location_list</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;01123000&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of usgs gage IDs</span>
+<span class="w">  </span><span class="nt">location_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usgs_gage</span><span class="w"> </span><span class="c1"># location type</span>
+<span class="w">  </span><span class="nt">variable_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">streamflow</span><span class="w"> </span><span class="c1"># currently only &#39;streamflow&#39; is supported</span>
+<span class="w">  </span><span class="nt">nwm_configuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">short_range</span><span class="w">  </span><span class="c1"># must match one of the configurations defined in fcst_config_file  </span>
+<span class="w">  </span><span class="nt">dataset_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">noah_cfes</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">noah_sac</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># user-specified name of datasets (e.g., formualtion name)</span>
+<span class="w">  </span><span class="nt">nwm_version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ngen</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">ngen</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of NWM versions; must have the same length as &#39;dataset_name&#39;</span>
+<span class="w">  </span><span class="nt">forecast_start_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2025-08-20</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2025-08-20</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of start dates for verification; must be same length as &#39;dataset_name&#39;</span>
+<span class="w">  </span><span class="nt">forecast_end_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2025-08-22</span><span class="nv"> </span><span class="s">06:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2025-08-22</span><span class="nv"> </span><span class="s">06:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of end dates for verification; must be same length as &#39;dataset_name&#39;</span>
+
+<span class="nt">file_paths</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">base_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/repos/nwm-eval-mgr/data/</span><span class="w"> </span><span class="c1"># root directory to store data/outputs for verification</span>
+<span class="w">  </span><span class="nt">crosswalk_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet&#39;</span><span class="w"> </span><span class="c1"># crosswalk file mapping gage IDs to NWM/ngen link IDs</span>
+<span class="w">  </span><span class="nt">fcst_config_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/nwm_forecast_configuration.yaml&#39;</span><span class="w"> </span><span class="c1"># NWM forecast configuration file</span>
+<span class="w">  </span><span class="nt">fcst_data_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/{location_set_name}/{dataset_name}/hind_run1&#39;</span><span class="w"> </span><span class="c1"># forecast data directory or file (must be specified when nwm_forecast.data_source is set to ngenCERF or hinscast)</span>
+<span class="w">  </span><span class="nt">fcst_data_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;01123000_output.csv&#39;</span><span class="w"> </span><span class="c1"># forecast data file path pattern (must be specified when nwm_forecast.data_source is set to ngenCERF or hinscast)</span>
+<span class="w">  </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/outputs/{location_set_name}_hindcast&#39;</span><span class="w"> </span><span class="c1"># output directory to store all datasets, metrics and plots</span>
+
+<span class="nt">nwm_forecast</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">data_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hindcast</span><span class="w">    </span><span class="c1"># Specifies the source to retrieve the model forecast or simulation data. Currently supported options: GCS, ngenCERF, ngenSIM, hindcast</span>
+
+<span class="nt">flow_observation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">usgs</span><span class="p">:</span><span class="w"> </span><span class="c1"># flow obs retrieved will be stored at [data_dir_root]/[location_set_name]/usgs</span>
+<span class="w">    </span><span class="nt">chunk_by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">month</span><span class="w">   </span><span class="c1"># data are saved in parquet files by day/month/year</span>
+<span class="w">    </span><span class="nt">overwrite_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w">  </span><span class="c1"># If True, existing output files will be overwritten; if False, existing files are retained</span>
+<span class="w">    </span><span class="nt">memory_per_worker_gb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">  </span><span class="c1"># configurable memory (in GB) assigned to each worker</span>
+
+<span class="nt">pair_data</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to overwrite existing joined parquet files</span>
+<span class="w">  </span><span class="nt">group_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w"> </span><span class="c1"># break large location list into smaller groups (for pair_data and cacl_metrics steps) to avoid potential memory issues and to speed up processing</span>
+
+<span class="nt">metrics</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to overwrite existing metric files</span>
+<span class="w">  </span><span class="nt">library</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nwm.eval</span><span class="w"> </span><span class="c1"># currently supported options: teehr, nwm.eval</span>
+<span class="w">  </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;all&#39;</span>
+<span class="w">  </span><span class="nt">threshold_categorical</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"> </span><span class="c1"># threshold value to be used for categorical metrics in nwm.eval </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span><span class="w"> </span><span class="c1"># type of threshold for categorical metrics in nwm.eval; options are &#39;quantile&#39; or &#39;absolute&#39;</span>
+<span class="w">  </span><span class="nt">threshold_event</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"> </span><span class="c1"># threshold value to be used for event-based metrics in nwm.eval</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span><span class="w"> </span><span class="c1"># type of threshold for event-based metrics in nwm.eval; options are &#39;quantile&#39; or &#39;absolute&#39;</span>
+<span class="w">  </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">all</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6-10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11-18</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">all_aggregated</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of lead times (in hours) for which metrics should be calculated for  </span>
+<span class="w">  </span><span class="nt">file_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parquet</span><span class="w"> </span><span class="c1"># file format for metrics. Options are: parquet, csv. Default is parquet.</span>
+
+<span class="nt">plots</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">time_series</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># whether to create time series plots</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">12</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">18</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of lead times (in hours) for which time series plots should be created</span>
+<span class="w">    </span><span class="nt">reference_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2025-08-20</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2025-08-21</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2025-08-22</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of forecast reference times for which time series plots should be created</span>
+<span class="w">  </span><span class="nt">metric_table</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># whether to create metric table plots</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">all_aggregated</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of lead times (in hours) for which metric table plots should be created</span>
+<span class="w">  </span><span class="nt">barchart</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># whether to create barchart plots</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">KGE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CORR</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NNSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">PBIAS</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">18</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6-10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11-18</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;all_aggregated&quot;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of lead times (in hours) for which barchart plots should be created</span>
+</pre></div>
+</div>
+</section>
+<section id="config-nwm-yaml">
+<span id="id4"></span><h3><code class="docutils literal notranslate"><span class="pre">config_nwm.yaml</span></code><a class="headerlink" href="#config-nwm-yaml" title="Link to this heading">#</a></h3>
+<p>Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">general</span><span class="p">:</span><span class="w"> </span><span class="c1"># define which of the 5 steps to run; each step can be run independently, assuming data from previous steps (from previous runs) are available for use</span>
+<span class="w">  </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">fetch_fcst_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">fetch_obs_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">pair_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">compute_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">plot_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="nt">location_set_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">calib_basin_group1</span><span class="w"> </span><span class="c1"># user-specified name for the set of locations</span>
+<span class="w">  </span><span class="nt">variable_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">streamflow</span><span class="w"> </span><span class="c1"># currently only &#39;streamflow&#39; is supported</span>
+<span class="w">  </span><span class="nt">nwm_configuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">short_range</span><span class="w">   </span><span class="c1"># Currently, only short_range, short_range_alaska, short_range_hawaii, and short_range_puertorico are supported</span>
+<span class="w">  </span><span class="nt">dataset_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">v3_sep</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">v3_oct</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># user-specified name of datasets (used for creating sub-folders for datasets and plots) </span>
+<span class="w">  </span><span class="nt">nwm_version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">nwm30</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">nwm30</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of NWM versions; must have the same length as &#39;dataset_name&#39;.</span>
+<span class="w">  </span><span class="nt">forecast_start_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2024-09-01</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2024-10-01</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of start date for forecast verification period; list must have the same length as &#39;dataset_name&#39;</span>
+<span class="w">  </span><span class="nt">forecast_end_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2024-09-30</span><span class="nv"> </span><span class="s">23:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2024-10-30</span><span class="nv"> </span><span class="s">23:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of end date for forecast verification period; list must have the same length as &#39;dataset_name&#39;</span>
+
+<span class="nt">file_paths</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">base_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/repos/nwm-eval-mgr/data/</span><span class="w">  </span><span class="c1"># root directory to store the downloaded NWM forecast and flow observation data</span>
+<span class="w">  </span><span class="nt">location_list_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{base_dir}/inputs/gage_files/usgs_gages_link_CONUS_calib100.csv&quot;</span><span class="w"> </span><span class="c1"># [optional] file path for the list of locations (e.g., gage IDs or NWM link IDs)</span>
+<span class="w">  </span><span class="nt">crosswalk_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet&#39;</span><span class="w"> </span><span class="c1"># parquet files containing the crosswalk between NWM feature_id and usgs gage id  </span>
+<span class="w">  </span><span class="nt">fcst_config_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/nwm_forecast_configuration.yaml&#39;</span><span class="w"> </span><span class="c1"># NWM forecast configuration file  </span>
+<span class="w">  </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/outputs/{location_set_name}&#39;</span><span class="w"> </span><span class="c1"># output directory to store all datasets and plots</span>
+
+<span class="nt">nwm_forecast</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">data_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GCS</span><span class="w">    </span><span class="c1"># Specifies the source to retrieve the model forecast or simulation data. Currently supported options: GCS, ngenCERF, ngenSIM</span>
+<span class="w">  </span><span class="nt">fetch_fcst</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># whether to fetch the forecast data for each dataset listed in [&#39;general&#39;][&#39;dataset_name&#39;]  </span>
+<span class="w">  </span><span class="nt">output_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channel_rt</span>
+<span class="w">  </span><span class="nt">t_minus</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># Only used if an assimilation run is selected</span>
+<span class="w">  </span><span class="nt">kerchunk_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">process_by_z_hour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">stepsize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">  </span><span class="c1"># Only used if PROCESS_BY_Z_HOUR = False. Controls how many files are processed in memory at once</span>
+<span class="w">  </span><span class="nt">ignore_missing_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># If True, the missing file(s) will be skipped and the process will resume; if False, TEEHR will fail if a missing NWM file is encountered</span>
+<span class="w">  </span><span class="nt">overwrite_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># If True, existing output files will be overwritten; if False, existing files are retained</span>
+<span class="w">  </span><span class="nt">memory_per_worker_gb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">  </span><span class="c1"># configurable memory (in GB) assigned to each worker</span>
+
+<span class="nt">flow_observation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">usgs</span><span class="p">:</span><span class="w"> </span><span class="c1"># flow obs retrieved will be stored at [data_dir_root]/[location_set_name]/usgs</span>
+<span class="w">    </span><span class="nt">chunk_by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">day</span><span class="w">   </span><span class="c1"># data are saved in parquet files by day/month/year</span>
+<span class="w">    </span><span class="nt">overwrite_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># If True, existing output files will be overwritten; if False, existing files are retained</span>
+<span class="w">    </span><span class="nt">memory_per_worker_gb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">  </span><span class="c1"># configurable memory (in GB) assigned to each worker</span>
+
+<span class="nt">pair_data</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to overwrite existing joined parquet files</span>
+<span class="w">  </span><span class="nt">group_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w"> </span><span class="c1"># break large location list into smaller groups (for pair_data and cacl_metrics steps) to avoid potential memory issues and to speed up processing</span>
+
+<span class="nt">metrics</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to overwrite existing metric files</span>
+<span class="w">  </span><span class="nt">library</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nwm.eval</span><span class="w"> </span><span class="c1"># library to be used for metric calculation; currently supported options: teehr, nwm.eval</span>
+<span class="w">  </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;all&#39;</span><span class="w"> </span><span class="c1"># list of metrics to be calculated; if set to &#39;all&#39;, all available metrics will be calculated </span>
+<span class="w">  </span><span class="nt">metric_exclude</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">PKBIAS</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">PKTE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">EVBIAS</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">FBIAS</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of metrics to be excluded from calculation (leave blank if no need to exclude any metrics)</span>
+<span class="w">  </span><span class="nt">threshold_categorical</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"> </span><span class="c1"># threshold value to be used for categorical metrics in nwm.eval </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span><span class="w"> </span><span class="c1"># type of threshold for categorical metrics in nwm.eval; options are &#39;quantile&#39; or &#39;absolute&#39;</span>
+<span class="w">  </span><span class="nt">threshold_event</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"> </span><span class="c1"># threshold value to be used for event-based metrics in nwm.eval</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span><span class="w"> </span><span class="c1"># type of threshold for event-based metrics in nwm.eval; options are &#39;quantile&#39; or &#39;absolute&#39;</span>
+<span class="w">  </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">all</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6-10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11-18</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of lead times (in hours) for which metrics should be calculated for</span>
+
+<span class="c1"># For each type of plots (histogram, boxplot, spatial map), </span>
+<span class="c1">#   1) &#39;metric_subset&#39; must be a subset of metrics defined for calculation (i.e., &#39;metric_subset&#39; defined in Section &#39;metrics&#39;)</span>
+<span class="c1">#   2) &#39;lead_times&#39; must be a subset of lead times defined for metrics calculation (i.e., &#39;lead_times&#39; defined in Section &#39;metrics&#39;)</span>
+<span class="nt">plots</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">histogram</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to create histogram plots    </span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">KGE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CORR</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NNSE</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of metrics to create histogram plots for</span>
+<span class="w">    </span><span class="nt">binning</span><span class="p">:</span><span class="w"> </span><span class="c1"># for each metric, define list of bin edges for generating the histogram plot</span>
+<span class="w">      </span><span class="nt">KGE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-inf</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-inf</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NNSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">CORR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span><span class="w">    </span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">18</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6-10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11-18</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of lead times (in hours) to create histograms for</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w">  </span><span class="c1"># optional string that gets added to the filename of histogram plots to differentiate between runs</span>
+
+<span class="w">  </span><span class="nt">boxplot</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">KGE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CORR</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NNSE</span><span class="p p-Indicator">]</span><span class="w">   </span>
+<span class="w">    </span><span class="nt">scaling</span><span class="p">:</span><span class="w">  </span><span class="c1"># Define an appropriate range (min/max) for each metric to scale the values for better visualization of boxplot</span>
+<span class="w">      </span><span class="nt">KGE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">CORR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NNSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">RSR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">MAE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">RMSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">PBIAS</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-100</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">300</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">18</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6-10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11-18</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">show_outliers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span>
+
+<span class="w">  </span><span class="nt">spatial_map</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">    </span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">KGE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CORR</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NNSE</span><span class="p p-Indicator">]</span><span class="w">    </span>
+<span class="w">    </span><span class="nt">scaling</span><span class="p">:</span><span class="w"> </span><span class="c1"># Define an appropriate range (min/max) for each metric to scale the values for the spatial map</span>
+<span class="w">      </span><span class="nt">KGE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">CORR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NNSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">RSR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">MAE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">RMSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">PBIAS</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-100</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">300</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">18</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6-10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11-18</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="config-ngensim-yaml">
+<span id="id5"></span><h3><code class="docutils literal notranslate"><span class="pre">config_ngensim.yaml</span></code><a class="headerlink" href="#config-ngensim-yaml" title="Link to this heading">#</a></h3>
+<p>Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">general</span><span class="p">:</span><span class="w">   </span>
+<span class="w">  </span><span class="nt">steps</span><span class="p">:</span><span class="w"> </span><span class="c1"># define which of the 5 steps to run; each step can be run independently,</span>
+<span class="w">    </span><span class="nt">fetch_fcst_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">fetch_obs_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">pair_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">compute_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">plot_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conus</span><span class="w">  </span><span class="c1"># Define NWM domain. Supported options: conus, ak, hi, prvi</span>
+<span class="w">  </span><span class="nt">assemble_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># whether to assemble metrics from various VPUs for the entire domain and plot domain-level metrics</span>
+<span class="w">  </span><span class="nt">location_set_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vpu_03S</span><span class="w">  </span><span class="c1"># user-specified name for the set of locations</span>
+<span class="w">  </span><span class="nt">location_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usgs_gage</span><span class="w"> </span><span class="c1"># location type</span>
+<span class="w">  </span><span class="nt">location_filter</span><span class="p">:</span><span class="w"> </span><span class="c1"># filter locations based on column and value in the gage crosswalk file; if null, all locations in the crosswalk file will be used, unless location_list or location_list_file is specified</span>
+<span class="w">    </span><span class="nt">columns</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;vpu_id&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;status&quot;</span><span class="p p-Indicator">]</span><span class="w">  </span>
+<span class="w">    </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;03S&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;USGS-active&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">variable_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">streamflow</span><span class="w"> </span><span class="c1"># currently only &#39;streamflow&#39; is supported</span>
+<span class="w">  </span><span class="nt">nwm_configuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ngen_simulation</span><span class="w">    </span>
+<span class="w">  </span><span class="nt">dataset_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">gower</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">kmeans</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># user-specified name of datasets (e.g., formualtion or algorithm name)</span>
+<span class="w">  </span><span class="nt">nwm_version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ngen</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">ngen</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of NWM versions; must have the same length as &#39;dataset_name&#39;</span>
+<span class="w">  </span><span class="nt">forecast_start_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2012-10-01</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2012-10-01</span><span class="nv"> </span><span class="s">00:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of start dates for simulation; must be same length as &#39;dataset_name&#39;</span>
+<span class="w">  </span><span class="nt">forecast_end_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2012-10-01</span><span class="nv"> </span><span class="s">10:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2012-10-01</span><span class="nv"> </span><span class="s">10:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of end dates for simulation; must be same length as &#39;dataset_name&#39;</span>
+<span class="w">  </span><span class="nt">eval_start_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2012-10-01</span><span class="nv"> </span><span class="s">03:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2012-10-01</span><span class="nv"> </span><span class="s">03:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># start date for evaluation period, only used for ngenSIM</span>
+<span class="w">  </span><span class="nt">eval_end_date</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;2012-10-01</span><span class="nv"> </span><span class="s">10:00:00&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;2012-10-01</span><span class="nv"> </span><span class="s">10:00:00&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># end date for evaluation period, only used for ngenSIM</span>
+<span class="w">  </span><span class="nt">separate_calibrated</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to distinguish calibrated and regionalized locations in the evaluation</span>
+
+<span class="nt">file_paths</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">base_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/repos/nwm-eval-mgr/data/</span><span class="w"> </span><span class="c1"># root directory to store data/outputs for verification</span>
+<span class="w">  </span><span class="nt">crosswalk_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/nhf/usgs_{nwm_version}_crosswalk_{domain}.parquet&#39;</span><span class="w"> </span><span class="c1"># crosswalk file mapping gage IDs to NWM/ngen link IDs</span>
+<span class="w">  </span><span class="nt">fcst_data_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/inputs/troute_output_201210010000_{dataset_name}.nc&#39;</span><span class="w"> </span><span class="c1"># forecast data directory (must be specified when nwm_forecast.data_source is set to ngenCERF)</span>
+<span class="w">  </span><span class="nt">calib_param_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/../../nwm-region-mgr/data/inputs/region/pseudo_calib_params/sampled_params_{domain}.csv&#39;</span><span class="w"> </span><span class="c1"># calibration parameters file (used when separate_calibrated is True); must have column &#39;gage_id&#39;</span>
+<span class="w">  </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{base_dir}/outputs/{location_set_name}&#39;</span><span class="w"> </span><span class="c1"># output directory to store all datasets, metrics and plots</span>
+
+<span class="nt">nwm_forecast</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">data_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ngenSIM</span><span class="w">   </span><span class="c1"># Specifies the source to retrieve the model forecast or simulation data. Currently supported options: GCS, ngenCERF, ngenSIM</span>
+
+<span class="nt">flow_observation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">usgs</span><span class="p">:</span><span class="w"> </span><span class="c1"># flow obs retrieved will be stored at [data_dir_root]/[location_set_name]/usgs</span>
+<span class="w">    </span><span class="nt">chunk_by</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">month</span><span class="w">   </span><span class="c1"># data are saved in parquet files by day/month/year</span>
+<span class="w">    </span><span class="nt">overwrite_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w">  </span><span class="c1"># If True, existing output files will be overwritten; if False, existing files are retained</span>
+<span class="w">    </span><span class="nt">memory_per_worker_gb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">  </span><span class="c1"># configurable memory (in GB) assigned to each worker</span>
+
+<span class="nt">pair_data</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to overwrite existing joined parquet files</span>
+<span class="w">  </span><span class="nt">group_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w"> </span><span class="c1"># break large location list into smaller groups (for pair_data and cacl_metrics steps) to avoid potential memory issues and to speed up processing</span>
+
+<span class="nt">metrics</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># whether to overwrite existing metric files</span>
+<span class="w">  </span><span class="nt">library</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nwm.eval</span><span class="w"> </span><span class="c1"># currently supported options: teehr, nwm.eval</span>
+<span class="w">  </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">KGE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CORR</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NNSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">PKBIAS</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">PKTE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">EVBIAS</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># subset of metrics to calculate; if null, all available metrics will be calculated</span>
+<span class="w">  </span><span class="nt">threshold_categorical</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"> </span><span class="c1"># threshold value to be used for categorical metrics in nwm.eval </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span><span class="w"> </span><span class="c1"># type of threshold for categorical metrics in nwm.eval; options are &#39;quantile&#39; or &#39;absolute&#39;</span>
+<span class="w">  </span><span class="nt">threshold_event</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"> </span><span class="c1"># threshold value to be used for event-based metrics in nwm.eval</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantile</span><span class="w"> </span><span class="c1"># type of threshold for event-based metrics in nwm.eval; options are &#39;quantile&#39; or &#39;absolute&#39;</span>
+<span class="w">  </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># list of lead times (in hours) for which metrics should be calculated for  </span>
+<span class="w">  </span><span class="nt">file_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parquet</span><span class="w"> </span><span class="c1"># file format for metrics. Options are: parquet, csv. Default is parquet.</span>
+
+<span class="nt">plots</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">histogram</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">KGE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CORR</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NNSE</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">binning</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">KGE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-inf</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-inf</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NNSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">CORR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;all&#39;</span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="nt">boxplot</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">KGE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CORR</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NNSE</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">scaling</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">KGE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">CORR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NNSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">RSR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">MAE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">RMSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">PBIAS</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-100</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">300</span><span class="p p-Indicator">]</span>
+
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">18</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6-10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11-18</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">show_outliers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="w">  </span><span class="nt">spatial_map</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">metric_subset</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">KGE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NSE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CORR</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">NNSE</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">scaling</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">KGE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">CORR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-0.5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">NNSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">RSR</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">MAE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">RMSE</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">20</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">PBIAS</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-100</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">300</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">lead_times</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">18</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1-5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6-10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">11-18</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="schemas">
+<h2>Schemas<a class="headerlink" href="#schemas" title="Link to this heading">#</a></h2>
+<section id="barchartconfig-inherits-from-baseplotconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">BarChartConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)<a class="headerlink" href="#barchartconfig-inherits-from-baseplotconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+</table>
+</div>
+</section>
+<section id="baseplotconfig-inherits-from-leadtimesmixin">
+<h3><code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code>)<a class="headerlink" href="#baseplotconfig-inherits-from-leadtimesmixin" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>plot</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Whether to generate this type of plot. If False, the script will skip generating this type of plot. If True, the script will generate this type of plot for the specified lead times.</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>metric_subset</p></td>
+<td><p>str | List[str] | NoneType</p></td>
+<td><p>List of metric names to include in the plots. If not defined, all available metrics will be included in the plots.</p></td>
+<td><p>None</p></td>
+<td><p>[‘NSE’, ‘KGE’]</p></td>
+</tr>
+<tr class="row-even"><td><p>tag</p></td>
+<td><p>str | NoneType</p></td>
+<td><p>Optional tag to include in the plot titles and filenames. This can be used to distinguish different configurations in the plot outputs.</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="boxplotconfig-inherits-from-baseplotconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">BoxPlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)<a class="headerlink" href="#boxplotconfig-inherits-from-baseplotconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>show_outliers</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Whether to show outliers in box plots. If True, outliers will be shown as individual points. If False, outliers will be omitted.</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="filepathsconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">FilePathsConfig</span></code><a class="headerlink" href="#filepathsconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>base_dir</p></td>
+<td><p>Path</p></td>
+<td><p>Root directory to store data and outputs for the evaluation. The script will create subdirectories under this base directory for different datasets and types of outputs (e.g., noah_cfes, usgs, joined, metrics, plots).</p></td>
+<td><p>None</p></td>
+<td><p>~/ngen_evaluation/</p></td>
+</tr>
+<tr class="row-odd"><td><p>location_list_file</p></td>
+<td><p>Path | str | NoneType</p></td>
+<td><p>Path to a file containing the list of locations to evaluate, only used if ‘general.location_list’ is not provided. If neither is provided, locations from the crosswalk file will be used, filtered by ‘general.location_filter’.</p></td>
+<td><p>None</p></td>
+<td><p>~/location_list.csv</p></td>
+</tr>
+<tr class="row-even"><td><p>crosswalk_file</p></td>
+<td><p>Path | str | Dict[str, Path] | Dict[str, str]</p></td>
+<td><p>Path to a crosswalk file or a dictionary of crosswalk files, corresponding to different nwm versions. The crosswalk file maps location identifiers to other relevant information.</p></td>
+<td><p>None</p></td>
+<td><p>~/crosswalk.csv</p></td>
+</tr>
+<tr class="row-odd"><td><p>fcst_config_file</p></td>
+<td><p>str | Path | NoneType</p></td>
+<td><p>Path to the forecast configuration file. This file defines the parameters for different NWM configurations. For each forecast configuration, a list that specify the following parameters (in order): cycle_start: start time of forecast cycles in Zulu time or UTC (e.g., 0Z);cycle_end: end time of forecast cycles in Zulu time or UTC (e.g., 23Z);cycle_freq: frequency of forecast cycles in hours (e.g., 1);fcst_win: forecast window in hours (e.g., 18);fcst_timestep: forecast timestep in hours (e.g., 1);</p></td>
+<td><p>None</p></td>
+<td><p>data/inputs/nwm_forecast_configuration.yaml</p></td>
+</tr>
+<tr class="row-even"><td><p>fcst_data_file</p></td>
+<td><p>Path | str | Dict[str, Path] | Dict[str, str] | NoneType</p></td>
+<td><p>Path to the forecast data file or a dictionary of forecast data files.</p></td>
+<td><p>None</p></td>
+<td><p>01123000_output.csv</p></td>
+</tr>
+<tr class="row-odd"><td><p>fcst_data_dir</p></td>
+<td><p>Path | str | Dict[str, Path] | Dict[str, str] | NoneType</p></td>
+<td><p>Path to the directory containing forecast data files or a dictionary of directories.</p></td>
+<td><p>None</p></td>
+<td><p>data/inputs/hindcasts/</p></td>
+</tr>
+<tr class="row-even"><td><p>obs_data_file</p></td>
+<td><p>Path | str | NoneType</p></td>
+<td><p>Path to the observation data file. Both obs_data_file and obs_data_dir can be specified. The run will read all .csv and .parquet files in obs_data_dir and obs_data_file and remove duplicates.If neither obs_data_file nor obs_data_dir is provided, an observation data source must be specified in the ‘flow_observation.usgs’ section.</p></td>
+<td><p>None</p></td>
+<td><p>data/inputs/obs/01123000_hourly_discharge.csv</p></td>
+</tr>
+<tr class="row-odd"><td><p>obs_data_dir</p></td>
+<td><p>Path | str | NoneType</p></td>
+<td><p>(“Path to the observation data directory where one or more observation data files are stored. The run will look for all .csv and .parquet files in this directory. Each file can contain observation data for a single location (with the filename starting with the location identifier), or multiple locations with a ‘location_id’ column specifying the location identifiers.”,)</p></td>
+<td><p>None</p></td>
+<td><p>data/inputs/obs/</p></td>
+</tr>
+<tr class="row-even"><td><p>calib_param_file</p></td>
+<td><p>Path | str | NoneType</p></td>
+<td><p>Path to the calibration parameter file.</p></td>
+<td><p>None</p></td>
+<td><p>data/inputs/calib_params.csv</p></td>
+</tr>
+<tr class="row-odd"><td><p>txdot_gage_file</p></td>
+<td><p>Path | str | NoneType</p></td>
+<td><p>Path to the TxDOT gage file. This is only needed if evaluating TxDOT locations, for which streamflow observations are retrieved differently than USGS gages. If not provided, the default TxDOT list defined in settings.py will be used.</p></td>
+<td><p>None</p></td>
+<td><p>data/inputs/gage_files/tx_gauges.csv</p></td>
+</tr>
+<tr class="row-even"><td><p>output_dir</p></td>
+<td><p>str | Path</p></td>
+<td><p>Directory to save outputs such as paired data, computed metrics, and plots.</p></td>
+<td><p>None</p></td>
+<td><p>ngen_evaluation/outputs/usgs_01123000/</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="flowobservationconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">FlowObservationConfig</span></code><a class="headerlink" href="#flowobservationconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>usgs</p></td>
+<td><p>USGSConfig | NoneType</p></td>
+<td><p>Configuration for USGS flow observations. If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section,</p></td>
+<td><p>None</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="generalconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">GeneralConfig</span></code><a class="headerlink" href="#generalconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>steps</p></td>
+<td><p>Dict[str, bool]</p></td>
+<td><p>Dictionary specifying which steps to run. Keys are step names (e.g., ‘fetch_fcst_data’, ‘fetch_obs_data’, ‘pair_data’, ‘compute_metrics’, ‘plot_metrics’), and values are booleans indicating whether to run the step.Note that these steps need to run in order, since some steps depend on the output of previous steps (e.g., one cannot compute metrics without first fetching data and pairing it).</p></td>
+<td><p>{‘fetch_fcst_data’: True, ‘fetch_obs_data’: True, ‘pair_data’: True, ‘compute_metrics’: True, ‘plot_metrics’: True}</p></td>
+<td><p>{‘fetch_fcst_data’: True, ‘fetch_obs_data’: True, ‘pair_data’: True, ‘compute_metrics’: True, ‘plot_metrics’: True}</p></td>
+</tr>
+<tr class="row-odd"><td><p>domain</p></td>
+<td><p>str = conus | hi | ak | prvi | NoneType</p></td>
+<td><p>Domain for the evaluation. Valid options are ‘conus’, ‘hi’, ‘ak’, ‘prvi’ (case insensitive).</p></td>
+<td><p>None</p></td>
+<td><p>conus</p></td>
+</tr>
+<tr class="row-even"><td><p>assemble_domain</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Whether to assemble results from different VPUs across domains. This is only applicable when domain is ‘conus’, since the CONUS domain is currently divided into VPUs while other domains are not. If True, the script will look for metric files from each VPU, concatenate them, and save the assembled metric file for the entire CONUS domain.</p></td>
+<td><p>None</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>location_set_name</p></td>
+<td><p>str</p></td>
+<td><p>User-specified name for the set of locations (e.g., a specific VPU or a cluster from a regionalization). This will be used in naming output files and directories.</p></td>
+<td><p>usgs_01123000</p></td>
+<td><p>vpu_03S</p></td>
+</tr>
+<tr class="row-even"><td><p>location_list</p></td>
+<td><p>List[str] | NoneType</p></td>
+<td><p>List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used.</p></td>
+<td><p>None</p></td>
+<td><p>[‘01123000’, ‘01123500’]</p></td>
+</tr>
+<tr class="row-odd"><td><p>location_type</p></td>
+<td><p>str = usgs_gage | nwm30_link | nwm22_link</p></td>
+<td><p>Type of locations to evaluate. Valid options are ‘usgs_gage’, ‘nwm30_link’, and ‘nwm22_link’. This will determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data.</p></td>
+<td><p>usgs_gage</p></td>
+<td><p>usgs_gage</p></td>
+</tr>
+<tr class="row-even"><td><p>location_filter</p></td>
+<td><p>LocationFilter | NoneType</p></td>
+<td><p>Optional configuration for filtering locations based on column values in the crosswalk file. If provided, only locations that match the specified column-value pairs will be included in the evaluation.</p></td>
+<td><p>None</p></td>
+<td><p>{‘columns’: [‘vpu_id’, ‘status’], ‘values’: [‘03S’, ‘USGS-active’]}</p></td>
+</tr>
+<tr class="row-odd"><td><p>location_group_size</p></td>
+<td><p>int | NoneType</p></td>
+<td><p>Number of locations to process in each group when pairing forecast and observation data. This is used to manage memory usage during the pairing step. If None, all locations will be processed in a single group.</p></td>
+<td><p>200</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-even"><td><p>variable_name</p></td>
+<td><p>str</p></td>
+<td><p>Name of the variable to evaluate. Currently only ‘streamflow’ is supported, but this field is included for future extensibility.</p></td>
+<td><p>streamflow</p></td>
+<td><p>streamflow</p></td>
+</tr>
+<tr class="row-odd"><td><p>nwm_configuration</p></td>
+<td><p>str</p></td>
+<td><p>Name of the NWM configuration to evaluate. This can be ‘ngen’ for ngen-based simulations or match one of the configurations defined in the forecast configuration file specified by ‘file_paths.fcst_config_file’.</p></td>
+<td><p>None</p></td>
+<td><p>ngen</p></td>
+</tr>
+<tr class="row-even"><td><p>dataset_name</p></td>
+<td><p>List[str]</p></td>
+<td><p>User-specified name(s) for the dataset(s) to evaluate (e.g., formulation name or regionalization algorithm). This will be used in naming output files and directories. If evaluating multiple datasets, this should be a list of names with the same length as ‘nwm_version’, ‘forecast_start_date’, and ‘forecast_end_date’.</p></td>
+<td><p>None</p></td>
+<td><p>[‘noah_cfes’, ‘noah_topmodel’]</p></td>
+</tr>
+<tr class="row-odd"><td><p>nwm_version</p></td>
+<td><p>List[str]</p></td>
+<td><p>List of NWM versions to evaluate. Valid options include ‘ngen’, ‘nwm30’, ‘nwm22’, etc. This should be a list of the same length as ‘dataset_name’, where each entry corresponds to the NWM version for the dataset with the same index in ‘dataset_name’.</p></td>
+<td><p>None</p></td>
+<td><p>[‘ngen’, ‘nwm30’]</p></td>
+</tr>
+<tr class="row-even"><td><p>forecast_start_date</p></td>
+<td><p>List[str]</p></td>
+<td><p>List of start dates for the forecast data to evaluate. This should be a list of the same length as ‘dataset_name’, where each entry corresponds to the start date for the dataset with the same index in ‘dataset_name’</p></td>
+<td><p>None</p></td>
+<td><p>[‘2022-12-01 00:00:00’, ‘2022-12-15 00:00:00’]</p></td>
+</tr>
+<tr class="row-odd"><td><p>forecast_end_date</p></td>
+<td><p>List[str]</p></td>
+<td><p>List of end dates for the forecast data to evaluate. This should be a list of the same length as ‘dataset_name’, where each entry corresponds to the end date for the dataset with the same index in ‘dataset_name’</p></td>
+<td><p>None</p></td>
+<td><p>[‘2022-12-31 00:00:00’, ‘2023-01-15 00:00:00’]</p></td>
+</tr>
+<tr class="row-even"><td><p>eval_start_date</p></td>
+<td><p>List[str] | NoneType</p></td>
+<td><p>List of start dates for the evaluation period. This should be a list of the same length as ‘dataset_name’, where each entry corresponds to the start date for the evaluation period of the dataset with the same index in ‘dataset_name’. If not provided, the evaluation will start from the earliest available date in the paired forecast and observation data for each dataset.</p></td>
+<td><p>None</p></td>
+<td><p>[‘2022-12-11 00:00:00’, ‘2022-12-25 00:00:00’]</p></td>
+</tr>
+<tr class="row-odd"><td><p>eval_end_date</p></td>
+<td><p>List[str] | NoneType</p></td>
+<td><p>List of end dates for the evaluation period. This should be a list of the same length as ‘dataset_name’, where each entry corresponds to the end date for the evaluation period of the dataset with the same index in ‘dataset_name’. If not provided, the evaluation will end at the latest available date in the paired forecast and observation data for each dataset.</p></td>
+<td><p>None</p></td>
+<td><p>[‘2022-12-31 00:00:00’, ‘2023-01-15 00:00:00’]</p></td>
+</tr>
+<tr class="row-even"><td><p>separate_calibrated</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Whether to distinguish calibrated and regionalized locations in the evaluation</p></td>
+<td><p>None</p></td>
+<td><p>False</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="histogramconfig-inherits-from-baseplotconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">HistogramConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)<a class="headerlink" href="#histogramconfig-inherits-from-baseplotconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>binning</p></td>
+<td><p>Dict[str, List[int | float]] | NoneType</p></td>
+<td><p>Dictionary specifying the binning for histogram plots. Keys are metric names, and values are lists of numbers defining the bin edges for the corresponding metric. If a metric is not included in this dictionary, binning is determined by dividing the range of metric values into 8 equal-width bins.</p></td>
+<td><p>{‘NSE’: [-1, -0.5, 0, 0.5, 1], ‘KGE’: [-1, -0.5, 0, 0.5, 1]}</p></td>
+<td><p>{‘NSE’: [-1, -0.5, 0, 0.5, 1], ‘KGE’: [-1, -0.5, 0, 0.5, 1]}</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="leadtimesmixin">
+<h3><code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code><a class="headerlink" href="#leadtimesmixin" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>lead_times</p></td>
+<td><p>List[str] | NoneType</p></td>
+<td><p>List of lead times to compute metrics or make plots for. Each lead time can be specified as an integer (e.g., 6), a numeric string (e.g., ‘6’), or a range string (e.g., ‘1-6’). <code class="docutils literal notranslate"><span class="pre">all</span></code> represents all available individual lead times for a given nwm configuration. Range strings will be expanded to include all individual lead times within the range. <code class="docutils literal notranslate"><span class="pre">all_aggregated</span></code> represents a range that includes all lead times for a given nwm configuration, (e.g., 1-18 for short_range).Note lead times defined in <code class="docutils literal notranslate"><span class="pre">plots</span></code> must be a subset of those defined in <code class="docutils literal notranslate"><span class="pre">metrics</span></code>.</p></td>
+<td><p>None</p></td>
+<td><p>[‘all’, ‘1-5’, ‘5-10’, ‘10-15’, ‘all_aggregated’]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="locationfilter">
+<h3><code class="docutils literal notranslate"><span class="pre">LocationFilter</span></code><a class="headerlink" href="#locationfilter" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>columns</p></td>
+<td><p>str | List[str] | NoneType</p></td>
+<td><p>Column name(s) in the crosswalk file to filter on. Can be a single string or a list of strings.</p></td>
+<td><p>None</p></td>
+<td><p>vpu_id</p></td>
+</tr>
+<tr class="row-odd"><td><p>values</p></td>
+<td><p>str | List[str] | NoneType</p></td>
+<td><p>Value(s) to filter on for the corresponding columns. Can be a single string or a list of strings.</p></td>
+<td><p>None</p></td>
+<td><p>03S</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="metricsconfig-inherits-from-leadtimesmixin">
+<h3><code class="docutils literal notranslate"><span class="pre">MetricsConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code>)<a class="headerlink" href="#metricsconfig-inherits-from-leadtimesmixin" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>overwrite</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Whether to overwrite existing metric files.</p></td>
+<td><p>True</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>library</p></td>
+<td><p>str | NoneType</p></td>
+<td><p>Library to use for metric computation. Valid options: nwm.eval, teehr.</p></td>
+<td><p>nwm.eval</p></td>
+<td><p>nwm.eval</p></td>
+</tr>
+<tr class="row-even"><td><p>metric_subset</p></td>
+<td><p>str | List[str]</p></td>
+<td><p>Subset of metrics to compute. Can be ‘all’ or a list of metric names. If ‘all’, all available metrics in the specified library will be computed. If a list of metric names is provided, only those metrics will be computed.</p></td>
+<td><p>None</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>metric_exclude</p></td>
+<td><p>List[str] | NoneType</p></td>
+<td><p>List of metric names to exclude from metric_subset for computation.</p></td>
+<td><p>None</p></td>
+<td><p>[‘HSEG_FDC’, ‘MSEG_FDC’, ‘LSEG_FDC’]</p></td>
+</tr>
+<tr class="row-even"><td><p>threshold_categorical</p></td>
+<td><p>Dict[str, float | str] | NoneType</p></td>
+<td><p>Threshold for categorical metrics. Valid options for type are ‘quantile’ and ‘absolute’. If ‘quantile’, the threshold will be determined as the specified quantile of the observed flow values. If ‘absolute’, the threshold will be the specified absolute flow value.</p></td>
+<td><p>{‘value’: 0.9, ‘type’: ‘quantile’}</p></td>
+<td><p>{‘value’: 0.9, ‘type’: ‘quantile’}</p></td>
+</tr>
+<tr class="row-odd"><td><p>threshold_event</p></td>
+<td><p>Dict[str, float | str] | NoneType</p></td>
+<td><p>Threshold for event-based metrics. Valid options for type are ‘quantile’ and ‘absolute’. If ‘quantile’, the threshold will be determined as the specified quantile of the observed flow values. If ‘absolute’, the threshold will be the specified absolute flow value.</p></td>
+<td><p>{‘value’: 0.9, ‘type’: ‘quantile’}</p></td>
+<td><p>{‘value’: 0.9, ‘type’: ‘quantile’}</p></td>
+</tr>
+<tr class="row-even"><td><p>file_format</p></td>
+<td><p>str | NoneType</p></td>
+<td><p>File format for output files. Valid options are ‘parquet’ and ‘csv’.</p></td>
+<td><p>parquet</p></td>
+<td><p>parquet</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="nwmforecastconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">NWMForecastConfig</span></code><a class="headerlink" href="#nwmforecastconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>data_source</p></td>
+<td><p>str = ngenCERF | ngenSIM | hindcast | GCS</p></td>
+<td><p>Data source for the NWM forecast. This specifies the source from which forecast data will be retrieved.Valid options are: ‘ngenCERF’ for ngen-based single-location forecasts for a single reference time (T0), ‘hindcast’ for ngen-based single-location hindcast data for multiple reference times (T0), ‘ngenSIM’ for large-scale ngen-based simulations (e.g., across a VPU from regionalization), ‘GCS’ for large-scale operational NWM forecasts on Google Cloud Storage.</p></td>
+<td><p>None</p></td>
+<td><p>ngenCERF</p></td>
+</tr>
+<tr class="row-odd"><td><p>fetch_fcst</p></td>
+<td><p>List[bool] | NoneType</p></td>
+<td><p>List of booleans indicating whether to fetch forecast data for each dataset. If False, forecast data will be retrieved regardless of whether it already exists locally. Otherwise, skip fetching if forecast data file already exists locally.</p></td>
+<td><p>[True]</p></td>
+<td><p>[True]</p></td>
+</tr>
+<tr class="row-even"><td><p>output_type</p></td>
+<td><p>str | NoneType</p></td>
+<td><p>Type of NWM output to retrieve. Currently only ‘channel_rt’ is supported. Only applicable when data_source=’GCS’.</p></td>
+<td><p>channel_rt</p></td>
+<td><p>channel_rt</p></td>
+</tr>
+<tr class="row-odd"><td><p>t_minus</p></td>
+<td><p>List[int] | NoneType</p></td>
+<td><p>List of integers indicating the T-minus hours for which to retrieve NWM forecasts. Only applicable when data_source=’GCS’ and nwm_configuration is an AnA run (analysis &amp; assimilation).</p></td>
+<td><p>[0, 1, 2]</p></td>
+<td><p>[0]</p></td>
+</tr>
+<tr class="row-even"><td><p>kerchunk_method</p></td>
+<td><p>str | NoneType</p></td>
+<td><p>Specifies the preference in creating Kerchunk reference json files. Only needed for data_source = ‘GCS’. ‘local’ - always create new json files from netcdf files in GCS and save locally, if they do not already exist; ‘remote’ - read the CIROH pre-generated jsons from s3, ignoring any that are unavailable; ‘auto’ - read the CIROH pre-generated jsons from s3, and create any that are unavailable, storing locally</p></td>
+<td><p>local</p></td>
+<td><p>zarr</p></td>
+</tr>
+<tr class="row-odd"><td><p>process_by_z_hour</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Only applicable when data_source=’GCS’. If True, NWM files will be processed by z-hour per day. If False, files will be processed in chunks (defined by STEPSIZE). This can help if you want to read many reaches at once (all ~2.7 million for medium range for example).</p></td>
+<td><p>True</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p>stepsize</p></td>
+<td><p>int | NoneType</p></td>
+<td><p>Only applicable when data_source=’GCS’ and process_by_z_hour=False. Controls how many files are processed in memory at once. Higher values can increase performance at the expense on memory.</p></td>
+<td><p>100</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-odd"><td><p>ignore_missing_file</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Only applicable when data_source=’GCS’. If True, the missing file(s) will be skipped and the process will resume. If False, TEEHR will fail if a missing NWM file is encountered.</p></td>
+<td><p>True</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p>overwrite_output</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Whether to overwrite existing forecast data files. If False, the script will check if the forecast data file already exists locally before attempting to fetch it. If True, the script will fetch the forecast data and overwrite any existing local file with the same name.</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>memory_per_worker_gb</p></td>
+<td><p>int | NoneType</p></td>
+<td><p>Configurable memory (in GB) assigned to each worker or process.</p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="pairdataconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">PairDataConfig</span></code><a class="headerlink" href="#pairdataconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>overwrite</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>Whether to overwrite existing paired data files. If False, the script will check if the paired data file already exists locally before attempting to pair data. If True, the script will pair the data and overwrite any existing local file with the same name.</p></td>
+<td><p>True</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>group_size</p></td>
+<td><p>int | NoneType</p></td>
+<td><p>Number of locations to process in each group when pairing forecast and observation data. This is used to manage memory usage during the pairing step. If None, all locations will be processed in a single group.</p></td>
+<td><p>200</p></td>
+<td><p>100</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="plotsconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">PlotsConfig</span></code><a class="headerlink" href="#plotsconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>histogram</p></td>
+<td><p>HistogramConfig</p></td>
+<td><p>Configuration for histogram plots.</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’ binning={‘NSE’: [-1, -0.5, 0, 0.5, 1], ‘KGE’: [-1, -0.5, 0, 0.5, 1]}</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’ binning={‘NSE’: [-1, -0.5, 0, 0.5, 1], ‘KGE’: [-1, -0.5, 0, 0.5, 1]}</p></td>
+</tr>
+<tr class="row-odd"><td><p>boxplot</p></td>
+<td><p>BoxPlotConfig</p></td>
+<td><p>Configuration for box plot.</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’ show_outliers=False</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’ show_outliers=False</p></td>
+</tr>
+<tr class="row-even"><td><p>spatial_map</p></td>
+<td><p>SpatialMapConfig</p></td>
+<td><p>Configuration for spatial map plots.</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’ scaling={‘NSE’: [-0.5, 1.0], ‘KGE’: [-0.5, 1.0]}</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’ scaling={‘NSE’: [-0.5, 1.0], ‘KGE’: [-0.5, 1.0]}</p></td>
+</tr>
+<tr class="row-odd"><td><p>time_series</p></td>
+<td><p>TimeSeriesConfig</p></td>
+<td><p>Configuration for time series plots.</p></td>
+<td><p>reference_times=None lead_times=None plot=False metric_subset=None tag=’’</p></td>
+<td><p>reference_times=None lead_times=None plot=False metric_subset=None tag=’’</p></td>
+</tr>
+<tr class="row-even"><td><p>metric_table</p></td>
+<td><p>TablePlotConfig</p></td>
+<td><p>Configuration for metric table plots.</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’</p></td>
+</tr>
+<tr class="row-odd"><td><p>barchart</p></td>
+<td><p>BarChartConfig</p></td>
+<td><p>Configuration for bar chart plots.</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’</p></td>
+<td><p>lead_times=None plot=False metric_subset=None tag=’’</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="referencetimesmixin">
+<h3><code class="docutils literal notranslate"><span class="pre">ReferenceTimesMixin</span></code><a class="headerlink" href="#referencetimesmixin" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>reference_times</p></td>
+<td><p>List[datetime] | NoneType</p></td>
+<td><p>List of reference times (T0s) to compute metrics or make plots for. Each reference time can be specified as a datetime object or a string in a format recognized by pandas.to_datetime.</p></td>
+<td><p>None</p></td>
+<td><p>[‘2022-12-01 00:00:00’, ‘2022-12-15 00:00:00’]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="spatialmapconfig-inherits-from-baseplotconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">SpatialMapConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)<a class="headerlink" href="#spatialmapconfig-inherits-from-baseplotconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>scaling</p></td>
+<td><p>Dict[str, List[int | float]] | NoneType</p></td>
+<td><p>Dictionary specifying the scaling for spatial maps. Keys are metric names, and values are lists of numbers defining the scaling range for the corresponding metric. If a metric is not included in this dictionary, metric data will not be scaled and hence the resulting spatial map may be difficult to interpret if there are extreme outliers.</p></td>
+<td><p>{‘NSE’: [-0.5, 1.0], ‘KGE’: [-0.5, 1.0]}</p></td>
+<td><p>{‘NSE’: [-0.5, 1.0], ‘KGE’: [-0.5, 1.0]}</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tableplotconfig-inherits-from-baseplotconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">TablePlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)<a class="headerlink" href="#tableplotconfig-inherits-from-baseplotconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+</table>
+</div>
+</section>
+<section id="timeseriesconfig-inherits-from-baseplotconfig-referencetimesmixin">
+<h3><code class="docutils literal notranslate"><span class="pre">TimeSeriesConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig,</span> <span class="pre">ReferenceTimesMixin</span></code>)<a class="headerlink" href="#timeseriesconfig-inherits-from-baseplotconfig-referencetimesmixin" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+</table>
+</div>
+</section>
+<section id="usgsconfig">
+<h3><code class="docutils literal notranslate"><span class="pre">USGSConfig</span></code><a class="headerlink" href="#usgsconfig" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type(s)</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Example(s)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>chunk_by</p></td>
+<td><p>str = day | month | year</p></td>
+<td><p>How downloaded data are chunked into parquet files.</p></td>
+<td><p>month</p></td>
+<td><p>month</p></td>
+</tr>
+<tr class="row-odd"><td><p>overwrite_output</p></td>
+<td><p>bool | NoneType</p></td>
+<td><p>If True, existing output files are overwritten. If False, existing files are retained.</p></td>
+<td><p>True</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-even"><td><p>memory_per_worker_gb</p></td>
+<td><p>int | NoneType</p></td>
+<td><p>Memory assigned to each worker in GB.</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="faq.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Frequently Asked Questions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tech_reference/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Technical Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-files">Sample Files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config-template-yaml"><code class="docutils literal notranslate"><span class="pre">config_template.yaml</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config-ngencerf-yaml"><code class="docutils literal notranslate"><span class="pre">config_ngencerf.yaml</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config-hindcast-yaml"><code class="docutils literal notranslate"><span class="pre">config_hindcast.yaml</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config-nwm-yaml"><code class="docutils literal notranslate"><span class="pre">config_nwm.yaml</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#config-ngensim-yaml"><code class="docutils literal notranslate"><span class="pre">config_ngensim.yaml</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#schemas">Schemas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#barchartconfig-inherits-from-baseplotconfig"><code class="docutils literal notranslate"><span class="pre">BarChartConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#baseplotconfig-inherits-from-leadtimesmixin"><code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplotconfig-inherits-from-baseplotconfig"><code class="docutils literal notranslate"><span class="pre">BoxPlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filepathsconfig"><code class="docutils literal notranslate"><span class="pre">FilePathsConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flowobservationconfig"><code class="docutils literal notranslate"><span class="pre">FlowObservationConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalconfig"><code class="docutils literal notranslate"><span class="pre">GeneralConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogramconfig-inherits-from-baseplotconfig"><code class="docutils literal notranslate"><span class="pre">HistogramConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#leadtimesmixin"><code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#locationfilter"><code class="docutils literal notranslate"><span class="pre">LocationFilter</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metricsconfig-inherits-from-leadtimesmixin"><code class="docutils literal notranslate"><span class="pre">MetricsConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">LeadTimesMixin</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nwmforecastconfig"><code class="docutils literal notranslate"><span class="pre">NWMForecastConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairdataconfig"><code class="docutils literal notranslate"><span class="pre">PairDataConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotsconfig"><code class="docutils literal notranslate"><span class="pre">PlotsConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#referencetimesmixin"><code class="docutils literal notranslate"><span class="pre">ReferenceTimesMixin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatialmapconfig-inherits-from-baseplotconfig"><code class="docutils literal notranslate"><span class="pre">SpatialMapConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tableplotconfig-inherits-from-baseplotconfig"><code class="docutils literal notranslate"><span class="pre">TablePlotConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timeseriesconfig-inherits-from-baseplotconfig-referencetimesmixin"><code class="docutils literal notranslate"><span class="pre">TimeSeriesConfig</span></code> (inherits from <code class="docutils literal notranslate"><span class="pre">BasePlotConfig,</span> <span class="pre">ReferenceTimesMixin</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usgsconfig"><code class="docutils literal notranslate"><span class="pre">USGSConfig</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/config.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

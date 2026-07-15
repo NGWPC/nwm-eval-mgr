@@ -1,0 +1,7 @@
+nwm\_eval.configuration.BasePlotConfig
+======================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: BasePlotConfig
+   :show-inheritance:

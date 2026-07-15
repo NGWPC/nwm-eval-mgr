@@ -1,0 +1,7 @@
+nwm\_eval.configuration.USGSConfig
+==================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: USGSConfig
+   :show-inheritance:

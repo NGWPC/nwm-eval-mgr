@@ -1,0 +1,7 @@
+nwm\_eval.configuration.PlotsConfig
+===================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: PlotsConfig
+   :show-inheritance:

@@ -1,0 +1,6 @@
+nwm\_eval.logging\_utils.setup\_logging
+=======================================
+
+.. currentmodule:: nwm_eval.logging_utils
+
+.. autofunction:: setup_logging

@@ -1,0 +1,1549 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nwm_eval.configuration &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nwm_eval/configuration';</script>
+    <script src="../../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">nwm_eval.con...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nwm_eval.configuration</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Data models for configuration sections in the yaml file, defined with Pydantic for validation and documentation.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">field_validator</span><span class="p">,</span> <span class="n">model_validator</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> - </span><span class="si">%(name)s</span><span class="s2"> - [</span><span class="si">%(levelname)s</span><span class="s2">] - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="LocationFilter">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.LocationFilter.html#nwm_eval.configuration.LocationFilter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LocationFilter</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data model for filtering locations based on column values in the crosswalk file.&quot;&quot;&quot;</span>
+
+    <span class="n">columns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Column name(s) in the crosswalk file to filter on. Can be a single string or a list of strings.&quot;</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vpu_id&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">values</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Value(s) to filter on for the corresponding columns. Can be a single string or a list of strings.&quot;</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;03S&quot;</span><span class="p">,</span> <span class="s2">&quot;USGS-active&quot;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalize_and_validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize columns/values to lists and ensure they have matching lengths.</span>
+
+<span class="sd">        This allows configs to specify either a single string or a list for each field,</span>
+<span class="sd">        while guaranteeing that downstream code always receives lists of equal length.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="c1"># If another validator has already constructed a LocationFilter instance, just return it unchanged.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;values&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If either field is missing, let Pydantic&#39;s own validation handle it.</span>
+        <span class="k">if</span> <span class="n">columns</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="c1"># Normalize columns to a list of strings.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">columns_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">columns_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+
+        <span class="c1"># Normalize values to a list of strings.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">values_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">values</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">values_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+        <span class="c1"># Ensure columns and values lists have the same length.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns_list</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values_list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;LocationFilter configuration error: &#39;columns&#39; and &#39;values&#39; must have the same length.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns_list</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_list</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+
+<div class="viewcode-block" id="GeneralConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.GeneralConfig.html#nwm_eval.configuration.GeneralConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeneralConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data model for the &#39;general&#39; section of the config file.&quot;&quot;&quot;</span>
+
+    <span class="n">steps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Dictionary specifying which steps to run. Keys are step names (e.g., &#39;fetch_fcst_data&#39;, &#39;fetch_obs_data&#39;, &quot;</span>
+            <span class="s2">&quot;&#39;pair_data&#39;, &#39;compute_metrics&#39;, &#39;plot_metrics&#39;), and values are booleans indicating whether to run the step.&quot;</span>
+            <span class="s2">&quot;Note that these steps need to run in order, since some steps depend on the output of previous steps &quot;</span>
+            <span class="s2">&quot;(e.g., one cannot compute metrics without first fetching data and pairing it).&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Steps to run in the evaluation process.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;fetch_fcst_data&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;fetch_obs_data&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;pair_data&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;compute_metrics&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;plot_metrics&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;fetch_fcst_data&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;fetch_obs_data&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;pair_data&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;compute_metrics&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;plot_metrics&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">domain</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;conus&quot;</span><span class="p">,</span> <span class="s2">&quot;hi&quot;</span><span class="p">,</span> <span class="s2">&quot;ak&quot;</span><span class="p">,</span> <span class="s2">&quot;prvi&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;conus&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Domain for the evaluation. Valid options are &#39;conus&#39;, &#39;hi&#39;, &#39;ak&#39;, &#39;prvi&#39; (case insensitive).&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">assemble_domain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Whether to assemble results from different VPUs across domains. This is only applicable when domain is &#39;conus&#39;, &quot;</span>
+            <span class="s2">&quot;since the CONUS domain is currently divided into VPUs while other domains are not. If True, &quot;</span>
+            <span class="s2">&quot;the script will look for metric files from each VPU, concatenate them, and save the assembled metric file &quot;</span>
+            <span class="s2">&quot;for the entire CONUS domain.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Whether to assemble results across VPUs for the CONUS domain.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">location_set_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;User-specified name for the set of locations (e.g., a specific VPU or a cluster from a &quot;</span>
+            <span class="s2">&quot;regionalization). This will be used in naming output files and directories.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Name for the set of locations to evaluate.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vpu_03S&quot;</span><span class="p">,</span> <span class="s2">&quot;usgs_01123000&quot;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;usgs_01123000&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">location_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;01123000&quot;</span><span class="p">,</span> <span class="s2">&quot;01123500&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;50070900&quot;</span><span class="p">]],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">location_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;usgs_gage&quot;</span><span class="p">,</span> <span class="s2">&quot;nwm30_link&quot;</span><span class="p">,</span> <span class="s2">&quot;nwm22_link&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;usgs_gage&quot;</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;usgs_gage&quot;</span><span class="p">,</span> <span class="s2">&quot;nwm30_link&quot;</span><span class="p">,</span> <span class="s2">&quot;nwm22_link&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Type of locations to evaluate. Valid options are &#39;usgs_gage&#39;, &#39;nwm30_link&#39;, and &#39;nwm22_link&#39;. This will &quot;</span>
+            <span class="s2">&quot;determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Type of locations to evaluate, which determines how locations are identified and processed.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">location_filter</span><span class="p">:</span> <span class="n">LocationFilter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;vpu_id&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;03S&quot;</span><span class="p">,</span> <span class="s2">&quot;USGS-active&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Optional configuration for filtering locations based on column values in the crosswalk file. &quot;</span>
+            <span class="s2">&quot;If provided, only locations that match the specified column-value pairs will be included in the evaluation.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Configuration for filtering locations based on column values.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">location_group_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Number of locations to process in each group when pairing forecast and observation data. &quot;</span>
+            <span class="s2">&quot;This is used to manage memory usage during the pairing step. If None, all locations will be processed &quot;</span>
+            <span class="s2">&quot;in a single group.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of locations to process in each group when pairing forecast and observation data.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">variable_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;streamflow&quot;</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;streamflow&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Name of the variable to evaluate. Currently only &#39;streamflow&#39; is supported, &quot;</span>
+            <span class="s2">&quot;but this field is included for future extensibility.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">nwm_configuration</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Name of the NWM configuration to evaluate. This can be &#39;ngen&#39; for ngen-based simulations or match one of &quot;</span>
+            <span class="s2">&quot;the configurations defined in the forecast configuration file specified by &#39;file_paths.fcst_config_file&#39;.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;NWM configuration to evaluate.&quot;</span><span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="s2">&quot;ngen&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;short_range&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;medium_range_blend&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;standard_ana_puertorico&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">dataset_name</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;User-specified name(s) for the dataset(s) to evaluate (e.g., formulation name or regionalization algorithm). &quot;</span>
+            <span class="s2">&quot;This will be used in naming output files and directories. If evaluating multiple datasets, this should be &quot;</span>
+            <span class="s2">&quot;a list of names with the same length as &#39;nwm_version&#39;, &#39;forecast_start_date&#39;, and &#39;forecast_end_date&#39;.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;User-specified name(s) for the dataset(s) to evaluate.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;noah_cfes&quot;</span><span class="p">,</span> <span class="s2">&quot;noah_topmodel&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gower&quot;</span><span class="p">]],</span>
+    <span class="p">)</span>
+
+    <span class="n">nwm_version</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of NWM versions to evaluate. Valid options include &#39;ngen&#39;, &#39;nwm30&#39;, &#39;nwm22&#39;, etc. This should be &quot;</span>
+            <span class="s2">&quot;a list of the same length as &#39;dataset_name&#39;, where each entry corresponds to the NWM version for the &quot;</span>
+            <span class="s2">&quot;dataset with the same index in &#39;dataset_name&#39;.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;NWM version(s) to evaluate.&quot;</span><span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;ngen&quot;</span><span class="p">,</span> <span class="s2">&quot;nwm30&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;ngen&quot;</span><span class="p">]],</span>
+    <span class="p">)</span>
+
+    <span class="n">forecast_start_date</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of start dates for the forecast data to evaluate. This should be a list of the same length as &#39;dataset_name&#39;, &quot;</span>
+            <span class="s2">&quot;where each entry corresponds to the start date for the dataset with the same index in &#39;dataset_name&#39;&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Start date(s) for the forecast data to evaluate.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;2022-12-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-12-15 00:00:00&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;2022-12-01 00:00:00&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">forecast_end_date</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of end dates for the forecast data to evaluate. This should be a list of the same length as &#39;dataset_name&#39;, &quot;</span>
+            <span class="s2">&quot;where each entry corresponds to the end date for the dataset with the same index in &#39;dataset_name&#39;&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;End date(s) for the forecast data to evaluate.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;2022-12-31 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2023-01-15 00:00:00&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;2022-12-31 00:00:00&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">eval_start_date</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of start dates for the evaluation period. This should be a list of the same length as &#39;dataset_name&#39;, &quot;</span>
+            <span class="s2">&quot;where each entry corresponds to the start date for the evaluation period of the dataset with the same index &quot;</span>
+            <span class="s2">&quot;in &#39;dataset_name&#39;. If not provided, the evaluation will start from the earliest available date in the paired &quot;</span>
+            <span class="s2">&quot;forecast and observation data for each dataset.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Start date(s) for the evaluation period.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;2022-12-11 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-12-25 00:00:00&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;2022-12-11 00:00:00&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">eval_end_date</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of end dates for the evaluation period. This should be a list of the same length as &#39;dataset_name&#39;, &quot;</span>
+            <span class="s2">&quot;where each entry corresponds to the end date for the evaluation period of the dataset with the same index &quot;</span>
+            <span class="s2">&quot;in &#39;dataset_name&#39;. If not provided, the evaluation will end at the latest available date in the paired &quot;</span>
+            <span class="s2">&quot;forecast and observation data for each dataset.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;End date(s) for the evaluation period.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;2022-12-31 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2023-01-15 00:00:00&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;2022-12-31 00:00:00&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">separate_calibrated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Whether to distinguish calibrated and regionalized locations in the evaluation&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;domain&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalize_domain</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize domain string to lowercase.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+
+
+<div class="viewcode-block" id="FilePathsConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.FilePathsConfig.html#nwm_eval.configuration.FilePathsConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FilePathsConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data model for the &#39;file_paths&#39; section of the config file.&quot;&quot;&quot;</span>
+
+    <span class="n">base_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Root directory to store data and outputs for the evaluation. The script will create subdirectories under &quot;</span>
+            <span class="s2">&quot;this base directory for different datasets and types of outputs (e.g., noah_cfes, usgs, joined, metrics, plots).&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Root directory for storing data and outputs.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;~/ngen_evaluation/&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">location_list_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/location_list.csv&quot;</span><span class="p">)],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Path to a file containing the list of locations to evaluate, only used if &#39;general.location_list&#39; is not provided. &quot;</span>
+            <span class="s2">&quot;If neither is provided, locations from the crosswalk file will be used, filtered by &#39;general.location_filter&#39;.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Path to a file containing the list of locations to evaluate&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">crosswalk_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/crosswalk.csv&quot;</span><span class="p">),</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;ngen&quot;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/crosswalk_ngen.csv&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;nwm30&quot;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/crosswalk_nwm30.csv&quot;</span><span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Path to a crosswalk file or a dictionary of crosswalk files, corresponding to different nwm versions. &quot;</span>
+            <span class="s2">&quot;The crosswalk file maps location identifiers to other relevant information.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Path to a crosswalk file or a dictionary of crosswalk files.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">fcst_config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;data/inputs/nwm_forecast_configuration.yaml&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Path to the forecast configuration file. This file defines the parameters for different NWM configurations. &quot;</span>
+            <span class="s2">&quot;For each forecast configuration, a list that specify the following parameters (in order): &quot;</span>
+            <span class="s2">&quot;cycle_start: start time of forecast cycles in Zulu time or UTC (e.g., 0Z);&quot;</span>
+            <span class="s2">&quot;cycle_end: end time of forecast cycles in Zulu time or UTC (e.g., 23Z);&quot;</span>
+            <span class="s2">&quot;cycle_freq: frequency of forecast cycles in hours (e.g., 1);&quot;</span>
+            <span class="s2">&quot;fcst_win: forecast window in hours (e.g., 18);&quot;</span>
+            <span class="s2">&quot;fcst_timestep: forecast timestep in hours (e.g., 1);&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Path to the forecast configuration file defining parameters for different NWM configurations.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">fcst_data_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;01123000_output.csv&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Path to the forecast data file or a dictionary of forecast data files.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">fcst_data_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;data/inputs/hindcasts/&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Path to the directory containing forecast data files or a dictionary of directories.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">obs_data_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;data/inputs/obs/01123000_hourly_discharge.csv&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Path to the observation data file. Both obs_data_file and obs_data_dir can be specified. &quot;</span>
+            <span class="s2">&quot;The run will read all .csv and .parquet files in obs_data_dir and obs_data_file and remove duplicates.&quot;</span>
+            <span class="s2">&quot;If neither obs_data_file nor obs_data_dir is provided, an observation data source must be specified in &quot;</span>
+            <span class="s2">&quot;the &#39;flow_observation.usgs&#39; section.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">obs_data_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;data/inputs/obs/&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Path to the observation data directory where one or more observation data files are stored. &quot;</span>
+            <span class="s2">&quot;The run will look for all .csv and .parquet files in this directory. &quot;</span>
+            <span class="s2">&quot;Each file can contain observation data for a single location (with the filename starting with the location &quot;</span>
+            <span class="s2">&quot;identifier), or multiple locations with a &#39;location_id&#39; column specifying the location identifiers.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">calib_param_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;data/inputs/calib_params.csv&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Path to the calibration parameter file.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">txdot_gage_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;data/inputs/gage_files/tx_gauges.csv&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Path to the TxDOT gage file. This is only needed if evaluating TxDOT locations, for which streamflow &quot;</span>
+        <span class="s2">&quot;observations are retrieved differently than USGS gages. If not provided, the default TxDOT list defined in settings.py will be used. &quot;</span><span class="p">,</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Path to the TxDOT gage file.&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Directory to save outputs such as paired data, computed metrics, and plots. &quot;</span>
+        <span class="p">),</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ngen_evaluation/outputs/usgs_01123000/&quot;</span><span class="p">],</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="NWMForecastConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.NWMForecastConfig.html#nwm_eval.configuration.NWMForecastConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NWMForecastConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data model for the &#39;nwm_forecast&#39; section of the config file.&quot;&quot;&quot;</span>
+
+    <span class="n">data_source</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;ngenCERF&quot;</span><span class="p">,</span> <span class="s2">&quot;ngenSIM&quot;</span><span class="p">,</span> <span class="s2">&quot;hindcast&quot;</span><span class="p">,</span> <span class="s2">&quot;GCS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Data source for the NWM forecast. This specifies the source from which forecast data will be retrieved.&quot;</span>
+            <span class="s2">&quot;Valid options are: &quot;</span>
+            <span class="s2">&quot;&#39;ngenCERF&#39; for ngen-based single-location forecasts for a single reference time (T0), &quot;</span>
+            <span class="s2">&quot;&#39;hindcast&#39; for ngen-based single-location hindcast data for multiple reference times (T0), &quot;</span>
+            <span class="s2">&quot;&#39;ngenSIM&#39; for large-scale ngen-based simulations (e.g., across a VPU from regionalization), &quot;</span>
+            <span class="s2">&quot;&#39;GCS&#39; for large-scale operational NWM forecasts on Google Cloud Storage.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Data source for the NWM forecast. Valid options include &#39;ngenCERF&#39;, &#39;ngenSIM&#39;, &#39;hindcast&#39;, and &#39;GCS&#39;.&quot;</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ngenCERF&quot;</span><span class="p">,</span> <span class="s2">&quot;ngenSIM&quot;</span><span class="p">,</span> <span class="s2">&quot;hindcast&quot;</span><span class="p">,</span> <span class="s2">&quot;GCS&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">fetch_fcst</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of booleans indicating whether to fetch forecast data for each dataset. &quot;</span>
+            <span class="s2">&quot;If False, forecast data will be retrieved regardless of whether it already exists locally. &quot;</span>
+            <span class="s2">&quot;Otherwise, skip fetching if forecast data file already exists locally. &quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Whether to fetch forecast data for each dataset, with local file existence check.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">output_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;channel_rt&quot;</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;channel_rt&quot;</span><span class="p">,</span> <span class="s2">&quot;land&quot;</span><span class="p">,</span> <span class="s2">&quot;terrain_rt&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Type of NWM output to retrieve. Currently only &#39;channel_rt&#39; is supported. Only applicable when data_source=&#39;GCS&#39;. &quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">t_minus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of integers indicating the T-minus hours for which to retrieve NWM forecasts. &quot;</span>
+            <span class="s2">&quot;Only applicable when data_source=&#39;GCS&#39; and nwm_configuration is an AnA run (analysis &amp; assimilation).&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;T-minus hours for which to retrieve NWM forecasts, only applicable for AnA runs on GCS.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">kerchunk_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span> <span class="s2">&quot;parquet&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Specifies the preference in creating Kerchunk reference json files. Only needed for data_source = &#39;GCS&#39;. &quot;</span>
+            <span class="s2">&quot;&#39;local&#39; - always create new json files from netcdf files in GCS and save locally, if they do not already exist; &quot;</span>
+            <span class="s2">&quot;&#39;remote&#39; - read the CIROH pre-generated jsons from s3, ignoring any that are unavailable; &quot;</span>
+            <span class="s2">&quot;&#39;auto&#39; - read the CIROH pre-generated jsons from s3, and create any that are unavailable, storing locally&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Preference for creating Kerchunk reference json files, only applicable for GCS data source.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">process_by_z_hour</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Only applicable when data_source=&#39;GCS&#39;. If True, NWM files will be processed by z-hour per day. &quot;</span>
+            <span class="s2">&quot;If False, files will be processed in chunks (defined by STEPSIZE). This can help if you want to read many reaches &quot;</span>
+            <span class="s2">&quot;at once (all ~2.7 million for medium range for example).&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Whether to process NWM files by z-hour per day, only applicable for GCS data source.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">stepsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Only applicable when data_source=&#39;GCS&#39; and process_by_z_hour=False. Controls how many files are processed &quot;</span>
+            <span class="s2">&quot;in memory at once. Higher values can increase performance at the expense on memory. &quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of files to process in memory at once when processing GCS data without z-hour chunking.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">ignore_missing_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Only applicable when data_source=&#39;GCS&#39;. If True, the missing file(s) will be skipped and the process will resume. &quot;</span>
+            <span class="s2">&quot;If False, TEEHR will fail if a missing NWM file is encountered.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Whether to ignore missing NWM files and continue processing, only applicable for GCS data source.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">overwrite_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Whether to overwrite existing forecast data files. If False, the script will check if the forecast &quot;</span>
+            <span class="s2">&quot;data file already exists locally before attempting to fetch it. If True, the script will fetch &quot;</span>
+            <span class="s2">&quot;the forecast data and overwrite any existing local file with the same name.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Whether to overwrite existing forecast data files.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">memory_per_worker_gb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configurable memory (in GB) assigned to each worker or process.&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="USGSConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.USGSConfig.html#nwm_eval.configuration.USGSConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">USGSConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for USGS flow observations.&quot;&quot;&quot;</span>
+
+    <span class="n">chunk_by</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;month&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How downloaded data are chunked into parquet files.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">overwrite_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;If True, existing output files are overwritten. &quot;</span>
+            <span class="s2">&quot;If False, existing files are retained.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">memory_per_worker_gb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Memory assigned to each worker in GB.&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="FlowObservationConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.FlowObservationConfig.html#nwm_eval.configuration.FlowObservationConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FlowObservationConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data model for the flow_observation section.&quot;&quot;&quot;</span>
+
+    <span class="n">usgs</span><span class="p">:</span> <span class="n">USGSConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Configuration for USGS flow observations. &quot;</span>
+            <span class="s2">&quot;If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section, &quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="PairDataConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.PairDataConfig.html#nwm_eval.configuration.PairDataConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PairDataConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data model for the &#39;pair_data&#39; section of the config file.&quot;&quot;&quot;</span>
+
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Whether to overwrite existing paired data files. If False, the script will check if the paired data file &quot;</span>
+            <span class="s2">&quot;already exists locally before attempting to pair data. If True, the script will pair the data and overwrite &quot;</span>
+            <span class="s2">&quot;any existing local file with the same name.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Whether to overwrite existing paired data files.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">group_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Number of locations to process in each group when pairing forecast and observation data. This is used to &quot;</span>
+            <span class="s2">&quot;manage memory usage during the pairing step. If None, all locations will be processed in a single group.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of locations to process in each group when pairing forecast and observation data.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="LeadTimesMixin">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.LeadTimesMixin.html#nwm_eval.configuration.LeadTimesMixin">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LeadTimesMixin</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin class to add lead_times field and validation to metric and plot configs.&quot;&quot;&quot;</span>
+
+    <span class="n">lead_times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;1-5&quot;</span><span class="p">,</span> <span class="s2">&quot;5-10&quot;</span><span class="p">,</span> <span class="s2">&quot;10-15&quot;</span><span class="p">,</span> <span class="s2">&quot;all_aggregated&quot;</span><span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of lead times to compute metrics or make plots for. Each lead time can be specified as an integer &quot;</span>
+            <span class="s2">&quot;(e.g., 6), a numeric string (e.g., &#39;6&#39;), or a range string (e.g., &#39;1-6&#39;). &quot;</span>
+            <span class="s2">&quot;`all` represents all available individual lead times for a given nwm configuration. &quot;</span>
+            <span class="s2">&quot;Range strings will be expanded to include all individual lead times within the range. &quot;</span>
+            <span class="s2">&quot;`all_aggregated` represents a range that includes all lead times for a given nwm configuration, &quot;</span>
+            <span class="s2">&quot;(e.g., 1-18 for short_range).&quot;</span>
+            <span class="s2">&quot;Note lead times defined in `plots` must be a subset of those defined in `metrics`.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Lead times to include in the evaluation.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;lead_times&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalize_lead_times</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize lead_times to a list of strings, and validate that each entry is either an integer, a numeric string, or a range string.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span> <span class="k">for</span> <span class="n">lt</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="ReferenceTimesMixin">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.ReferenceTimesMixin.html#nwm_eval.configuration.ReferenceTimesMixin">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ReferenceTimesMixin</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin class to add reference_times field and validation to metric and plot configs.&quot;&quot;&quot;</span>
+
+    <span class="n">reference_times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;2022-12-01 00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-12-15 00:00:00&quot;</span><span class="p">]],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of reference times (T0s) to compute metrics or make plots for. Each reference time can be specified &quot;</span>
+            <span class="s2">&quot;as a datetime object or a string in a format recognized by pandas.to_datetime.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Reference times (T0s) to include in the evaluation.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;reference_times&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalize_reference_times</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize reference_times to a list of datetime objects.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">rt</span><span class="p">)</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span> <span class="k">for</span> <span class="n">rt</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="MetricsConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.MetricsConfig.html#nwm_eval.configuration.MetricsConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MetricsConfig</span><span class="p">(</span><span class="n">LeadTimesMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data model for the &#39;metrics&#39; section of the config file.&quot;&quot;&quot;</span>
+
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Whether to overwrite existing metric files. &quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">library</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;nwm.eval&quot;</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nwm.eval&quot;</span><span class="p">,</span> <span class="s2">&quot;teehr&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Library to use for metric computation. Valid options: nwm.eval, teehr. &quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">metric_subset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;NSE&quot;</span><span class="p">,</span> <span class="s2">&quot;KGE&quot;</span><span class="p">]],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Subset of metrics to compute. Can be &#39;all&#39; or a list of metric names. If &#39;all&#39;, all available metrics in &quot;</span>
+            <span class="s2">&quot;the specified library will be computed. If a list of metric names is provided, only those metrics will be computed.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Subset of metrics to compute, either &#39;all&#39; or a list of metric names.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">metric_exclude</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;HSEG_FDC&quot;</span><span class="p">,</span> <span class="s2">&quot;MSEG_FDC&quot;</span><span class="p">,</span> <span class="s2">&quot;LSEG_FDC&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;NSE&quot;</span><span class="p">]],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of metric names to exclude from metric_subset for computation. &quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">threshold_categorical</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;absolute&quot;</span><span class="p">},</span>
+        <span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Threshold for categorical metrics. Valid options for type are &#39;quantile&#39; and &#39;absolute&#39;. &quot;</span>
+            <span class="s2">&quot;If &#39;quantile&#39;, the threshold will be determined as the specified quantile of the observed flow values. &quot;</span>
+            <span class="s2">&quot;If &#39;absolute&#39;, the threshold will be the specified absolute flow value.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">threshold_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;absolute&quot;</span><span class="p">},</span>
+        <span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Threshold for event-based metrics. Valid options for type are &#39;quantile&#39; and &#39;absolute&#39;. &quot;</span>
+            <span class="s2">&quot;If &#39;quantile&#39;, the threshold will be determined as the specified quantile of the observed flow values. &quot;</span>
+            <span class="s2">&quot;If &#39;absolute&#39;, the threshold will be the specified absolute flow value.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">file_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;parquet&quot;</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;parquet&quot;</span><span class="p">,</span> <span class="s2">&quot;csv&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;File format for output files. Valid options are &#39;parquet&#39; and &#39;csv&#39;.&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="n">Number</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="BasePlotConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.BasePlotConfig.html#nwm_eval.configuration.BasePlotConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BasePlotConfig</span><span class="p">(</span><span class="n">LeadTimesMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Common fields for all plot configs.&quot;&quot;&quot;</span>
+
+    <span class="n">plot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Whether to generate this type of plot. If False, the script will skip generating this type of plot. &quot;</span>
+            <span class="s2">&quot;If True, the script will generate this type of plot for the specified lead times.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Whether to generate this type of plot.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">metric_subset</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;NSE&quot;</span><span class="p">,</span> <span class="s2">&quot;KGE&quot;</span><span class="p">],</span> <span class="s2">&quot;all&quot;</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of metric names to include in the plots. If not defined, all available metrics will be included in the plots. &quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;List of metric names to include in the plots.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Optional tag to include in the plot titles and filenames. This can be used to distinguish &quot;</span>
+            <span class="s2">&quot;different configurations in the plot outputs.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Optional tag to include in plot titles and filenames.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="HistogramConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.HistogramConfig.html#nwm_eval.configuration.HistogramConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HistogramConfig</span><span class="p">(</span><span class="n">BasePlotConfig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Config for histogram plots.&quot;&quot;&quot;</span>
+
+    <span class="n">binning</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Number</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;NSE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="s2">&quot;KGE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;NSE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;KGE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Dictionary specifying the binning for histogram plots. Keys are metric names, and values are lists of &quot;</span>
+            <span class="s2">&quot;numbers defining the bin edges for the corresponding metric. If a metric is not included in this dictionary, &quot;</span>
+            <span class="s2">&quot;binning is determined by dividing the range of metric values into 8 equal-width bins. &quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Dictionary specifying the binning for histogram plots, with metric names as keys and lists of bin edges as values.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="BoxPlotConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.BoxPlotConfig.html#nwm_eval.configuration.BoxPlotConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BoxPlotConfig</span><span class="p">(</span><span class="n">BasePlotConfig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Config for box plots.&quot;&quot;&quot;</span>
+
+    <span class="n">show_outliers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Whether to show outliers in box plots. If True, outliers will be shown as individual points. If False, &quot;</span>
+            <span class="s2">&quot;outliers will be omitted.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="SpatialMapConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.SpatialMapConfig.html#nwm_eval.configuration.SpatialMapConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpatialMapConfig</span><span class="p">(</span><span class="n">BasePlotConfig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Config for spatial maps.&quot;&quot;&quot;</span>
+
+    <span class="n">scaling</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Number</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;NSE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+            <span class="s2">&quot;KGE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;NSE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+                <span class="s2">&quot;KGE&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Dictionary specifying the scaling for spatial maps. Keys are metric names, and values are lists of &quot;</span>
+            <span class="s2">&quot;numbers defining the scaling range for the corresponding metric. If a metric is not included in this dictionary, &quot;</span>
+            <span class="s2">&quot;metric data will not be scaled and hence the resulting spatial map may be difficult to interpret if there are extreme outliers.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">json_schema_extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;description_short&quot;</span><span class="p">:</span> <span class="s2">&quot;Dictionary specifying the scaling for spatial maps, with metric names as keys and lists of scaling ranges as values.&quot;</span>
+        <span class="p">},</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TimeSeriesConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.TimeSeriesConfig.html#nwm_eval.configuration.TimeSeriesConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TimeSeriesConfig</span><span class="p">(</span><span class="n">BasePlotConfig</span><span class="p">,</span> <span class="n">ReferenceTimesMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Config for time series plots.&quot;&quot;&quot;</span>
+
+    <span class="n">lead_times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">]],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of lead times for time series plots. &quot;</span>
+            <span class="s2">&quot;Each lead time should be a number representing &quot;</span>
+            <span class="s2">&quot;the forecast lead time in hours.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;lead_times&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_lead_times</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate that lead_times is a list of numbers or numeric strings, and convert to integers.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;lead_times must be a list&quot;</span><span class="p">)</span>
+
+        <span class="n">cleaned</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+            <span class="c1"># Accept int/float directly</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">cleaned</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+            <span class="c1"># Accept numeric strings like &quot;6&quot; or &quot;6.5&quot;</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cleaned</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Invalid lead_time &#39;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                        <span class="s2">&quot;Must be numeric (e.g., &#39;6&#39;), &quot;</span>
+                        <span class="s2">&quot;not ranges like &#39;1-5&#39;. &quot;</span>
+                        <span class="s2">&quot;Skip this lead time.&quot;</span>
+                    <span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Invalid type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2"> in lead_times. &quot;</span>
+                    <span class="s2">&quot;Must be numeric or numeric string. &quot;</span>
+                    <span class="s2">&quot;Skip this lead time.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cleaned</span> <span class="ow">or</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="TablePlotConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.TablePlotConfig.html#nwm_eval.configuration.TablePlotConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TablePlotConfig</span><span class="p">(</span><span class="n">BasePlotConfig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Config for table plots displaying metric values.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="BarChartConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.BarChartConfig.html#nwm_eval.configuration.BarChartConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BarChartConfig</span><span class="p">(</span><span class="n">BasePlotConfig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Config for bar charts.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="PlotsConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.PlotsConfig.html#nwm_eval.configuration.PlotsConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PlotsConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data model for the &#39;plots&#39; section of the config file.&quot;&quot;&quot;</span>
+
+    <span class="n">histogram</span><span class="p">:</span> <span class="n">HistogramConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">HistogramConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for histogram plots.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">boxplot</span><span class="p">:</span> <span class="n">BoxPlotConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">BoxPlotConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for box plot.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">spatial_map</span><span class="p">:</span> <span class="n">SpatialMapConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">SpatialMapConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for spatial map plots.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">time_series</span><span class="p">:</span> <span class="n">TimeSeriesConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">TimeSeriesConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for time series plots.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">metric_table</span><span class="p">:</span> <span class="n">TablePlotConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">TablePlotConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for metric table plots.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">barchart</span><span class="p">:</span> <span class="n">BarChartConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">BarChartConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for bar chart plots.&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Config">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.configuration.Config.html#nwm_eval.configuration.Config">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Define a data model for each section in the config file.&quot;&quot;&quot;</span>
+
+    <span class="n">general</span><span class="p">:</span> <span class="n">GeneralConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">GeneralConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;General configuration for the evaluation, including dataset information and evaluation settings.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">file_paths</span><span class="p">:</span> <span class="n">FilePathsConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">FilePathsConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for file paths used in the evaluation, including input data and output directories.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">nwm_forecast</span><span class="p">:</span> <span class="n">NWMForecastConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">NWMForecastConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for NWM forecast data.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">flow_observation</span><span class="p">:</span> <span class="n">FlowObservationConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">FlowObservationConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for flow observation data.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">pair_data</span><span class="p">:</span> <span class="n">PairDataConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">PairDataConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for paired data.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="n">MetricsConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">MetricsConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for metrics.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plots</span><span class="p">:</span> <span class="n">PlotsConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">PlotsConfig</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Configuration for plots.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;flow_observation&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;before&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_flow_observation</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide a default empty configuration for flow_observation if it is not provided in the config file.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_dataset_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check that the following fields has the same length as dataset_name.</span>
+
+<span class="sd">        Fields include: nwm_version, forecast_start_date, forecast_end_date, eval_start_date, eval_end_date.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dataset_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">dataset_name</span>
+        <span class="n">nwm_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">nwm_version</span>
+        <span class="n">forecast_start_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">forecast_start_date</span>
+        <span class="n">forecast_end_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">forecast_end_date</span>
+        <span class="n">eval_start_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">eval_start_date</span>
+        <span class="n">eval_end_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">eval_end_date</span>
+
+        <span class="n">fields_to_check</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;nwm_version&quot;</span><span class="p">:</span> <span class="n">nwm_version</span><span class="p">,</span>
+            <span class="s2">&quot;forecast_start_date&quot;</span><span class="p">:</span> <span class="n">forecast_start_date</span><span class="p">,</span>
+            <span class="s2">&quot;forecast_end_date&quot;</span><span class="p">:</span> <span class="n">forecast_end_date</span><span class="p">,</span>
+            <span class="s2">&quot;eval_start_date&quot;</span><span class="p">:</span> <span class="n">eval_start_date</span><span class="p">,</span>
+            <span class="s2">&quot;eval_end_date&quot;</span><span class="p">:</span> <span class="n">eval_end_date</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">field_value</span> <span class="ow">in</span> <span class="n">fields_to_check</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">field_value</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">field_value</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Length of &#39;</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">field_value</span><span class="p">)</span><span class="si">}</span><span class="s2">)&#39; does not match length of &#39;dataset_name&#39; (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">)</span><span class="si">}</span><span class="s2">).&quot;</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_forecast_data_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make sure forecast data file and/or directory is provided except for GCS.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nwm_forecast</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;GCS&quot;</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_paths</span><span class="o">.</span><span class="n">fcst_data_file</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_paths</span><span class="o">.</span><span class="n">fcst_data_dir</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;file_paths.fcst_data_file or file_paths.fcst_data_dir must be provided when &quot;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;nwm_forecast.data_source is not &#39;GCS&#39;&quot;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_obs_source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check that at least one observation data source is provided (USGS or obs_data_file).&quot;&quot;&quot;</span>
+        <span class="n">has_usgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flow_observation</span><span class="o">.</span><span class="n">usgs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">has_obs_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_paths</span><span class="o">.</span><span class="n">obs_data_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">has_obs_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_paths</span><span class="o">.</span><span class="n">obs_data_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_usgs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_obs_file</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_obs_dir</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Either &#39;flow_observation.usgs&#39;, &#39;file_paths.obs_data_file&#39;, or &#39;file_paths.obs_data_dir&#39; must be provided.&quot;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="nd">@model_validator</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;after&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_plot_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check that plot configurations are compatible with the specified data source.</span>
+
+<span class="sd">        Time series, metric_table, and barchart plots are only applicable if nwm_forecast.data_source is ngenCERF or hindcast.</span>
+<span class="sd">        Spatial maps, histograms, and boxplots are only applicable if nwm_forecast.data_source is GCS or ngenSIM.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">plot_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;time_series&quot;</span><span class="p">,</span> <span class="s2">&quot;metric_table&quot;</span><span class="p">,</span> <span class="s2">&quot;barchart&quot;</span><span class="p">]:</span>
+            <span class="n">plot_conf</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">plot_conf</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">plot_conf</span><span class="p">,</span> <span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwm_forecast</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="s2">&quot;ngencerf&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;hindcast&quot;</span><span class="p">,</span>
+                <span class="p">]:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plot_type</span><span class="si">}</span><span class="s2"> is only applicable if nwm_forecast.data_source is &#39;ngenCERF&#39; or &#39;hindcast&#39;&quot;</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">plot_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;spatial_map&quot;</span><span class="p">,</span> <span class="s2">&quot;histogram&quot;</span><span class="p">,</span> <span class="s2">&quot;boxplot&quot;</span><span class="p">]:</span>
+            <span class="n">plot_conf</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">plot_conf</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">plot_conf</span><span class="p">,</span> <span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwm_forecast</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="s2">&quot;gcs&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;ngensim&quot;</span><span class="p">,</span>
+                <span class="p">]:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plot_type</span><span class="si">}</span><span class="s2"> is only applicable if nwm_forecast.data_source is &#39;GCS&#39; or &#39;ngenSIM&#39;&quot;</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

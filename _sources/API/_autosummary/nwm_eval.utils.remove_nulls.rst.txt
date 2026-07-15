@@ -1,0 +1,6 @@
+nwm\_eval.utils.remove\_nulls
+=============================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: remove_nulls

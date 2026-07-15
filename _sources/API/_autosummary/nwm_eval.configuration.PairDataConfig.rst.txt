@@ -1,0 +1,7 @@
+nwm\_eval.configuration.PairDataConfig
+======================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: PairDataConfig
+   :show-inheritance:

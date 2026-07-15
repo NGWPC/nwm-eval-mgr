@@ -1,0 +1,7 @@
+nwm\_eval.configuration.FilePathsConfig
+=======================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: FilePathsConfig
+   :show-inheritance:

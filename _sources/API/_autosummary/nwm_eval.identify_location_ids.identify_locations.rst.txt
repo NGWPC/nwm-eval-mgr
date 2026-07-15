@@ -1,0 +1,6 @@
+nwm\_eval.identify\_location\_ids.identify\_locations
+=====================================================
+
+.. currentmodule:: nwm_eval.identify_location_ids
+
+.. autofunction:: identify_locations

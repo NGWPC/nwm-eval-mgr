@@ -1,0 +1,6 @@
+nwm\_eval.calc\_metrics.parse\_lead
+===================================
+
+.. currentmodule:: nwm_eval.calc_metrics
+
+.. autofunction:: parse_lead

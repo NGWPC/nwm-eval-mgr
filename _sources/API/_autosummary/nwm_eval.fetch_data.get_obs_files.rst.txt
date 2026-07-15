@@ -1,0 +1,6 @@
+nwm\_eval.fetch\_data.get\_obs\_files
+=====================================
+
+.. currentmodule:: nwm_eval.fetch_data
+
+.. autofunction:: get_obs_files

@@ -1,0 +1,7 @@
+nwm\_eval.configuration.TablePlotConfig
+=======================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: TablePlotConfig
+   :show-inheritance:

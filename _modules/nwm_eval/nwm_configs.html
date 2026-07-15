@@ -1,0 +1,653 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nwm_eval.nwm_configs &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nwm_eval/nwm_configs';</script>
+    <script src="../../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">nwm_eval.nwm_configs</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nwm_eval.nwm_configs</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Classes and functions for handling NWM forecast configurations, including cycle information and lead time interpretation.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    - `CycleConfig`: A Pydantic model for validating forecast cycle configurations.</span>
+<span class="sd">    - `ForecastConfig`: A class for reading forecast configurations from a YAML file and interpreting cycle information and lead times.</span>
+
+<span class="sd">Functions of `ForecastConfig`:</span>
+<span class="sd">    - `get_cycle_info`: Get cycle information for a specific forecast configuration.</span>
+<span class="sd">    - `validate_cycle_info`: Validate the cycle information for a specific forecast configuration.</span>
+<span class="sd">    - `get_valid_cycles`: Get the valid forecast cycles for a given forecast configuration.</span>
+<span class="sd">    - `get_fcst_window_timestep`: Get the forecast window and timestep for a given forecast configuration and cycle.</span>
+<span class="sd">    - `interpret_lead_times`: Interpret lead times based on the NWM configuration, returning the lead time groups given the forecast configuration.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">asyncio.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">field_validator</span>
+
+
+<div class="viewcode-block" id="CycleConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.nwm_configs.CycleConfig.html#nwm_eval.nwm_configs.CycleConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CycleConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A forecast cycle configuration defined with 5 numbers: first 4 ints, last a float.</span>
+
+<span class="sd">    The 5 numbers represent:</span>
+<span class="sd">        1. cycle_start: the starting cycle hour (e.g., 0 for 00Z)</span>
+<span class="sd">        2. cycle_end: the ending cycle hour (e.g., 21 for 21Z)</span>
+<span class="sd">        3. cycle_freq: the frequency of cycles in hours (e.g., 3 for every 3 hours)</span>
+<span class="sd">        4. fcst_win: the forecast window in hours (e.g., 48 for 48-hour forecast)</span>
+<span class="sd">        5. fcst_timestep: the forecast timestep in hours</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;values&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate the cycle configuration values.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Cycle configuration must have exactly 5 elements, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">[:</span><span class="mi">4</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;First 4 elements of cycle configuration must be ints, got </span><span class="si">{</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">v</span><span class="p">[:</span><span class="mi">4</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Last element of cycle configuration must be a float or int, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Allow unpacking like a list.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ForecastConfig">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.nwm_configs.ForecastConfig.html#nwm_eval.nwm_configs.ForecastConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ForecastConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for handling forecast configurations.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the ForecastConfig with a configuration file.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">config_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_config_file</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read the configuration file.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error reading </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">config_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_cycle_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fcst_config</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the cycle info for a specific forecast configuration.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">fcst_config</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid forecast configuration: </span><span class="si">{</span><span class="n">fcst_config</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">cycle_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span><span class="p">[</span><span class="n">fcst_config</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cycle_info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">cycle_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">cycle_info</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">cycle_info</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_cycle_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fcst_config</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate the cycle info for a specific forecast configuration.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cycle_info</span><span class="p">(</span><span class="n">fcst_config</span><span class="p">):</span>
+            <span class="n">CycleConfig</span><span class="o">.</span><span class="n">model_validate</span><span class="p">({</span><span class="s2">&quot;values&quot;</span><span class="p">:</span> <span class="n">c1</span><span class="p">})</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_valid_cycles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fcst_config</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the valid cycles for the given forecast configuration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            fcst_config (str): a string indicating the forecast configuration.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cycles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cycle_info</span><span class="p">(</span><span class="n">fcst_config</span><span class="p">):</span>
+            <span class="n">cycle_start</span><span class="p">,</span> <span class="n">cycle_end</span><span class="p">,</span> <span class="n">cycle_freq</span><span class="p">,</span> <span class="n">fcst_win</span><span class="p">,</span> <span class="n">fcst_timestep</span> <span class="o">=</span> <span class="n">c1</span>
+            <span class="n">cycles</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">cycle_start</span><span class="p">,</span> <span class="n">cycle_end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cycle_freq</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cycles</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_fcst_window_timestep</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">fcst_config</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fcst_cycle</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the forecast window for the given forecast configuration and cycle.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            fcst_config (str): a string indicating the forecast configuration.</span>
+<span class="sd">            fcst_cycle (int, optional): an integer indicating the forecast cycle hour.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple containing the forecast window and timestep for the given configuration and cycle.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">next</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">fcst_win</span><span class="p">,</span> <span class="n">fcst_timestep</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">cycle_start</span><span class="p">,</span> <span class="n">cycle_end</span><span class="p">,</span> <span class="n">cycle_freq</span><span class="p">,</span> <span class="n">fcst_win</span><span class="p">,</span> <span class="n">fcst_timestep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cycle_info</span><span class="p">(</span>
+                    <span class="n">fcst_config</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">fcst_cycle</span>
+                <span class="ow">or</span> <span class="n">fcst_cycle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cycle_start</span><span class="p">,</span> <span class="n">cycle_end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cycle_freq</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No matching cycle found for fcst_cycle=</span><span class="si">{</span><span class="n">fcst_cycle</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">interpret_lead_times</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">lead_times</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">fcst_config</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">leads</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpret lead times based on the NWM configuration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lead_times (list of str): a list of lead time strings (e.g., [&#39;1&#39;,&#39;1-5&#39;,&#39;all&#39;, &#39;all-aggregated&#39;])</span>
+<span class="sd">            fcst_config (str): a string indicating the NWM configuration.</span>
+<span class="sd">            leads (list of int, optional): a list of computed lead times  (optional)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of str: a list of strings representing the lead time groups given forecast configuration.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">fcst_config</span> <span class="o">==</span> <span class="s2">&quot;ngen_simulation&quot;</span><span class="p">:</span>  <span class="c1"># for simulation, only lead time 0</span>
+            <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">],</span> <span class="p">[],</span> <span class="mi">0</span>
+
+        <span class="n">fcst_win</span><span class="p">,</span> <span class="n">timestep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fcst_window_timestep</span><span class="p">(</span><span class="n">fcst_config</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fcst_win</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">all_leads</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">timestep</span><span class="p">,</span> <span class="n">fcst_win</span> <span class="o">+</span> <span class="n">timestep</span><span class="p">,</span> <span class="n">timestep</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">all_leads</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">fcst_win</span> <span class="o">+</span> <span class="n">timestep</span><span class="p">,</span> <span class="n">timestep</span><span class="p">,</span> <span class="n">timestep</span><span class="p">))</span>
+
+        <span class="c1"># check if all_leads covered by leads</span>
+        <span class="n">missing_leads</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">existing_leads</span> <span class="o">=</span> <span class="n">all_leads</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">leads</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">missing_leads</span> <span class="o">=</span> <span class="p">[</span><span class="n">l1</span> <span class="k">for</span> <span class="n">l1</span> <span class="ow">in</span> <span class="n">all_leads</span> <span class="k">if</span> <span class="n">l1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">leads</span><span class="p">]</span>
+            <span class="n">existing_leads</span> <span class="o">=</span> <span class="p">[</span><span class="n">l1</span> <span class="k">for</span> <span class="n">l1</span> <span class="ow">in</span> <span class="n">all_leads</span> <span class="k">if</span> <span class="n">l1</span> <span class="ow">in</span> <span class="n">leads</span><span class="p">]</span>
+
+        <span class="n">existing_leads</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">if</span> <span class="n">l1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;m&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">l1</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">l1</span> <span class="ow">in</span> <span class="n">existing_leads</span>
+        <span class="p">]</span>  <span class="c1"># ensure all are strings, prepend &#39;m&#39; for negative leads</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">clean_num</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid lead time value: </span><span class="si">{</span><span class="n">x</span><span class="si">!r}</span><span class="s2">. Must be numerical or a string representing a number.&quot;</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">existing_leads</span> <span class="o">=</span> <span class="p">[</span><span class="n">clean_num</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span> <span class="k">for</span> <span class="n">l1</span> <span class="ow">in</span> <span class="n">existing_leads</span><span class="p">]</span>
+
+        <span class="n">interpreted_leads</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">lt</span> <span class="ow">in</span> <span class="n">lead_times</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lt</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+                <span class="n">interpreted_leads</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">existing_leads</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">lt</span> <span class="o">==</span> <span class="s2">&quot;all_aggregated&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">existing_leads</span><span class="p">:</span>
+                    <span class="n">interpreted_leads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">existing_leads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">existing_leads</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">&quot;-&quot;</span> <span class="ow">in</span> <span class="n">lt</span><span class="p">:</span>  <span class="c1"># range like &quot;1-5&quot;</span>
+                <span class="n">start_str</span><span class="p">,</span> <span class="n">end_str</span> <span class="o">=</span> <span class="n">lt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">clean_num</span><span class="p">(</span><span class="n">start_str</span><span class="p">)</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">clean_num</span><span class="p">(</span><span class="n">end_str</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">start</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing_leads</span> <span class="ow">or</span> <span class="n">end</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing_leads</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Lead time range &#39;</span><span class="si">{</span><span class="n">lt</span><span class="si">}</span><span class="s2">&#39; has start or end not in existing leads </span><span class="si">{</span><span class="n">existing_leads</span><span class="si">}</span><span class="s2">. Skip this lead time.&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">interpreted_leads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># single lead time</span>
+                <span class="n">lt_clean</span> <span class="o">=</span> <span class="n">clean_num</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">lt_clean</span> <span class="ow">in</span> <span class="n">existing_leads</span><span class="p">:</span>
+                    <span class="n">interpreted_leads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lt_clean</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Lead time &#39;</span><span class="si">{</span><span class="n">lt_clean</span><span class="si">}</span><span class="s2">&#39; not found in existing leads </span><span class="si">{</span><span class="n">existing_leads</span><span class="si">}</span><span class="s2">. Skip this lead time.&quot;</span>
+                    <span class="p">)</span>
+
+        <span class="c1"># remove duplicated lead times while preserving order</span>
+        <span class="n">lead_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">interpreted_leads</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">lead_times</span><span class="p">,</span> <span class="n">missing_leads</span><span class="p">,</span> <span class="n">timestep</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

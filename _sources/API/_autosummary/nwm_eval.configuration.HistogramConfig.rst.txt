@@ -1,0 +1,7 @@
+nwm\_eval.configuration.HistogramConfig
+=======================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: HistogramConfig
+   :show-inheritance:

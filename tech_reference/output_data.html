@@ -1,0 +1,960 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Schemas &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tech_reference/output_data';</script>
+    <script src="../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Output Plots" href="output_plot.html" />
+    <link rel="prev" title="Output Directory Structure" href="output_tree.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Subsections</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="workflow.html">Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="input_data.html">Input data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="output_tree.html">Output directory structure</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Output Tables</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="output_plot.html">Output Plots</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Technical Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Schemas</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="schemas">
+<h1>Schemas<a class="headerlink" href="#schemas" title="Link to this heading">#</a></h1>
+<section id="forecast-data">
+<span id="id1"></span><h2>forecast_data<a class="headerlink" href="#forecast-data" title="Link to this heading">#</a></h2>
+<p>Raw forecast data for a given NWM dataset (here defined by forecast time period, NWM version and configuration, e.g., v3_oct.nwm30.short_range), which includes the forecasted values for all locations and time steps.</p>
+<p>Sample file path: <code class="docutils literal notranslate"><span class="pre">calib_basin_group1/v3_oct/short_range/20241001T00.parquet</span></code></p>
+<p><strong>Example rows:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>value</p></th>
+<th class="head"><p>reference_time</p></th>
+<th class="head"><p>location_id</p></th>
+<th class="head"><p>value_time</p></th>
+<th class="head"><p>configuration</p></th>
+<th class="head"><p>variable_name</p></th>
+<th class="head"><p>measurement_unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1.8399999141693115</p></td>
+<td><p>2024-10-01 00:00:00</p></td>
+<td><p>nwm30-8134650</p></td>
+<td><p>2024-10-01 01:00:00</p></td>
+<td><p>short_range</p></td>
+<td><p>streamflow</p></td>
+<td><p>m3/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.4099999964237213</p></td>
+<td><p>2024-10-01 00:00:00</p></td>
+<td><p>nwm30-23963741</p></td>
+<td><p>2024-10-01 01:00:00</p></td>
+<td><p>short_range</p></td>
+<td><p>streamflow</p></td>
+<td><p>m3/s</p></td>
+</tr>
+<tr class="row-even"><td><p>0.3799999952316284</p></td>
+<td><p>2024-10-01 00:00:00</p></td>
+<td><p>nwm30-15576309</p></td>
+<td><p>2024-10-01 01:00:00</p></td>
+<td><p>short_range</p></td>
+<td><p>streamflow</p></td>
+<td><p>m3/s</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Schema:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>Forecasted value for a specific location and time step.</p></td>
+<td><p>float32</p></td>
+</tr>
+<tr class="row-odd"><td><p>reference_time</p></td>
+<td><p>Reference time of the forecast.</p></td>
+<td><p>datetime64[ms]</p></td>
+</tr>
+<tr class="row-even"><td><p>location_id</p></td>
+<td><p>Location identifier (e.g., NextGen hydrofabric feature ID).</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-odd"><td><p>value_time</p></td>
+<td><p>Time of the forecasted value.</p></td>
+<td><p>datetime64[ms]</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p>NWM configuration of the forecast.</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-odd"><td><p>variable_name</p></td>
+<td><p>Name of the forecasted variable.</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-even"><td><p>measurement_unit</p></td>
+<td><p>Unit of the forecasted value.</p></td>
+<td><p>object</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="metrics">
+<span id="id2"></span><h2>metrics<a class="headerlink" href="#metrics" title="Link to this heading">#</a></h2>
+<p>Metrics computed for a given NWM dataset (here defined by forecast time period, NWM version and configuration, e.g., v3_oct.nwm30.short_range)</p>
+<p>Sample file path: <code class="docutils literal notranslate"><span class="pre">calib_basin_group1/metrics/v3_oct.nwm30.short_range.metrics.parquet</span></code></p>
+<p><strong>Example rows:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>CORR</p></th>
+<th class="head"><p>NSE</p></th>
+<th class="head"><p>NNSE</p></th>
+<th class="head"><p>NSElog</p></th>
+<th class="head"><p>NSEwt</p></th>
+<th class="head"><p>KGE</p></th>
+<th class="head"><p>MAE</p></th>
+<th class="head"><p>RMSE</p></th>
+<th class="head"><p>PBIAS</p></th>
+<th class="head"><p>RSR</p></th>
+<th class="head"><p>HSEG_FDC</p></th>
+<th class="head"><p>MSEG_FDC</p></th>
+<th class="head"><p>LSEG_FDC</p></th>
+<th class="head"><p>POD</p></th>
+<th class="head"><p>FAR</p></th>
+<th class="head"><p>CSI</p></th>
+<th class="head"><p>lead_group</p></th>
+<th class="head"><p>primary_location_id</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.900238037109375</p></td>
+<td><p>0.5106164900337751</p></td>
+<td><p>0.6714187402428521</p></td>
+<td><p>0.38159789582989834</p></td>
+<td><p>0.4461071929318367</p></td>
+<td><p>0.8427430901779777</p></td>
+<td><p>0.02477925270795822</p></td>
+<td><p>0.030133018270134926</p></td>
+<td><p>11.738386005163193</p></td>
+<td><p>0.6995594501495361</p></td>
+<td><p>6.77579939365387</p></td>
+<td><p>-18.028101325035095</p></td>
+<td><p>-11.541274189949036</p></td>
+<td><p>1.0</p></td>
+<td><p>0.7238095238095238</p></td>
+<td><p>0.2761904761904762</p></td>
+<td><p>1</p></td>
+<td><p>usgs-01362370</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.6030905246734619</p></td>
+<td><p>-0.123655873992226</p></td>
+<td><p>0.4708860848156704</p></td>
+<td><p>-3.394126575737676</p></td>
+<td><p>-1.758891224864951</p></td>
+<td><p>0.504481708747024</p></td>
+<td><p>0.12183412909507751</p></td>
+<td><p>0.1523588001728058</p></td>
+<td><p>-3.8535218685865402</p></td>
+<td><p>1.0600262880325317</p></td>
+<td><p>7.445662468671799</p></td>
+<td><p>49.104440212249756</p></td>
+<td><p>-13125.10986328125</p></td>
+<td><p>0.7647058823529411</p></td>
+<td><p>0.7094972067039106</p></td>
+<td><p>0.26666666666666666</p></td>
+<td><p>1</p></td>
+<td><p>usgs-01365000</p></td>
+</tr>
+<tr class="row-even"><td><p>0.724666953086853</p></td>
+<td><p>-7.859279237533739</p></td>
+<td><p>0.10142729259488406</p></td>
+<td><p>-6.2346414989182435</p></td>
+<td><p>-7.046960368225991</p></td>
+<td><p>0.3260914924230085</p></td>
+<td><p>0.018314972519874573</p></td>
+<td><p>0.019198978319764137</p></td>
+<td><p>54.1209876537323</p></td>
+<td><p>2.976454257965088</p></td>
+<td><p>42.32468605041504</p></td>
+<td><p>3.482237085700035</p></td>
+<td><p>100.0</p></td>
+<td><p>1.0</p></td>
+<td><p>0.9052969502407705</p></td>
+<td><p>0.09470304975922954</p></td>
+<td><p>1</p></td>
+<td><p>usgs-01390450</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Schema:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CORR</p></td>
+<td><p>Correlation coefficient between forecasted and observed values.</p></td>
+<td><p>float32</p></td>
+</tr>
+<tr class="row-odd"><td><p>NSE</p></td>
+<td><p>Nash-Sutcliffe Efficiency coefficient between forecasted and observed values.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-even"><td><p>NNSE</p></td>
+<td><p>NNSE</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-odd"><td><p>NSElog</p></td>
+<td><p>Nash-Sutcliffe Efficiency coefficient computed on the logarithm of forecasted and observed values.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-even"><td><p>NSEwt</p></td>
+<td><p>Weighted score of NSE and NSElog.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-odd"><td><p>KGE</p></td>
+<td><p>Kling-Gupta Efficiency coefficient between forecasted and observed values.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-even"><td><p>MAE</p></td>
+<td><p>Mean Absolute Error between forecasted and observed values.</p></td>
+<td><p>float32</p></td>
+</tr>
+<tr class="row-odd"><td><p>RMSE</p></td>
+<td><p>Root Mean Square Error between forecasted and observed values.</p></td>
+<td><p>float32</p></td>
+</tr>
+<tr class="row-even"><td><p>PBIAS</p></td>
+<td><p>Percent Bias between forecasted and observed values.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSR</p></td>
+<td><p>Ratio of the RMSE to the standard deviation of observed values.</p></td>
+<td><p>float32</p></td>
+</tr>
+<tr class="row-even"><td><p>HSEG_FDC</p></td>
+<td><p>Flow Duration Curve error metric for the highflow segment.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSEG_FDC</p></td>
+<td><p>Flow Duration Curve error metric for the middle segment.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-even"><td><p>LSEG_FDC</p></td>
+<td><p>Flow Duration Curve error metric for the lowflow segment.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-odd"><td><p>POD</p></td>
+<td><p>Probability of Detection.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-even"><td><p>FAR</p></td>
+<td><p>False Alarm Ratio.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-odd"><td><p>CSI</p></td>
+<td><p>Critical Success Index.</p></td>
+<td><p>float64</p></td>
+</tr>
+<tr class="row-even"><td><p>lead_group</p></td>
+<td><p>Lead time group.</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-odd"><td><p>primary_location_id</p></td>
+<td><p>Primary location identifier (e.g., USGS gage ID).</p></td>
+<td><p>object</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="obs-data">
+<span id="id3"></span><h2>obs_data<a class="headerlink" href="#obs-data" title="Link to this heading">#</a></h2>
+<p>Observation data, which includes the observed values for all locations and time steps.</p>
+<p>Sample file path: <code class="docutils literal notranslate"><span class="pre">calib_basin_group1/usgs/2024-10-01.parquet</span></code></p>
+<p><strong>Example rows:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>location_id</p></th>
+<th class="head"><p>reference_time</p></th>
+<th class="head"><p>value_time</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>variable_name</p></th>
+<th class="head"><p>measurement_unit</p></th>
+<th class="head"><p>configuration</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>usgs-01048000</p></td>
+<td><p>2024-10-01 00:00:00</p></td>
+<td><p>2024-10-01 00:00:00</p></td>
+<td><p>6.994260787963867</p></td>
+<td><p>streamflow</p></td>
+<td><p>m3/s</p></td>
+<td><p>usgs_gage_data</p></td>
+</tr>
+<tr class="row-odd"><td><p>usgs-01048000</p></td>
+<td><p>2024-10-01 01:00:00</p></td>
+<td><p>2024-10-01 01:00:00</p></td>
+<td><p>6.880993843078613</p></td>
+<td><p>streamflow</p></td>
+<td><p>m3/s</p></td>
+<td><p>usgs_gage_data</p></td>
+</tr>
+<tr class="row-even"><td><p>usgs-01048000</p></td>
+<td><p>2024-10-01 02:00:00</p></td>
+<td><p>2024-10-01 02:00:00</p></td>
+<td><p>6.880993843078613</p></td>
+<td><p>streamflow</p></td>
+<td><p>m3/s</p></td>
+<td><p>usgs_gage_data</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Schema:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>location_id</p></td>
+<td><p>Location identifier (e.g., USGS gage ID).</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-odd"><td><p>reference_time</p></td>
+<td><p>Reference time of the observation.</p></td>
+<td><p>datetime64[ns]</p></td>
+</tr>
+<tr class="row-even"><td><p>value_time</p></td>
+<td><p>Time of the observed value.</p></td>
+<td><p>datetime64[ns]</p></td>
+</tr>
+<tr class="row-odd"><td><p>value</p></td>
+<td><p>Observed value for a specific location and time step.</p></td>
+<td><p>float32</p></td>
+</tr>
+<tr class="row-even"><td><p>variable_name</p></td>
+<td><p>Name of the observed variable.</p></td>
+<td><p>category</p></td>
+</tr>
+<tr class="row-odd"><td><p>measurement_unit</p></td>
+<td><p>Unit of the observed value.</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-even"><td><p>configuration</p></td>
+<td><p>NWM configuration of the observation.</p></td>
+<td><p>object</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="pairs">
+<span id="id4"></span><h2>pairs<a class="headerlink" href="#pairs" title="Link to this heading">#</a></h2>
+<p>Paired data for the short-range forecast (v3_oct.nwm30.short_range) in the calib_basin_group1 dataset, which includes the forecasted and observed values for each location and time step.</p>
+<p>Sample file path: <code class="docutils literal notranslate"><span class="pre">calib_basin_group1/joined/v3_oct.nwm30.short_range.joined.parquet</span></code></p>
+<p><strong>Example rows:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>primary_location_id</p></th>
+<th class="head"><p>primary_value</p></th>
+<th class="head"><p>secondary_location_id</p></th>
+<th class="head"><p>secondary_value</p></th>
+<th class="head"><p>value_time</p></th>
+<th class="head"><p>configuration</p></th>
+<th class="head"><p>measurement_unit</p></th>
+<th class="head"><p>variable_name</p></th>
+<th class="head"><p>reference_time</p></th>
+<th class="head"><p>lead_time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>usgs-02408540</p></td>
+<td><p>1.9765158891677856</p></td>
+<td><p>nwm30-22274612</p></td>
+<td><p>2.240000009536743</p></td>
+<td><p>2024-10-12 03:00:00</p></td>
+<td><p>short_range</p></td>
+<td><p>m3/s</p></td>
+<td><p>streamflow</p></td>
+<td><p>2024-10-11 22:00:00</p></td>
+<td><p>5.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>usgs-02408540</p></td>
+<td><p>1.9765158891677856</p></td>
+<td><p>nwm30-22274612</p></td>
+<td><p>2.190000057220459</p></td>
+<td><p>2024-10-12 03:00:00</p></td>
+<td><p>short_range</p></td>
+<td><p>m3/s</p></td>
+<td><p>streamflow</p></td>
+<td><p>2024-10-11 14:00:00</p></td>
+<td><p>13.0</p></td>
+</tr>
+<tr class="row-even"><td><p>usgs-02408540</p></td>
+<td><p>1.9765158891677856</p></td>
+<td><p>nwm30-22274612</p></td>
+<td><p>2.190000057220459</p></td>
+<td><p>2024-10-12 03:00:00</p></td>
+<td><p>short_range</p></td>
+<td><p>m3/s</p></td>
+<td><p>streamflow</p></td>
+<td><p>2024-10-11 10:00:00</p></td>
+<td><p>17.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Schema:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>primary_location_id</p></td>
+<td><p>Primary location identifier (e.g., USGS gage ID).</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-odd"><td><p>primary_value</p></td>
+<td><p>Forecasted value for the primary location.</p></td>
+<td><p>float32</p></td>
+</tr>
+<tr class="row-even"><td><p>secondary_location_id</p></td>
+<td><p>Secondary location identifier (e.g., USGS gage ID).</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-odd"><td><p>secondary_value</p></td>
+<td><p>Observed value for the secondary location.</p></td>
+<td><p>float32</p></td>
+</tr>
+<tr class="row-even"><td><p>value_time</p></td>
+<td><p>Time of the forecasted and observed values.</p></td>
+<td><p>datetime64[us]</p></td>
+</tr>
+<tr class="row-odd"><td><p>configuration</p></td>
+<td><p>NWM configuration of the forecast.</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-even"><td><p>measurement_unit</p></td>
+<td><p>Unit of the forecasted and observed values.</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-odd"><td><p>variable_name</p></td>
+<td><p>Name of the forecasted variable.</p></td>
+<td><p>object</p></td>
+</tr>
+<tr class="row-even"><td><p>reference_time</p></td>
+<td><p>Reference time of the forecast.</p></td>
+<td><p>datetime64[us]</p></td>
+</tr>
+<tr class="row-odd"><td><p>lead_time</p></td>
+<td><p>Lead time of the forecast.</p></td>
+<td><p>float64</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="output_tree.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Output Directory Structure</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="output_plot.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Output Plots</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast-data">forecast_data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#obs-data">obs_data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairs">pairs</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/tech_reference/output_data.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

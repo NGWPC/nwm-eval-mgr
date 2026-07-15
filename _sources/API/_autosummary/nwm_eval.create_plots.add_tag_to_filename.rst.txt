@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.add\_tag\_to\_filename
+==============================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: add_tag_to_filename

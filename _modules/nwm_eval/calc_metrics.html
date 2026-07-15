@@ -1,0 +1,948 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nwm_eval.calc_metrics &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nwm_eval/calc_metrics';</script>
+    <script src="../../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">nwm_eval.cal...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nwm_eval.calc_metrics</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions for calculating metrics.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    - `check_metrics`: Validate a list of metric names against a known mapping (here a metrics library).</span>
+<span class="sd">    - `calc_teehr_metrics`: Calculate TEEHR metrics for a given dataframe of paired data.</span>
+<span class="sd">    - `func_calc_metrics`: Helper function to calculate nwm.eval metrics for a given dataframe of paired data.</span>
+<span class="sd">    - `calc_nwm_eval_metrics`: Calculate nwm.eval metrics for a given dataframe of paired data.</span>
+<span class="sd">    - `parse_lead`: Parse a lead time string, handling &#39;m&#39; prefix for negative values.</span>
+<span class="sd">    - `parse_lead_range`: Parse lead strings of various formats.</span>
+<span class="sd">    - `calc_metrics_group`: Calculate metrics for a group of paired data.</span>
+<span class="sd">    - `calc_metrics`: Calculate metrics for all datasets as specified in the config.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pool</span><span class="p">,</span> <span class="n">cpu_count</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nwm_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">metric_functions</span> <span class="k">as</span> <span class="n">mf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">teehr.classes.duckdb_joined_parquet</span><span class="w"> </span><span class="kn">import</span> <span class="n">DuckDBJoinedParquet</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.nwm_configs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ForecastConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">dict_nwm_eval_metrics</span><span class="p">,</span> <span class="n">dict_teehr_metrics</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+<span class="c1"># Suppress specific logging messages from the metric functions library</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;nwm.eval.metric_functions&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="check_metrics">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.calc_metrics.check_metrics.html#nwm_eval.calc_metrics.check_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_metrics</span><span class="p">(</span><span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;nwm.eval&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate a list of metric names against a known mapping (here a metrics library).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        metrics: List of metric names to validate.</span>
+<span class="sd">        mapping: A dictionary mapping known metric keys to values.</span>
+<span class="sd">        mode: Either &quot;teehr&quot; or &quot;nwm.eval&quot;, determining how to map supported metrics.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A filtered and mapped list of supported metrics.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># Make mode case-insensitive</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;teehr&quot;</span><span class="p">,</span> <span class="s2">&quot;nwm.eval&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unsupported mode: </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">. Supported modes are &#39;nwm.eval&#39; and &#39;teehr&#39;.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">mapped_metrics</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">unsupported_metrics</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;teehr&quot;</span><span class="p">:</span>
+                <span class="n">mapped_metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;nwm.eval&quot;</span><span class="p">:</span>
+                <span class="c1"># Get key from value (reverse lookup)</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">m</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">mapped_metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">mapped_metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mapping</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;teehr&quot;</span> <span class="k">else</span> <span class="n">m</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">unsupported_metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">unsupported_metrics</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;The following metrics are not supported by </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">unsupported_metrics</span><span class="si">}</span><span class="s2">. Skipping them.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mapped_metrics</span></div>
+
+
+
+<div class="viewcode-block" id="calc_teehr_metrics">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.calc_metrics.calc_teehr_metrics.html#nwm_eval.calc_metrics.calc_teehr_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_teehr_metrics</span><span class="p">(</span>
+    <span class="n">pairs</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">geometry</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate TEEHR metrics for a given dataframe of paired data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pairs: Path to the parquet file containing paired data.</span>
+<span class="sd">        geometry: Path to the geometry file (e.g., crosswalk) needed for TEEHR metrics.</span>
+<span class="sd">        metrics: List of metric names to calculate.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A DataFrame containing the calculated metrics for each location and lead group.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># paired data parquet</span>
+    <span class="n">joined_data</span> <span class="o">=</span> <span class="n">DuckDBJoinedParquet</span><span class="p">(</span>
+        <span class="n">joined_parquet_filepath</span><span class="o">=</span><span class="n">pairs</span><span class="p">,</span> <span class="n">geometry_filepath</span><span class="o">=</span><span class="n">geometry</span>
+    <span class="p">)</span>
+
+    <span class="c1"># compute metrics</span>
+    <span class="n">gdf_all</span> <span class="o">=</span> <span class="n">joined_data</span><span class="o">.</span><span class="n">get_metrics</span><span class="p">(</span>
+        <span class="n">group_by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">,</span> <span class="s2">&quot;lead_group&quot;</span><span class="p">],</span>
+        <span class="n">order_by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">,</span> <span class="s2">&quot;lead_group&quot;</span><span class="p">],</span>
+        <span class="n">include_metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
+        <span class="n">include_geometry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">gdf_all</span></div>
+
+
+
+<div class="viewcode-block" id="func_calc_metrics">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.calc_metrics.func_calc_metrics.html#nwm_eval.calc_metrics.func_calc_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">func_calc_metrics</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">threshold_categorical</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+    <span class="n">threshold_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate nwm.eval metrics for a given dataframe of paired data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df: DataFrame containing paired data.</span>
+<span class="sd">        metrics: List of metric names to calculate.</span>
+<span class="sd">        threshold_categorical: Threshold for categorical metrics.</span>
+<span class="sd">        threshold_event: Threshold for event-based metrics.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A DataFrame containing the calculated metrics for each location and lead group.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># need at least 2 data points to calculate metrics</span>
+        <span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">df1</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;value_time&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;primary_value&quot;</span><span class="p">]),</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;secondary_value&quot;</span><span class="p">]),</span>
+            <span class="n">metrics</span><span class="p">,</span>
+            <span class="n">threshold_categorical</span><span class="p">,</span>
+            <span class="n">threshold_event</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">values</span><span class="p">[</span><span class="s2">&quot;lead_group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;lead_group&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">values</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">values</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="calc_nwm_eval_metrics">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.calc_metrics.calc_nwm_eval_metrics.html#nwm_eval.calc_metrics.calc_nwm_eval_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_nwm_eval_metrics</span><span class="p">(</span>
+    <span class="n">pairs</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">threshold_categorical</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+    <span class="n">threshold_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate nwm.eval metrics for a given dataframe of paired data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pairs: Path to the parquet file containing paired data.</span>
+<span class="sd">        metrics: List of metric names to calculate.</span>
+<span class="sd">        threshold_categorical: Threshold for categorical metrics.</span>
+<span class="sd">        threshold_event: Threshold for event-based metrics.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A DataFrame containing the calculated metrics for each location and lead group.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># read in paired data parquet</span>
+    <span class="n">df_pairs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
+
+    <span class="c1"># get all the lead times</span>
+    <span class="n">lead_times</span> <span class="o">=</span> <span class="n">df_pairs</span><span class="p">[</span><span class="s2">&quot;lead_group&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+    <span class="c1"># get all locations</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">df_pairs</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+    <span class="c1"># drop unneeded columns</span>
+    <span class="n">df_pairs</span> <span class="o">=</span> <span class="n">df_pairs</span><span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;primary_location_id&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lead_group&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;value_time&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;primary_value&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;secondary_value&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+
+    <span class="c1"># sort by location then lead time</span>
+    <span class="n">df_pairs</span> <span class="o">=</span> <span class="n">df_pairs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">,</span> <span class="s2">&quot;lead_group&quot;</span><span class="p">])</span>
+
+    <span class="c1"># use multiprocessing to compute metrics</span>
+    <span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">l1</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">:</span>
+            <span class="n">df1</span> <span class="o">=</span> <span class="n">df_pairs</span><span class="p">[</span><span class="n">df_pairs</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">l1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">l2</span> <span class="ow">in</span> <span class="n">lead_times</span><span class="p">:</span>
+                <span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s2">&quot;lead_group&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">l2</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">df2</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                    <span class="k">continue</span>  <span class="c1"># skip empty inputs</span>
+
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">pool</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span>
+                        <span class="n">func_calc_metrics</span><span class="p">,</span>
+                        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">threshold_categorical</span><span class="p">,</span> <span class="n">threshold_event</span><span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="n">new_dfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+
+        <span class="c1"># filter out None or empty results and concatenate into a single DataFrame</span>
+        <span class="n">valid_dfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">new_dfs</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_dfs</span><span class="p">:</span>
+            <span class="n">df_metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df_metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">valid_dfs</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_metrics</span></div>
+
+
+
+<div class="viewcode-block" id="parse_lead">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.calc_metrics.parse_lead.html#nwm_eval.calc_metrics.parse_lead">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_lead</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a lead time string, handling &#39;m&#39; prefix for negative values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: A string representing a lead time, which may start with &#39;m&#39; to indicate a negative value.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An integer representing the lead time, with negative values for &#39;m&#39; prefix.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="parse_lead_range">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.calc_metrics.parse_lead_range.html#nwm_eval.calc_metrics.parse_lead_range">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_lead_range</span><span class="p">(</span><span class="n">l1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse lead strings of various formats.</span>
+
+<span class="sd">    Supported formats include:</span>
+<span class="sd">        &quot;5&quot;</span>
+<span class="sd">        &quot;-2&quot;</span>
+<span class="sd">        &quot;1-3&quot;</span>
+<span class="sd">        &quot;-2-4&quot;</span>
+<span class="sd">        &quot;m2&quot;</span>
+<span class="sd">        &quot;m2-4&quot;</span>
+<span class="sd">        &quot;-2--1&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        l1: A string representing a lead time or range of lead times.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple of two floats representing the start and end of the lead time range.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(m?\-?\d+(?:\.\d+)?)(?:-(m?\-?\d+(?:\.\d+)?))?$&quot;</span>
+
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">l1</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid lead specification: </span><span class="si">{</span><span class="n">l1</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">start_str</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">end_str</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># single value -&gt; duplicate</span>
+    <span class="k">if</span> <span class="n">end_str</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">end_str</span> <span class="o">=</span> <span class="n">start_str</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">parse_lead</span><span class="p">(</span><span class="n">start_str</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">parse_lead</span><span class="p">(</span><span class="n">end_str</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span></div>
+
+
+
+<div class="viewcode-block" id="calc_metrics_group">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.calc_metrics.calc_metrics_group.html#nwm_eval.calc_metrics.calc_metrics_group">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_metrics_group</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">pair_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">geofile</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate metrics for a group of paired data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conf: A dictionary containing the configuration for metric calculation.</span>
+<span class="sd">        pair_file: A Path object pointing to the file containing paired data.</span>
+<span class="sd">        geofile: A Path object pointing to the file containing geometry data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A DataFrame containing the calculated metrics for each location and lead group.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># metrics to be calculated</span>
+    <span class="n">conf_met</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">]</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;metric_subset&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">metrics</span> <span class="ow">or</span> <span class="n">metrics</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">metrics</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">dict_teehr_metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;library&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;teehr&quot;</span>
+            <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">dict_nwm_eval_metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="p">)</span>
+
+    <span class="c1"># exclude metrics as requested</span>
+    <span class="n">metrics_exclude</span> <span class="o">=</span> <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;metric_exclude&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">metrics_exclude</span><span class="p">:</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="n">m1</span> <span class="k">for</span> <span class="n">m1</span> <span class="ow">in</span> <span class="n">metrics</span> <span class="k">if</span> <span class="n">m1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">metrics_exclude</span><span class="p">]</span>
+
+    <span class="c1"># check if metrics are supported by the library</span>
+    <span class="n">dict_metrics</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">dict_teehr_metrics</span> <span class="k">if</span> <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;library&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;teehr&quot;</span> <span class="k">else</span> <span class="n">dict_nwm_eval_metrics</span>
+    <span class="p">)</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">check_metrics</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">dict_metrics</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;library&quot;</span><span class="p">])</span>
+
+    <span class="c1"># get all data pairs and raw lead times</span>
+    <span class="n">df0</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">pair_file</span><span class="p">)</span>
+    <span class="n">leads0</span> <span class="o">=</span> <span class="n">df0</span><span class="p">[</span><span class="s2">&quot;lead_time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">leads0</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+    <span class="n">nwm_config</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;nwm_configuration&quot;</span><span class="p">]</span>
+    <span class="n">fc</span> <span class="o">=</span> <span class="n">ForecastConfig</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;file_paths&quot;</span><span class="p">][</span><span class="s2">&quot;fcst_config_file&quot;</span><span class="p">])</span>
+    <span class="n">lead_times</span><span class="p">,</span> <span class="n">missed_leads</span><span class="p">,</span> <span class="n">lead_step</span> <span class="o">=</span> <span class="n">fc</span><span class="o">.</span><span class="n">interpret_lead_times</span><span class="p">(</span>
+        <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;lead_times&quot;</span><span class="p">],</span> <span class="n">nwm_config</span><span class="p">,</span> <span class="n">leads0</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">missed_leads</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missed_leads</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Many lead times specified for metric calculation are not present in the data: </span><span class="si">{</span><span class="n">missed_leads</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">... (total </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missed_leads</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing lead times: </span><span class="si">{</span><span class="n">missed_leads</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lead times to calculate metrics for: </span><span class="si">{</span><span class="n">lead_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># removed repetitive lead times if any</span>
+    <span class="n">lead_times</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">lead_times</span><span class="p">)))</span>
+
+    <span class="c1"># loop through all lead times (including grouped lead times)</span>
+    <span class="n">df_metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">l1</span> <span class="ow">in</span> <span class="n">lead_times</span><span class="p">:</span>
+        <span class="n">leads1</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">leads1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">leads1</span> <span class="o">=</span> <span class="n">leads1</span> <span class="o">+</span> <span class="n">leads1</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">leads1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">leads1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;m&quot;</span> <span class="k">else</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">leads1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">leads1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">leads1</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;m&quot;</span> <span class="k">else</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">leads1</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lead_step</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># for simulation, start and end are both 0</span>
+            <span class="n">leads1</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">leads1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">step</span><span class="p">))</span>
+
+        <span class="c1"># get paired data for the current lead time</span>
+        <span class="n">df1</span> <span class="o">=</span> <span class="n">df0</span><span class="p">[</span><span class="n">df0</span><span class="p">[</span><span class="s2">&quot;lead_time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">leads1</span><span class="p">)]</span>
+        <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;lead_group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">l1</span>
+
+        <span class="c1"># save filtered data to a new (temporary) parquet file</span>
+        <span class="n">pair_file1</span> <span class="o">=</span> <span class="n">pair_file</span><span class="o">.</span><span class="n">with_name</span><span class="p">(</span><span class="n">pair_file</span><span class="o">.</span><span class="n">stem</span> <span class="o">+</span> <span class="s2">&quot;.temp.parquet&quot;</span><span class="p">)</span>
+        <span class="n">df1</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">pair_file1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;library&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;teehr&quot;</span><span class="p">:</span>
+            <span class="n">df_metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">df_metrics</span><span class="p">,</span> <span class="n">calc_teehr_metrics</span><span class="p">(</span><span class="n">pair_file1</span><span class="p">,</span> <span class="n">geofile</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)],</span>
+                <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;library&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;nwm.eval&quot;</span><span class="p">:</span>
+            <span class="n">df_metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">df_metrics</span><span class="p">,</span>
+                    <span class="n">calc_nwm_eval_metrics</span><span class="p">(</span>
+                        <span class="n">pair_file1</span><span class="p">,</span>
+                        <span class="n">metrics</span><span class="p">,</span>
+                        <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;threshold_categorical&quot;</span><span class="p">],</span>
+                        <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;threshold_event&quot;</span><span class="p">],</span>
+                    <span class="p">),</span>
+                <span class="p">],</span>
+                <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metric library </span><span class="si">{</span><span class="n">conf_met</span><span class="p">[</span><span class="s1">&#39;library&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> not supported&quot;</span><span class="p">)</span>
+
+        <span class="c1"># remove the temporary new parquet file</span>
+        <span class="n">pair_file1</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">df1</span>
+        <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+
+    <span class="c1"># If using teehr library, remap long name to short name for metrics</span>
+    <span class="k">if</span> <span class="n">conf_met</span><span class="p">[</span><span class="s2">&quot;library&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;teehr&quot;</span><span class="p">:</span>
+        <span class="n">df_metrics</span> <span class="o">=</span> <span class="n">df_metrics</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dict_teehr_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_metrics</span></div>
+
+
+
+<div class="viewcode-block" id="calc_metrics">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.calc_metrics.calc_metrics.html#nwm_eval.calc_metrics.calc_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_metrics</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">data_paths</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate metrics for all datasets as specified in the config.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conf: A dictionary containing the configuration for metric calculation.</span>
+<span class="sd">        data_paths: A dictionary containing the paths to the data files.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># library for calculating metrics</span>
+    <span class="n">supported_libraries</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;teehr&quot;</span><span class="p">,</span> <span class="s2">&quot;nwm.eval&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="s2">&quot;library&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Missing required key: &#39;library&#39; in metric configuration.&quot;</span><span class="p">)</span>
+    <span class="n">library</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">][</span><span class="s2">&quot;library&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">library</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">supported_libraries</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unsupported metric library: &#39;</span><span class="si">{</span><span class="n">library</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Supported libraries are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">supported_libraries</span><span class="p">))</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Metrics will be calculated using </span><span class="si">{</span><span class="n">library</span><span class="si">}</span><span class="s2"> library&quot;</span><span class="p">)</span>
+
+    <span class="c1"># loop through dataset to calculate metrics</span>
+    <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;dataset_name&quot;</span><span class="p">]:</span>
+        <span class="c1"># check if metric file already exists</span>
+        <span class="n">metric_file</span> <span class="o">=</span> <span class="n">data_paths</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">][</span><span class="n">dataset</span><span class="p">]</span>
+        <span class="n">metric_file</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">metric_file</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">][</span><span class="s2">&quot;overwrite&quot;</span><span class="p">]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;  Metric file </span><span class="si">{</span><span class="n">metric_file</span><span class="si">}</span><span class="s1"> already exists; remove the file or set &quot;overwrite&quot; to True to recalculate metrics&#39;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># remove existing metric file if overwrite is True</span>
+            <span class="k">if</span> <span class="n">metric_file</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">][</span><span class="s2">&quot;overwrite&quot;</span><span class="p">]:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Removing existing metric file </span><span class="si">{</span><span class="n">metric_file</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
+                <span class="n">metric_file</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+            <span class="c1"># calculate metrics for each group of paired data and append to a single parquet file</span>
+            <span class="n">pair_path</span> <span class="o">=</span> <span class="n">data_paths</span><span class="p">[</span><span class="s2">&quot;joined&quot;</span><span class="p">][</span><span class="n">dataset</span><span class="p">]</span>
+            <span class="n">pair_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pair_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pair_path</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">*.parquet&quot;</span><span class="p">))</span>
+            <span class="c1"># remove pair_files containing &#39;temp&#39; in the name</span>
+            <span class="n">pair_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">pf</span> <span class="k">for</span> <span class="n">pf</span> <span class="ow">in</span> <span class="n">pair_files</span> <span class="k">if</span> <span class="s2">&quot;temp&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pf</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pair_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;  No paired data files found for dataset </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">pair_path</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2">. Skipping metric calculation.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i1</span><span class="p">,</span> <span class="n">pair_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pair_files</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pair_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Calculating metrics for </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s2"> group </span><span class="si">{</span><span class="n">i1</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Calculating metrics for </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
+
+                <span class="n">df_metrics</span> <span class="o">=</span> <span class="n">calc_metrics_group</span><span class="p">(</span>
+                    <span class="n">conf</span><span class="p">,</span>
+                    <span class="n">pair_file</span><span class="p">,</span>
+                    <span class="n">data_paths</span><span class="p">[</span><span class="s2">&quot;crosswalk&quot;</span><span class="p">][</span><span class="nb">list</span><span class="p">(</span><span class="n">data_paths</span><span class="p">[</span><span class="s2">&quot;crosswalk&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]],</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_metrics</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">str_group</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot; group </span><span class="si">{</span><span class="n">i1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pair_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;  No metrics calculated for </span><span class="si">{</span><span class="n">dataset</span><span class="si">}{</span><span class="n">str_group</span><span class="si">}</span><span class="s2">. Skipping writing to file.&quot;</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># write metrics to file</span>
+                    <span class="n">metric_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">metric_file</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">metric_path</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;.parquet&quot;</span><span class="p">:</span>
+                        <span class="c1"># track if metric_file already exists to determine whether to write or append</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">metric_file</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+                            <span class="n">df_metrics</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span>
+                                <span class="n">metric_file</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;fastparquet&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+                            <span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">df_metrics</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span>
+                                <span class="n">metric_file</span><span class="p">,</span>
+                                <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;fastparquet&quot;</span><span class="p">,</span>
+                                <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="p">)</span>
+
+                    <span class="k">elif</span> <span class="n">metric_path</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;.csv&quot;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">metric_file</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+                            <span class="n">df_metrics</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">metric_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># Append without writing the header</span>
+                            <span class="n">df_metrics</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+                                <span class="n">metric_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span>
+                            <span class="p">)</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported file type: </span><span class="si">{</span><span class="n">metric_path</span><span class="o">.</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># exit if no metric files were created for a dataset</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">metric_file</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># start, end = parse_lead_range(l1)</span>
+                <span class="c1"># step = float(lead_step)</span>
+                <span class="sa">f</span><span class="s2">&quot;  No metric file created for dataset </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">metric_file</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Please check if paired data files are correct. Verification cannot proceed. Exiting.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Metrics for dataset </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s2"> written to </span><span class="si">{</span><span class="n">metric_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

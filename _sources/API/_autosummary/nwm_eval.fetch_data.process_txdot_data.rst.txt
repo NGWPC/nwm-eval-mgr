@@ -1,0 +1,6 @@
+nwm\_eval.fetch\_data.process\_txdot\_data
+==========================================
+
+.. currentmodule:: nwm_eval.fetch_data
+
+.. autofunction:: process_txdot_data

@@ -1,0 +1,6 @@
+nwm\_metrics.metric\_functions.get\_threshold\_value
+====================================================
+
+.. currentmodule:: nwm_metrics.metric_functions
+
+.. autofunction:: get_threshold_value

@@ -1,0 +1,907 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nwm_eval.identify_location_ids &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nwm_eval/identify_location_ids';</script>
+    <script src="../../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">nwm_eval.ide...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nwm_eval.identify_location_ids</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions to identify location IDs based on the provided crosswalk file.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    - get_link_by_gage: Get location link ID (NWM feature or reach id) based on USGS gage ID and crosswalk file.</span>
+<span class="sd">    - get_gage_by_link: Get location gage ID (USGS gage ID) based on NWM link ID and crosswalk file.</span>
+<span class="sd">    - get_link_id_from_file: Get location link IDs (NWM feature or reach id) from locations in a file.</span>
+<span class="sd">    - get_locations_from_config_list: Get list of locations as either &quot;gage&quot; or &quot;link&quot; based on location_list provided in config file.</span>
+<span class="sd">    - get_nwm_link_ids: Get NWM link IDs for the locations defined in the config file based on the provided crosswalk file.</span>
+<span class="sd">    - get_gage_id_from_file: Get location gage ID (USGS gage ID) from a file based on the provided crosswalk file.</span>
+<span class="sd">    - identify_locations: Identify location IDs based on the provided crosswalk file.</span>
+<span class="sd">    - get_gage_ids: Get gage IDs for the locations defined in the config file based on the provided crosswalk file.</span>
+<span class="sd">    - find_locations_in_crosswalk: Find the primary_location_id for the given locations based on the crosswalk file.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_data</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;get_link_by_gage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_link_id_from_file&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_locations_from_config_list&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_nwm_link_ids&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;find_locations_in_crosswalk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_gage_by_link&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_gage_id_from_file&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;identify_locations&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_gage_ids&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="find_locations_in_crosswalk">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.find_locations_in_crosswalk.html#nwm_eval.identify_location_ids.find_locations_in_crosswalk">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_locations_in_crosswalk</span><span class="p">(</span>
+    <span class="n">locations</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">cwt</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the primary_location_id for the given locations based on the crosswalk file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        locations: A list of location IDs to find in the crosswalk.</span>
+<span class="sd">        cwt: A DataFrame containing the crosswalk data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple containing:</span>
+<span class="sd">        - A dictionary mapping found location IDs to their primary_location_id.</span>
+<span class="sd">        - A list of location IDs that were not found in the crosswalk.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Build a lookup dictionary from the crosswalk data for efficient searching</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_location_lookup</span><span class="p">(</span><span class="n">cwt</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">primary_id</span> <span class="ow">in</span> <span class="n">cwt</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">location_id</span> <span class="o">=</span> <span class="n">primary_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected primary_location_id format: </span><span class="si">{</span><span class="n">primary_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">location_id</span> <span class="ow">in</span> <span class="n">lookup</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Duplicate location id &#39;</span><span class="si">{</span><span class="n">location_id</span><span class="si">}</span><span class="s2">&#39; found: &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lookup</span><span class="p">[</span><span class="n">location_id</span><span class="p">]</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">primary_id</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+            <span class="n">lookup</span><span class="p">[</span><span class="n">location_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">primary_id</span>
+
+        <span class="k">return</span> <span class="n">lookup</span>
+
+    <span class="n">location_lookup</span> <span class="o">=</span> <span class="n">build_location_lookup</span><span class="p">(</span><span class="n">cwt</span><span class="p">)</span>
+
+    <span class="n">found</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">loc</span><span class="p">:</span> <span class="n">location_lookup</span><span class="p">[</span><span class="n">loc</span><span class="p">]</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span> <span class="k">if</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">location_lookup</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">missed</span> <span class="o">=</span> <span class="p">[</span><span class="n">loc</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span> <span class="k">if</span> <span class="n">loc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">found</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+
+    <span class="k">return</span> <span class="n">found</span><span class="p">,</span> <span class="n">missed</span></div>
+
+
+
+<div class="viewcode-block" id="get_link_by_gage">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.get_link_by_gage.html#nwm_eval.identify_location_ids.get_link_by_gage">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_link_by_gage</span><span class="p">(</span><span class="n">gages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">crosswalk_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get location link ID based on gage ID and crosswalk file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gages: A list of gage IDs.</span>
+<span class="sd">        crosswalk_file: Path to the crosswalk CSV file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple containing:</span>
+<span class="sd">        - A list of gage IDs found in the crosswalk.</span>
+<span class="sd">        - A list of corresponding location link IDs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cwt</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="p">)</span>
+
+    <span class="n">lookup</span><span class="p">,</span> <span class="n">miss_ids</span> <span class="o">=</span> <span class="n">find_locations_in_crosswalk</span><span class="p">(</span>
+        <span class="n">gages</span><span class="p">,</span>
+        <span class="n">cwt</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">cwt</span> <span class="o">=</span> <span class="n">cwt</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">)</span>
+
+    <span class="n">gages1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">links1</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">gage</span><span class="p">,</span> <span class="n">primary_location_id</span> <span class="ow">in</span> <span class="n">lookup</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">sec_id</span> <span class="o">=</span> <span class="n">cwt</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">primary_location_id</span><span class="p">,</span> <span class="s2">&quot;secondary_location_id&quot;</span><span class="p">]</span>
+        <span class="n">links1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sec_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;-&quot;</span> <span class="ow">in</span> <span class="n">sec_id</span> <span class="k">else</span> <span class="n">sec_id</span><span class="p">)</span>
+        <span class="n">gages1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gage</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">gages1</span><span class="p">,</span> <span class="n">links1</span></div>
+
+
+
+<span class="c1"># get location gage ID based on link ID and crosswalk</span>
+<div class="viewcode-block" id="get_gage_by_link">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.get_gage_by_link.html#nwm_eval.identify_location_ids.get_gage_by_link">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gage_by_link</span><span class="p">(</span><span class="n">links</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">crosswalk_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get location gage ID (USGS gage ID) based on NWM link ID and crosswalk file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        links (list of int): List of NWM link IDs.</span>
+<span class="sd">        crosswalk_file (str): Path to the crosswalk file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list of str: List of corresponding USGS gage IDs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cwt</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="p">)</span>
+    <span class="n">cwt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">:</span> <span class="s2">&quot;gage&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cwt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;secondary_location_id&quot;</span><span class="p">:</span> <span class="s2">&quot;link&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;nwm30-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">links</span><span class="p">)),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">])</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cwt</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+        <span class="n">miss_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;  Gage ID for links </span><span class="si">{</span><span class="n">miss_ids</span><span class="si">}</span><span class="s2"> are not found in crosswalk file </span><span class="si">{</span><span class="n">crosswalk_file</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df1</span><span class="p">[</span><span class="s2">&quot;gage&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">locations</span></div>
+
+
+
+<span class="c1"># get location link IDs (NWM feature or reach id) from locations in a file</span>
+<div class="viewcode-block" id="get_link_id_from_file">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.get_link_id_from_file.html#nwm_eval.identify_location_ids.get_link_id_from_file">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_link_id_from_file</span><span class="p">(</span>
+    <span class="n">id_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">nwm_ver</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">crosswalk_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get location link IDs (NWM feature or reach id) from locations in a file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        id_file (str): Path to the file containing location IDs.</span>
+<span class="sd">        nwm_ver (str): NWM version (e.g., &quot;nwm30&quot;).</span>
+<span class="sd">        crosswalk_file (str, optional): Path to the crosswalk file (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of location link IDs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">id_file</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">f1</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">link1</span> <span class="o">=</span> <span class="n">nwm_ver</span> <span class="o">+</span> <span class="s2">&quot;_link&quot;</span>
+    <span class="k">if</span> <span class="n">link1</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">link1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="s2">&quot;gage&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">crosswalk_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">crosswalk_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="p">)</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">get_link_by_gage</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;gage&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">crosswalk_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No &quot;gage&quot; or &quot;</span><span class="si">{</span><span class="n">link1</span><span class="si">}</span><span class="s1">&quot; column found in </span><span class="si">{</span><span class="n">id_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">locations</span></div>
+
+
+
+<div class="viewcode-block" id="get_locations_from_config_list">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.get_locations_from_config_list.html#nwm_eval.identify_location_ids.get_locations_from_config_list">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_locations_from_config_list</span><span class="p">(</span>
+    <span class="n">conf</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">id_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nwm_ver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get list of locations as either &quot;gage&quot; or &quot;link&quot; based on location_list provided in config file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conf (dict): Dictionary defining the configurations (e.g., config.yaml).</span>
+<span class="sd">        id_type (str): Type of location ID to retrieve (&quot;gage&quot; or &quot;link&quot;).</span>
+<span class="sd">        nwm_ver (str, optional): NWM version (e.g., &quot;nwm30&quot;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of location IDs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">loc_list</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;location_list&quot;</span><span class="p">]</span>
+    <span class="n">loc_type</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;location_type&quot;</span><span class="p">]</span>
+    <span class="n">crosswalk_file</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;file_paths&quot;</span><span class="p">][</span><span class="s2">&quot;crosswalk_file&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">loc_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">loc_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;config general section: location_type must be provided when location_list is not empty&quot;</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">loc_type</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="s2">&quot;_link&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;nwm_version&quot;</span><span class="p">]))]:</span>
+            <span class="n">ver1</span> <span class="o">=</span> <span class="n">loc_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">ver1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">crosswalk_file</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Crosswalk file is not found for </span><span class="si">{</span><span class="n">ver1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">id_type</span> <span class="o">==</span> <span class="s2">&quot;gage&quot;</span><span class="p">:</span>
+                    <span class="n">locations</span> <span class="o">=</span> <span class="n">get_gage_by_link</span><span class="p">(</span><span class="n">loc_list</span><span class="p">,</span> <span class="n">crosswalk_file</span><span class="p">[</span><span class="n">ver1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">id_type</span> <span class="o">==</span> <span class="s2">&quot;link&quot;</span><span class="p">:</span>
+                    <span class="n">locations</span> <span class="o">=</span> <span class="n">loc_list</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;location type </span><span class="si">{</span><span class="n">id_type</span><span class="si">}</span><span class="s2"> not supported&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">loc_type</span> <span class="o">==</span> <span class="s2">&quot;usgs_gage&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">id_type</span> <span class="o">==</span> <span class="s2">&quot;gage&quot;</span><span class="p">:</span>
+                <span class="n">locations</span> <span class="o">=</span> <span class="n">loc_list</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">id_type</span> <span class="o">==</span> <span class="s2">&quot;link&quot;</span><span class="p">:</span>
+                <span class="n">locations</span> <span class="o">=</span> <span class="n">get_link_by_gage</span><span class="p">(</span><span class="n">loc_list</span><span class="p">,</span> <span class="n">crosswalk_file</span><span class="p">[</span><span class="n">nwm_ver</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;location type </span><span class="si">{</span><span class="n">id_type</span><span class="si">}</span><span class="s2"> not supported&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;location_type must be either &quot;usgs_gage&quot; or &quot;nwm30_link&quot; or &quot;nwm22_link&#39;</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">locations</span></div>
+
+
+
+<div class="viewcode-block" id="get_nwm_link_ids">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.get_nwm_link_ids.html#nwm_eval.identify_location_ids.get_nwm_link_ids">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_nwm_link_ids</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">nwm_ver</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get NWM link IDs for the locations defined in the config file based on the provided crosswalk file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conf (dict): Dictionary defining the configurations (e.g., config.yaml).</span>
+<span class="sd">        nwm_ver (str): NWM version (e.g., &quot;nwm30&quot;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of NWM link IDs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">location_list</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;location_list&quot;</span><span class="p">]</span>
+    <span class="n">location_list_file</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;file_paths&quot;</span><span class="p">][</span><span class="s2">&quot;location_list_file&quot;</span><span class="p">]</span>
+    <span class="n">crosswalk_file</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;file_paths&quot;</span><span class="p">][</span><span class="s2">&quot;crosswalk_file&quot;</span><span class="p">]</span>
+
+    <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">location_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">get_locations_from_config_list</span><span class="p">(</span><span class="n">conf</span><span class="p">,</span> <span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="n">nwm_ver</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">location_list_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">location_list_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">location_list_file</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">location_list_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">location_list_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">nwm_ver</span> <span class="ow">in</span> <span class="n">crosswalk_file</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">crosswalk_file</span><span class="p">[</span><span class="n">nwm_ver</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cwf</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="p">[</span><span class="n">nwm_ver</span><span class="p">])</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">cwf</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">cwf</span><span class="p">)</span>
+            <span class="n">locations</span> <span class="o">=</span> <span class="n">get_link_id_from_file</span><span class="p">(</span><span class="n">location_list_file</span><span class="p">,</span> <span class="n">nwm_ver</span><span class="p">,</span> <span class="n">cwf</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Crosswalk file for </span><span class="si">{</span><span class="n">nwm_ver</span><span class="si">}</span><span class="s2"> is not provided&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Either location_list or location_list_file must be provided in configuration yaml file&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total number of nwm locations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">locations</span></div>
+
+
+
+<div class="viewcode-block" id="get_gage_id_from_file">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.get_gage_id_from_file.html#nwm_eval.identify_location_ids.get_gage_id_from_file">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gage_id_from_file</span><span class="p">(</span>
+    <span class="n">id_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">crosswalk_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get location gage ID (USGS gage ID) from a file based on the provided crosswalk file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        id_file (str): Path to the file containing location IDs.</span>
+<span class="sd">        crosswalk_file (dict, optional): Dictionary containing paths to crosswalk files for different NWM versions (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of USGS gage IDs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">id_file</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">f1</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;gage&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;primary_location_id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="s2">&quot;primary_location_id&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="s2">&quot;gage&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;gage&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># check for link columns</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c1</span> <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s2">&quot;link&quot;</span> <span class="ow">in</span> <span class="n">c1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+                <span class="n">ver1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">ver1</span> <span class="ow">in</span> <span class="n">crosswalk_file</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">crosswalk_file</span><span class="p">[</span><span class="n">ver1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">cwf</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="p">[</span><span class="n">ver1</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">cwf</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                        <span class="n">locations</span> <span class="o">=</span> <span class="n">get_gage_by_link</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">c1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">cwf</span><span class="p">)</span>
+                        <span class="k">break</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;crosswalk file not found: </span><span class="si">{</span><span class="n">cwf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;No primary_location_id or NWM link column (e.g., nwmv30_link) is not found in location file&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">locations</span></div>
+
+
+
+<div class="viewcode-block" id="get_gage_ids">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.get_gage_ids.html#nwm_eval.identify_location_ids.get_gage_ids">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gage_ids</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get gage IDs for the locations defined in the config file based on the provided crosswalk file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conf (dict): Dictionary defining the configurations (e.g., config.yaml).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: List of gage IDs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">location_list</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;location_list&quot;</span><span class="p">]</span>
+    <span class="n">location_list_file</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;file_paths&quot;</span><span class="p">][</span><span class="s2">&quot;location_list_file&quot;</span><span class="p">]</span>
+    <span class="n">crosswalk_file</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;file_paths&quot;</span><span class="p">][</span><span class="s2">&quot;crosswalk_file&quot;</span><span class="p">]</span>
+
+    <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">location_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">get_locations_from_config_list</span><span class="p">(</span><span class="n">conf</span><span class="p">,</span> <span class="s2">&quot;gage&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">location_list_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">location_list_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">location_list_file</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">get_gage_id_from_file</span><span class="p">(</span><span class="n">location_list_file</span><span class="p">,</span> <span class="n">crosswalk_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># retrieve all gage IDs from crosswalk file</span>
+        <span class="n">crosswalk_path</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">crosswalk_path</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;  No location_list nor location_list_file is provided in the config file. &quot;</span>
+            <span class="s2">&quot;Retrieving all gage IDs from the crosswalk file...&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># filter based on location filter in config</span>
+        <span class="n">location_filter</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;location_filter&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">location_filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="n">location_filter</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">]</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">location_filter</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">]</span>
+
+            <span class="c1"># Validate and normalize column names (case-insensitive match allowed)</span>
+            <span class="n">available_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+            <span class="n">lower_to_actual</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">available_columns</span><span class="p">}</span>
+            <span class="n">normalized_columns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">available_columns</span><span class="p">:</span>
+                    <span class="n">normalized_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">col_lower</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">col_lower</span> <span class="ow">in</span> <span class="n">lower_to_actual</span><span class="p">:</span>
+                        <span class="n">actual</span> <span class="o">=</span> <span class="n">lower_to_actual</span><span class="p">[</span><span class="n">col_lower</span><span class="p">]</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;location_filter column &#39;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&#39; not found with exact case; &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;using &#39;</span><span class="si">{</span><span class="n">actual</span><span class="si">}</span><span class="s2">&#39; instead based on case-insensitive match.&quot;</span>
+                        <span class="p">)</span>
+                        <span class="n">normalized_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;location_filter column &#39;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&#39; not found in crosswalk data. &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;Available columns are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">available_columns</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="c1"># Apply filters</span>
+            <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">normalized_columns</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span><span class="p">]</span>
+
+            <span class="c1"># Logging all filters applied</span>
+            <span class="n">filters_applied</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">normalized_columns</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> gages selected using location filter: </span><span class="si">{</span><span class="n">filters_applied</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  All </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2"> gages from the crosswalk file are selected without applying any location filter.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;primary_location_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">]</span>
+
+    <span class="n">cwt</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">crosswalk_file</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="n">found</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_locations_in_crosswalk</span><span class="p">(</span>
+        <span class="n">locations</span><span class="p">,</span>
+        <span class="n">cwt</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gages</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">found</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">gages</span></div>
+
+
+
+<div class="viewcode-block" id="identify_locations">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_eval.identify_location_ids.identify_locations.html#nwm_eval.identify_location_ids.identify_locations">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">identify_locations</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Identify location IDs based on the provided crosswalk file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        conf: Dictionary defining the configurations (e.g., config.yaml).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary containing primary and secondary location IDs for each dataset.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># get USGS gage ID for verification locations</span>
+    <span class="n">locations_usgs</span> <span class="o">=</span> <span class="n">get_gage_ids</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+
+    <span class="n">locations</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">dataset_idx</span><span class="p">,</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;dataset_name&quot;</span><span class="p">]):</span>
+        <span class="c1"># get NWM link ID based on USGS gage ID</span>
+        <span class="n">nwm_version</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;general&quot;</span><span class="p">][</span><span class="s2">&quot;nwm_version&quot;</span><span class="p">][</span><span class="n">dataset_idx</span><span class="p">]</span>
+        <span class="n">locations_usgs1</span><span class="p">,</span> <span class="n">locations_nwm1</span> <span class="o">=</span> <span class="n">get_link_by_gage</span><span class="p">(</span>
+            <span class="n">locations_usgs</span><span class="p">,</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;file_paths&quot;</span><span class="p">][</span><span class="s2">&quot;crosswalk_file&quot;</span><span class="p">][</span><span class="n">nwm_version</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total number of locations for </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">locations_nwm1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">locations_nwm1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;nwm_forecast&quot;</span><span class="p">][</span><span class="s2">&quot;data_source&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">&quot;ngencerf&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hindcast&quot;</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  More than one location is found for dataset </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s2"> based on the provided location_list &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">conf</span><span class="p">[</span><span class="s1">&#39;general&#39;</span><span class="p">][</span><span class="s1">&#39;location_list&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> and crosswalk file </span><span class="si">{</span><span class="n">conf</span><span class="p">[</span><span class="s1">&#39;file_paths&#39;</span><span class="p">][</span><span class="s1">&#39;crosswalk_file&#39;</span><span class="p">][</span><span class="n">nwm_version</span><span class="p">]</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Only the first location will be used for verification of this dataset.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">locations_nwm1</span> <span class="o">=</span> <span class="n">locations_nwm1</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">locations_usgs1</span> <span class="o">=</span> <span class="n">locations_usgs1</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">locations_usgs1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">locations_nwm1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;  No gage ID is found for dataset </span><span class="si">{</span><span class="n">dataset</span><span class="si">}</span><span class="s2"> based on the provided location_list &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">conf</span><span class="p">[</span><span class="s1">&#39;general&#39;</span><span class="p">][</span><span class="s1">&#39;location_list&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> and crosswalk file </span><span class="si">{</span><span class="n">conf</span><span class="p">[</span><span class="s1">&#39;file_paths&#39;</span><span class="p">][</span><span class="s1">&#39;crosswalk_file&#39;</span><span class="p">][</span><span class="n">nwm_version</span><span class="p">]</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">locations</span><span class="p">[</span><span class="n">dataset</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">locations_usgs1</span><span class="p">,</span> <span class="s2">&quot;secondary&quot;</span><span class="p">:</span> <span class="n">locations_nwm1</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">locations</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

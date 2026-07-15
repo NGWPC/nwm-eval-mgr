@@ -1,0 +1,6 @@
+nwm\_eval.utils.check\_columns\_dataframe
+=========================================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: check_columns_dataframe

@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.barchart\_by\_metric
+============================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: barchart_by_metric

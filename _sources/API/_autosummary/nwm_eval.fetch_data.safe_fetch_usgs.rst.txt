@@ -1,0 +1,6 @@
+nwm\_eval.fetch\_data.safe\_fetch\_usgs
+=======================================
+
+.. currentmodule:: nwm_eval.fetch_data
+
+.. autofunction:: safe_fetch_usgs

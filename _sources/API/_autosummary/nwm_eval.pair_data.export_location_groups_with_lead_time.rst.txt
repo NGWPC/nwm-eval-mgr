@@ -1,0 +1,6 @@
+nwm\_eval.pair\_data.export\_location\_groups\_with\_lead\_time
+===============================================================
+
+.. currentmodule:: nwm_eval.pair_data
+
+.. autofunction:: export_location_groups_with_lead_time

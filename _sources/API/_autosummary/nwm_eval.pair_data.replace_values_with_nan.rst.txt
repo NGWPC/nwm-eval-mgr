@@ -1,0 +1,6 @@
+nwm\_eval.pair\_data.replace\_values\_with\_nan
+===============================================
+
+.. currentmodule:: nwm_eval.pair_data
+
+.. autofunction:: replace_values_with_nan

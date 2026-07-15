@@ -1,0 +1,6 @@
+nwm\_eval.fetch\_data.retrieve\_fcsts\_gcs
+==========================================
+
+.. currentmodule:: nwm_eval.fetch_data
+
+.. autofunction:: retrieve_fcsts_gcs

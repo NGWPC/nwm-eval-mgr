@@ -1,0 +1,6 @@
+nwm\_eval.fetch\_data.retrieve\_usgs\_obs
+=========================================
+
+.. currentmodule:: nwm_eval.fetch_data
+
+.. autofunction:: retrieve_usgs_obs

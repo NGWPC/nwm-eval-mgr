@@ -1,0 +1,6 @@
+nwm\_eval.utils.convert\_enum\_to\_value
+========================================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: convert_enum_to_value

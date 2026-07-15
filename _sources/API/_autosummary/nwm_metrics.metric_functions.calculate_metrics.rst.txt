@@ -1,0 +1,6 @@
+nwm\_metrics.metric\_functions.calculate\_metrics
+=================================================
+
+.. currentmodule:: nwm_metrics.metric_functions
+
+.. autofunction:: calculate_metrics

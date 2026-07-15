@@ -1,0 +1,6 @@
+nwm\_metrics.event\_metric\_functions.get\_event\_peaks
+=======================================================
+
+.. currentmodule:: nwm_metrics.event_metric_functions
+
+.. autofunction:: get_event_peaks

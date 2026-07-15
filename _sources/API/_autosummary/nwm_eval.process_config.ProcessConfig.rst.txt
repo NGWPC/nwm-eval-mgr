@@ -1,0 +1,7 @@
+nwm\_eval.process\_config.ProcessConfig
+=======================================
+
+.. currentmodule:: nwm_eval.process_config
+
+.. autoclass:: ProcessConfig
+   :show-inheritance:

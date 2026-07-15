@@ -1,0 +1,6 @@
+nwm\_metrics.event\_metric\_functions.separate\_compound\_events
+================================================================
+
+.. currentmodule:: nwm_metrics.event_metric_functions
+
+.. autofunction:: separate_compound_events

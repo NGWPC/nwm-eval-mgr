@@ -1,0 +1,7 @@
+nwm\_eval.configuration.ReferenceTimesMixin
+===========================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: ReferenceTimesMixin
+   :show-inheritance:

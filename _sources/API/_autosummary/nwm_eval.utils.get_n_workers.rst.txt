@@ -1,0 +1,6 @@
+nwm\_eval.utils.get\_n\_workers
+===============================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: get_n_workers

@@ -1,0 +1,6 @@
+nwm\_eval.fetch\_data.fetch\_txdot\_gage\_data
+==============================================
+
+.. currentmodule:: nwm_eval.fetch_data
+
+.. autofunction:: fetch_txdot_gage_data

@@ -1,0 +1,6 @@
+nwm\_eval.identify\_location\_ids.get\_nwm\_link\_ids
+=====================================================
+
+.. currentmodule:: nwm_eval.identify_location_ids
+
+.. autofunction:: get_nwm_link_ids

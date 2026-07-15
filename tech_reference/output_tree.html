@@ -1,0 +1,731 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Output Directory Structure &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tech_reference/output_tree';</script>
+    <script src="../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Schemas" href="output_data.html" />
+    <link rel="prev" title="Schemas" href="input_data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Subsections</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="workflow.html">Workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="input_data.html">Input data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Output directory structure</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="output_data.html">Output Tables</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="output_plot.html">Output Plots</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Technical Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Output...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="output-directory-structure">
+<span id="output-tree"></span><h1>Output Directory Structure<a class="headerlink" href="#output-directory-structure" title="Link to this heading">#</a></h1>
+<p>The outputs generated by nwm-eval-mgr are stored in <code class="docutils literal notranslate"><span class="pre">file_paths.output_dir</span></code>, organized in a set of five
+sub-directories correpsonding to the five steps:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>output_dir/
+├── &lt;dataset_name&gt;/ # output from the &quot;fetch_fcst_data&quot; step: forecast/simulation data organized by dataset name
+├── usgs/  # output from the &quot;fetch_obs_data&quot; step: usgs streamflow observations
+├── joined/  # output from the &quot;pair_data&quot; step: paired forecast and observation data
+├── metrics/  # output from the &quot;compute_metrics&quot; step: evaluation metrics computed from the paired datasets
+└── plots/  # output from the &quot;plot_metrics&quot; step: evaluation plots generated from the computed metrics
+</pre></div>
+</div>
+<p>The specific files in each sub-directory depend on the configurations. Below are sample output directory structures
+for each supported forecast data source, as defined in the corresponding sample configuration files.</p>
+<section id="ngencerf">
+<h2>ngenCERF<a class="headerlink" href="#ngencerf" title="Link to this heading">#</a></h2>
+<p>Sample output directory structure for <code class="docutils literal notranslate"><span class="pre">nwm_forecast.data_source</span> <span class="pre">=</span> <span class="pre">ngenCERF</span></code>, as defined in sample configuration
+file <a class="reference internal" href="../config.html#config-ngencerf-yaml"><span class="std std-ref">config_ngencerf.yaml</span></a>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usgs_01123000/
+├── joined/
+│   ├── noah_cfes.ngen.short_range.joined.parquet
+├── metrics/
+│   ├── noah_cfes.ngen.short_range.metrics.parquet
+├── noah_cfes/
+│   ├── short_range/
+│   │   ├── 20221201T00.parquet
+├── plots/
+│   ├── short_range/
+│   │   ├── barchart/
+│   │   │   ├── barchart_all_metrics_01123000.png
+│   │   ├── metric_table/
+│   │   │   ├── metric_table_lead_h1-18_01123000.png
+│   │   ├── time_series/
+│   │   │   ├── time_series_T0_20221201T00.png
+├── usgs/
+│   ├── 2022-12-01_2022-12-03.parquet
+├── nwm_verf_config_expanded.yaml
+├── verification.log
+</pre></div>
+</div>
+</section>
+<section id="hindcast">
+<h2>hindcast<a class="headerlink" href="#hindcast" title="Link to this heading">#</a></h2>
+<p>Sample output directory structure for <code class="docutils literal notranslate"><span class="pre">nwm_forecast.data_source</span> <span class="pre">=</span> <span class="pre">hindcast</span></code>, as defined in sample configuration
+file <a class="reference internal" href="../config.html#config-hindcast-yaml"><span class="std std-ref">config_hindcast.yaml</span></a>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usgs_01123000_hindcast/
+├── joined/
+│   ├── noah_cfes.ngen.short_range.joined.parquet
+│   ├── noah_sac.ngen.short_range.joined.parquet
+├── metrics/
+│   ├── noah_cfes.ngen.short_range.metrics.csv
+│   ├── noah_cfes.ngen.short_range.metrics.parquet
+│   ├── noah_sac.ngen.short_range.metrics.csv
+│   ├── noah_sac.ngen.short_range.metrics.parquet
+├── noah_cfes/
+│   ├── short_range/
+│   │   ├── 20250820T00.parquet
+│   │   ├── 20250820T06.parquet
+│   │   ├── 20250820T12.parquet
+│   │   ├── 20250820T18.parquet
+│   │   ├── 20250821T00.parquet
+│   │   └── ... (5 more files)
+├── noah_sac/
+│   ├── short_range/
+│   │   ├── 20250820T00.parquet
+│   │   ├── 20250820T06.parquet
+│   │   ├── 20250820T12.parquet
+│   │   ├── 20250820T18.parquet
+│   │   ├── 20250821T00.parquet
+│   │   └── ... (5 more files)
+├── plots/
+│   ├── short_range/
+│   │   ├── barchart/
+│   │   │   ├── barchart_CORR_01123000.png
+│   │   │   ├── barchart_KGE_01123000.png
+│   │   │   ├── barchart_NNSE_01123000.png
+│   │   │   ├── barchart_NSE_01123000.png
+│   │   │   ├── barchart_PBIAS_01123000.png
+│   │   ├── metric_table/
+│   │   │   ├── metric_table_lead_h1-18_01123000.png
+│   │   │   ├── metric_table_lead_h1-5_01123000.png
+│   │   │   ├── metric_table_lead_h10_01123000.png
+│   │   │   ├── metric_table_lead_h1_01123000.png
+│   │   ├── time_series/
+│   │   │   ├── time_series_T0_20250820T00.png
+│   │   │   ├── time_series_T0_20250821T00.png
+│   │   │   ├── time_series_T0_20250822T00.png
+│   │   │   ├── time_series_lead_h1.png
+│   │   │   ├── time_series_lead_h12.png
+│   │   │   └── ... (2 more files)
+├── usgs/
+│   ├── 2025-08-20_2025-08-24.parquet
+├── nwm_verf_config_expanded.yaml
+├── verification.log
+</pre></div>
+</div>
+</section>
+<section id="ngensim">
+<h2>ngenSim<a class="headerlink" href="#ngensim" title="Link to this heading">#</a></h2>
+<p>Sample output directory structure for <code class="docutils literal notranslate"><span class="pre">nwm_forecast.data_source</span> <span class="pre">=</span> <span class="pre">ngenSIM</span></code>, as defined in sample configuration
+file <a class="reference internal" href="../config.html#config-ngensim-yaml"><span class="std std-ref">config_ngensim.yaml</span></a>.</p>
+<p>Note for large-scale analyses that include hundreds of locations, the paired data is broken into multiple location
+groups to avoid memory issues.The number of location groups is calculated based on <code class="docutils literal notranslate"><span class="pre">pair_data.group_size</span></code> and
+the total number of locations. The groups are combined in the <code class="docutils literal notranslate"><span class="pre">compute_metrics</span></code> step to produce a single set
+of metrics for the entire domain. The same applies to the generated plots in the <code class="docutils literal notranslate"><span class="pre">plot_metrics</span></code> step.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>vpu_03S/
+├── gower/
+│   ├── ngen_simulation/
+│   │   ├── 20121001T03-20121001T10.parquet
+├── joined/
+│   ├── gower.ngen.ngen_simulation.joined.group0.parquet
+│   ├── gower.ngen.ngen_simulation.joined.group1.parquet
+│   ├── kmeans.ngen.ngen_simulation.joined.group0.parquet
+│   ├── kmeans.ngen.ngen_simulation.joined.group1.parquet
+├── kmeans/
+│   ├── ngen_simulation/
+│   │   ├── 20121001T03-20121001T10.parquet
+├── metrics/
+│   ├── gower.ngen.ngen_simulation.metrics.parquet
+│   ├── kmeans.ngen.ngen_simulation.metrics.parquet
+├── plots/
+│   ├── ngen_simulation/
+│   │   ├── boxplot/
+│   │   │   ├── boxplot_CORR.png
+│   │   │   ├── boxplot_KGE.png
+│   │   │   ├── boxplot_NNSE.png
+│   │   │   ├── boxplot_NSE.png
+│   │   ├── histogram/
+│   │   │   ├── hist_CORR.png
+│   │   │   ├── hist_KGE.png
+│   │   │   ├── hist_NNSE.png
+│   │   │   ├── hist_NSE.png
+│   │   ├── spatial_map/
+│   │   │   ├── map_CORR_gower.png
+│   │   │   ├── map_CORR_kmeans.png
+│   │   │   ├── map_KGE_gower.png
+│   │   │   ├── map_KGE_kmeans.png
+│   │   │   ├── map_NNSE_gower.png
+│   │   │   └── ... (3 more files)
+├── usgs/
+│   ├── 2012-10-01_2012-10-03.parquet
+├── nwm_verf_config_expanded.yaml
+├── verification.log
+</pre></div>
+</div>
+</section>
+<section id="gcs">
+<h2>GCS<a class="headerlink" href="#gcs" title="Link to this heading">#</a></h2>
+<p>Sample output directory structure for <code class="docutils literal notranslate"><span class="pre">nwm_forecast.data_source</span> <span class="pre">=</span> <span class="pre">GCS</span></code>, as defined in sample configuration
+file <span class="xref std std-ref">config-gcs-yaml</span>.</p>
+<p>Note in this case, there is an extra sub-directory “nwm30”, where the raw NWM forecast data retrieved from GCS are
+stored in JSON format in the sub-directory “zarr”, and the processed data for specific locations are stored in the
+sub-directory “time_series” in Parquet format. The sub-directories corresponding to the datasets (e.g., v3_oct and
+v3_sep) contain symbolic links to the processed data in “time_series”.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>calib_basin_group1/
+├── joined/
+│   ├── v3_oct.nwm30.short_range.joined.parquet
+│   ├── v3_sep.nwm30.short_range.joined.parquet
+├── metrics/
+│   ├── v3_oct.nwm30.short_range.metrics.parquet
+│   ├── v3_sep.nwm30.short_range.metrics.parquet
+├── nwm30/
+│   ├── timeseries/
+│   │   ├── short_range/
+│   │   │   ├── 20240901T00.parquet
+│   │   │   ├── 20240901T01.parquet
+│   │   │   ├── 20240901T02.parquet
+│   │   │   ├── 20240901T03.parquet
+│   │   │   ├── 20240901T04.parquet
+│   │   │   └── ... (1435 more files)
+│   ├── zarr/
+│   │   ├── short_range/
+│   │   │   ├── nwm.20240901.nwm.t00z.short_range.channel_rt.f001.conus.nc.json
+│   │   │   ├── nwm.20240901.nwm.t00z.short_range.channel_rt.f002.conus.nc.json
+│   │   │   ├── nwm.20240901.nwm.t00z.short_range.channel_rt.f003.conus.nc.json
+│   │   │   ├── nwm.20240901.nwm.t00z.short_range.channel_rt.f004.conus.nc.json
+│   │   │   ├── nwm.20240901.nwm.t00z.short_range.channel_rt.f005.conus.nc.json
+│   │   │   └── ... (25915 more files)
+├── plots/
+│   ├── short_range/
+│   │   ├── boxplot/
+│   │   │   ├── boxplot_CORR.png
+│   │   │   ├── boxplot_KGE.png
+│   │   │   ├── boxplot_NNSE.png
+│   │   │   ├── boxplot_NSE.png
+│   │   ├── histogram/
+│   │   │   ├── hist_CORR_h1-5.png
+│   │   │   ├── hist_CORR_h1.png
+│   │   │   ├── hist_CORR_h10.png
+│   │   │   ├── hist_CORR_h11-18.png
+│   │   │   ├── hist_CORR_h15.png
+│   │   │   └── ... (31 more files)
+│   │   ├── spatial_map/
+│   │   │   ├── map_CORR_h1-5_v3_oct.png
+│   │   │   ├── map_CORR_h1-5_v3_sep.png
+│   │   │   ├── map_CORR_h10_v3_oct.png
+│   │   │   ├── map_CORR_h10_v3_sep.png
+│   │   │   ├── map_CORR_h11-18_v3_oct.png
+│   │   │   └── ... (67 more files)
+├── usgs/
+│   ├── 2024-09-01.parquet
+│   ├── 2024-09-02.parquet
+│   ├── 2024-09-03.parquet
+│   ├── 2024-09-04.parquet
+│   ├── 2024-09-05.parquet
+│   └── ... (58 more files)
+├── v3_oct/
+│   ├── short_range/
+│   │   ├── 20241001T00.parquet
+│   │   ├── 20241001T01.parquet
+│   │   ├── 20241001T02.parquet
+│   │   ├── 20241001T03.parquet
+│   │   ├── 20241001T04.parquet
+│   │   └── ... (715 more files)
+├── v3_sep/
+│   ├── short_range/
+│   │   ├── 20240901T00.parquet
+│   │   ├── 20240901T01.parquet
+│   │   ├── 20240901T02.parquet
+│   │   ├── 20240901T03.parquet
+│   │   ├── 20240901T04.parquet
+│   │   └── ... (715 more files)
+├── nwm_verf_config_expanded.yaml
+├── verification.log
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="input_data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Schemas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="output_data.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Schemas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngencerf">ngenCERF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hindcast">hindcast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ngensim">ngenSim</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gcs">GCS</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/tech_reference/output_tree.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

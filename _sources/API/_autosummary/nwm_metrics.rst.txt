@@ -1,0 +1,36 @@
+﻿nwm\_metrics
+============
+
+.. automodule:: nwm_metrics
+
+    
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+
+    
+        .. rubric:: Modules
+
+        .. autosummary::
+            :toctree:
+            :template: autosummary/module.rst
+            :recursive:
+            
+                event_metric_functions
+                metric_functions
+
+    
+
+

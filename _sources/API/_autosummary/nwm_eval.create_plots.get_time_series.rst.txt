@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.get\_time\_series
+=========================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: get_time_series

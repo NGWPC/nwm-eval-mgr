@@ -1,0 +1,6 @@
+nwm\_eval.fetch\_data.get\_gage\_agency
+=======================================
+
+.. currentmodule:: nwm_eval.fetch_data
+
+.. autofunction:: get_gage_agency

@@ -1,0 +1,6 @@
+nwm\_metrics.metric\_functions.rmse\_std\_ratio
+===============================================
+
+.. currentmodule:: nwm_metrics.metric_functions
+
+.. autofunction:: rmse_std_ratio

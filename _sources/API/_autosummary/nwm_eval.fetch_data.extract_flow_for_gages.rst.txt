@@ -1,0 +1,6 @@
+nwm\_eval.fetch\_data.extract\_flow\_for\_gages
+===============================================
+
+.. currentmodule:: nwm_eval.fetch_data
+
+.. autofunction:: extract_flow_for_gages

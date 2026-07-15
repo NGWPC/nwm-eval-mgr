@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.create\_boxplot
+=======================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: create_boxplot

@@ -1,0 +1,6 @@
+nwm\_eval.utils.flatten\_dict
+=============================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: flatten_dict

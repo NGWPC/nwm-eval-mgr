@@ -1,0 +1,7 @@
+nwm\_eval.configuration.GeneralConfig
+=====================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: GeneralConfig
+   :show-inheritance:

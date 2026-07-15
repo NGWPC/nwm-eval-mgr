@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.create\_metric\_table
+=============================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: create_metric_table

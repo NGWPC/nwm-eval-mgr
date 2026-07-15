@@ -1,0 +1,6 @@
+nwm\_eval.utils.convert\_paths\_to\_str
+=======================================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: convert_paths_to_str

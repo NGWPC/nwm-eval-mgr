@@ -1,0 +1,1361 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nwm_metrics.event_metric_functions &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nwm_metrics/event_metric_functions';</script>
+    <script src="../../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">nwm_metrics....</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nwm_metrics.event_metric_functions</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions to compute event-based metrics.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    - identify_events: Conduct first-round event detection using hydrotools.events.event_detection.</span>
+<span class="sd">    - separate_compound_events: Separate compound/multi-peak events into single-peak events.</span>
+<span class="sd">    - pair_events: One-to-one pairing of observed and model events with optional virtual events.</span>
+<span class="sd">    - compute_event_metrics: Compute event-based metrics given paired observed and model events.</span>
+<span class="sd">    - preprocess_series: Resample to hourly and interpolate short gaps.</span>
+<span class="sd">    - split_into_valid_chunks: Split time series into continuous NaN-free chunks.</span>
+<span class="sd">    - plot_event_timeseries: Plot observed and simulated streamflow time series with event peak markers.</span>
+<span class="sd">    - validate_events: Validate event chronology and non-overlap.</span>
+<span class="sd">    - event_based_metrics: Compute event-based metrics: PKBIAS, PKTE, EVBIAS. Optionally, plot time series with event markers.</span>
+<span class="sd">    - get_event_peaks: Get observed and modeled event peaks.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hydrotools.events.event_detection</span><span class="w"> </span><span class="kn">import</span> <span class="n">decomposition</span> <span class="k">as</span> <span class="n">ev</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;identify_events&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;separate_compound_events&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pair_events&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;compute_event_metrics&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;preprocess_series&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;split_into_valid_chunks&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;plot_event_timeseries&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;validate_events&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;event_based_metrics&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_event_peaks&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="identify_events">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.identify_events.html#nwm_metrics.event_metric_functions.identify_events">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">identify_events</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">halflife</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;6h&quot;</span><span class="p">,</span>
+    <span class="n">window</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;7d&quot;</span><span class="p">,</span>
+    <span class="n">minimum_event_duration</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;6h&quot;</span><span class="p">,</span>
+    <span class="n">start_radius</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;6h&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Conduct first-round event detection using hydrotools.events.event_detection.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data: Streamflow time series.</span>
+<span class="sd">        halflife: Smoothing parameter for event detection.</span>
+<span class="sd">        window: Rolling search window for event detection.</span>
+<span class="sd">        minimum_event_duration: Minimum allowed event duration.</span>
+<span class="sd">        start_radius: Search radius used to identify event starts.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DataFrame containing:</span>
+<span class="sd">            - start</span>
+<span class="sd">            - end</span>
+<span class="sd">            - peak</span>
+<span class="sd">            - peak_value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">list_events</span><span class="p">(</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">halflife</span><span class="o">=</span><span class="n">halflife</span><span class="p">,</span>
+        <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span>
+        <span class="n">minimum_event_duration</span><span class="o">=</span><span class="n">minimum_event_duration</span><span class="p">,</span>
+        <span class="n">start_radius</span><span class="o">=</span><span class="n">start_radius</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">events</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">events</span>
+
+    <span class="n">event_slices</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">start</span> <span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">end</span><span class="p">]</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">events</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">event_slices</span><span class="p">]</span>
+    <span class="n">events</span><span class="p">[</span><span class="s2">&quot;peak_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">event_slices</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">events</span></div>
+
+
+
+<div class="viewcode-block" id="merge_short_events">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.merge_short_events.html#nwm_metrics.event_metric_functions.merge_short_events">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge_short_events</span><span class="p">(</span>
+    <span class="n">events</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">minimum_event_duration</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;6h&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge events shorter than the minimum duration with the nearest neighboring event.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        events (pd.DataFrame): Event dataframe containing: start, end</span>
+
+<span class="sd">        data (pd.Series): Original streamflow series.</span>
+
+<span class="sd">        minimum_event_duration (str): Minimum allowed duration.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: updated event dataframe.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">events</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">events</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">min_duration</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">minimum_event_duration</span><span class="p">)</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Iteratively merge short events</span>
+    <span class="n">changed</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">while</span> <span class="n">changed</span><span class="p">:</span>
+        <span class="n">changed</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">durations</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
+        <span class="n">short_idx</span> <span class="o">=</span> <span class="n">durations</span><span class="p">[</span><span class="n">durations</span> <span class="o">&lt;</span> <span class="n">min_duration</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">short_idx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="n">short_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Case 1: only one event</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># Determine merge target</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># merge with next</span>
+            <span class="n">merge_into</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># merge with previous</span>
+            <span class="n">merge_into</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># compare temporal gaps</span>
+            <span class="n">prev_gap</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]</span>
+            <span class="n">next_gap</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]</span>
+            <span class="n">merge_into</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">prev_gap</span> <span class="o">&lt;=</span> <span class="n">next_gap</span> <span class="k">else</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># Merge events</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">merge_into</span><span class="p">)</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">merge_into</span><span class="p">)</span>
+
+        <span class="n">new_start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">],</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="n">new_end</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">],</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="c1"># recompute peak using original data</span>
+        <span class="n">segment</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">new_start</span><span class="p">:</span><span class="n">new_end</span><span class="p">]</span>
+
+        <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_start</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_end</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;peak_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+        <span class="c1"># remove merged row</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">changed</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="n">events</span></div>
+
+
+
+<div class="viewcode-block" id="separate_compound_events">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.separate_compound_events.html#nwm_metrics.event_metric_functions.separate_compound_events">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">separate_compound_events</span><span class="p">(</span>
+    <span class="n">events</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Separate compound/multi-peak events into single-peak events.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        events: Events detected by ``event_detection()``.</span>
+<span class="sd">            Must contain columns:</span>
+<span class="sd">                - start</span>
+<span class="sd">                - end</span>
+
+<span class="sd">        data: Original streamflow time series.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DataFrame containing decomposed single-peak events with columns:</span>
+<span class="sd">            - start</span>
+<span class="sd">            - end</span>
+<span class="sd">            - peak</span>
+<span class="sd">            - peak_value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Build working dataframe</span>
+    <span class="n">df_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">df_data</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="n">df_data</span><span class="p">[</span><span class="s2">&quot;smooth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_data</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ewm</span><span class="p">(</span><span class="n">halflife</span><span class="o">=</span><span class="s2">&quot;6h&quot;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="n">df_data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">decomposed_events</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">pad</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">peak_shift</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">event_gap</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># Extract event window with padding</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="n">pad</span> <span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">end</span> <span class="o">+</span> <span class="n">pad</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">smooth</span> <span class="o">=</span> <span class="n">window</span><span class="p">[</span><span class="s2">&quot;smooth&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Detect turning points (local maxima)</span>
+        <span class="n">turning_points</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">smooth</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">smooth</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">smooth</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">smooth</span><span class="p">)</span>
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">smooth</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">smooth</span><span class="p">)</span>
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">smooth</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">smooth</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="n">tp_times</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">turning_points</span><span class="p">]</span>
+
+        <span class="c1"># Map turning points back to original series peaks</span>
+        <span class="n">peak_times</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tp_time</span> <span class="ow">in</span> <span class="n">tp_times</span><span class="p">:</span>
+            <span class="n">peak_time</span> <span class="o">=</span> <span class="n">df_data</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tp_time</span> <span class="o">-</span> <span class="n">peak_shift</span> <span class="p">:</span> <span class="n">tp_time</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">peak_time</span> <span class="o">&lt;</span> <span class="n">event</span><span class="o">.</span><span class="n">end</span><span class="p">:</span>
+                <span class="n">peak_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak_time</span><span class="p">)</span>
+
+        <span class="c1"># Remove duplicates while preserving order</span>
+        <span class="n">peak_times</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">peak_times</span><span class="p">))</span>
+
+        <span class="c1"># Determine event boundaries</span>
+        <span class="n">start_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">start</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">left_peak</span><span class="p">,</span> <span class="n">right_peak</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">peak_times</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">peak_times</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="n">split_time</span> <span class="o">=</span> <span class="n">df_data</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">left_peak</span><span class="p">:</span><span class="n">right_peak</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+            <span class="n">start_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">split_time</span><span class="p">)</span>
+
+        <span class="n">end_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="n">event_gap</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">start_times</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span> <span class="o">+</span> <span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">end</span><span class="p">]</span>
+
+        <span class="c1"># Keep only valid events</span>
+        <span class="n">valid_events</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span> <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_times</span><span class="p">,</span> <span class="n">end_times</span><span class="p">)</span> <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">end</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Recompute peaks for each sub-event</span>
+        <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">valid_events</span><span class="p">:</span>
+            <span class="n">event_slice</span> <span class="o">=</span> <span class="n">df_data</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+
+            <span class="n">decomposed_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">start</span><span class="p">,</span>
+                    <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">end</span><span class="p">,</span>
+                    <span class="s2">&quot;peak&quot;</span><span class="p">:</span> <span class="n">event_slice</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span>
+                    <span class="s2">&quot;peak_value&quot;</span><span class="p">:</span> <span class="n">event_slice</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">decomposed_events</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pair_events">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.pair_events.html#nwm_metrics.event_metric_functions.pair_events">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pair_events</span><span class="p">(</span>
+    <span class="n">events_obs</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">events_mod</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">virtual_strategy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;obs&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;One-to-one pairing of observed and model events with optional virtual events.</span>
+
+<span class="sd">    For unmatched observed events, can optionally create virtual model events with same start/end as observed to avoid</span>
+<span class="sd">    penalizing model events below threshold. Similarly for unmatched model events. The virtual_strategy parameter</span>
+<span class="sd">    controls which virtual events to create.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        events_obs : pd.DataFrame</span>
+<span class="sd">            Observed events with columns: start, end, peak_value</span>
+
+<span class="sd">        events_mod : pd.DataFrame</span>
+<span class="sd">            Model events with columns: start, end, peak_value</span>
+
+<span class="sd">        threshold : float</span>
+<span class="sd">            Only events with peak_value &gt;= threshold are paired.</span>
+
+<span class="sd">        virtual_strategy : str</span>
+<span class="sd">            Controls handling of unmatched events:</span>
+<span class="sd">            - &quot;none&quot;: no virtual events</span>
+<span class="sd">            - &quot;obs&quot;: virtual model window for unmatched observed events</span>
+<span class="sd">            - &quot;mod&quot;: virtual observed window for unmatched model events</span>
+<span class="sd">            - &quot;both&quot;: apply both</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame with columns:</span>
+<span class="sd">            obs_start, obs_end, mod_start, mod_end, status</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">virtual_strategy</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;mod&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">}:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid virtual_strategy: </span><span class="si">{</span><span class="n">virtual_strategy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Filter observed events by threshold</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">events_obs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">events_obs</span><span class="p">[</span><span class="s2">&quot;peak_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">events_mod</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">obs_start</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">obs_end</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+    <span class="n">mod_start</span> <span class="o">=</span> <span class="n">mod</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">mod_end</span> <span class="o">=</span> <span class="n">mod</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+    <span class="n">paired_mod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mod</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># OBSERVED → MODEL matching (one-to-one)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)):</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="o">~</span><span class="n">paired_mod</span>
+
+        <span class="n">overlap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">obs_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mod_start</span><span class="p">[</span><span class="n">available</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
+            <span class="n">obs_end</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mod_end</span><span class="p">[</span><span class="n">available</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">matched_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">available</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="n">overlap</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">matched_idx</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># choose best overlap match</span>
+            <span class="n">overlap_duration</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
+                <span class="n">obs_end</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mod_end</span><span class="p">[</span><span class="n">matched_idx</span><span class="p">]</span>
+            <span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">obs_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mod_start</span><span class="p">[</span><span class="n">matched_idx</span><span class="p">])</span>
+
+            <span class="n">best</span> <span class="o">=</span> <span class="n">matched_idx</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">overlap_duration</span><span class="p">)]</span>
+            <span class="n">paired_mod</span><span class="p">[</span><span class="n">best</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;obs_start&quot;</span><span class="p">:</span> <span class="n">obs_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                    <span class="s2">&quot;obs_end&quot;</span><span class="p">:</span> <span class="n">obs_end</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                    <span class="s2">&quot;mod_start&quot;</span><span class="p">:</span> <span class="n">mod_start</span><span class="p">[</span><span class="n">best</span><span class="p">],</span>
+                    <span class="s2">&quot;mod_end&quot;</span><span class="p">:</span> <span class="n">mod_end</span><span class="p">[</span><span class="n">best</span><span class="p">],</span>
+                    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;paired&quot;</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">virtual_strategy</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">}:</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;obs_start&quot;</span><span class="p">:</span> <span class="n">obs_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s2">&quot;obs_end&quot;</span><span class="p">:</span> <span class="n">obs_end</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s2">&quot;mod_start&quot;</span><span class="p">:</span> <span class="n">obs_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s2">&quot;mod_end&quot;</span><span class="p">:</span> <span class="n">obs_end</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;virtual_obs&quot;</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;obs_start&quot;</span><span class="p">:</span> <span class="n">obs_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s2">&quot;obs_end&quot;</span><span class="p">:</span> <span class="n">obs_end</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s2">&quot;mod_start&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span>
+                        <span class="s2">&quot;mod_end&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span>
+                        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;missed&quot;</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+
+    <span class="c1"># UNMATCHED MODEL EVENTS (false alarms / virtual_mod)</span>
+    <span class="n">remaining_mod</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">paired_mod</span><span class="p">]</span>
+
+    <span class="c1"># keep only events above threshold (if any)</span>
+    <span class="n">remaining_mod</span> <span class="o">=</span> <span class="n">remaining_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">remaining_mod</span><span class="p">[</span><span class="s2">&quot;peak_value&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">remaining_mod</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">virtual_strategy</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;mod&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">}:</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;obs_start&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                    <span class="s2">&quot;obs_end&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">end</span><span class="p">,</span>
+                    <span class="s2">&quot;mod_start&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                    <span class="s2">&quot;mod_end&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">end</span><span class="p">,</span>
+                    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;virtual_mod&quot;</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;obs_start&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span>
+                    <span class="s2">&quot;obs_end&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">,</span>
+                    <span class="s2">&quot;mod_start&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                    <span class="s2">&quot;mod_end&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">end</span><span class="p">,</span>
+                    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;false_alarm&quot;</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+    <span class="n">events</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">events</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">events</span>
+
+    <span class="c1"># sort events by observed start time, then model start time (with NaT sorted at the end)</span>
+    <span class="n">sort_key</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;obs_start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="s2">&quot;mod_start&quot;</span><span class="p">])</span>
+
+    <span class="n">events</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">_sort</span><span class="o">=</span><span class="n">sort_key</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;_sort&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;_sort&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Ensure no overlap between paired events by shifting start times if needed</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)):</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c1"># fix obs overlap</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">curr</span><span class="o">.</span><span class="n">obs_start</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">prev</span><span class="o">.</span><span class="n">obs_end</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">curr</span><span class="o">.</span><span class="n">obs_start</span> <span class="o">&lt;=</span> <span class="n">prev</span><span class="o">.</span><span class="n">obs_end</span><span class="p">:</span>
+                <span class="n">shift</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="n">obs_end</span> <span class="o">-</span> <span class="n">curr</span><span class="o">.</span><span class="n">obs_start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s2">&quot;1h&quot;</span><span class="p">)</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">curr</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;obs_start&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shift</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">curr</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;obs_end&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shift</span>
+
+        <span class="c1"># fix mod overlap similarly if needed</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">curr</span><span class="o">.</span><span class="n">mod_start</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">prev</span><span class="o">.</span><span class="n">mod_end</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">curr</span><span class="o">.</span><span class="n">mod_start</span> <span class="o">&lt;=</span> <span class="n">prev</span><span class="o">.</span><span class="n">mod_end</span><span class="p">:</span>
+                <span class="n">shift</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="n">mod_end</span> <span class="o">-</span> <span class="n">curr</span><span class="o">.</span><span class="n">mod_start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s2">&quot;1h&quot;</span><span class="p">)</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">curr</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;mod_start&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shift</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">curr</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;mod_end&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shift</span>
+
+    <span class="k">return</span> <span class="n">events</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_event_peaks">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.get_event_peaks.html#nwm_metrics.event_metric_functions.get_event_peaks">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_event_peaks</span><span class="p">(</span>
+    <span class="n">event_pairs</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">data_obs</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">data_mod</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get observed and modeled event peaks.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        event_pairs: DataFrame containing paired observed and modeled events</span>
+<span class="sd">        data_obs: Series containing observed data</span>
+<span class="sd">        data_mod: Series containing modeled data</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DataFrame with columns: obs_peak_time, obs_peak, mod_peak_time, mod_peak, obs_event_volume, mod_event_volume</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">peaks</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">event_pairs</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># Observed event</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">obs_start</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">obs_end</span><span class="p">):</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">data_obs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">obs_start</span> <span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">obs_end</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">obs_peak_time</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+                <span class="n">obs_peak</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="n">obs_volume</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">obs_peak_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span>
+                <span class="n">obs_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">obs_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">obs_peak_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span>
+            <span class="n">obs_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">obs_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="c1"># Modeled event</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">mod_start</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">mod_end</span><span class="p">):</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="n">data_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">mod_start</span> <span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">mod_end</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">mod_peak_time</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+                <span class="n">mod_peak</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="n">mod_volume</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mod_peak_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span>
+                <span class="n">mod_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">mod_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mod_peak_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span>
+            <span class="n">mod_peak</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">mod_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="n">peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;obs_peak_time&quot;</span><span class="p">:</span> <span class="n">obs_peak_time</span><span class="p">,</span>
+                <span class="s2">&quot;obs_peak&quot;</span><span class="p">:</span> <span class="n">obs_peak</span><span class="p">,</span>
+                <span class="s2">&quot;mod_peak_time&quot;</span><span class="p">:</span> <span class="n">mod_peak_time</span><span class="p">,</span>
+                <span class="s2">&quot;mod_peak&quot;</span><span class="p">:</span> <span class="n">mod_peak</span><span class="p">,</span>
+                <span class="s2">&quot;obs_event_volume&quot;</span><span class="p">:</span> <span class="n">obs_volume</span><span class="p">,</span>
+                <span class="s2">&quot;mod_event_volume&quot;</span><span class="p">:</span> <span class="n">mod_volume</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="compute_event_metrics">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.compute_event_metrics.html#nwm_metrics.event_metric_functions.compute_event_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_event_metrics</span><span class="p">(</span>
+    <span class="n">peaks</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute event-based metrics given paired observed and model events.</span>
+
+<span class="sd">    Given the event peaks identified, compute the three event-based metrics (peak bias, peak timing error,</span>
+<span class="sd">    event volume bias). Return either the mean or median of metrics calculated for all events.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        peaks: DataFrame containing event peaks and volumes from get_event_peaks()</span>
+<span class="sd">        aggregation: aggregation method (mean or median) for metrics calculated for all events</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary with keys &quot;peak_bias&quot;, &quot;ptime_err&quot;, and &quot;event_bias&quot; containing the corresponding metric values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">peaks</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;peak_bias&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="s2">&quot;ptime_err&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="s2">&quot;event_bias&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="c1"># Peak magnitude error</span>
+    <span class="n">peak_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;obs_peak&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;mod_peak&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;obs_peak&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;obs_peak&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Peak timing error</span>
+    <span class="n">timing_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;mod_peak_time&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;obs_peak_time&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Event volume bias</span>
+    <span class="n">event_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;obs_event_volume&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;mod_event_volume&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;obs_event_volume&quot;</span><span class="p">])</span>
+        <span class="o">/</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;obs_event_volume&quot;</span><span class="p">]</span>
+        <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
+        <span class="n">peak_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">peak_error</span><span class="p">)</span>
+        <span class="n">ptime_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">timing_error</span><span class="p">)</span>
+        <span class="n">event_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">event_bias</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">&quot;median&quot;</span><span class="p">:</span>
+        <span class="n">peak_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">peak_error</span><span class="p">)</span>
+        <span class="n">ptime_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">timing_error</span><span class="p">)</span>
+        <span class="n">event_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">event_bias</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown aggregation for event-based metrics: </span><span class="si">{</span><span class="n">aggregation</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;peak_bias&quot;</span><span class="p">:</span> <span class="n">peak_bias</span><span class="p">,</span>
+        <span class="s2">&quot;ptime_err&quot;</span><span class="p">:</span> <span class="n">ptime_err</span><span class="p">,</span>
+        <span class="s2">&quot;event_bias&quot;</span><span class="p">:</span> <span class="n">event_bias</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="preprocess_series">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.preprocess_series.html#nwm_metrics.event_metric_functions.preprocess_series">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">preprocess_series</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Resample to hourly and interpolate short gaps.</span>
+
+<span class="sd">    Resample the input series to hourly frequency using forward fill, then linearly interpolate gaps of up to 5 hours in length. This ensures a continuous hourly time series for event detection while avoiding excessive interpolation over long gaps.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y: Input time series with arbitrary frequency and potential missing values.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A time series resampled to hourly frequency with short gaps interpolated.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">limit_direction</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="split_into_valid_chunks">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.split_into_valid_chunks.html#nwm_metrics.event_metric_functions.split_into_valid_chunks">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">split_into_valid_chunks</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">min_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split time series into continuous NaN-free chunks.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y: Input time series with potential missing values.</span>
+<span class="sd">        min_len: Minimum length of chunks to retain.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of continuous NaN-free chunks with length &gt;= min_len.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_len</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="plot_event_timeseries">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.plot_event_timeseries.html#nwm_metrics.event_metric_functions.plot_event_timeseries">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_event_timeseries</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">events_obs</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">events_sim</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">end_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">threshold_unit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;m3/s&quot;</span><span class="p">,</span>
+    <span class="n">plot_filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot observed and simulated streamflow time series with event peak markers.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true: observed streamflow series</span>
+<span class="sd">        y_pred: simulated streamflow series</span>
+<span class="sd">        events_obs: observed events with columns &quot;start&quot;, &quot;end&quot;, &quot;peak&quot;, &quot;peak_value&quot;</span>
+<span class="sd">        events_sim: simulated events with columns &quot;start&quot;, &quot;end&quot;, &quot;peak&quot;, &quot;peak_value&quot;</span>
+<span class="sd">        start_time: optional start time to subset the series for plotting</span>
+<span class="sd">        end_time: optional end time to subset the series for plotting</span>
+<span class="sd">        threshold: optional event threshold to plot as a horizontal line</span>
+<span class="sd">        plot_filename: optional filename to save the plot</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None (saves plot to file if plot_filename is provided)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Subset time range</span>
+    <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_time</span><span class="p">:]</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start_time</span><span class="p">:]</span>
+
+    <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end_time</span><span class="p">]</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end_time</span><span class="p">]</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+    <span class="c1"># Plot hydrographs</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">y_true</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+        <span class="n">y_true</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Observed&quot;</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">y_pred</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+        <span class="n">y_pred</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Simulated&quot;</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Plot observed event peaks</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events_obs</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">y_true</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">event</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">],</span>
+            <span class="n">y_true</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">event</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]],</span>
+            <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+            <span class="n">facecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+            <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+            <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Obs peak&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Plot simulated event peaks</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events_sim</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">event</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">],</span>
+            <span class="n">event</span><span class="p">[</span><span class="s2">&quot;peak_value&quot;</span><span class="p">],</span>
+            <span class="n">s</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
+            <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Sim peak&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Plot threshold line if provided</span>
+    <span class="k">if</span> <span class="n">threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Event threshold: </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">threshold_unit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Clean duplicate legend entries</span>
+    <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+
+    <span class="n">unique</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">handles</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+        <span class="n">unique</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+        <span class="n">unique</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span>
+        <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Formatting</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Observed and Simulated Streamflow Events&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Streamflow&quot;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">plot_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">plot_filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="validate_events">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.validate_events.html#nwm_metrics.event_metric_functions.validate_events">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_events</span><span class="p">(</span><span class="n">events</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate event chronology and non-overlap.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        events: DataFrame containing event start and end times with columns &quot;start&quot; and &quot;end&quot;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if events are valid, False otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">events</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Individual event validity</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+    <span class="n">invalid</span> <span class="o">=</span> <span class="n">valid</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">invalid</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Invalid events with start time after end time detected.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1"># Inter-event validity</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">start</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">end</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">start</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">end</span><span class="p">[</span><span class="n">valid</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Overlapping events detected&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="event_based_metrics">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.event_metric_functions.event_based_metrics.html#nwm_metrics.event_metric_functions.event_based_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">event_based_metrics</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+    <span class="n">separate_compound</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">virtual_strategy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;both&quot;</span><span class="p">,</span>
+    <span class="n">plot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">plot_filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute event-based metrics: PKBIAS, PKTE, EVBIAS. Optionally, plot time series with event markers.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true: observed streamflow series</span>
+<span class="sd">        y_pred: simulated streamflow series</span>
+<span class="sd">        threshold: flow threshold for event detection</span>
+<span class="sd">        aggregation: method to aggregate metrics across events (&quot;mean&quot; or &quot;median&quot;)</span>
+<span class="sd">        separate_compound: whether to separate compound events into single-peak events</span>
+<span class="sd">        virtual_strategy: strategy for handling unmatched events by creating virtual events (&quot;none&quot;, &quot;obs&quot;, &quot;mod&quot;, &quot;both&quot;)</span>
+<span class="sd">        plot: whether to plot time series with event markers</span>
+<span class="sd">        plot_filename: filename for saving the plot (if plot=True)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary with keys &quot;PKBIAS&quot;, &quot;PKTE&quot;, and &quot;EVBIAS&quot; containing the corresponding metric values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">threshold</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">threshold</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;PKBIAS&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;PKTE&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;EVBIAS&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">}</span>
+
+    <span class="c1"># Step 1: preprocessing (resample + interpolate)</span>
+    <span class="n">y_true0</span> <span class="o">=</span> <span class="n">preprocess_series</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">y_pred0</span> <span class="o">=</span> <span class="n">preprocess_series</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="c1"># Step 2: chunking</span>
+    <span class="n">y_true_chunks</span> <span class="o">=</span> <span class="n">split_into_valid_chunks</span><span class="p">(</span><span class="n">y_true0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true_chunks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Events cannot be calculated due to missing data&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;PKBIAS&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;PKTE&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;EVBIAS&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">}</span>
+
+    <span class="n">events_all</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Step 3: per-chunk event processing</span>
+    <span class="k">for</span> <span class="n">y_true_chunk</span> <span class="ow">in</span> <span class="n">y_true_chunks</span><span class="p">:</span>
+        <span class="n">y_pred_chunk</span> <span class="o">=</span> <span class="n">y_pred0</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">y_true_chunk</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="n">events_obs</span> <span class="o">=</span> <span class="n">identify_events</span><span class="p">(</span><span class="n">y_true_chunk</span><span class="p">)</span>
+        <span class="n">events_mod</span> <span class="o">=</span> <span class="n">identify_events</span><span class="p">(</span><span class="n">y_pred_chunk</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events_obs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># merge short events before pairing</span>
+        <span class="n">events_obs</span> <span class="o">=</span> <span class="n">merge_short_events</span><span class="p">(</span>
+            <span class="n">events_obs</span><span class="p">,</span> <span class="n">y_true_chunk</span><span class="p">,</span> <span class="n">minimum_event_duration</span><span class="o">=</span><span class="s2">&quot;6h&quot;</span>
+        <span class="p">)</span>
+        <span class="n">events_mod</span> <span class="o">=</span> <span class="n">merge_short_events</span><span class="p">(</span>
+            <span class="n">events_mod</span><span class="p">,</span> <span class="n">y_pred_chunk</span><span class="p">,</span> <span class="n">minimum_event_duration</span><span class="o">=</span><span class="s2">&quot;6h&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">separate_compound</span><span class="p">:</span>
+            <span class="n">events_obs</span> <span class="o">=</span> <span class="n">separate_compound_events</span><span class="p">(</span><span class="n">events_obs</span><span class="p">,</span> <span class="n">y_true_chunk</span><span class="p">)</span>
+            <span class="n">events_mod</span> <span class="o">=</span> <span class="n">separate_compound_events</span><span class="p">(</span><span class="n">events_mod</span><span class="p">,</span> <span class="n">y_pred_chunk</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events_obs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">events_mod</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># validate events before pairing</span>
+        <span class="n">validate_events</span><span class="p">(</span><span class="n">events_obs</span><span class="p">)</span>
+        <span class="n">validate_events</span><span class="p">(</span><span class="n">events_mod</span><span class="p">)</span>
+
+        <span class="n">events_paired</span> <span class="o">=</span> <span class="n">pair_events</span><span class="p">(</span>
+            <span class="n">events_obs</span><span class="p">,</span>
+            <span class="n">events_mod</span><span class="p">,</span>
+            <span class="n">threshold</span><span class="p">,</span>
+            <span class="n">virtual_strategy</span><span class="o">=</span><span class="n">virtual_strategy</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">events_paired</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># validate paired events</span>
+        <span class="n">events_paired_obs</span> <span class="o">=</span> <span class="n">events_paired</span><span class="p">[[</span><span class="s2">&quot;obs_start&quot;</span><span class="p">,</span> <span class="s2">&quot;obs_end&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;obs_start&quot;</span><span class="p">:</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;obs_end&quot;</span><span class="p">:</span> <span class="s2">&quot;end&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">validate_events</span><span class="p">(</span><span class="n">events_paired_obs</span><span class="p">)</span>
+
+        <span class="n">events_paired_mod</span> <span class="o">=</span> <span class="n">events_paired</span><span class="p">[[</span><span class="s2">&quot;mod_start&quot;</span><span class="p">,</span> <span class="s2">&quot;mod_end&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;mod_start&quot;</span><span class="p">:</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;mod_end&quot;</span><span class="p">:</span> <span class="s2">&quot;end&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">validate_events</span><span class="p">(</span><span class="n">events_paired_mod</span><span class="p">)</span>
+
+        <span class="n">events_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">events_paired</span><span class="p">)</span>
+
+    <span class="c1"># Step 4: merge chunks, get event peaks/timings/volumes (and optionally plot time series with event markers)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events_all</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;No paired events found and event-based metrics cannot be calculated&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;PKBIAS&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;PKTE&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;EVBIAS&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">}</span>
+
+    <span class="n">events_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">events_all</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Get event peaks/timings/volumes</span>
+    <span class="n">peaks_all</span> <span class="o">=</span> <span class="n">get_event_peaks</span><span class="p">(</span>
+        <span class="n">events_all</span><span class="p">,</span>
+        <span class="n">y_true0</span><span class="p">,</span>
+        <span class="n">y_pred0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># plot timeseries with event markers if requested</span>
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+        <span class="n">events_obs</span> <span class="o">=</span> <span class="n">events_all</span><span class="p">[[</span><span class="s2">&quot;obs_start&quot;</span><span class="p">,</span> <span class="s2">&quot;obs_end&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;obs_start&quot;</span><span class="p">:</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;obs_end&quot;</span><span class="p">:</span> <span class="s2">&quot;end&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">events_obs</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks_all</span><span class="p">[</span><span class="s2">&quot;obs_peak_time&quot;</span><span class="p">]</span>
+        <span class="n">events_obs</span><span class="p">[</span><span class="s2">&quot;peak_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks_all</span><span class="p">[</span><span class="s2">&quot;obs_peak&quot;</span><span class="p">]</span>
+
+        <span class="n">events_sim</span> <span class="o">=</span> <span class="n">events_all</span><span class="p">[[</span><span class="s2">&quot;mod_start&quot;</span><span class="p">,</span> <span class="s2">&quot;mod_end&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;mod_start&quot;</span><span class="p">:</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;mod_end&quot;</span><span class="p">:</span> <span class="s2">&quot;end&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">events_sim</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks_all</span><span class="p">[</span><span class="s2">&quot;mod_peak_time&quot;</span><span class="p">]</span>
+        <span class="n">events_sim</span><span class="p">[</span><span class="s2">&quot;peak_value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks_all</span><span class="p">[</span><span class="s2">&quot;mod_peak&quot;</span><span class="p">]</span>
+
+        <span class="n">plot_event_timeseries</span><span class="p">(</span>
+            <span class="n">y_true0</span><span class="p">,</span>
+            <span class="n">y_pred0</span><span class="p">,</span>
+            <span class="n">events_obs</span><span class="p">,</span>
+            <span class="n">events_sim</span><span class="p">,</span>
+            <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+            <span class="n">plot_filename</span><span class="o">=</span><span class="n">plot_filename</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Step 5: compute metrics (events with NaN peaks are dropped)</span>
+    <span class="n">peaks_all</span> <span class="o">=</span> <span class="n">peaks_all</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;obs_peak&quot;</span><span class="p">,</span> <span class="s2">&quot;mod_peak&quot;</span><span class="p">])</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">compute_event_metrics</span><span class="p">(</span>
+        <span class="n">peaks_all</span><span class="p">,</span>
+        <span class="n">aggregation</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;PKBIAS&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_bias&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;PKTE&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;ptime_err&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;EVBIAS&quot;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;event_bias&quot;</span><span class="p">],</span>
+    <span class="p">}</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

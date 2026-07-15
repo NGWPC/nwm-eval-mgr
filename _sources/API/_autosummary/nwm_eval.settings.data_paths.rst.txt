@@ -1,0 +1,6 @@
+nwm\_eval.settings.data\_paths
+==============================
+
+.. currentmodule:: nwm_eval.settings
+
+.. autofunction:: data_paths

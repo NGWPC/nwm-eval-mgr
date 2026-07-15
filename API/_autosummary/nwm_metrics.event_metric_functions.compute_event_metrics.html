@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>nwm_metrics.event_metric_functions.compute_event_metrics &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'API/_autosummary/nwm_metrics.event_metric_functions.compute_event_metrics';</script>
+    <script src="../../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="nwm_metrics.event_metric_functions.event_based_metrics" href="nwm_metrics.event_metric_functions.event_based_metrics.html" />
+    <link rel="prev" title="nwm_metrics.event_metric_functions" href="nwm_metrics.event_metric_functions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="nwm_eval.html">nwm_eval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.calc_metrics.html">nwm_eval.calc_metrics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.calc_metrics.calc_metrics.html">nwm_eval.calc_metrics.calc_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.calc_metrics.calc_metrics_group.html">nwm_eval.calc_metrics.calc_metrics_group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.calc_metrics.calc_nwm_eval_metrics.html">nwm_eval.calc_metrics.calc_nwm_eval_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.calc_metrics.calc_teehr_metrics.html">nwm_eval.calc_metrics.calc_teehr_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.calc_metrics.check_metrics.html">nwm_eval.calc_metrics.check_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.calc_metrics.func_calc_metrics.html">nwm_eval.calc_metrics.func_calc_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.calc_metrics.parse_lead.html">nwm_eval.calc_metrics.parse_lead</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.calc_metrics.parse_lead_range.html">nwm_eval.calc_metrics.parse_lead_range</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.configuration.html">nwm_eval.configuration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.BarChartConfig.html">nwm_eval.configuration.BarChartConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.BasePlotConfig.html">nwm_eval.configuration.BasePlotConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.BoxPlotConfig.html">nwm_eval.configuration.BoxPlotConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.Config.html">nwm_eval.configuration.Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.FilePathsConfig.html">nwm_eval.configuration.FilePathsConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.FlowObservationConfig.html">nwm_eval.configuration.FlowObservationConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.GeneralConfig.html">nwm_eval.configuration.GeneralConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.HistogramConfig.html">nwm_eval.configuration.HistogramConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.LeadTimesMixin.html">nwm_eval.configuration.LeadTimesMixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.LocationFilter.html">nwm_eval.configuration.LocationFilter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.MetricsConfig.html">nwm_eval.configuration.MetricsConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.NWMForecastConfig.html">nwm_eval.configuration.NWMForecastConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.PairDataConfig.html">nwm_eval.configuration.PairDataConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.PlotsConfig.html">nwm_eval.configuration.PlotsConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.ReferenceTimesMixin.html">nwm_eval.configuration.ReferenceTimesMixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.SpatialMapConfig.html">nwm_eval.configuration.SpatialMapConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.TablePlotConfig.html">nwm_eval.configuration.TablePlotConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.TimeSeriesConfig.html">nwm_eval.configuration.TimeSeriesConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.configuration.USGSConfig.html">nwm_eval.configuration.USGSConfig</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.create_plots.html">nwm_eval.create_plots</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.add_shared_legend.html">nwm_eval.create_plots.add_shared_legend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.add_tag_to_filename.html">nwm_eval.create_plots.add_tag_to_filename</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.barchart_all_metrics.html">nwm_eval.create_plots.barchart_all_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.barchart_by_metric.html">nwm_eval.create_plots.barchart_by_metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.create_all_plots.html">nwm_eval.create_plots.create_all_plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.create_barchart.html">nwm_eval.create_plots.create_barchart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.create_boxplot.html">nwm_eval.create_plots.create_boxplot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.create_histogram.html">nwm_eval.create_plots.create_histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.create_metric_table.html">nwm_eval.create_plots.create_metric_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.create_spatial_map.html">nwm_eval.create_plots.create_spatial_map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.create_time_series.html">nwm_eval.create_plots.create_time_series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.filter_by_lead_metric.html">nwm_eval.create_plots.filter_by_lead_metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.gather_all_metrics.html">nwm_eval.create_plots.gather_all_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.get_metric_dataframe.html">nwm_eval.create_plots.get_metric_dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.get_metric_groups.html">nwm_eval.create_plots.get_metric_groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.get_metric_long_name.html">nwm_eval.create_plots.get_metric_long_name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.get_time_series.html">nwm_eval.create_plots.get_time_series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.group_df_by_location.html">nwm_eval.create_plots.group_df_by_location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.plot_time_series.html">nwm_eval.create_plots.plot_time_series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.save_plot.html">nwm_eval.create_plots.save_plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.create_plots.set_up_figure.html">nwm_eval.create_plots.set_up_figure</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.fetch_data.html">nwm_eval.fetch_data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.check_existing_obs_data.html">nwm_eval.fetch_data.check_existing_obs_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.check_missing_obs_data.html">nwm_eval.fetch_data.check_missing_obs_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.extract_flow_for_gages.html">nwm_eval.fetch_data.extract_flow_for_gages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.fetch_txdot_gage_data.html">nwm_eval.fetch_data.fetch_txdot_gage_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.get_fcst_files.html">nwm_eval.fetch_data.get_fcst_files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.get_fcst_info.html">nwm_eval.fetch_data.get_fcst_info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.get_gage_agency.html">nwm_eval.fetch_data.get_gage_agency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.get_obs_files.html">nwm_eval.fetch_data.get_obs_files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.get_txdot_gage_list.html">nwm_eval.fetch_data.get_txdot_gage_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.process_txdot_data.html">nwm_eval.fetch_data.process_txdot_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.read_obs_data.html">nwm_eval.fetch_data.read_obs_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.retrieve_fcsts.html">nwm_eval.fetch_data.retrieve_fcsts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.retrieve_fcsts_gcs.html">nwm_eval.fetch_data.retrieve_fcsts_gcs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.retrieve_fcsts_ngencerf.html">nwm_eval.fetch_data.retrieve_fcsts_ngencerf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.retrieve_ngen_simulation.html">nwm_eval.fetch_data.retrieve_ngen_simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.retrieve_usgs_obs.html">nwm_eval.fetch_data.retrieve_usgs_obs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.fetch_data.safe_fetch_usgs.html">nwm_eval.fetch_data.safe_fetch_usgs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.identify_location_ids.html">nwm_eval.identify_location_ids</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.find_locations_in_crosswalk.html">nwm_eval.identify_location_ids.find_locations_in_crosswalk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.get_gage_by_link.html">nwm_eval.identify_location_ids.get_gage_by_link</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.get_gage_id_from_file.html">nwm_eval.identify_location_ids.get_gage_id_from_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.get_gage_ids.html">nwm_eval.identify_location_ids.get_gage_ids</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.get_link_by_gage.html">nwm_eval.identify_location_ids.get_link_by_gage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.get_link_id_from_file.html">nwm_eval.identify_location_ids.get_link_id_from_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.get_locations_from_config_list.html">nwm_eval.identify_location_ids.get_locations_from_config_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.get_nwm_link_ids.html">nwm_eval.identify_location_ids.get_nwm_link_ids</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.identify_location_ids.identify_locations.html">nwm_eval.identify_location_ids.identify_locations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.logging_utils.html">nwm_eval.logging_utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.logging_utils.CustomLoggingFormatter.html">nwm_eval.logging_utils.CustomLoggingFormatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.logging_utils.NoisyDistributedFilter.html">nwm_eval.logging_utils.NoisyDistributedFilter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.logging_utils.StderrFilter.html">nwm_eval.logging_utils.StderrFilter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.logging_utils.setup_logging.html">nwm_eval.logging_utils.setup_logging</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.nwm_configs.html">nwm_eval.nwm_configs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.nwm_configs.CycleConfig.html">nwm_eval.nwm_configs.CycleConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.nwm_configs.ForecastConfig.html">nwm_eval.nwm_configs.ForecastConfig</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.pair_data.html">nwm_eval.pair_data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.pair_data.create_pairs.html">nwm_eval.pair_data.create_pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.pair_data.export_location_groups_with_lead_time.html">nwm_eval.pair_data.export_location_groups_with_lead_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.pair_data.join_time_series.html">nwm_eval.pair_data.join_time_series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.pair_data.replace_values_with_nan.html">nwm_eval.pair_data.replace_values_with_nan</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.process_config.html">nwm_eval.process_config</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.process_config.ProcessConfig.html">nwm_eval.process_config.ProcessConfig</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.settings.html">nwm_eval.settings</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.settings.data_paths.html">nwm_eval.settings.data_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.settings.get_metric_bins.html">nwm_eval.settings.get_metric_bins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.settings.get_metric_colormap.html">nwm_eval.settings.get_metric_colormap</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_eval.utils.html">nwm_eval.utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.check_columns_dataframe.html">nwm_eval.utils.check_columns_dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.clean_data.html">nwm_eval.utils.clean_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.convert_enum_to_value.html">nwm_eval.utils.convert_enum_to_value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.convert_paths_to_str.html">nwm_eval.utils.convert_paths_to_str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.create_time_sequence.html">nwm_eval.utils.create_time_sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.expand_with_lists.html">nwm_eval.utils.expand_with_lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.flatten_dict.html">nwm_eval.utils.flatten_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.get_key_from_value.html">nwm_eval.utils.get_key_from_value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.get_n_workers.html">nwm_eval.utils.get_n_workers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.read_data.html">nwm_eval.utils.read_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.read_parquet_auto.html">nwm_eval.utils.read_parquet_auto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.recursive_substitute.html">nwm_eval.utils.recursive_substitute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.remove_nulls.html">nwm_eval.utils.remove_nulls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_eval.utils.save_data.html">nwm_eval.utils.save_data</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="nwm_metrics.html">nwm_metrics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="nwm_metrics.event_metric_functions.html">nwm_metrics.event_metric_functions</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">nwm_metrics.event_metric_functions.compute_event_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.event_based_metrics.html">nwm_metrics.event_metric_functions.event_based_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.get_event_peaks.html">nwm_metrics.event_metric_functions.get_event_peaks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.identify_events.html">nwm_metrics.event_metric_functions.identify_events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.merge_short_events.html">nwm_metrics.event_metric_functions.merge_short_events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.pair_events.html">nwm_metrics.event_metric_functions.pair_events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.plot_event_timeseries.html">nwm_metrics.event_metric_functions.plot_event_timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.preprocess_series.html">nwm_metrics.event_metric_functions.preprocess_series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.separate_compound_events.html">nwm_metrics.event_metric_functions.separate_compound_events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.split_into_valid_chunks.html">nwm_metrics.event_metric_functions.split_into_valid_chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.event_metric_functions.validate_events.html">nwm_metrics.event_metric_functions.validate_events</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="nwm_metrics.metric_functions.html">nwm_metrics.metric_functions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.calculate_metrics.html">nwm_metrics.metric_functions.calculate_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.categorical_score.html">nwm_metrics.metric_functions.categorical_score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.get_threshold_value.html">nwm_metrics.metric_functions.get_threshold_value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.kge.html">nwm_metrics.metric_functions.kge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.mean_abs_error.html">nwm_metrics.metric_functions.mean_abs_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.nse.html">nwm_metrics.metric_functions.nse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.pbias_fdc.html">nwm_metrics.metric_functions.pbias_fdc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.pearson_corr.html">nwm_metrics.metric_functions.pearson_corr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.percent_bias.html">nwm_metrics.metric_functions.percent_bias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.rmse_std_ratio.html">nwm_metrics.metric_functions.rmse_std_ratio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.root_mean_squared_error.html">nwm_metrics.metric_functions.root_mean_squared_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.treat_values.html">nwm_metrics.metric_functions.treat_values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nwm_metrics.metric_functions.weighted_nse.html">nwm_metrics.metric_functions.weighted_nse</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="nwm_metrics.event_metric_functions.html" class="nav-link">nwm_metrics.event_metric_functions</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">nwm_metrics....</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="nwm-metrics-event-metric-functions-compute-event-metrics">
+<h1>nwm_metrics.event_metric_functions.compute_event_metrics<a class="headerlink" href="#nwm-metrics-event-metric-functions-compute-event-metrics" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="nwm_metrics.event_metric_functions.compute_event_metrics">
+<span class="sig-prename descclassname"><span class="pre">nwm_metrics.event_metric_functions.</span></span><span class="sig-name descname"><span class="pre">compute_event_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nwm_metrics/event_metric_functions.html#compute_event_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nwm_metrics.event_metric_functions.compute_event_metrics" title="Link to this definition">#</a></dt>
+<dd><p>Compute event-based metrics given paired observed and model events.</p>
+<p>Given the event peaks identified, compute the three event-based metrics (peak bias, peak timing error,
+event volume bias). Return either the mean or median of metrics calculated for all events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>peaks</strong> – DataFrame containing event peaks and volumes from get_event_peaks()</p></li>
+<li><p><strong>aggregation</strong> – aggregation method (mean or median) for metrics calculated for all events</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with keys “peak_bias”, “ptime_err”, and “event_bias” containing the corresponding metric values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="nwm_metrics.event_metric_functions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">nwm_metrics.event_metric_functions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="nwm_metrics.event_metric_functions.event_based_metrics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">nwm_metrics.event_metric_functions.event_based_metrics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nwm_metrics.event_metric_functions.compute_event_metrics"><code class="docutils literal notranslate"><span class="pre">compute_event_metrics()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/API/_autosummary/nwm_metrics.event_metric_functions.compute_event_metrics.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

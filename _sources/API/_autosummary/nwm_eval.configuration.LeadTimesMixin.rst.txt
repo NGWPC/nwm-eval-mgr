@@ -1,0 +1,7 @@
+nwm\_eval.configuration.LeadTimesMixin
+======================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: LeadTimesMixin
+   :show-inheritance:

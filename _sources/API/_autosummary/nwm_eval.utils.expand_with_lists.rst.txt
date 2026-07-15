@@ -1,0 +1,6 @@
+nwm\_eval.utils.expand\_with\_lists
+===================================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: expand_with_lists

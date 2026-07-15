@@ -1,0 +1,7 @@
+nwm\_eval.logging\_utils.StderrFilter
+=====================================
+
+.. currentmodule:: nwm_eval.logging_utils
+
+.. autoclass:: StderrFilter
+   :show-inheritance:

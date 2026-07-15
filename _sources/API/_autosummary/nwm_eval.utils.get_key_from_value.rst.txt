@@ -1,0 +1,6 @@
+nwm\_eval.utils.get\_key\_from\_value
+=====================================
+
+.. currentmodule:: nwm_eval.utils
+
+.. autofunction:: get_key_from_value

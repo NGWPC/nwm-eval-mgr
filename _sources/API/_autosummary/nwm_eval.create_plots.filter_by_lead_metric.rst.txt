@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.filter\_by\_lead\_metric
+================================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: filter_by_lead_metric

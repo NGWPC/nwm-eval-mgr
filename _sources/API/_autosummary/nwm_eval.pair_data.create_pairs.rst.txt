@@ -1,0 +1,6 @@
+nwm\_eval.pair\_data.create\_pairs
+==================================
+
+.. currentmodule:: nwm_eval.pair_data
+
+.. autofunction:: create_pairs

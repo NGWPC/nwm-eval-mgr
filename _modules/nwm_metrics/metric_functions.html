@@ -1,0 +1,1118 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nwm_metrics.metric_functions &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nwm_metrics/metric_functions';</script>
+    <script src="../../_static/form2yaml.js?v=4b298b11"></script>
+    <script src="../../_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="../../index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">nwm_metrics....</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nwm_metrics.metric_functions</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Module containing functions to calculate various metrics for evaluating hydrological model performance.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    - treat_values: Preprocess time series data by removing negative values, NaN values, and replacing zero values.</span>
+<span class="sd">    - pearson_corr: Calculate Pearson correlation coefficient and p-value between observed and simulated values.</span>
+<span class="sd">    - mean_abs_error: Calculate mean absolute error between observed and simulated values.</span>
+<span class="sd">    - root_mean_squared_error: Calculate root mean squared error or mean squared error between observed and simulated values.</span>
+<span class="sd">    - rmse_std_ratio: Calculate the ratio of RMSE to the standard deviation of observed values.</span>
+<span class="sd">    - percent_bias: Calculate percent bias between observed and simulated values.</span>
+<span class="sd">    - nse: Calculate Nash-Sutcliffe efficiency, with options for logarithmic transformation and normalization.</span>
+<span class="sd">    - weighted_nse: Calculate a weighted average of NSE and logarithmic NSE.</span>
+<span class="sd">    - kge: Calculate Kling-Gupta efficiency between observed and simulated values.</span>
+<span class="sd">    - pbias_fdc: Calculate percent bias of flow duration curve segments (high, medium, low flow) based on exceedance probabilities.</span>
+<span class="sd">    - categorical_score: Calculate categorical scores (POD, FAR, CSI, FBIAS) based on a specified threshold.</span>
+<span class="sd">    - calculate_metrics: A wrapper function to calculate multiple metrics at once based on user-specified metric names.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hydrotools.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">metrics</span> <span class="k">as</span> <span class="n">hm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">pearsonr</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.event_metric_functions</span><span class="w"> </span><span class="kn">import</span> <span class="n">event_based_metrics</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;treat_values&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pearson_corr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean_abs_error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;root_mean_squared_error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rmse_std_ratio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;percent_bias&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;weighted_nse&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;kge&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;categorical_score&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pbias_fdc&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;event_based_metrics&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="treat_values">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.treat_values.html#nwm_metrics.metric_functions.treat_values">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">treat_values</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">remove_neg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">remove_na</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">replace_zero</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">replace_inf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove NaN, inf and negative values, and replace zero values of time series.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Contains time series of observation and simulation.</span>
+<span class="sd">        remove_neg (bool, optional): If True, when negative value occurs at the ith element of observation or simulation</span>
+<span class="sd">            the ith element of both observation or simulation is removed.</span>
+<span class="sd">        remove_na (bool, optional): If True, when NaN value occurs at the ith element of observation or simulation,</span>
+<span class="sd">            the ith element of both observation or simulation is removed.</span>
+<span class="sd">        replace_zero (bool, optional): If True, when the zero value occurs at the ith element of observation or simulation,</span>
+<span class="sd">            all observation and simulation are added with 1/100 of mean of observation according to Pushpalatha et al (2012).</span>
+<span class="sd">        replace_inf (bool, optional): If True, when the inf value occurs at the ith element of observation or simulation,</span>
+<span class="sd">            the ith element of both observation or simulation is replaced with a large finite value.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: New DataFrame with treated values</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Pushpalatha, R., C. Perrin, N. L. Moine, V. Andreassian, 2012: A review of efficiency criteria suitable</span>
+<span class="sd">            for evaluating low-flow simulations. Journal of Hydrology, 420-421, 171-182.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">colnames</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="c1"># Remove rows with duplicated datetime</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">colnames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">colnames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">na_position</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Remove rows with missing values</span>
+    <span class="k">if</span> <span class="n">remove_na</span><span class="p">:</span>
+        <span class="n">na_index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">])</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">na_index</span><span class="p">]</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Remove rows with negative values</span>
+    <span class="k">if</span> <span class="n">remove_neg</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">colnames</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">colnames</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+
+    <span class="c1"># Replace zero values</span>
+    <span class="k">if</span> <span class="n">replace_zero</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">colnames</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mf">0.0001</span><span class="p">:</span>
+            <span class="c1"># df[colnames[1:]] = (</span>
+            <span class="c1">#     df[colnames[1:]] + 1.0 / 100.0 * df[colnames[1]].mean()</span>
+            <span class="c1"># )  # this treatment does not work when mean is zero</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">colnames</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">colnames</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span> <span class="o">+</span> <span class="mf">0.00001</span>
+
+    <span class="c1"># Remove inf values</span>
+    <span class="k">if</span> <span class="n">replace_inf</span><span class="p">:</span>
+        <span class="n">inf_index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">])</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">inf_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="pearson_corr">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.pearson_corr.html#nwm_metrics.metric_functions.pearson_corr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pearson_corr</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute mean squared error, or optionally root mean squared error.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        corr (float): Pearson correlation coefficient</span>
+<span class="sd">        p_value (float): Two-tailed p-value</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Compute</span>
+    <span class="n">corr</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">corr</span><span class="p">,</span> <span class="n">p_value</span></div>
+
+
+
+<div class="viewcode-block" id="mean_abs_error">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.mean_abs_error.html#nwm_metrics.metric_functions.mean_abs_error">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mean_abs_error</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute mean absolute error between simulation and observation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Mean absolute error</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">))</span>  <span class="c1"># this handles NaN values appropriately</span></div>
+
+
+
+<div class="viewcode-block" id="root_mean_squared_error">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.root_mean_squared_error.html#nwm_metrics.metric_functions.root_mean_squared_error">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">root_mean_squared_error</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute root mean squared error, or optionally mean squared error.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+<span class="sd">        root (bool, optional): When False, return the mean squared error.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Root mean squared error or mean squared error</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Compute mean squared error</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">)</span>  <span class="c1"># this handles NaN values appropriately</span>
+
+    <span class="c1"># Return RMSE, optionally return mean squared error</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mse</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="rmse_std_ratio">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.rmse_std_ratio.html#nwm_metrics.metric_functions.rmse_std_ratio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rmse_std_ratio</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">warning_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute ratio of RMSE between simulation and observation to standard deviation of observation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+<span class="sd">        root (bool, optional): When True, compute RMSE for the numerator; when False, compute MSE for the numerator.</span>
+<span class="sd">        warning_msg (bool, optional): When True, display a warning message if the denominator is zero.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Ratio of RMSE and standard deviation of observation</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">denominator</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">rsr</span> <span class="o">=</span> <span class="n">rmse</span> <span class="o">/</span> <span class="n">denominator</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rsr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="n">warning_msg</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;&#39;np.std(y_true) = 0&#39;, can&#39;t compute RSR&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rsr</span></div>
+
+
+
+<div class="viewcode-block" id="percent_bias">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.percent_bias.html#nwm_metrics.metric_functions.percent_bias">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">percent_bias</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">warning_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute mean squared error, or optionally root mean squared error.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+<span class="sd">        warning_msg (bool, optional): When True, display a warning message if the denominator is zero.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Percent bias</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">pbias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">))</span> <span class="o">/</span> <span class="n">denominator</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="k">if</span> <span class="n">denominator</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pbias</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">warning_msg</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;&#39;np.sum(y_true) = 0&#39;, can&#39;t compute PBIAS&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span></div>
+
+
+
+<div class="viewcode-block" id="nse">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.nse.html#nwm_metrics.metric_functions.nse">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">nse</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">fun</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">epsilon</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Pushpalatha2012&quot;</span><span class="p">],</span>
+    <span class="n">normalized</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">warning_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute Nash-Sutcliffe efficiency.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+<span class="sd">        fun (str, optional): Transformation function applied to y_true and y_pred</span>
+<span class="sd">        epsilon (Union[None, str], optional): Value added to both y_true and y_pred if fun is logarithm or other functions</span>
+<span class="sd">            that are mathematically impossible to compute transformation of zero flows:</span>
+<span class="sd">            1) 0: zero value</span>
+<span class="sd">            2) &quot;Pushpalatha2012&quot;: 1/100 of mean of y_true</span>
+<span class="sd">            3) other numeric value</span>
+<span class="sd">        normalized (bool, optional): If True, convert Nash-Sutcliffe efficiency to the normalized value.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Nash-Sutcliffe Efficiency value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Transform values</span>
+    <span class="k">if</span> <span class="n">fun</span> <span class="o">==</span> <span class="s2">&quot;log&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">epsilon</span> <span class="o">==</span> <span class="s2">&quot;Pushpalatha2012&quot;</span><span class="p">:</span>
+            <span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+            <span class="k">if</span> <span class="n">y_true</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>  <span class="c1"># if not np.all(y_true)</span>
+                <span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">+</span> <span class="mf">0.01</span>
+            <span class="k">if</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span> <span class="o">+</span> <span class="mf">0.01</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="c1"># Compute components</span>
+    <span class="n">numerator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_true</span><span class="p">))</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+
+    <span class="c1"># Compute score, optionally normalize</span>
+    <span class="k">if</span> <span class="n">denominator</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">normalized</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">warning_msg</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;&#39;denominator = 0&#39;, can&#39;t compute NSE&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span></div>
+
+
+
+<div class="viewcode-block" id="weighted_nse">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.weighted_nse.html#nwm_metrics.metric_functions.weighted_nse">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">weighted_nse</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">weight</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">normalized</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute weighted average of NSE of raw time series and NSE of logrithmic time series.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+<span class="sd">        weight (float, optional): Weight value for Nash-Sutcliffe efficiency component</span>
+<span class="sd">        normalized (bool, optional): Whether to convert the weighted Nash-Sutcliffe efficiency to the normalized value</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Weighted Nash-Sutcliffe Efficiency value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nse1</span> <span class="o">=</span> <span class="n">nse</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="c1"># Compute NSELog</span>
+    <span class="n">nselog</span> <span class="o">=</span> <span class="n">nse</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="s2">&quot;Pushpalatha2012&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Compute weighted NSE</span>
+    <span class="n">nsewt</span> <span class="o">=</span> <span class="n">nse1</span> <span class="o">*</span> <span class="n">weight</span> <span class="o">+</span> <span class="n">nselog</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">weight</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">normalized</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="n">nsewt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nsewt</span></div>
+
+
+
+<div class="viewcode-block" id="kge">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.kge.html#nwm_metrics.metric_functions.kge">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">kge</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">r_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">a_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">b_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute Kling-Gupta efficiency between simulation and observation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+<span class="sd">        r_scale (float, optional): correlation scaling factor (default is 1.0)</span>
+<span class="sd">        a_scale (float, optional): relative variability scaling factor (default is 1.0)</span>
+<span class="sd">        b_scale (float, optional): relative mean scaling factor (default is 1.0)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Kling-Gupta efficiency value</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Gupta, H. V., Kling, H., Yilmaz, K. K., &amp; Martinez, G. F. (2009). Decomposition of the mean</span>
+<span class="sd">        squared error and NSE performance criteria: Implications for improving hydrological modelling.</span>
+<span class="sd">        Journal of hydrology, 377(1-2), 80-91.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mean_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">mean_sim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">std_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">std_sim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="c1"># Correlation</span>
+    <span class="k">if</span> <span class="n">std_obs</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">std_sim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Variability ratio</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="n">std_obs</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">std_sim</span> <span class="o">/</span> <span class="n">std_obs</span>
+
+    <span class="c1"># Bias ratio</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="n">mean_obs</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">mean_sim</span> <span class="o">/</span> <span class="n">mean_obs</span>
+
+    <span class="c1"># Kling-Gupta Efficiency</span>
+    <span class="n">kge</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="n">r_scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">a_scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">b_scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">beta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">kge</span></div>
+
+
+    <span class="c1"># avoid using hydrotools implementation due to potential ZeroDivisionError issues</span>
+    <span class="c1"># return hm.kling_gupta_efficiency(y_true, y_pred, r_scale, a_scale, b_scale)</span>
+
+
+<div class="viewcode-block" id="pbias_fdc">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.pbias_fdc.html#nwm_metrics.metric_functions.pbias_fdc">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pbias_fdc</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">bqthr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span>
+    <span class="n">lqthr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">hqthr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">pqthr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">warning_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute percent bias of flow duration curve (FDC) high-segment volume, midsegment slope and low-segment volume according to Yilmaz et al (2008).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+<span class="sd">        bqthr (float, optional): baseflow exceedance probability (default is 0.9)</span>
+<span class="sd">        lqthr (float, optional): low flow exceedance probability (default is 0.7)</span>
+<span class="sd">        hqthr (float, optional): high flow exceedance probability (default is 0.2)</span>
+<span class="sd">        pqthr (float, optional): peak flow exceedance probability (default is 0.1)</span>
+<span class="sd">        warning_msg (bool, optional): If True, print warining messages.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, float]: Dictionary of pbias of peak flow, slope and low flow of FDC</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Yilmaz, K. K., H. V. Gupta, and T. Wagener (2008), A process-based diagnostic approach to</span>
+<span class="sd">        modelevaluation: Application to the NWS distributed hydrologic model,</span>
+<span class="sd">        Water Resource Research, 44, W09417,doi:10.1029/2007WR006716.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Sort and rank</span>
+    <span class="n">y_true_sort</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y_pred_sort</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Compute exceedence probabilities</span>
+    <span class="n">y_true_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">y_pred_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="c1"># Compute pbias of peak flow segment of FDC (require same number of elements)</span>
+    <span class="n">numerator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y_pred_sort</span><span class="p">[</span><span class="n">y_pred_prob</span> <span class="o">&lt;</span> <span class="n">pqthr</span><span class="p">],</span> <span class="n">y_true_sort</span><span class="p">[</span><span class="n">y_true_prob</span> <span class="o">&lt;</span> <span class="n">pqthr</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_true_sort</span><span class="p">[</span><span class="n">y_true_prob</span> <span class="o">&lt;</span> <span class="n">pqthr</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">denominator</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">pbias_hseg_fdc</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pbias_hseg_fdc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="n">warning_msg</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;&#39;denominator = 0&#39;, can&#39;t compute PBIAS for peak flow of FDC&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Compute pbias of midsegment slope of FDC</span>
+    <span class="n">term1</span> <span class="o">=</span> <span class="n">y_pred_sort</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_pred_prob</span> <span class="o">-</span> <span class="n">hqthr</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()]</span>
+    <span class="n">term2</span> <span class="o">=</span> <span class="n">y_pred_sort</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_pred_prob</span> <span class="o">-</span> <span class="n">lqthr</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="n">term1</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">term2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">pred_term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">term1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">term2</span><span class="p">)</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="n">y_true_sort</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_true_prob</span> <span class="o">-</span> <span class="n">hqthr</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()]</span>
+        <span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_true_sort</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_true_prob</span> <span class="o">-</span> <span class="n">lqthr</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()])</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="n">pred_term</span> <span class="o">-</span> <span class="n">denominator</span>
+        <span class="k">if</span> <span class="n">denominator</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pbias_mseg_fdc</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pbias_mseg_fdc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">if</span> <span class="n">warning_msg</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;denominator = 0&#39;, can&#39;t compute PBIAS for slope of FDC&quot;</span>
+                <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pbias_mseg_fdc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="n">warning_msg</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;&#39;0 as argument for np.log&#39;, can&#39;t compute PBIAS for slope of FDC&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Compute pbias of low flow segment of FDC</span>
+    <span class="n">term1</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred_sort</span><span class="p">[</span><span class="n">y_pred_prob</span> <span class="o">&gt;</span> <span class="n">bqthr</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">term2</span> <span class="o">=</span> <span class="n">y_pred_sort</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">term3</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_true_sort</span><span class="p">[</span><span class="n">y_true_prob</span> <span class="o">&gt;</span> <span class="n">bqthr</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">term4</span> <span class="o">=</span> <span class="n">y_true_sort</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">term1</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">term2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">term3</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">term4</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]):</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_true_sort</span><span class="p">[</span><span class="n">y_true_prob</span> <span class="o">&gt;</span> <span class="n">bqthr</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_true_sort</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+        <span class="p">)</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred_sort</span><span class="p">[</span><span class="n">y_pred_prob</span> <span class="o">&gt;</span> <span class="n">bqthr</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred_sort</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+            <span class="o">-</span> <span class="n">denominator</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">denominator</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pbias_lseg_fdc</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pbias_lseg_fdc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">if</span> <span class="n">warning_msg</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;denominator = 0&#39;, can&#39;t compute PBIAS for low flow of FDC&quot;</span>
+                <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pbias_lseg_fdc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="n">warning_msg</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;&#39;0 as argument for np.log&#39;, can&#39;t compute PBIAS for low flow of FDC&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;HSEG_FDC&quot;</span><span class="p">:</span> <span class="n">pbias_hseg_fdc</span><span class="p">,</span>
+        <span class="s2">&quot;MSEG_FDC&quot;</span><span class="p">:</span> <span class="n">pbias_mseg_fdc</span><span class="p">,</span>
+        <span class="s2">&quot;LSEG_FDC&quot;</span><span class="p">:</span> <span class="n">pbias_lseg_fdc</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="categorical_score">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.categorical_score.html#nwm_metrics.metric_functions.categorical_score">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">categorical_score</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute probability of detection (POD), probability of false_alarm (FAR), cirtical success index (CSI) and frequency bias (FBIAS).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series) : Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series) : Modeled values or simulations</span>
+<span class="sd">        threshold (float): threshold value for categorizing observations and simulations.</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary of categorical score values</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">threshold</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">threshold</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;POD&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;FAR&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;CSI&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;FBIAS&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">}</span>
+
+    <span class="n">observed</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">&gt;</span> <span class="n">threshold</span>
+    <span class="n">simulated</span> <span class="o">=</span> <span class="n">y_pred</span> <span class="o">&gt;</span> <span class="n">threshold</span>
+    <span class="n">contingency_table</span> <span class="o">=</span> <span class="n">hm</span><span class="o">.</span><span class="n">compute_contingency_table</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span> <span class="n">simulated</span><span class="p">)</span>
+    <span class="n">pod</span> <span class="o">=</span> <span class="n">hm</span><span class="o">.</span><span class="n">probability_of_detection</span><span class="p">(</span><span class="n">contingency_table</span><span class="p">)</span>
+    <span class="n">far</span> <span class="o">=</span> <span class="n">hm</span><span class="o">.</span><span class="n">probability_of_false_alarm</span><span class="p">(</span><span class="n">contingency_table</span><span class="p">)</span>
+    <span class="n">csi</span> <span class="o">=</span> <span class="n">hm</span><span class="o">.</span><span class="n">threat_score</span><span class="p">(</span><span class="n">contingency_table</span><span class="p">)</span>
+    <span class="n">fbias</span> <span class="o">=</span> <span class="n">hm</span><span class="o">.</span><span class="n">frequency_bias</span><span class="p">(</span><span class="n">contingency_table</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;POD&quot;</span><span class="p">:</span> <span class="n">pod</span><span class="p">,</span> <span class="s2">&quot;FAR&quot;</span><span class="p">:</span> <span class="n">far</span><span class="p">,</span> <span class="s2">&quot;CSI&quot;</span><span class="p">:</span> <span class="n">csi</span><span class="p">,</span> <span class="s2">&quot;FBIAS&quot;</span><span class="p">:</span> <span class="n">fbias</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="get_threshold_value">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.get_threshold_value.html#nwm_metrics.metric_functions.get_threshold_value">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_threshold_value</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get threshold value based on the specified threshold type and value.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (pd.Series): time series data (e.g., observed values) used to calculate threshold value when threshold type is &quot;quantile&quot;</span>
+<span class="sd">        threshold (dict): Dictionary containing threshold value and type. Example: {&quot;value&quot;: 0.9, &quot;type&quot;: &quot;quantile&quot;} or {&quot;value&quot;: 10, &quot;type&quot;: &quot;absolute&quot;}</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: threshold value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">threshold</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;quantile&quot;</span><span class="p">:</span>
+        <span class="n">thresh_val</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">threshold</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">threshold</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;absolute&quot;</span><span class="p">:</span>
+        <span class="n">thresh_val</span> <span class="o">=</span> <span class="n">threshold</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unsupported threshold type: </span><span class="si">{</span><span class="n">threshold</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">. Please use &#39;quantile&#39; or &#39;absolute&#39;.&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">thresh_val</span></div>
+
+
+
+<span class="n">_all_metric_funcs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;CORR&quot;</span><span class="p">:</span> <span class="n">pearson_corr</span><span class="p">,</span>
+    <span class="s2">&quot;NSE&quot;</span><span class="p">:</span> <span class="n">nse</span><span class="p">,</span>
+    <span class="s2">&quot;NNSE&quot;</span><span class="p">:</span> <span class="n">nse</span><span class="p">,</span>
+    <span class="s2">&quot;NSElog&quot;</span><span class="p">:</span> <span class="n">nse</span><span class="p">,</span>
+    <span class="s2">&quot;NSEwt&quot;</span><span class="p">:</span> <span class="n">weighted_nse</span><span class="p">,</span>
+    <span class="s2">&quot;KGE&quot;</span><span class="p">:</span> <span class="n">kge</span><span class="p">,</span>
+    <span class="s2">&quot;MAE&quot;</span><span class="p">:</span> <span class="n">mean_abs_error</span><span class="p">,</span>
+    <span class="s2">&quot;RMSE&quot;</span><span class="p">:</span> <span class="n">root_mean_squared_error</span><span class="p">,</span>
+    <span class="s2">&quot;RSR&quot;</span><span class="p">:</span> <span class="n">rmse_std_ratio</span><span class="p">,</span>
+    <span class="s2">&quot;PBIAS&quot;</span><span class="p">:</span> <span class="n">percent_bias</span><span class="p">,</span>
+    <span class="s2">&quot;HSEG_FDC&quot;</span><span class="p">:</span> <span class="n">pbias_fdc</span><span class="p">,</span>
+    <span class="s2">&quot;MSEG_FDC&quot;</span><span class="p">:</span> <span class="n">pbias_fdc</span><span class="p">,</span>
+    <span class="s2">&quot;LSEG_FDC&quot;</span><span class="p">:</span> <span class="n">pbias_fdc</span><span class="p">,</span>
+    <span class="s2">&quot;POD&quot;</span><span class="p">:</span> <span class="n">categorical_score</span><span class="p">,</span>
+    <span class="s2">&quot;FAR&quot;</span><span class="p">:</span> <span class="n">categorical_score</span><span class="p">,</span>
+    <span class="s2">&quot;CSI&quot;</span><span class="p">:</span> <span class="n">categorical_score</span><span class="p">,</span>
+    <span class="s2">&quot;FBIAS&quot;</span><span class="p">:</span> <span class="n">categorical_score</span><span class="p">,</span>
+    <span class="s2">&quot;PKBIAS&quot;</span><span class="p">:</span> <span class="n">event_based_metrics</span><span class="p">,</span>
+    <span class="s2">&quot;PKTE&quot;</span><span class="p">:</span> <span class="n">event_based_metrics</span><span class="p">,</span>
+    <span class="s2">&quot;EVBIAS&quot;</span><span class="p">:</span> <span class="n">event_based_metrics</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">_all_metrics</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;CORR&quot;</span><span class="p">:</span> <span class="s2">&quot;pearson_correlation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NSE&quot;</span><span class="p">:</span> <span class="s2">&quot;nash_sutcliffe_efficiency&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NNSE&quot;</span><span class="p">:</span> <span class="s2">&quot;nash_sutcliffe_efficiency_normalized&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NSElog&quot;</span><span class="p">:</span> <span class="s2">&quot;logrithmic nash_sutcliffe_efficiency&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NSEwt&quot;</span><span class="p">:</span> <span class="s2">&quot;weighted NSE and NSElog&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;KGE&quot;</span><span class="p">:</span> <span class="s2">&quot;kling_gupta_efficiency&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MAE&quot;</span><span class="p">:</span> <span class="s2">&quot;mean_absolute_error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RMSE&quot;</span><span class="p">:</span> <span class="s2">&quot;root_mean_squared_error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PBIAS&quot;</span><span class="p">:</span> <span class="s2">&quot;percent_bias&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RSR&quot;</span><span class="p">:</span> <span class="s2">&quot;RMSE_observation_std_ratio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;HSEG_FDC&quot;</span><span class="p">:</span> <span class="s2">&quot;pbias_high_flow_FDC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MSEG_FDC&quot;</span><span class="p">:</span> <span class="s2">&quot;pbias_medium_flow_FDC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LSEG_FDC&quot;</span><span class="p">:</span> <span class="s2">&quot;pbias_low_flow_FDC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;POD&quot;</span><span class="p">:</span> <span class="s2">&quot;probability_of_detection&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FAR&quot;</span><span class="p">:</span> <span class="s2">&quot;false_alarm_ratio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CSI&quot;</span><span class="p">:</span> <span class="s2">&quot;critical_success_index&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FBIAS&quot;</span><span class="p">:</span> <span class="s2">&quot;frequency_bias&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PKBIAS&quot;</span><span class="p">:</span> <span class="s2">&quot;percent_peak_flow_bias&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PKTE&quot;</span><span class="p">:</span> <span class="s2">&quot;peak_timing_error&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;EVBIAS&quot;</span><span class="p">:</span> <span class="s2">&quot;event_volume_bias&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="calculate_metrics">
+<a class="viewcode-back" href="../../API/_autosummary/nwm_metrics.metric_functions.calculate_metrics.html#nwm_metrics.metric_functions.calculate_metrics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_metrics</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">threshold_categorical</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+    <span class="n">threshold_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;quantile&quot;</span><span class="p">},</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute all statistical metrics between simulation and observation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (pd.Series): Ground truth or observations</span>
+<span class="sd">        y_pred (pd.Series): Modeled values or simulations</span>
+<span class="sd">        metrics (list, optional): list of metrics to be calculated; if undefined, calculate all metrics</span>
+<span class="sd">        threshold_categorical (dict, optional): threshold value for calculating categorical scores. Default is {&quot;value&quot;: 0.9, &quot;type&quot;: &quot;quantile&quot;}.</span>
+<span class="sd">        threshold_event (dict, optional): threshold value for defining events. Default is {&quot;value&quot;: 0.9, &quot;type&quot;: &quot;quantile&quot;}.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, float]: dictionary of metric values</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">metrics_all</span> <span class="o">=</span> <span class="n">_all_metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">metrics</span><span class="p">:</span>
+        <span class="n">metrics1</span> <span class="o">=</span> <span class="n">metrics_all</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">metrics1</span> <span class="o">=</span> <span class="p">[</span><span class="n">m1</span> <span class="k">for</span> <span class="n">m1</span> <span class="ow">in</span> <span class="n">metrics</span> <span class="k">if</span> <span class="n">m1</span> <span class="ow">in</span> <span class="n">metrics_all</span><span class="p">]</span>
+        <span class="n">metrics2</span> <span class="o">=</span> <span class="p">[</span><span class="n">m1</span> <span class="k">for</span> <span class="n">m1</span> <span class="ow">in</span> <span class="n">metrics</span> <span class="k">if</span> <span class="n">m1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">metrics1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">metrics2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;These metrics are not supported: </span><span class="si">{</span><span class="n">metrics2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># loop through metrics to calculate them</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">m1</span> <span class="ow">in</span> <span class="n">metrics1</span><span class="p">:</span>
+        <span class="c1"># some metrics (e.g., categorical, event-based, FDC-based) are calculated together so only need to call function once</span>
+        <span class="k">if</span> <span class="n">m1</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="nb">next</span>
+
+        <span class="c1"># get metric function</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="n">_all_metric_funcs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
+
+        <span class="c1"># calculate metric and add to result dictionary</span>
+        <span class="k">if</span> <span class="n">m1</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;NSE&quot;</span><span class="p">,</span> <span class="s2">&quot;KGE&quot;</span><span class="p">,</span> <span class="s2">&quot;RSR&quot;</span><span class="p">,</span> <span class="s2">&quot;RMSE&quot;</span><span class="p">,</span> <span class="s2">&quot;MAE&quot;</span><span class="p">,</span> <span class="s2">&quot;PBIAS&quot;</span><span class="p">,</span> <span class="s2">&quot;NSEwt&quot;</span><span class="p">]:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">m1</span><span class="p">:</span> <span class="n">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)})</span>
+        <span class="k">elif</span> <span class="n">m1</span> <span class="o">==</span> <span class="s2">&quot;CORR&quot;</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">m1</span><span class="p">:</span> <span class="n">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)[</span><span class="mi">0</span><span class="p">]})</span>
+        <span class="k">elif</span> <span class="n">m1</span> <span class="o">==</span> <span class="s2">&quot;NSElog&quot;</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">m1</span><span class="p">:</span> <span class="n">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="s2">&quot;Pushpalatha2012&quot;</span><span class="p">)}</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">m1</span> <span class="o">==</span> <span class="s2">&quot;NNSE&quot;</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">m1</span><span class="p">:</span> <span class="n">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">)})</span>
+        <span class="k">elif</span> <span class="n">m1</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;POD&quot;</span><span class="p">,</span> <span class="s2">&quot;FAR&quot;</span><span class="p">,</span> <span class="s2">&quot;CSI&quot;</span><span class="p">,</span> <span class="s2">&quot;FBIAS&quot;</span><span class="p">]:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">get_threshold_value</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">threshold_categorical</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">m1</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;HSEG_FDC&quot;</span><span class="p">,</span> <span class="s2">&quot;MSEG_FDC&quot;</span><span class="p">,</span> <span class="s2">&quot;LSEG_FDC&quot;</span><span class="p">]:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">m1</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;PKBIAS&quot;</span><span class="p">,</span> <span class="s2">&quot;PKTE&quot;</span><span class="p">,</span> <span class="s2">&quot;EVBIAS&quot;</span><span class="p">]:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">f1</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">get_threshold_value</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">threshold_event</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported metric: </span><span class="si">{</span><span class="n">m1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># only return metrics that are requested</span>
+    <span class="n">result1</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">metrics1</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">result1</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

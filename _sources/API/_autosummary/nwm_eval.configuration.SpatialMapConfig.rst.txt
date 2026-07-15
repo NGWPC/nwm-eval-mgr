@@ -1,0 +1,7 @@
+nwm\_eval.configuration.SpatialMapConfig
+========================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: SpatialMapConfig
+   :show-inheritance:

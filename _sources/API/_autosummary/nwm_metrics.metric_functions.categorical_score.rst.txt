@@ -1,0 +1,6 @@
+nwm\_metrics.metric\_functions.categorical\_score
+=================================================
+
+.. currentmodule:: nwm_metrics.metric_functions
+
+.. autofunction:: categorical_score

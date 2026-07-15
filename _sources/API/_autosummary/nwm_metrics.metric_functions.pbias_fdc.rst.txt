@@ -1,0 +1,6 @@
+nwm\_metrics.metric\_functions.pbias\_fdc
+=========================================
+
+.. currentmodule:: nwm_metrics.metric_functions
+
+.. autofunction:: pbias_fdc

@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.save\_plot
+==================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: save_plot

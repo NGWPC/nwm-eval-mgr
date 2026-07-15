@@ -1,0 +1,7 @@
+nwm\_eval.configuration.FlowObservationConfig
+=============================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: FlowObservationConfig
+   :show-inheritance:

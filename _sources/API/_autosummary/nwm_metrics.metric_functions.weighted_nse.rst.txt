@@ -1,0 +1,6 @@
+nwm\_metrics.metric\_functions.weighted\_nse
+============================================
+
+.. currentmodule:: nwm_metrics.metric_functions
+
+.. autofunction:: weighted_nse

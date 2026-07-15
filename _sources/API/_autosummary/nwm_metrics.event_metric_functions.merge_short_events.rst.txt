@@ -1,0 +1,6 @@
+nwm\_metrics.event\_metric\_functions.merge\_short\_events
+==========================================================
+
+.. currentmodule:: nwm_metrics.event_metric_functions
+
+.. autofunction:: merge_short_events

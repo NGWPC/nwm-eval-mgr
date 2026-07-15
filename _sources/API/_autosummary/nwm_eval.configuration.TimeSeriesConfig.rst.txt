@@ -1,0 +1,7 @@
+nwm\_eval.configuration.TimeSeriesConfig
+========================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: TimeSeriesConfig
+   :show-inheritance:

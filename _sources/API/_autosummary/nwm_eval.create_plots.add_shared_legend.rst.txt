@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.add\_shared\_legend
+===========================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: add_shared_legend

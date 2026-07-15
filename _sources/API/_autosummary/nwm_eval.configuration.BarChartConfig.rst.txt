@@ -1,0 +1,7 @@
+nwm\_eval.configuration.BarChartConfig
+======================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: BarChartConfig
+   :show-inheritance:

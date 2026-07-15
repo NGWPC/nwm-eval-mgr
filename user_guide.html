@@ -1,0 +1,772 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>nwm-eval-mgr &#8212; nwm_eval 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d1833e3e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/jquery.js?v=5d32c60e"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide';</script>
+    <script src="_static/form2yaml.js?v=4b298b11"></script>
+    <script src="_static/components/form-field.js?v=f85f97bb"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="faq.html" />
+    <link rel="prev" title="NWM Evaluation Manager" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item"><a class="navbar-brand logo" href="index.html">
+    <span class="logo" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: bold; font-size: 24px; color: var(--pst-color-secondary);">
+        nwm-eval-mgr
+      </span>
+  </a></div>
+    
+      <div class="navbar-item">0.1.0</div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="config.html">
+    Configuration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tech_reference/index.html">
+    Technical Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="API/index.html">
+    API
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">nwm-eval-mgr</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="nwm-eval-mgr">
+<h1>nwm-eval-mgr<a class="headerlink" href="#nwm-eval-mgr" title="Link to this heading">#</a></h1>
+<p>A monorepo for evaluation and verification tools for the National Water Model (NWM) and NextGen simulations.</p>
+<p>This repository provides two Python packages:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nwm_metrics</span></code></p></td>
+<td><p>Core statistical metrics and evaluation functions</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nwm_eval</span></code></p></td>
+<td><p>End-to-end workflows for data retrieval, pairing, metrics calculation, and visualization</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<section id="repository-structure">
+<h2>Repository Structure<a class="headerlink" href="#repository-structure" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nwm-eval-mgr/
+├── nwm_metrics/     # Core metrics library
+├── nwm_eval/        # Evaluation workflow package
+├── configs/         # Sample configuration files for nwm_eval workflows
+├── docs/            # Sphinx documentation
+└── tests/           # Shared test suite
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="package-relationship">
+<h2>Package Relationship<a class="headerlink" href="#package-relationship" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>nwm_eval
+    └── depends on
+        nwm_metrics
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nwm_metrics</span></code> provides reusable statistical and hydrologic evaluation functions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nwm_eval</span></code> builds on these metrics to implement full evaluation and verification workflows.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<section id="quick-install-recommended">
+<h3>Quick Install (Recommended)<a class="headerlink" href="#quick-install-recommended" title="Link to this heading">#</a></h3>
+<p>Install directly from GitHub (no cloning required).</p>
+<section id="install-metrics-only">
+<h4>Install metrics only<a class="headerlink" href="#install-metrics-only" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/NGWPC/nwm-eval-mgr.git@development#subdirectory=nwm_metrics&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="install-evaluation-workflows">
+<h4>Install evaluation workflows<a class="headerlink" href="#install-evaluation-workflows" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/NGWPC/nwm-eval-mgr.git@development#subdirectory=nwm_eval&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="install-both-packages">
+<h4>Install both packages<a class="headerlink" href="#install-both-packages" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/NGWPC/nwm-eval-mgr.git@development#subdirectory=nwm_metrics&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/NGWPC/nwm-eval-mgr.git@development#subdirectory=nwm_eval&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="reproducible-install-pinned-version">
+<h3>Reproducible Install (Pinned Version)<a class="headerlink" href="#reproducible-install-pinned-version" title="Link to this heading">#</a></h3>
+<p>For CI or reproducible workflows, install from a specific commit:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/NGWPC/nwm-eval-mgr.git@&lt;commit_sha&gt;#subdirectory=nwm_metrics&quot;</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/NGWPC/nwm-eval-mgr.git@&lt;commit_sha&gt;#subdirectory=nwm_eval&quot;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/NGWPC/nwm-eval-mgr.git@87bcac530ca36a604da1ee27401f161a767f5c44#subdirectory=nwm_metrics&quot;</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="development-install">
+<h3>Development Install<a class="headerlink" href="#development-install" title="Link to this heading">#</a></h3>
+<p>Create a virtual environment</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/usr/bin/python3.11<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</pre></div>
+</div>
+<p>Clone the repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NGWPC/nwm-eval-mgr.git
+<span class="nb">cd</span><span class="w"> </span>nwm-eval-mgr
+</pre></div>
+</div>
+<p>Install packages in editable mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>nwm_metrics
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>nwm_eval
+</pre></div>
+</div>
+<p>Install development and documentation dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>dev,docs<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<section id="using-nwm-metrics">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">nwm_metrics</span></code><a class="headerlink" href="#using-nwm-metrics" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nwm_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">metric_functions</span> <span class="k">as</span> <span class="n">mf</span>
+
+<span class="n">kge</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kge</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">sim</span><span class="p">)</span>
+<span class="n">nse</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">nse</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">sim</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="running-an-evaluation-workflow-using-nwm-eval">
+<h3>Running an evaluation workflow using <code class="docutils literal notranslate"><span class="pre">nwm_eval</span></code><a class="headerlink" href="#running-an-evaluation-workflow-using-nwm-eval" title="Link to this heading">#</a></h3>
+<section id="set-up-configuration-yaml-file">
+<h4>Set up configuration yaml file<a class="headerlink" href="#set-up-configuration-yaml-file" title="Link to this heading">#</a></h4>
+<p>Follow one of the sample config files (see <code class="docutils literal notranslate"><span class="pre">nwm-eval-mgr/configs</span></code>) to set up the configurations for your evaluation/verification application:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">config_ngencerf.yaml</span></code>: ngenCERF-based single-location single-forecast verification</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_hindcast.yaml</span></code>: ngenCERF-based single-location multiple-hindcast verification</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_nwm.yaml</span></code>: NWM v30 operational forecasts verification</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_ngensim.yaml</span></code>: large-scale NGEN simulation evaluation (e.g., from regionalized simulations for a VPU)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_template.yaml</span></code>: a template config file containing all available configuration options generated from the pydantic schema, which can be used as a reference for setting up your own config file.</p></li>
+</ul>
+<p>For detailed instructions on how to set up the configuration file, please refer to the <a class="reference external" href="https://ngwpc.github.io/nwm-eval-mgr/config.html">Configuration</a> and <a class="reference external" href="https://ngwpc.github.io/nwm-eval-mgr/faq.html">FAQ</a> pages of the <code class="docutils literal notranslate"><span class="pre">nwm-eval-mgr</span></code> <a class="reference external" href="https://ngwpc.github.io/nwm-eval-mgr/">documentation</a>.</p>
+</section>
+<section id="run-evaluation-verification">
+<h4>Run evaluation/verification<a class="headerlink" href="#run-evaluation-verification" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>nwm_eval<span class="w"> </span>&lt;path-to-config-file&gt;
+</pre></div>
+</div>
+<p>Example</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>nwm_eval<span class="w"> </span>configs/config_hindcast.yaml
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="development">
+<h2>Development<a class="headerlink" href="#development" title="Link to this heading">#</a></h2>
+<section id="run-tests">
+<h3>Run tests<a class="headerlink" href="#run-tests" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest
+</pre></div>
+</div>
+<p>Markers available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">unit</span></code> – fast unit tests</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">integration</span></code> – pipeline integration tests</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">functional</span></code> – full workflow tests</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slow</span></code> – long-running tests</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>-m<span class="w"> </span>unit
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="code-style">
+<h3>Code style<a class="headerlink" href="#code-style" title="Link to this heading">#</a></h3>
+<p>This project uses <code class="docutils literal notranslate"><span class="pre">ruff</span></code> for linting and formatting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ruff<span class="w"> </span>check<span class="w"> </span>.
+ruff<span class="w"> </span>format<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
+<p>Documentation is built using Sphinx and located in the <code class="docutils literal notranslate"><span class="pre">docs/</span></code> directory, and hosted on
+<a class="reference external" href="https://ngwpc.github.io/nwm-eval-mgr/">Github Pages</a>.</p>
+<p>To build docs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>docs<span class="o">]</span>
+make<span class="w"> </span>-C<span class="w"> </span>docs<span class="w"> </span>html
+</pre></div>
+</div>
+</section>
+<section id="docker-container">
+<h2>Docker Container<a class="headerlink" href="#docker-container" title="Link to this heading">#</a></h2>
+<section id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h3>
+<p>To build and run <code class="docutils literal notranslate"><span class="pre">nwm_eval</span></code>, you will need:</p>
+<ul class="simple">
+<li><p>Docker Engine</p></li>
+</ul>
+</section>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Link to this heading">#</a></h3>
+<p>From the repository root, build the container image:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span>nwm_eval<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="container-help">
+<h3>Container help<a class="headerlink" href="#container-help" title="Link to this heading">#</a></h3>
+<p>To display the container help message:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>nwm_eval
+</pre></div>
+</div>
+<p>This will print the available commands supported by the container CLI:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Usage: run-nwm-eval-mgr.sh &lt;command&gt; &lt;config_file&gt; [stdout_file]
+
+COMMAND:
+  verification          Run verification script.
+
+CONFIG_FILE: Path to the configuration YAML file for a verification run.
+STDOUT_FILE (optional): Path to a file where console output will be saved.
+
+Examples:
+  run-nwm-eval-mgr.sh verification test_data/verf_config.yaml
+  run-nwm-eval-mgr.sh verification test_data/verf_config.yaml /path/to/output/nwm-eval.log
+</pre></div>
+</div>
+</section>
+<section id="running-a-verification-workflow">
+<h3>Running a Verification Workflow<a class="headerlink" href="#running-a-verification-workflow" title="Link to this heading">#</a></h3>
+<p>When running an evaluation or verification workflow, you will typically need to mount local data and configuration files into the container.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-w<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nwm_eval<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>verification<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/configs/verf_config.yaml
+</pre></div>
+</div>
+<p>Optionally redirect output to a file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-w<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nwm_eval<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>verification<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/configs/verf_config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/nwm_eval_output.log
+</pre></div>
+</div>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>File paths provided to the container must correspond to paths visible from within the container.</p></li>
+<li><p>Any paths referenced in the configuration file must also be valid within the container environment.</p></li>
+<li><p>If your workflow requires access to external datasets, ensure the corresponding directories are mounted into the container using Docker volume mounts (<code class="docutils literal notranslate"><span class="pre">-v</span></code>).</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
+<p>License information to be added.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NWM Evaluation Manager</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="faq.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Frequently Asked Questions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-structure">Repository Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-relationship">Package Relationship</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-install-recommended">Quick Install (Recommended)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-metrics-only">Install metrics only</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-evaluation-workflows">Install evaluation workflows</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-both-packages">Install both packages</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducible-install-pinned-version">Reproducible Install (Pinned Version)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#development-install">Development Install</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-nwm-metrics">Using <code class="docutils literal notranslate"><span class="pre">nwm_metrics</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-an-evaluation-workflow-using-nwm-eval">Running an evaluation workflow using <code class="docutils literal notranslate"><span class="pre">nwm_eval</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-configuration-yaml-file">Set up configuration yaml file</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#run-evaluation-verification">Run evaluation/verification</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development">Development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-tests">Run tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-style">Code style</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-container">Docker Container</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build">Build</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#container-help">Container help</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-verification-workflow">Running a Verification Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/user_guide.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, RTX.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

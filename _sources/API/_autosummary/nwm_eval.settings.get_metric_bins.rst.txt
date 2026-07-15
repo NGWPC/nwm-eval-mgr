@@ -1,0 +1,6 @@
+nwm\_eval.settings.get\_metric\_bins
+====================================
+
+.. currentmodule:: nwm_eval.settings
+
+.. autofunction:: get_metric_bins

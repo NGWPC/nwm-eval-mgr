@@ -1,0 +1,6 @@
+nwm\_metrics.event\_metric\_functions.preprocess\_series
+========================================================
+
+.. currentmodule:: nwm_metrics.event_metric_functions
+
+.. autofunction:: preprocess_series

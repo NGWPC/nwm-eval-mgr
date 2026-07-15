@@ -1,0 +1,6 @@
+nwm\_metrics.metric\_functions.treat\_values
+============================================
+
+.. currentmodule:: nwm_metrics.metric_functions
+
+.. autofunction:: treat_values

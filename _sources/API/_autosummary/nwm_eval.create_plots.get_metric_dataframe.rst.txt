@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.get\_metric\_dataframe
+==============================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: get_metric_dataframe

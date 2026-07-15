@@ -1,0 +1,7 @@
+nwm\_eval.configuration.BoxPlotConfig
+=====================================
+
+.. currentmodule:: nwm_eval.configuration
+
+.. autoclass:: BoxPlotConfig
+   :show-inheritance:

@@ -1,0 +1,6 @@
+nwm\_eval.create\_plots.set\_up\_figure
+=======================================
+
+.. currentmodule:: nwm_eval.create_plots
+
+.. autofunction:: set_up_figure

@@ -1,0 +1,7 @@
+nwm\_eval.nwm\_configs.ForecastConfig
+=====================================
+
+.. currentmodule:: nwm_eval.nwm_configs
+
+.. autoclass:: ForecastConfig
+   :show-inheritance:

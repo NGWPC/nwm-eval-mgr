@@ -1,0 +1,6 @@
+nwm\_metrics.event\_metric\_functions.validate\_events
+======================================================
+
+.. currentmodule:: nwm_metrics.event_metric_functions
+
+.. autofunction:: validate_events

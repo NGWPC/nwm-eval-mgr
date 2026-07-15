@@ -1,0 +1,6 @@
+nwm\_eval.identify\_location\_ids.get\_locations\_from\_config\_list
+====================================================================
+
+.. currentmodule:: nwm_eval.identify_location_ids
+
+.. autofunction:: get_locations_from_config_list
