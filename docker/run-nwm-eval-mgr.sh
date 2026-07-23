@@ -1,18 +1,17 @@
 #!/bin/bash
 
-LOG_PREFIX="[run-nwm-eval.sh]"
+LOG_PREFIX="[run-nwm-eval-mgr.sh]"
 
-# This shell script lives in the nwm-eval repo.
-# It is used by CerfServer runtime containers to invoke nwm-verf scripts.
+# This shell script lives in the nwm-eval-mgr repo.
+# It is used by CerfServer runtime containers to invoke nwm-eval-mgr scripts.
 
 VALID_COMMANDS=("verification")
 
-SCRIPT_MODULE="nwm_eval"
+SCRIPT_MODULE=nwm_eval
 
 # Set the umask so files and directories are created with 777 permissions
 umask 000
 
-# Function to display help message
 show_help() {
   echo "Usage: $(basename "$0") <command> <config_file> [stdout_file]"
   echo ""
