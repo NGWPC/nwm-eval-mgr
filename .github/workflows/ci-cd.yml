@@ -8,6 +8,7 @@ on:
       - main
       - nwm-main
       - development
+      - development-pw
       - release-candidate
   push:
     branches:
@@ -16,6 +17,7 @@ on:
       - main
       - nwm-main
       - development
+      - development-pw
       - release-candidate
   workflow_dispatch:
 
