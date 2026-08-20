@@ -9,7 +9,7 @@ general:     # General configuration for the evaluation, including dataset infor
   assemble_domain: False     # Whether to assemble results across VPUs for the CONUS domain.
   location_set_name: 'usgs_01123000'     # Name for the set of locations to evaluate.
   location_list: ['01123000', '01123500']     # List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used.
-  location_type: ['usgs_gage']     # Type of locations to evaluate, which determines how locations are identified and processed.
+  location_type: 'usgs_gage'     # Type of locations to evaluate, which determines how locations are identified and processed.
   location_filter:     # Configuration for filtering locations based on column values.
     columns: ['vpu_id', 'status']
     values: ['03S', 'USGS-active']

@@ -60,7 +60,7 @@ general:     # General configuration for the evaluation, including dataset infor
   assemble_domain: False     # Whether to assemble results across VPUs for the CONUS domain.
   location_set_name: 'usgs_01123000'     # Name for the set of locations to evaluate.
   location_list: ['01123000', '01123500']     # List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used.
-  location_type: ['usgs_gage']     # Type of locations to evaluate, which determines how locations are identified and processed.
+  location_type: 'usgs_gage'     # Type of locations to evaluate, which determines how locations are identified and processed.
   location_filter:     # Configuration for filtering locations based on column values.
     columns: ['vpu_id', 'status']
     values: ['03S', 'USGS-active']
@@ -183,7 +183,7 @@ general:
   log_level: INFO # logging level (case insensitive); options are DEBUG, INFO, WARNING, SEVERE, FATAL, CRITICAL, ERROR
 
 file_paths:
-  base_dir: ~/repos/nwm-eval-mgr/data/ # root directory to store data/outputs for verification
+  base_dir: data/ # root directory to store data/outputs for verification
   crosswalk_file: '{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet' # crosswalk file mapping gage IDs to NWM/ngen link IDs
   fcst_config_file: '{base_dir}/inputs/nwm_forecast_configuration.yaml' # NWM forecast configuration file
   fcst_data_file: '{base_dir}/inputs/{location_set_name}/{dataset_name}/{nwm_configuration}.csv' # forecast data directory (must be specified when nwm_forecast.data_source is set to ngenCERF)
@@ -250,7 +250,7 @@ general:
   log_level: INFO # logging level (case insensitive); options are DEBUG, INFO, WARNING, SEVERE, FATAL, CRITICAL, ERROR
 
 file_paths:
-  base_dir: ~/repos/nwm-eval-mgr/data/ # root directory to store data/outputs for verification
+  base_dir: data/ # root directory to store data/outputs for verification
   crosswalk_file: '{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet' # crosswalk file mapping gage IDs to NWM/ngen link IDs
   fcst_config_file: '{base_dir}/inputs/nwm_forecast_configuration.yaml' # NWM forecast configuration file
   fcst_data_dir: '{base_dir}/inputs/{location_set_name}/{dataset_name}/hind_run1' # forecast data directory or file (must be specified when nwm_forecast.data_source is set to ngenCERF or hinscast)
@@ -443,7 +443,7 @@ general:
   log_level: INFO # logging level (case insensitive); options are DEBUG, INFO, WARNING, SEVERE, FATAL, CRITICAL, ERROR
 
 file_paths:
-  base_dir: ~/repos/nwm-eval-mgr/data/ # root directory to store data/outputs for verification
+  base_dir: data/ # root directory to store data/outputs for verification
   crosswalk_file: '{base_dir}/inputs/nhf/usgs_{nwm_version}_crosswalk_{domain}.parquet' # crosswalk file mapping gage IDs to NWM/ngen link IDs
   fcst_data_file: '{base_dir}/inputs/troute_output_201210010000_{dataset_name}.nc' # forecast data directory (must be specified when nwm_forecast.data_source is set to ngenCERF)
   calib_param_file: '{base_dir}/../../nwm-region-mgr/data/inputs/region/pseudo_calib_params/sampled_params_{domain}.csv' # calibration parameters file (used when separate_calibrated is True); must have column 'gage_id'
@@ -571,7 +571,7 @@ plots:
 | assemble_domain | bool \| NoneType | Whether to assemble results from different VPUs across domains. This is only applicable when domain is 'conus', since the CONUS domain is currently divided into VPUs while other domains are not. If True, the script will look for metric files from each VPU, concatenate them, and save the assembled metric file for the entire CONUS domain. | None | False |
 | location_set_name | str | User-specified name for the set of locations (e.g., a specific VPU or a cluster from a regionalization). This will be used in naming output files and directories. | usgs_01123000 | vpu_03S |
 | location_list | List[str] \| NoneType | List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used. | None | ['01123000', '01123500'] |
-| location_type | List[str] \| str = usgs_gage \| nwm30_link \| nwm22_link | Type of locations to evaluate. Valid options are 'usgs_gage', 'nwm30_link', and 'nwm22_link'. This will determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data. | ['usgs_gage'] | ['usgs_gage'] |
+| location_type | str = usgs_gage \| nwm30_link \| nwm22_link | Type of locations to evaluate. Valid options are 'usgs_gage', 'nwm30_link', and 'nwm22_link'. This will determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data. | usgs_gage | usgs_gage |
 | location_filter | LocationFilter \| NoneType | Optional configuration for filtering locations based on column values in the crosswalk file. If provided, only locations that match the specified column-value pairs will be included in the evaluation. | None | {'columns': ['vpu_id', 'status'], 'values': ['03S', 'USGS-active']} |
 | location_group_size | int \| NoneType | Number of locations to process in each group when pairing forecast and observation data. This is used to manage memory usage during the pairing step. If None, all locations will be processed in a single group. | 200 | 100 |
 | variable_name | str | Name of the variable to evaluate. Currently only 'streamflow' is supported, but this field is included for future extensibility. | streamflow | streamflow |
