@@ -148,9 +148,9 @@ class GeneralConfig(BaseModel):
         description="List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used.",
     )
 
-    location_type: list[str] | Literal["usgs_gage", "nwm30_link", "nwm22_link"] = Field(
-        default=["usgs_gage"],
-        examples=[["usgs_gage"], ["nwm30_link"], ["nwm22_link"]],
+    location_type: Literal["usgs_gage", "nwm30_link", "nwm22_link"] = Field(
+        default="usgs_gage",
+        examples=["usgs_gage", "nwm30_link", "nwm22_link"],
         description=(
             "Type of locations to evaluate. Valid options are 'usgs_gage', 'nwm30_link', and 'nwm22_link'. This will "
             "determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data."
