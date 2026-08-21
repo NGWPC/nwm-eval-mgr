@@ -1,25 +1,16 @@
-# syntax=docker/dockerfile:1.4
+ARG BASE_REPO=rockylinux
+ARG BASE_TAG=8
 
-############################################################################
-# Bookworm image for NWM/NextGen Evaluation Manager
-#
-# Uses the official Python 3.11 Bookworm image rather than building Python
-# from source. Python 3.11 is currently required because the pinned TEEHR
-# dependency restricts DuckDB to an older release that does not provide a
-# compatible Python 3.12 wheel.
-############################################################################
-
-ARG BASE_IMAGE=python:3.11-slim-bookworm
-
-FROM ${BASE_IMAGE}
+FROM ${BASE_REPO}:${BASE_TAG}
 
 # application root
 ARG APP_ROOT=/ngen-app
 
-# OCI metadata arguments
-ARG BASE_IMAGE
-ARG BASE_IMAGE_NAME="${BASE_IMAGE}"
-ARG BASE_IMAGE_DIGEST="unknown"
+# OCI Metadata Arguments
+ARG BASE_REPO
+ARG BASE_TAG
+ARG BASE_NAME="${BASE_REPO}:${BASE_TAG}"
+ARG BASE_DIGEST="unknown"
 ARG BASE_REVISION="unknown"
 ARG IMAGE_SOURCE="unknown"
 ARG IMAGE_VENDOR="unknown"
@@ -27,127 +18,173 @@ ARG IMAGE_VERSION="unknown"
 ARG IMAGE_REVISION="unknown"
 ARG IMAGE_CREATED="unknown"
 
-# OCI standard labels
-LABEL org.opencontainers.image.base.name="${BASE_IMAGE_NAME}" \
-      org.opencontainers.image.base.digest="${BASE_IMAGE_DIGEST}" \
-      io.ngwpc.image.base.revision="${BASE_REVISION}" \
-      org.opencontainers.image.source="${IMAGE_SOURCE}" \
-      org.opencontainers.image.vendor="${IMAGE_VENDOR}" \
-      org.opencontainers.image.version="${IMAGE_VERSION}" \
-      org.opencontainers.image.revision="${IMAGE_REVISION}" \
-      org.opencontainers.image.created="${IMAGE_CREATED}" \
-      org.opencontainers.image.title="NWM/NextGen Evaluation Manager" \
-      org.opencontainers.image.description="Docker image for the NWM/NextGen evaluation application"
+# OCI Standard Labels
+LABEL org.opencontainers.image.base.name="${BASE_NAME}" \
+    org.opencontainers.image.base.digest="${BASE_DIGEST}" \
+    io.ngwpc.image.base.revision="${BASE_REVISION}" \
+    org.opencontainers.image.source="${IMAGE_SOURCE}" \
+    org.opencontainers.image.vendor="${IMAGE_VENDOR}" \
+    org.opencontainers.image.version="${IMAGE_VERSION}" \
+    org.opencontainers.image.revision="${IMAGE_REVISION}" \
+    org.opencontainers.image.created="${IMAGE_CREATED}" \
+    org.opencontainers.image.title="NWM/NextGen Evaluation Manager" \
+    org.opencontainers.image.description="Docker image for the NWM/NextGen evaluation application"
 
-ENV LANG="C.UTF-8" \
-    PATH="/usr/local/bin:${PATH}"
 
-############################################################################
-# System dependencies
-############################################################################
+# ensure local python is preferred over distribution python
+ENV PATH="/usr/local/bin:$PATH"
 
-RUN --mount=type=cache,target=/var/cache/apt,id=apt-cache-bookworm,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,id=apt-lib-bookworm,sharing=locked \
-    set -eux; \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
-        build-essential \
-        bzip2 \
-        ca-certificates \
+# cannot remove LANG even though https://bugs.python.org/issue19846 is fixed
+# last attempted removal of LANG broke many users:
+# https://github.com/docker-library/python/pull/570
+ENV LANG="C.UTF-8"
+
+ENV PYTHON_VERSION="3.10.14"
+
+# install runtime dependencies
+RUN set -eux; \
+    dnf install -y epel-release; \
+    dnf config-manager --set-enabled powertools; \
+    dnf install -y \
+        bzip2 bzip2-devel \
         cmake \
-        curl \
+        curl curl-devel \
         file \
         findutils \
         git \
-        jq \
-        libbz2-dev \
-        libcurl4-openssl-dev \
-        libffi-dev \
-        libsqlite3-dev \
-        libssl-dev \
+## FIXME: replace GNU compilers with Intel compiler ##
+        gcc-toolset-10 \
+        gcc-toolset-10-libasan-devel \
+        libasan6 \
+        libffi libffi-devel \
         m4 \
+        openssl openssl-devel \
         rsync \
-        tk-dev \
-        uuid-dev \
-        xz-utils \
-        zlib1g-dev; \
-    rm -rf /var/lib/apt/lists/*
+        sqlite sqlite-devel \
+        tk tk-devel \
+        uuid uuid-devel \
+        which \
+        xz \
+        zlib zlib-devel \
+        jq \
+    ; \
+    dnf clean all
 
-SHELL ["/bin/bash", "-c"]
-
-############################################################################
-# Shared Python virtual environment
-############################################################################
-
-# Create a dedicated virtual environment for nwm_metrics and nwm_eval so their
-# Python packages are isolated from the base image's global site-packages.
-ENV VIRTUAL_ENV="${APP_ROOT}/nwm-eval-mgr-python"
-ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
+## FIXME: replace GNU compilers with Intel compiler ##
+SHELL [ "/usr/bin/scl", "enable", "gcc-toolset-10"]
 
 RUN set -eux; \
-    mkdir -p "${APP_ROOT}"; \
-    python -m venv "${VIRTUAL_ENV}"
+	\
+	curl --location --output python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz"; \
+	mkdir --parents /usr/src/python; \
+	tar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; \
+	rm python.tar.xz; \
+	\
+	cd /usr/src/python; \
+	./configure \
+		--enable-loadable-sqlite-extensions \
+		--enable-optimizations \
+		--enable-option-checking=fatal \
+		--enable-shared \
+		--with-lto \
+		--with-system-expat \
+		--without-ensurepip \
+	; \
+	nproc="$(nproc)"; \
+	make -j "$nproc" \
+		"PROFILE_TASK=${PROFILE_TASK:-}" \
+	; \
+# https://github.com/docker-library/python/issues/784
+# prevent accidental usage of a system installed libpython of the same version
+	rm python; \
+	make -j "$nproc" \
+		"LDFLAGS=${LDFLAGS:--Wl},-rpath='\$\$ORIGIN/../lib'" \
+		"PROFILE_TASK=${PROFILE_TASK:-}" \
+		python \
+	; \
+	make install; \
+# enable GDB to load debugging data: https://github.com/docker-library/python/pull/701
+    bin="$(readlink -ve /usr/local/bin/python3)"; \
+    dir="$(dirname "$bin")"; \
+    mkdir --parents "/usr/share/gdb/auto-load/$dir"; \
+    cp -vL Tools/gdb/libpython.py "/usr/share/gdb/auto-load/$bin-gdb.py"; \
+    \
+    cd /; \
+    rm -rf /usr/src/python; \
+    \
+    find /usr/local -depth \
+        \( \
+            \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) \
+            -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \
+        \) -exec rm -rf '{}' + \
+    ; \
+    \
+    ldconfig; \
+    \
+    python3 --version
 
-# Install current Python packaging and PEP 517 build tools before installing
-# the local nwm_metrics and nwm_eval packages.
-RUN --mount=type=cache,target=/root/.cache/pip,id=pip-cache-bookworm \
-    set -eux; \
-    python -m pip install --upgrade \
-        pip \
-        setuptools \
-        wheel \
-        build \
-        pyproject_hooks \
-        packaging
+# make some useful symlinks that are expected to exist ("/usr/local/bin/python" and friends)
+RUN set -eux; \
+	for src in idle3 pydoc3 python3 python3-config; do \
+		dst="$(echo "$src" | tr -d 3)"; \
+		[ -s "/usr/local/bin/$src" ]; \
+		[ ! -e "/usr/local/bin/$dst" ]; \
+		ln -svT "$src" "/usr/local/bin/$dst"; \
+	done
 
-############################################################################
-# NWM/NextGen Evaluation Manager
-############################################################################
+
+ENV VIRTUAL_ENV="${APP_ROOT}/nwm-eval-mgr-python"
+RUN set -eux; \
+        \
+        python3.10 -m venv ${VIRTUAL_ENV}
+ENV PATH=${VIRTUAL_ENV}/bin:${PATH}
+
+# ARG NWM_EVAL_MGR_REF=development
+# RUN set -eux; \
+#     pip3 install \
+#       "git+https://github.com/NGWPC/nwm-eval-mgr.git@${NWM_EVAL_MGR_REF}#subdirectory=nwm_metrics" ; \
+#     pip3 install \
+#       "git+https://github.com/NGWPC/nwm-eval-mgr.git@${NWM_EVAL_MGR_REF}#subdirectory=nwm_eval" ; \
+#     pip3 cache purge
 
 COPY . "${APP_ROOT}/nwm-eval-mgr/"
-
 WORKDIR "${APP_ROOT}/nwm-eval-mgr/"
+RUN set -eux; \
+	\
+    pip3 install ./nwm_metrics ; \
+    pip3 install ./nwm_eval ; \
+    pip3 cache purge
 
-# Install nwm_metrics first because nwm_eval depends on it. The pip cache is
-# retained across builds, while the installed packages remain in the image.
-RUN --mount=type=cache,target=/root/.cache/pip,id=pip-cache-bookworm \
-    set -eux; \
-    python -m pip install ./nwm_metrics; \
-    python -m pip install ./nwm_eval; \
-    python -m pip check
-
-COPY --chmod=0755 \
-    ./docker/run-nwm-eval-mgr.sh \
-    "${APP_ROOT}/bin/run-nwm-eval-mgr.sh"
-
-############################################################################
-# Git build information
-############################################################################
+COPY ./docker/run-nwm-eval-mgr.sh "${APP_ROOT}/bin/"
+RUN set -eux; \
+	\
+    chmod +x "${APP_ROOT}/bin/run-nwm-eval-mgr.sh"
 
 ARG CI_COMMIT_REF_NAME
 
 RUN set -eux; \
-    repo_url="$(git config --get remote.origin.url)"; \
-    key="${repo_url##*/}"; \
-    key="${key%.git}"; \
+    repo_url=$(git config --get remote.origin.url); \
+    key=${repo_url##*/}; \
+    key=${key%.git}; \
     GIT_INFO_PATH="${APP_ROOT}/${key}_git_info.json"; \
-    branch="$([ -n "${CI_COMMIT_REF_NAME:-}" ] && echo "${CI_COMMIT_REF_NAME}" || git rev-parse --abbrev-ref HEAD)"; \
+    branch=$( [ -n "${CI_COMMIT_REF_NAME:-}" ] && echo "${CI_COMMIT_REF_NAME}" || git rev-parse --abbrev-ref HEAD ); \
     jq -n \
-        --arg commit_hash "$(git rev-parse HEAD)" \
-        --arg branch "${branch}" \
-        --arg tags "$(git tag --points-at HEAD | tr '\n' ' ')" \
-        --arg author "$(git log -1 --pretty=format:'%an')" \
-        --arg commit_date "$(date -u -d @"$(git log -1 --pretty=format:'%ct')" +'%Y-%m-%d %H:%M:%S UTC')" \
-        --arg message "$(git log -1 --pretty=format:'%s' | tr '\n' ';')" \
-        --arg build_date "$(date -u +'%Y-%m-%d %H:%M:%S UTC')" \
-        "{\"${key}\": {commit_hash: \$commit_hash, branch: \$branch, tags: \$tags, author: \$author, commit_date: \$commit_date, message: \$message, build_date: \$build_date}}" \
-        > "${GIT_INFO_PATH}"
+      --arg commit_hash "$(git rev-parse HEAD)" \
+      --arg branch "$branch" \
+      --arg tags "$(git tag --points-at HEAD | tr '\n' ' ')" \
+      --arg author "$(git log -1 --pretty=format:'%an')" \
+      --arg commit_date "$(date -u -d @$(git log -1 --pretty=format:'%ct') +'%Y-%m-%d %H:%M:%S UTC')" \
+      --arg message "$(git log -1 --pretty=format:'%s' | tr '\n' ';')" \
+      --arg build_date "$(date -u +'%Y-%m-%d %H:%M:%S UTC')" \
+      "{\"$key\": {commit_hash: \$commit_hash, branch: \$branch, tags: \$tags, author: \$author, commit_date: \$commit_date, message: \$message, build_date: \$build_date}}" \
+      > $GIT_INFO_PATH
+
 
 RUN ln -s "${APP_ROOT}/bin/run-nwm-eval-mgr.sh" \
     /usr/local/bin/run-nwm-eval-mgr
 
 WORKDIR /
+SHELL ["/bin/bash", "-c"]
 
-#ENTRYPOINT ["${APP_ROOT}/bin/run-nwm-eval-mgr.sh"]
 ENTRYPOINT ["/usr/local/bin/run-nwm-eval-mgr"]
-CMD ["--help"]
+CMD [ "--help" ]
