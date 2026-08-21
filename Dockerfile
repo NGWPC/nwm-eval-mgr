@@ -3,6 +3,9 @@ ARG BASE_TAG=8
 
 FROM ${BASE_REPO}:${BASE_TAG}
 
+# application root
+ARG APP_ROOT=/ngen-app
+
 # OCI Metadata Arguments
 ARG BASE_REPO
 ARG BASE_TAG
@@ -130,7 +133,7 @@ RUN set -eux; \
 	done
 
 
-ENV VIRTUAL_ENV=/ngen-app/nwm-eval-mgr-python
+ENV VIRTUAL_ENV="${APP_ROOT}/nwm-eval-mgr-python"
 RUN set -eux; \
         \
         python3.10 -m venv ${VIRTUAL_ENV}
@@ -144,18 +147,18 @@ ENV PATH=${VIRTUAL_ENV}/bin:${PATH}
 #       "git+https://github.com/NGWPC/nwm-eval-mgr.git@${NWM_EVAL_MGR_REF}#subdirectory=nwm_eval" ; \
 #     pip3 cache purge
 
-COPY . /ngen-app/nwm-eval-mgr/
-WORKDIR /ngen-app/nwm-eval-mgr/
+COPY . "${APP_ROOT}/nwm-eval-mgr/"
+WORKDIR "${APP_ROOT}/nwm-eval-mgr/"
 RUN set -eux; \
 	\
     pip3 install ./nwm_metrics ; \
     pip3 install ./nwm_eval ; \
     pip3 cache purge
 
-COPY ./docker/run-nwm-eval-mgr.sh /ngen-app/bin/
+COPY ./docker/run-nwm-eval-mgr.sh "${APP_ROOT}/bin/"
 RUN set -eux; \
 	\
-    chmod +x /ngen-app/bin/run-nwm-eval-mgr.sh
+    chmod +x "${APP_ROOT}/bin/run-nwm-eval-mgr.sh"
 
 ARG CI_COMMIT_REF_NAME
 
@@ -163,7 +166,7 @@ RUN set -eux; \
     repo_url=$(git config --get remote.origin.url); \
     key=${repo_url##*/}; \
     key=${key%.git}; \
-    GIT_INFO_PATH="/ngen-app/${key}_git_info.json"; \
+    GIT_INFO_PATH="${APP_ROOT}/${key}_git_info.json"; \
     branch=$( [ -n "${CI_COMMIT_REF_NAME:-}" ] && echo "${CI_COMMIT_REF_NAME}" || git rev-parse --abbrev-ref HEAD ); \
     jq -n \
       --arg commit_hash "$(git rev-parse HEAD)" \
@@ -177,8 +180,11 @@ RUN set -eux; \
       > $GIT_INFO_PATH
 
 
+RUN ln -s "${APP_ROOT}/bin/run-nwm-eval-mgr.sh" \
+    /usr/local/bin/run-nwm-eval-mgr
+
 WORKDIR /
 SHELL ["/bin/bash", "-c"]
 
-ENTRYPOINT [ "/ngen-app/bin/run-nwm-eval-mgr.sh" ]
+ENTRYPOINT ["/usr/local/bin/run-nwm-eval-mgr"]
 CMD [ "--help" ]
