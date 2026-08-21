@@ -232,7 +232,9 @@ def data_paths(conf: dict) -> dict:
         fcst_data_dir[dataset] = out_dir / nwm_ver / "timeseries" / config
 
         # create additional directory for storing symbolic links to parquet files required for each dataset
-        fcst_data_link_dir[dataset] = out_dir / nwm_ver / conf1["nwm_configuration"]
+        fcst_data_link_dir[dataset] = (
+            out_dir / conf1["dataset_name"][idx] / conf1["nwm_configuration"]
+        )
 
         # path for joined parquet files (note in pair_data.py, 'group*' will be added to the file name for individual location groups)
         filename = f"{dataset}.{nwm_ver}.{conf1['nwm_configuration']}.joined.parquet"
