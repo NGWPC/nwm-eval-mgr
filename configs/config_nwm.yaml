@@ -16,7 +16,7 @@ general: # define which of the 5 steps to run; each step can be run independentl
   log_level: INFO # logging level (case insensitive); options are DEBUG, INFO, WARNING, SEVERE, FATAL, CRITICAL, ERROR
 
 file_paths:  
-  base_dir: ~/repos/nwm-eval-mgr/data/  # root directory to store the downloaded NWM forecast and flow observation data
+  base_dir: data/  # root directory to store the downloaded NWM forecast and flow observation data
   location_list_file: "{base_dir}/inputs/gage_files/usgs_gages_link_CONUS_calib100.csv" # [optional] file path for the list of locations (e.g., gage IDs or NWM link IDs)
   crosswalk_file: '{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet' # parquet files containing the crosswalk between NWM feature_id and usgs gage id  
   fcst_config_file: '{base_dir}/inputs/nwm_forecast_configuration.yaml' # NWM forecast configuration file  
