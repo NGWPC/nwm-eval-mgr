@@ -7,9 +7,16 @@
 # from source. Python 3.11 is currently required because the pinned TEEHR
 # dependency restricts DuckDB to an older release that does not provide a
 # compatible Python 3.12 wheel.
+#
+# The base is also pinned by digest so it cannot change underneath the same
+# tag. The digest is what gets pulled; the tag stays for readability. It is the
+# multi-arch index digest, so builds still resolve the right platform. Refresh
+# the tag and PYTHON_IMAGE_DIGEST together:
+#   docker buildx imagetools inspect python:<version>-slim-bookworm
 ############################################################################
 
-ARG BASE_IMAGE=python:3.11-slim-bookworm
+ARG PYTHON_IMAGE_DIGEST=sha256:528257d48c1da0dcecc2e725d1ae34498d60c965f1241e39cd6a85a8859bdf84
+ARG BASE_IMAGE=python:3.11-slim-bookworm@${PYTHON_IMAGE_DIGEST}
 
 FROM ${BASE_IMAGE}
 
@@ -18,8 +25,12 @@ ARG APP_ROOT=/ngen-app
 
 # OCI metadata arguments
 ARG BASE_IMAGE
+ARG PYTHON_IMAGE_DIGEST
 ARG BASE_IMAGE_NAME="${BASE_IMAGE}"
-ARG BASE_IMAGE_DIGEST="unknown"
+# The base is pinned by digest above, so the label defaults to that same
+# digest. Override BASE_IMAGE and BASE_IMAGE_DIGEST together when building
+# from a different base.
+ARG BASE_IMAGE_DIGEST="${PYTHON_IMAGE_DIGEST}"
 ARG BASE_REVISION="unknown"
 ARG IMAGE_SOURCE="unknown"
 ARG IMAGE_VENDOR="unknown"
