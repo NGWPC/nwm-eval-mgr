@@ -3,7 +3,7 @@ title|Paired data of the simulated and observed values for each location and tim
 primary_location_id|Primary location identifier (e.g., USGS gage ID).
 primary_value|Observed value for the primary location.
 secondary_location_id|Secondary location identifier (e.g., ngen catchment ID).
-secondary_value|Simulatedvalue for the secondary location.
+secondary_value|Simulated value for the secondary location.
 value_time|Time of the simulated and observed values.
 configuration|NWM configuration of the simulation.
 measurement_unit|Unit of the simulated and observed values.
