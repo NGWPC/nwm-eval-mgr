@@ -8,7 +8,7 @@ gage_crosswalk
 
 Crosswalk between USGS gages and NextGen catchments for the CONUS domain.
 
-Sample file path: ``nhf/usgs_ngen_crosswalk_conus.parquet``
+Sample file path: ``inputs/eval/usgs_ngen_crosswalk_conus.parquet``
 
 .. note:: Geometry column omitted from preview table for brevity.
 
@@ -18,9 +18,9 @@ Sample file path: ``nhf/usgs_ngen_crosswalk_conus.parquet``
    :header-rows: 1
 
    "domain", "vpu_id", "primary_location_id", "secondary_location_id", "basin_area_km2", "status"
-   "CONUS", "01", "usgs-01118300", "ngen-3308860", "13.74", "USGS-active"
-   "CONUS", "01", "usgs-01118400", "ngen-3308834", "43.77", "USGS-discontinued"
-   "CONUS", "01", "usgs-01118668", "ngen-3309403", "36.65", "USGS-discontinued"
+   "CONUS", "01", "usgs-01118300", "ngen-1285848541835259", "13.74", "USGS-active"
+   "CONUS", "01", "usgs-01118400", "ngen-1285847199882424", "43.77", "USGS-discontinued"
+   "CONUS", "01", "usgs-01118668", "ngen-1285847048692311", "36.65", "USGS-discontinued"
 
 **Schema:**
 

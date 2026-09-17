@@ -1,4 +1,4 @@
-sample_file_path|nhf/usgs_ngen_crosswalk_conus.parquet
+sample_file_path|inputs/eval/usgs_ngen_crosswalk_conus.parquet
 title|Crosswalk between USGS gages and NextGen catchments for the CONUS domain.
 domain|NWM domain (e.g., CONUS).
 vpu_id|Unique identifier for Virtual Processing Unit (VPU).
