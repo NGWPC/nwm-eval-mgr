@@ -17,6 +17,7 @@ files to add column descriptions.
 credentials are up to date in the `.env` file or environment variables for S3 access.
 """
 
+import argparse
 import os
 import re
 import tempfile
@@ -30,17 +31,7 @@ import geopandas as gpd
 import pandas as pd
 from dotenv import load_dotenv
 
-S3_DATA_DIR = "nwm-eval-mgr/data"  # relative path to S3 data directory (default bucket: ngwpc-dev)
-INPUT_DATA_DIR = S3_DATA_DIR + "/inputs"
-OUTPUT_DATA_DIR = S3_DATA_DIR + "/outputs"
-
-DATA_DESC_DIR = "docs/scripts/data_desc"
-OUTPUT_DESC_DIR = DATA_DESC_DIR + "/outputs"
-INPUT_DESC_DIR = DATA_DESC_DIR + "/inputs"
-
-OUT_PATH = "docs/source/tech_reference"
-INPUT_DATA_FILE = OUT_PATH + "/input_data.rst"
-OUTPUT_DATA_FILE = OUT_PATH + "/output_data.rst"
+DIR_DATA_DESC = Path(__file__).resolve().parent / "data_desc"
 
 
 def initialize_s3_client():
@@ -76,8 +67,8 @@ def get_sample_data_files(base_dir: Path, desc_dir: Path) -> dict[str, str]:
         df = pd.read_csv(f, delimiter="|", index_col=False, header=None)
         if "sample_file_path" in df[0].values:
             sample_path = df[df[0] == "sample_file_path"][1].values[0]
-            sample_path = sample_path.replace("inputs/region/", "")
-            sample_path = sample_path.replace("outputs/region/", "")
+            # sample_path = sample_path.replace("inputs/region/", "")
+            # sample_path = sample_path.replace("outputs/region/", "")
             file_dict[Path(f).stem] = base_dir / sample_path
         else:
             print(f"Warning: no sample_file_path found in description file {f}")
@@ -100,8 +91,8 @@ def schema_to_rst(df: pd.DataFrame, title: str, preview_rows: int = 3) -> str:
     desc_df = None
 
     # read table and column descriptions if the description file is available in either input or output desc dir
-    files = list(Path(INPUT_DESC_DIR).glob("*.csv")) + list(
-        Path(OUTPUT_DESC_DIR).glob("*.csv")
+    files = list((DIR_DATA_DESC / "inputs").glob("*.csv")) + list(
+        (DIR_DATA_DESC / "outputs").glob("*.csv")
     )
     files = [f for f in files if f.stem.lower() in title.lower()]
 
@@ -308,21 +299,35 @@ def process_schema(
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bucket", default="ngwpc-dev", help="S3 bucket name")
+    parser.add_argument(
+        "--prefix",
+        default="nwm-tools-data/regionalization/data/",
+        help="S3 prefix to include",
+    )
+    args = parser.parse_args()
+
     # process input data schemas
     s3_client = initialize_s3_client()
-    input_files = get_sample_data_files(Path(INPUT_DATA_DIR), Path(INPUT_DESC_DIR))
+
+    out_dir = Path(__file__).resolve().parent.parent / "source/tech_reference"
+
+    input_files = get_sample_data_files(Path(args.prefix), DIR_DATA_DESC / "inputs")
     print("============ Creating schemas for input files ============")
     pprint(input_files)
     process_schema(
-        dict(sorted(input_files.items())), INPUT_DATA_FILE, s3_client=s3_client
+        dict(sorted(input_files.items())),
+        out_dir / "input_data.rst",
+        s3_client=s3_client,
     )
 
     # process output data schemas
-    output_files = get_sample_data_files(Path(OUTPUT_DATA_DIR), Path(OUTPUT_DESC_DIR))
+    output_files = get_sample_data_files(Path(args.prefix), DIR_DATA_DESC / "outputs")
     print("\n============ Creating schemas for output files ============")
     pprint(output_files)
     process_schema(
         dict(sorted(output_files.items())),
-        OUTPUT_DATA_FILE,
+        out_dir / "output_data.rst",
         s3_client=s3_client,
     )
