@@ -211,7 +211,7 @@ Sample file path: ``outputs/eval/vpu_03S/joined/test_kmeans.ngen.ngen_simulation
      - object
 
    * - secondary_value
-     - Simulatedvalue for the secondary location.
+     - Simulated value for the secondary location.
      - float32
 
    * - value_time
