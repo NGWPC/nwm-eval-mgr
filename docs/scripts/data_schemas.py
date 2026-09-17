@@ -67,8 +67,6 @@ def get_sample_data_files(base_dir: Path, desc_dir: Path) -> dict[str, str]:
         df = pd.read_csv(f, delimiter="|", index_col=False, header=None)
         if "sample_file_path" in df[0].values:
             sample_path = df[df[0] == "sample_file_path"][1].values[0]
-            # sample_path = sample_path.replace("inputs/region/", "")
-            # sample_path = sample_path.replace("outputs/region/", "")
             file_dict[Path(f).stem] = base_dir / sample_path
         else:
             print(f"Warning: no sample_file_path found in description file {f}")
@@ -183,7 +181,7 @@ def process_file(
     title: str,
     path: str,
     s3_client=None,
-    bucket: str = "ngwpc-dev",
+    bucket=None,
 ) -> str:
     """Load a file (csv, parquet, gpkg, gdb) and return an RST schema string."""
     df = pd.DataFrame()
@@ -285,11 +283,12 @@ def process_schema(
     file_dict: dict[str, str],
     output_rst,
     s3_client=None,
+    bucket=None,
 ):
     all_schemas = ["Schemas", "=======", ""]
 
     for k, v in file_dict.items():
-        schema = process_file(k, v, s3_client=s3_client)
+        schema = process_file(k, v, s3_client=s3_client, bucket=bucket)
         if schema is not None:
             all_schemas.append(schema)
             all_schemas.append("\n")
@@ -320,6 +319,7 @@ if __name__ == "__main__":
         dict(sorted(input_files.items())),
         out_dir / "input_data.rst",
         s3_client=s3_client,
+        bucket=args.bucket,
     )
 
     # process output data schemas
@@ -330,4 +330,5 @@ if __name__ == "__main__":
         dict(sorted(output_files.items())),
         out_dir / "output_data.rst",
         s3_client=s3_client,
+        bucket=args.bucket,
     )
