@@ -1,8 +1,8 @@
 sample_file_path|outputs/eval/vpu_03S/metrics/test_kmeans.ngen.ngen_simulation.metrics.parquet
-title|Metrics computed for a given NWM dataset (e.g., test_kmeans)
-CORR|Correlation coefficient between forecasted and observed values.
-NSE|Nash-Sutcliffe Efficiency coefficient.
-NNSE|Normalized Nash-Sutcliffe Efficiency coefficient.
-KGE|Kling-Gupta Efficiency coefficient.
-lead_group|Lead time group.
+title|Metrics computed for a given dataset (e.g., test_kmeans)
+KGE|Kling-Gupta Efficiency (KGE) metric.
+NSE|Nash-Sutcliffe Efficiency (NSE) metric.
+CORR|Correlation coefficient between observed and simulated values.
+NNSE|Normalized Nash-Sutcliffe Efficiency (NNSE) metric.
+lead_group|Lead time group for the metric (e.g., 0-6 hours, 6-12 hours. 0 for simulations).
 primary_location_id|Primary location identifier (e.g., USGS gage ID).

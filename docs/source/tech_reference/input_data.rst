@@ -6,7 +6,7 @@ Schemas
 gage_crosswalk
 --------------
 
-Crosswalk between USGS gages and NextGen catchments for the CONUS domain.
+Crosswalk between USGS gages and NextGen catchments for a given domain (e.g., conus).
 
 Sample file path: ``inputs/eval/usgs_ngen_crosswalk_conus.parquet``
 
@@ -39,11 +39,11 @@ Sample file path: ``inputs/eval/usgs_ngen_crosswalk_conus.parquet``
      - object
 
    * - primary_location_id
-     - Gage ID.
+     - Primary location identifier (e.g., USGS gage ID).
      - object
 
    * - secondary_location_id
-     - Catchment ID.
+     - Secondary location identifier (e.g., NextGen catchment ID).
      - object
 
    * - basin_area_km2
@@ -51,13 +51,12 @@ Sample file path: ``inputs/eval/usgs_ngen_crosswalk_conus.parquet``
      - float64
 
    * - status
-     - Status of the gage (e.g., "active" or "inactive").
+     - Status of the gage (e.g., "USGS-active" or "USGS-discontinued").
      - object
 
    * - geometry
-     - Geometry of the gage location.
+     - Geometry of the catchment.
      - object
-
 
 
 

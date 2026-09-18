@@ -6,7 +6,7 @@ Schemas
 forecast_data
 -------------
 
-Forecast/simulation data for a given NWM dataset (e.g., test_kmeans), which includes the forecasted values for all locations and time steps.
+Simulation data for a given NWM dataset (e.g., test_kmeans), including the simulated values for all locations and time steps.
 
 Sample file path: ``outputs/eval/vpu_03S/test_kmeans/ngen_simulation/20121001T03-20121001T10.parquet``
 
@@ -29,33 +29,32 @@ Sample file path: ``outputs/eval/vpu_03S/test_kmeans/ngen_simulation/20121001T03
      - Description
      - Type
    * - value_time
-     - Time of the forecasted value.
+     - Time of the simulated value.
      - datetime64[ns]
 
    * - location_id
-     - Location identifier (e.g., NextGen hydrofabric catchment ID).
+     - Location identifier for the simulated value.
      - object
 
    * - value
-     - Forecasted value for a specific location and time step.
+     - Simulated value for a specific location, time and reference time.
      - float32
 
    * - reference_time
-     - Reference time of the forecast.
+     - Reference time for the simulation (same as value_time for simulations).
      - datetime64[ns]
 
    * - configuration
-     - NWM configuration of the forecast.
+     - Configuration for the simulation or forecast (e.g., ngen_simulation, short_range, medium_range_mem1).
      - object
 
    * - variable_name
-     - Name of the forecasted variable.
+     - Name of the simulated variable (e.g., streamflow).
      - object
 
    * - measurement_unit
-     - Unit of the forecasted value.
+     - Measurement unit of the simulated variable.
      - object
-
 
 
 
@@ -64,7 +63,7 @@ Sample file path: ``outputs/eval/vpu_03S/test_kmeans/ngen_simulation/20121001T03
 metrics
 -------
 
-Metrics computed for a given NWM dataset (e.g., test_kmeans)
+Metrics computed for a given dataset (e.g., test_kmeans)
 
 Sample file path: ``outputs/eval/vpu_03S/metrics/test_kmeans.ngen.ngen_simulation.metrics.parquet``
 
@@ -87,23 +86,23 @@ Sample file path: ``outputs/eval/vpu_03S/metrics/test_kmeans.ngen.ngen_simulatio
      - Description
      - Type
    * - KGE
-     - Kling-Gupta Efficiency coefficient.
+     - Kling-Gupta Efficiency (KGE) metric.
      - float64
 
    * - NSE
-     - Nash-Sutcliffe Efficiency coefficient.
+     - Nash-Sutcliffe Efficiency (NSE) metric.
      - float64
 
    * - CORR
-     - Correlation coefficient between forecasted and observed values.
+     - Correlation coefficient between observed and simulated values.
      - float32
 
    * - NNSE
-     - Normalized Nash-Sutcliffe Efficiency coefficient.
+     - Normalized Nash-Sutcliffe Efficiency (NNSE) metric.
      - float64
 
    * - lead_group
-     - Lead time group.
+     - Lead time group for the metric (e.g., 0-6 hours, 6-12 hours. 0 for simulations).
      - object
 
    * - primary_location_id
@@ -112,13 +111,12 @@ Sample file path: ``outputs/eval/vpu_03S/metrics/test_kmeans.ngen.ngen_simulatio
 
 
 
-
 .. _obs_data:
 
 obs_data
 --------
 
-Observation data, which includes the observed values for all locations and time steps.
+Observation data including the observed values for all locations and time steps.
 
 Sample file path: ``outputs/eval/vpu_03S/usgs/2012-10-01_2012-10-03.parquet``
 
@@ -141,11 +139,11 @@ Sample file path: ``outputs/eval/vpu_03S/usgs/2012-10-01_2012-10-03.parquet``
      - Description
      - Type
    * - location_id
-     - Location identifier (e.g., USGS gage ID).
+     - Location identifier for the observed value.
      - object
 
    * - reference_time
-     - Reference time of the observation.
+     - Reference time for the observation (same as value_time for observations).
      - datetime64[ns]
 
    * - value_time
@@ -153,21 +151,20 @@ Sample file path: ``outputs/eval/vpu_03S/usgs/2012-10-01_2012-10-03.parquet``
      - datetime64[ns]
 
    * - value
-     - Observed value for a specific location and time step.
+     - Observed value for a specific location and time.
      - float32
 
    * - variable_name
-     - Name of the observed variable.
+     - Name of the observed variable (e.g., streamflow).
      - category
 
    * - measurement_unit
-     - Unit of the observed value.
+     - Measurement unit of the observed variable (e.g., cubic meters per second).
      - object
 
    * - configuration
-     - NWM configuration of the observation.
+     - Configuration for the observation (e.g., usgs-gage-data).
      - object
-
 
 
 
@@ -176,7 +173,7 @@ Sample file path: ``outputs/eval/vpu_03S/usgs/2012-10-01_2012-10-03.parquet``
 pairs
 -----
 
-Paired data of the simulated and observed values for each location and time step.
+Paired data including the simulated and observed values for all locations and time steps.
 
 Sample file path: ``outputs/eval/vpu_03S/joined/test_kmeans.ngen.ngen_simulation.joined.group0.parquet``
 
@@ -207,7 +204,7 @@ Sample file path: ``outputs/eval/vpu_03S/joined/test_kmeans.ngen.ngen_simulation
      - float32
 
    * - secondary_location_id
-     - Secondary location identifier (e.g., ngen catchment ID).
+     - Secondary location identifier (e.g., NextGen catchment ID).
      - object
 
    * - secondary_value
@@ -215,29 +212,28 @@ Sample file path: ``outputs/eval/vpu_03S/joined/test_kmeans.ngen.ngen_simulation
      - float32
 
    * - value_time
-     - Time of the simulated and observed values.
+     - Time of the paired value.
      - datetime64[us]
 
    * - configuration
-     - NWM configuration of the simulation.
+     - Configuration for the paired data (e.g., ngen_simulation, short-range, medium-range-mem1).
      - object
 
    * - measurement_unit
-     - Unit of the simulated and observed values.
+     - Measurement unit of the paired variable (e.g., cubic meters per second).
      - object
 
    * - variable_name
-     - Name of the simulated variable.
+     - Name of the paired variable (e.g., streamflow).
      - object
 
    * - reference_time
-     - Reference time of the simulation (same as value_time).
+     - Reference time for the paired value (same as value_time for simulations).
      - datetime64[us]
 
    * - lead_time
-     - Lead time of the simulation (0).
+     - Lead time for the paired value (e.g., 0 for simulations).
      - float64
-
 
 
 

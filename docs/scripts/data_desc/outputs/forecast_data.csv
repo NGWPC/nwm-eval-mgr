@@ -1,9 +1,9 @@
 sample_file_path|outputs/eval/vpu_03S/test_kmeans/ngen_simulation/20121001T03-20121001T10.parquet
-title|Forecast/simulation data for a given NWM dataset (e.g., test_kmeans), which includes the forecasted values for all locations and time steps.
-value|Forecasted value for a specific location and time step.
-reference_time|Reference time of the forecast.
-location_id|Location identifier (e.g., NextGen hydrofabric catchment ID).
-value_time|Time of the forecasted value.
-configuration|NWM configuration of the forecast.
-variable_name|Name of the forecasted variable.
-measurement_unit|Unit of the forecasted value.
+title|Simulation data for a given NWM dataset (e.g., test_kmeans), including the simulated values for all locations and time steps. 
+value_time|Time of the simulated value.
+location_id|Location identifier for the simulated value.
+value|Simulated value for a specific location, time and reference time.
+reference_time|Reference time for the simulation (same as value_time for simulations).
+configuration|Configuration for the simulation or forecast (e.g., ngen_simulation, short_range, medium_range_mem1).
+variable_name|Name of the simulated variable (e.g., streamflow).
+measurement_unit|Measurement unit of the simulated variable.
