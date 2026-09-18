@@ -12,6 +12,13 @@ on:
         required: true
         type: boolean
         default: false
+  pull_request:
+    branches:
+      - development
+    paths:
+      - '.github/workflows/podman-smoke.yml'
+      - 'Dockerfile'
+      - 'docker/**'
 
 permissions:
   contents: read
