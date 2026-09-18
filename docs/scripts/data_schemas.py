@@ -15,6 +15,20 @@ This script supports two steps (default is ``--step schema``):
 
 The schema files are generated from sample CSV, Parquet, GPKG, and GDB files.
 
+Here is the workflow:
+
+--step draft
+    ├── existing CSV → skip
+    ├── missing CSV  → read S3 → create draft
+    └── missing CSV  → read S3 → create draft
+
+manual editing
+
+--step schema
+    ├── read CSV descriptions
+    ├── read S3 sample
+    └── generate RST
+
 Before running the script, ensure AWS credentials are available in the
 environment or in a ``.env`` file.
 
@@ -33,6 +47,7 @@ import boto3
 import fiona
 import geopandas as gpd
 import pandas as pd
+import xarray as xr
 from dotenv import load_dotenv
 
 DIR_DATA_DESC = Path(__file__).resolve().parent / "data_desc"
@@ -51,6 +66,10 @@ DATASET_DEFINITIONS = {
         "gage_crosswalk": {
             "sample_file_path": "inputs/eval/usgs_ngen_crosswalk_conus.parquet",
             "title": "Crosswalk between USGS gages and NextGen catchments for the CONUS domain.",
+        },
+        "troute_output": {
+            "sample_file_path": "outputs/ngen/regionalization/test_kmeans/vpu_03S/Output/troute_output_201210010000.nc",
+            "title": "Troute output for the given configuration.",
         },
     },
     "outputs": {
@@ -137,15 +156,6 @@ def get_sample_data_files(desc_dir: Path, base_prefix: str = "") -> dict[str, st
     return file_dict
 
 
-def get_description_file(desc_dir: Path, title: str) -> Path | None:
-    """Find the description CSV corresponding to a schema title."""
-    for desc_file in sorted(desc_dir.glob("*.csv")):
-        if desc_file.stem.lower() in title.lower():
-            return desc_file
-
-    return None
-
-
 def make_anchor(title: str) -> str:
     """Convert title to a safe RST anchor ID."""
     anchor = title.strip().lower()
@@ -158,8 +168,9 @@ def load_s3_file(
     s3_client,
     bucket: str,
     key: str,
+    layer: str = "divides",
 ):
-    """Load an S3 sample file and return a DataFrame or a list of GeoDataFrames."""
+    """Load an S3 sample file, using the ``divides`` layer for GPKG/GDB files."""
     ext = Path(key).suffix.lower()
 
     response = s3_client.get_object(Bucket=bucket, Key=key)
@@ -185,37 +196,70 @@ def load_s3_file(
             tmp_file.flush()
 
             layers = fiona.listlayers(tmp_file.name)
-            return [
-                (
-                    layer,
-                    gpd.read_file(
-                        tmp_file.name,
-                        layer=layer,
-                        rows=1000,
-                    ),
-                )
-                for layer in layers
-            ]
+
+            if layer not in layers:
+                raise ValueError(f"{layer} layer not found in {key}")
+
+            return gpd.read_file(
+                tmp_file.name,
+                layer=layer,
+                rows=1000,
+            )
+
+    if ext in {".nc", ".nc4", ".cdf"}:
+        with tempfile.NamedTemporaryFile(suffix=ext) as tmp_file:
+            tmp_file.write(content)
+            tmp_file.flush()
+
+            with xr.open_dataset(tmp_file.name) as ds:
+                return ds.load()
 
     raise ValueError(f"Unsupported file type: {ext} in S3 file {key}")
 
 
-def extract_columns(s3_client, bucket: str, key: str) -> list[tuple[str, str | None]]:
-    """Extract column names from an S3 sample file.
-
-    Returns a list of ``(column_name, layer_name)`` tuples. ``layer_name`` is
-    ``None`` for CSV and Parquet files.
-    """
+def extract_columns(
+    s3_client,
+    bucket: str,
+    key: str,
+) -> list[str]:
+    """Extract column names from an S3 sample file."""
     data = load_s3_file(s3_client, bucket, key)
 
-    if isinstance(data, pd.DataFrame):
-        return [(str(column), None) for column in data.columns]
+    if isinstance(data, xr.Dataset):
+        return [str(name) for name in data.data_vars]
 
-    columns = []
-    for layer, gdf in data:
-        columns.extend((str(column), layer) for column in gdf.columns)
+    return [str(column) for column in data.columns]
 
-    return columns
+
+def get_netcdf_variable_descriptions(
+    s3_client,
+    bucket: str,
+    key: str,
+) -> dict[str, str]:
+    """Extract NetCDF variable names and descriptions from an S3 file."""
+    ds = load_s3_file(s3_client, bucket, key)
+
+    descriptions = {}
+
+    for name, variable in ds.variables.items():
+        long_name = variable.attrs.get("long_name", "")
+        units = variable.attrs.get("units", "")
+
+        if not units:
+            units = variable.encoding.get("units", "")
+
+        if long_name and units:
+            description = f"{long_name} ({units})"
+        elif long_name:
+            description = long_name
+        elif units:
+            description = f"({units})"
+        else:
+            description = ""
+
+        descriptions[str(name)] = description
+
+    return descriptions
 
 
 def write_draft_description(
@@ -224,10 +268,13 @@ def write_draft_description(
     sample_file_path: str,
     title: str,
     columns: list[str],
+    descriptions: dict[str, str] | None = None,
 ):
     """Write a draft data description CSV file."""
     output_dir.mkdir(parents=True, exist_ok=True)
     output_file = output_dir / f"{dataset_name}.csv"
+
+    descriptions = descriptions or {}
 
     with output_file.open("w", newline="") as f:
         writer = csv.writer(f, delimiter="|", lineterminator="\n")
@@ -236,7 +283,7 @@ def write_draft_description(
         writer.writerow(["title", title])
 
         for column in columns:
-            writer.writerow([column, ""])
+            writer.writerow([column, descriptions.get(column, "")])
 
     print(f"Wrote draft description file: {output_file}")
 
@@ -261,6 +308,11 @@ def create_draft_data_desc_files(
         output_dir = DIR_DATA_DESC / data_type
 
         for dataset_name, metadata in definitions.items():
+            output_file = output_dir / f"{dataset_name}.csv"
+            if output_file.exists():
+                print(f"Skipping existing description file: {output_file}")
+                continue
+
             sample_file_path = metadata["sample_file_path"]
             title = metadata["title"]
 
@@ -271,48 +323,32 @@ def create_draft_data_desc_files(
             print(f"Reading S3 sample file: s3://{bucket}/{s3_key}")
 
             try:
-                columns_with_layers = extract_columns(
-                    s3_client,
-                    bucket,
-                    s3_key,
-                )
+                if Path(s3_key).suffix.lower() in {".nc", ".nc4", ".cdf"}:
+                    descriptions = get_netcdf_variable_descriptions(
+                        s3_client,
+                        bucket,
+                        s3_key,
+                    )
+                    columns = list(descriptions)
+                else:
+                    columns = extract_columns(
+                        s3_client,
+                        bucket,
+                        s3_key,
+                    )
+                    descriptions = {}
             except Exception as exc:
                 print(f"ERROR reading s3://{bucket}/{s3_key}: {exc}")
                 continue
 
-            # For GPKG/GDB files, generate one description file per layer.
-            layers = sorted(
-                {layer for _, layer in columns_with_layers if layer is not None}
+            write_draft_description(
+                output_dir,
+                dataset_name,
+                sample_file_path,
+                title,
+                columns,
+                descriptions,
             )
-
-            if not layers:
-                columns = [column for column, _ in columns_with_layers]
-                write_draft_description(
-                    output_dir,
-                    dataset_name,
-                    sample_file_path,
-                    title,
-                    columns,
-                )
-                continue
-
-            for layer in layers:
-                columns = [
-                    column
-                    for column, column_layer in columns_with_layers
-                    if column_layer == layer
-                ]
-
-                layer_dataset_name = f"{dataset_name}_{layer}"
-                layer_title = f"{title} (layer: {layer})"
-
-                write_draft_description(
-                    output_dir,
-                    layer_dataset_name,
-                    sample_file_path,
-                    layer_title,
-                    columns,
-                )
 
 
 def schema_to_rst(
@@ -402,12 +438,93 @@ def schema_to_rst(
     return "\n".join(lines)
 
 
+def get_netcdf_example_values(
+    variable,
+    n_values: int = 3,
+) -> str:
+    """Return the first few values of a NetCDF variable as a string."""
+    values = variable.values.reshape(-1)[:n_values]
+
+    formatted_values = []
+    for value in values:
+        if isinstance(value, bytes):
+            value = value.decode(errors="replace")
+        elif hasattr(value, "item"):
+            value = value.item()
+
+        formatted_values.append(str(value))
+
+    return ", ".join(formatted_values)
+
+
+def netcdf_to_rst(
+    ds: xr.Dataset,
+    title: str,
+    desc_df: pd.DataFrame | None = None,
+) -> str:
+    """Convert an xarray Dataset schema to an RST table."""
+    lines = []
+
+    anchor = make_anchor(title)
+    lines.append(f".. _{anchor}:")
+    lines.append("")
+
+    lines.append(title)
+    lines.append("-" * len(title))
+    lines.append("")
+
+    description = ""
+
+    if desc_df is not None and "title" in desc_df[0].values:
+        description = str(desc_df.loc[desc_df[0] == "title", 1].iloc[0]).strip()
+
+    if desc_df is not None and "sample_file_path" in desc_df[0].values:
+        sample_path = str(
+            desc_df.loc[desc_df[0] == "sample_file_path", 1].iloc[0]
+        ).strip()
+        description += f"\n\nSample file path: ``{sample_path}``"
+
+    if description:
+        lines.append(description)
+        lines.append("")
+
+    lines.append("**Schema:**")
+    lines.append("")
+    lines.append(".. list-table::")
+    lines.append("   :header-rows: 1\n")
+    lines.append("   * - Variable")
+    lines.append("     - Description")
+    lines.append("     - Type")
+    lines.append("     - Dimensions")
+    lines.append("     - Example values")
+
+    for name, variable in ds.variables.items():
+        if desc_df is not None and name in desc_df[0].values:
+            description = str(desc_df.loc[desc_df[0] == name, 1].iloc[0]).strip()
+        else:
+            description = name
+
+        dimensions = ", ".join(variable.dims)
+
+        lines.append(
+            f"   * - {name}\n"
+            f"     - {description}\n"
+            f"     - {variable.dtype}\n"
+            f"     - {dimensions}\n"
+            f"     - {get_netcdf_example_values(variable)}\n"
+        )
+
+    lines.append("")
+    return "\n".join(lines)
+
+
 def process_file(
     title: str,
     path: str,
     desc_df: pd.DataFrame | None,
     s3_client=None,
     bucket: str = "ngwpc-dev",
+    layer: str = "divides",
 ) -> str:
     """Load a file and return an RST schema string."""
     df = pd.DataFrame()
@@ -425,21 +542,18 @@ def process_file(
                 df = pd.read_parquet(path, engine="pyarrow")
             elif ext in {".gpkg", ".gdb"}:
                 layers = fiona.listlayers(path)
-                rst_blocks = []
 
-                for layer in layers:
-                    gdf = gpd.read_file(path, layer=layer, rows=1000)
-                    layer_title = f"{title} (layer: {layer})"
-                    rst_blocks.append(
-                        schema_to_rst(
-                            gdf,
-                            layer_title,
-                            desc_df=desc_df,
-                        )
+                if layer not in layers:
+                    raise ValueError(f"{layer} layer not found in {path}")
+
+                df = gpd.read_file(path, layer=layer, rows=1000)
+            elif ext in {".nc", ".nc4", ".cdf"}:
+                with xr.open_dataset(path) as ds:
+                    return netcdf_to_rst(
+                        ds,
+                        title,
+                        desc_df=desc_df,
                     )
-
-                return "\n\n".join(rst_blocks)
-
             else:
                 print(
                     f"ERROR: Unsupported file type for schema extraction: "
@@ -448,24 +562,19 @@ def process_file(
                 return ""
 
         else:
-            data = load_s3_file(s3_client, bucket, path)
+            if ext in {".nc", ".nc4", ".cdf"}:
+                ds = load_s3_file(
+                    s3_client,
+                    bucket,
+                    path,
+                )
+                return netcdf_to_rst(
+                    ds,
+                    title,
+                    desc_df=desc_df,
+                )
 
-            if isinstance(data, pd.DataFrame):
-                df = data
-            else:
-                rst_blocks = []
-
-                for layer, gdf in data:
-                    layer_title = f"{title} (layer: {layer})"
-                    rst_blocks.append(
-                        schema_to_rst(
-                            gdf,
-                            layer_title,
-                            desc_df=desc_df,
-                        )
-                    )
-
-                return "\n\n".join(rst_blocks)
+            df = load_s3_file(s3_client, bucket, path, layer=layer)
 
     except Exception as exc:
         print(f"ERROR reading {path}: {exc}")
@@ -488,10 +597,8 @@ def process_schema(
         desc_file = desc_dir / f"{dataset_name}.csv"
 
         if not desc_file.exists():
-            print(
-                f"Warning: description file not found for {dataset_name}: {desc_file}"
-            )
-            desc_df = None
+            print(f"Error: description file not found for {dataset_name}: {desc_file}")
+            continue
         else:
             desc_df = read_description_file(desc_file)
 
