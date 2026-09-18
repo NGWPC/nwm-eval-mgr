@@ -111,7 +111,7 @@ Sample file path: ``outputs/ngen/regionalization/test_kmeans/vpu_03S/Output/trou
 
    * - time
      - valid output time (seconds since 2012-10-01)
-     - datetime64[ns]
+     - float64
      - time
      - 1349053200000000000, 1349056800000000000, 1349060400000000000
 

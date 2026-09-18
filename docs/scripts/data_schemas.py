@@ -505,11 +505,12 @@ def netcdf_to_rst(
             description = name
 
         dimensions = ", ".join(variable.dims)
+        dtype = variable.encoding.get("dtype", variable.dtype)
 
         lines.append(
             f"   * - {name}\n"
             f"     - {description}\n"
-            f"     - {variable.dtype}\n"
+            f"     - {dtype}\n"
             f"     - {dimensions}\n"
             f"     - {get_netcdf_example_values(variable)}\n"
         )
