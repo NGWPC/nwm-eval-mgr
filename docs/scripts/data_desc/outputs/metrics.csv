@@ -4,5 +4,5 @@ KGE|Kling-Gupta Efficiency (KGE) metric.
 NSE|Nash-Sutcliffe Efficiency (NSE) metric.
 CORR|Correlation coefficient between observed and simulated values.
 NNSE|Normalized Nash-Sutcliffe Efficiency (NNSE) metric.
-lead_group|Lead time group for the metric (e.g., 0-6 hours, 6-12 hours. 0 for simulations).
+lead_group|Lead time group for the metric (e.g., 0-6 hours, 6-12 hours; 0 for simulations).
 primary_location_id|Primary location identifier (e.g., USGS gage ID).

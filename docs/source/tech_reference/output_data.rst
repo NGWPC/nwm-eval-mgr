@@ -102,7 +102,7 @@ Sample file path: ``outputs/eval/vpu_03S/metrics/test_kmeans.ngen.ngen_simulatio
      - float64
 
    * - lead_group
-     - Lead time group for the metric (e.g., 0-6 hours, 6-12 hours. 0 for simulations).
+     - Lead time group for the metric (e.g., 0-6 hours, 6-12 hours; 0 for simulations).
      - object
 
    * - primary_location_id
