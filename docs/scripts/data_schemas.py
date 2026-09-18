@@ -181,7 +181,7 @@ def process_file(
     title: str,
     path: str,
     s3_client=None,
-    bucket=None,
+    bucket="ngwpc-dev",
 ) -> str:
     """Load a file (csv, parquet, gpkg, gdb) and return an RST schema string."""
     df = pd.DataFrame()
@@ -283,7 +283,7 @@ def process_schema(
     file_dict: dict[str, str],
     output_rst,
     s3_client=None,
-    bucket=None,
+    bucket="ngwpc-dev",
 ):
     all_schemas = ["Schemas", "=======", ""]
 
