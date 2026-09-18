@@ -45,7 +45,7 @@ Sample file path: ``outputs/eval/vpu_03S/test_kmeans/ngen_simulation/20121001T03
      - datetime64[ns]
 
    * - configuration
-     - Configuration for the simulation or forecast (e.g., ngen_simulation, short_range, medium_range_mem1).
+     - Configuration for the simulation or forecast (e.g., ngen_simulation, short_range, medium_range_blend).
      - object
 
    * - variable_name
@@ -163,7 +163,7 @@ Sample file path: ``outputs/eval/vpu_03S/usgs/2012-10-01_2012-10-03.parquet``
      - object
 
    * - configuration
-     - Configuration for the observation (e.g., usgs-gage-data).
+     - Configuration for the observation (e.g., usgs_gage_data).
      - object
 
 
@@ -216,7 +216,7 @@ Sample file path: ``outputs/eval/vpu_03S/joined/test_kmeans.ngen.ngen_simulation
      - datetime64[us]
 
    * - configuration
-     - Configuration for the paired data (e.g., ngen_simulation, short-range, medium-range-mem1).
+     - Configuration for the paired data (e.g., ngen_simulation, short_range, medium_range_blend).
      - object
 
    * - measurement_unit

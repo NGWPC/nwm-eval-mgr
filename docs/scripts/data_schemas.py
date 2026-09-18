@@ -264,7 +264,9 @@ def create_draft_data_desc_files(
             sample_file_path = metadata["sample_file_path"]
             title = metadata["title"]
 
-            s3_key = f"{prefix.rstrip('/')}/{sample_file_path.lstrip('/')}"
+            s3_key = "/".join(
+                part.strip("/") for part in (prefix, sample_file_path) if part
+            )
 
             print(f"Reading S3 sample file: s3://{bucket}/{s3_key}")
 

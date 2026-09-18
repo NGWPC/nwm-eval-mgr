@@ -5,7 +5,7 @@ primary_value|Observed value for the primary location.
 secondary_location_id|Secondary location identifier (e.g., NextGen catchment ID).
 secondary_value|Simulated value for the secondary location. 
 value_time|Time of the paired value.
-configuration|Configuration for the paired data (e.g., ngen_simulation, short-range, medium-range-mem1).
+configuration|Configuration for the paired data (e.g., ngen_simulation, short_range, medium_range_blend).
 measurement_unit|Measurement unit of the paired variable (e.g., cubic meters per second).
 variable_name|Name of the paired variable (e.g., streamflow).
 reference_time|Reference time for the paired value (same as value_time for simulations).
