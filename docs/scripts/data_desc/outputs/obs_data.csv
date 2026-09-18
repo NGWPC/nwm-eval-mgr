@@ -6,4 +6,4 @@ value_time|Time of the observed value.
 value|Observed value for a specific location and time.
 variable_name|Name of the observed variable (e.g., streamflow).
 measurement_unit|Measurement unit of the observed variable (e.g., cubic meters per second).
-configuration|Configuration for the observation (e.g., usgs-gage-data).
+configuration|Configuration for the observation (e.g., usgs_gage_data).

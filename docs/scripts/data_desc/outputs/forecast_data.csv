@@ -4,6 +4,6 @@ value_time|Time of the simulated value.
 location_id|Location identifier for the simulated value.
 value|Simulated value for a specific location, time and reference time.
 reference_time|Reference time for the simulation (same as value_time for simulations).
-configuration|Configuration for the simulation or forecast (e.g., ngen_simulation, short_range, medium_range_mem1).
+configuration|Configuration for the simulation or forecast (e.g., ngen_simulation, short_range, medium_range_blend).
 variable_name|Name of the simulated variable (e.g., streamflow).
 measurement_unit|Measurement unit of the simulated variable.
