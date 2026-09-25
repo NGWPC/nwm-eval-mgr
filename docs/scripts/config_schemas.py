@@ -420,7 +420,7 @@ def myst_anchor(title: str) -> str:
 
 def generate_toc_from_markdown(md_text: str) -> str:
     """Scan generated markdown, find headings, and return a TOC block (markdown)."""
-    toc_lines = ["### Table of Contents", ""]
+    toc_lines = ["## Table of Contents", ""]
 
     for line in md_text.splitlines():
         m = re.match(r"^(#{2,6})\s+(.*)", line)
@@ -445,7 +445,7 @@ def main(docs_to_create: dict) -> None:
     intro_block = ["# Configuration for Evaluation/Verification\n"]
 
     # Introduction text for the config documentation page
-    intro_block.append("### Introduction\n")
+    intro_block.append("## Introduction\n")
     intro_block.append(
         "This page provides detailed documentation for configuring the NWM Evaluation Manager (nwm-eval-mgr) tool for "
         "a variety of simulation evaluation or forecast verification applications.\n"
@@ -471,7 +471,7 @@ def main(docs_to_create: dict) -> None:
     # Generate sections for each config file
     lines = []
     for i in docs_to_create:
-        lines.append("### Sample Files\n")
+        lines.append("## Sample Files\n")
 
         # Insert sample config files for different use cases
         sample_files = docs_to_create[i].get("sample_files", [])
@@ -484,7 +484,7 @@ def main(docs_to_create: dict) -> None:
             lines.append(
                 f"({docs_to_create[i]['sample_file_anchor'].get(sample_file, '')})="
             )
-            lines.append(f"#### `{sample_path.name}`\n")
+            lines.append(f"### `{sample_path.name}`\n")
             lines.append(docs_to_create[i]["sample_file_desc"].get(sample_file, ""))
             lines.append("")
 
@@ -507,7 +507,7 @@ def main(docs_to_create: dict) -> None:
 
         lines.append("")
 
-        lines.append("### Schemas\n")
+        lines.append("## Schemas\n")
         lines.append(
             "Schemas are organized by section in the YAML configuration file. For fields that use non-standard types, the schema of the corresponding class is also provided."
         )
@@ -521,7 +521,7 @@ def main(docs_to_create: dict) -> None:
 
             lines.append("")  # blank line before heading
 
-            lines.append(f"#### {j}")
+            lines.append(f"### {j}")
 
             class_info = f"Class `{model_cls.__name__}`."
             if parent_cls:
