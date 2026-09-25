@@ -130,7 +130,7 @@ nse = mf.nse(obs, sim)
 
 #### Set up configuration yaml file
 
-Follow one of the sample config files (see `nwm-eval-mgr/configs`) to set up the configurations for your evaluation/verification application:
+Follow one of the [sample config files](config.md#table-of-contents) to set up the configurations for your evaluation/verification application:
 - `config_ngencerf.yaml`: ngenCERF-based single-location single-forecast verification
 - `config_hindcast.yaml`: ngenCERF-based single-location multiple-hindcast verification
 - `config_nwm.yaml`: NWM v30 operational forecasts verification

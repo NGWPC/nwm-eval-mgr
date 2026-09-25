@@ -6,11 +6,11 @@ This page provides detailed documentation for configuring the NWM Evaluation Man
 
 Template files, sample configuration files, and schemas for all configuration fields and subfields are included below. You can navigate to individual configuration files or schema sections using the tabs on the right or the Table of Contents below.
 
-- `config_template.yaml`: Config template generated from the pydantic model, with default or example values defined for each field. This can be used as a starting point for creating your own configuration files.
-- `config_ngencerf.yaml`: Sample config for verifying a single ngenCERF forecast at one location.
-- `config_hindcast.yaml`: Sample config for verifying multiple ngenCERF hindcasts at one location.
-- `config_nwm.yaml`: Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).
-- `config_ngensim.yaml`: Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains.
+- `config_template.yaml`: Config template generated from the pydantic model including all available configuration options, with default or example values defined for each field. This can be used as a starting point for creating your own configuration files.
+- `config_ngencerf.yaml`: Sample config for verifying a single ngenCERF forecast at a single location, keeping only the necessary configuration options for this type of evaluation.
+- `config_hindcast.yaml`: Sample config for verifying multiple ngenCERF hindcasts at a single location, keeping only the necessary configuration options for this type of evaluation.
+- `config_nwm.yaml`: Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS), keeping only the necessary configuration options for this type of evaluation.
+- `config_ngensim.yaml`: Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains, keeping only the necessary configuration options for this type of evaluation.
 
 ### Table of Contents
 
@@ -21,24 +21,24 @@ Template files, sample configuration files, and schemas for all configuration fi
     - [`config_nwm.yaml`](#config-nwm-yaml)
     - [`config_ngensim.yaml`](#config-ngensim-yaml)
   - [Schemas](#schemas)
-    - [`BarChartConfig` (inherits from `BasePlotConfig`)](#barchartconfig-inherits-from-baseplotconfig)
-    - [`BasePlotConfig` (inherits from `LeadTimesMixin`)](#baseplotconfig-inherits-from-leadtimesmixin)
-    - [`BoxPlotConfig` (inherits from `BasePlotConfig`)](#boxplotconfig-inherits-from-baseplotconfig)
-    - [`FilePathsConfig`](#filepathsconfig)
-    - [`FlowObservationConfig`](#flowobservationconfig)
-    - [`GeneralConfig`](#generalconfig)
-    - [`HistogramConfig` (inherits from `BasePlotConfig`)](#histogramconfig-inherits-from-baseplotconfig)
-    - [`LeadTimesMixin`](#leadtimesmixin)
-    - [`LocationFilter`](#locationfilter)
-    - [`MetricsConfig` (inherits from `LeadTimesMixin`)](#metricsconfig-inherits-from-leadtimesmixin)
-    - [`NWMForecastConfig`](#nwmforecastconfig)
-    - [`PairDataConfig`](#pairdataconfig)
-    - [`PlotsConfig`](#plotsconfig)
-    - [`ReferenceTimesMixin`](#referencetimesmixin)
-    - [`SpatialMapConfig` (inherits from `BasePlotConfig`)](#spatialmapconfig-inherits-from-baseplotconfig)
-    - [`TablePlotConfig` (inherits from `BasePlotConfig`)](#tableplotconfig-inherits-from-baseplotconfig)
-    - [`TimeSeriesConfig` (inherits from `BasePlotConfig, ReferenceTimesMixin`)](#timeseriesconfig-inherits-from-baseplotconfig-referencetimesmixin)
-    - [`USGSConfig`](#usgsconfig)
+    - [general](#general)
+    - [file_paths](#file-paths)
+    - [nwm_forecast](#nwm-forecast)
+    - [flow_observation](#flow-observation)
+    - [flow_observation.usgs](#flow-observation-usgs)
+    - [pair_data](#pair-data)
+    - [metrics](#metrics)
+    - [plots](#plots)
+    - [plots.barchart](#plots-barchart)
+    - [plots.boxplot](#plots-boxplot)
+    - [plots.histogram](#plots-histogram)
+    - [plots.table](#plots-table)
+    - [plots.time_series](#plots-time-series)
+    - [plots.spatial_map](#plots-spatial-map)
+    - [Class: BasePlotConfig](#class-baseplotconfig)
+    - [Class: LeadTimesMixin](#class-leadtimesmixin)
+    - [Class: LocationFilter](#class-locationfilter)
+    - [Class: ReferenceTimesMixin](#class-referencetimesmixin)
 
 ### Sample Files
 
@@ -46,7 +46,7 @@ Template files, sample configuration files, and schemas for all configuration fi
 (config-template-yaml)=
 #### `config_template.yaml`
 
-Config template generated from the pydantic model, with default or example values defined for each field. This can be used as a starting point for creating your own configuration files.
+Config template generated from the pydantic model including all available configuration options, with default or example values defined for each field. This can be used as a starting point for creating your own configuration files.
 
 ```yaml
 general:     # General configuration for the evaluation, including dataset information and evaluation settings.
@@ -161,7 +161,7 @@ plots:     # Configuration for plots.
 (config-ngencerf-yaml)=
 #### `config_ngencerf.yaml`
 
-Sample config for verifying a single ngenCERF forecast at one location.
+Sample config for verifying a single ngenCERF forecast at a single location, keeping only the necessary configuration options for this type of evaluation.
 
 ```yaml
 general:   
@@ -228,7 +228,7 @@ plots:
 (config-hindcast-yaml)=
 #### `config_hindcast.yaml`
 
-Sample config for verifying multiple ngenCERF hindcasts at one location.
+Sample config for verifying multiple ngenCERF hindcasts at a single location, keeping only the necessary configuration options for this type of evaluation.
 
 ```yaml
 general:   
@@ -301,7 +301,7 @@ plots:
 (config-nwm-yaml)=
 #### `config_nwm.yaml`
 
-Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS).
+Sample config for verifying operational NWM v3 forecasts across multiple locations and domains using data retrieved from Google Cloud Storage (GCS), keeping only the necessary configuration options for this type of evaluation.
 
 ```yaml
 general: # define which of the 5 steps to run; each step can be run independently, assuming data from previous steps (from previous runs) are available for use
@@ -322,7 +322,7 @@ general: # define which of the 5 steps to run; each step can be run independentl
   log_level: INFO # logging level (case insensitive); options are DEBUG, INFO, WARNING, SEVERE, FATAL, CRITICAL, ERROR
 
 file_paths:  
-  base_dir: ~/repos/nwm-eval-mgr/data/  # root directory to store the downloaded NWM forecast and flow observation data
+  base_dir: data/  # root directory to store the downloaded NWM forecast and flow observation data
   location_list_file: "{base_dir}/inputs/gage_files/usgs_gages_link_CONUS_calib100.csv" # [optional] file path for the list of locations (e.g., gage IDs or NWM link IDs)
   crosswalk_file: '{base_dir}/inputs/gage_files/usgs_{nwm_version}_crosswalk_all_domains.parquet' # parquet files containing the crosswalk between NWM feature_id and usgs gage id  
   fcst_config_file: '{base_dir}/inputs/nwm_forecast_configuration.yaml' # NWM forecast configuration file  
@@ -414,7 +414,7 @@ plots:
 (config-ngensim-yaml)=
 #### `config_ngensim.yaml`
 
-Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains.
+Sample config for evaluating large-scale NGEN simulations (e.g., from regionalization) across multiple locations, VPUs, or NWM domains, keeping only the necessary configuration options for this type of evaluation.
 
 ```yaml
 general:   
@@ -517,38 +517,46 @@ plots:
       PBIAS: [-100, 300]
     lead_times: [1, 3, 5, 10, 15, 18, 1-5, 6-10, 11-18]
 ```
+
 ### Schemas
 
+Schemas are organized by section in the YAML configuration file. For fields that use non-standard types, the schema of the corresponding class is also provided.
 
-#### `BarChartConfig` (inherits from `BasePlotConfig`)
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-
-#### `BasePlotConfig` (inherits from `LeadTimesMixin`)
+#### general
+Class `GeneralConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
-| plot | bool \| NoneType | Whether to generate this type of plot. If False, the script will skip generating this type of plot. If True, the script will generate this type of plot for the specified lead times. | False | False |
-| metric_subset | str \| List[str] \| NoneType | List of metric names to include in the plots. If not defined, all available metrics will be included in the plots.  | None | ['NSE', 'KGE'] |
-| tag | str \| NoneType | Optional tag to include in the plot titles and filenames. This can be used to distinguish different configurations in the plot outputs. |  |  |
+| steps | dict[str, bool] | Dictionary specifying which steps to run. Keys are step names (e.g., 'fetch_fcst_data', 'fetch_obs_data', 'pair_data', 'compute_metrics', 'plot_metrics'), and values are booleans indicating whether to run the step.Note that these steps need to run in order, since some steps depend on the output of previous steps (e.g., one cannot compute metrics without first fetching data and pairing it). | {'fetch_fcst_data': True, 'fetch_obs_data': True, 'pair_data': True, 'compute_metrics': True, 'plot_metrics': True} | {'fetch_fcst_data': True, 'fetch_obs_data': True, 'pair_data': True, 'compute_metrics': True, 'plot_metrics': True} |
+| domain | str = conus \| hi \| ak \| prvi \| NoneType | Domain for the evaluation. Valid options are 'conus', 'hi', 'ak', 'prvi' (case insensitive). | None | conus |
+| assemble_domain | bool \| NoneType | Whether to assemble results from different VPUs across domains. This is only applicable when domain is 'conus', since the CONUS domain is currently divided into VPUs while other domains are not. If True, the script will look for metric files from each VPU, concatenate them, and save the assembled metric file for the entire CONUS domain. | None | False |
+| location_set_name | str | User-specified name for the set of locations (e.g., a specific VPU or a cluster from a regionalization). This will be used in naming output files and directories. | usgs_01123000 | vpu_03S |
+| location_list | list[str] \| NoneType | List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used. | None | ['01123000', '01123500'] |
+| location_type | str = usgs_gage \| nwm30_link \| nwm22_link | Type of locations to evaluate. Valid options are 'usgs_gage', 'nwm30_link', and 'nwm22_link'. This will determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data. | usgs_gage | usgs_gage |
+| location_filter | LocationFilter \| NoneType | Optional configuration for filtering locations based on column values in the crosswalk file. If provided, only locations that match the specified column-value pairs will be included in the evaluation. | None | {'columns': ['vpu_id', 'status'], 'values': ['03S', 'USGS-active']} |
+| location_group_size | int \| NoneType | Number of locations to process in each group when pairing forecast and observation data. This is used to manage memory usage during the pairing step. If None, all locations will be processed in a single group. | 200 | 100 |
+| variable_name | str | Name of the variable to evaluate. Currently only 'streamflow' is supported, but this field is included for future extensibility. | streamflow | streamflow |
+| nwm_configuration | str | Name of the NWM configuration to evaluate. This can be 'ngen' for ngen-based simulations or match one of the configurations defined in the forecast configuration file specified by 'file_paths.fcst_config_file'. | None | ngen |
+| dataset_name | list[str] | User-specified name(s) for the dataset(s) to evaluate (e.g., formulation name or regionalization algorithm). This will be used in naming output files and directories. If evaluating multiple datasets, this should be a list of names with the same length as 'nwm_version', 'forecast_start_date', and 'forecast_end_date'. | None | ['noah_cfes', 'noah_topmodel'] |
+| nwm_version | list[str] | List of NWM versions to evaluate. Valid options include 'ngen', 'nwm30', 'nwm22', etc. This should be a list of the same length as 'dataset_name', where each entry corresponds to the NWM version for the dataset with the same index in 'dataset_name'. | None | ['ngen', 'nwm30'] |
+| forecast_start_date | list[str] | List of start dates for the forecast data to evaluate. This should be a list of the same length as 'dataset_name', where each entry corresponds to the start date for the dataset with the same index in 'dataset_name' | None | ['2022-12-01 00:00:00', '2022-12-15 00:00:00'] |
+| forecast_end_date | list[str] | List of end dates for the forecast data to evaluate. This should be a list of the same length as 'dataset_name', where each entry corresponds to the end date for the dataset with the same index in 'dataset_name' | None | ['2022-12-31 00:00:00', '2023-01-15 00:00:00'] |
+| eval_start_date | list[str] \| NoneType | List of start dates for the evaluation period. This should be a list of the same length as 'dataset_name', where each entry corresponds to the start date for the evaluation period of the dataset with the same index in 'dataset_name'. If not provided, the evaluation will start from the earliest available date in the paired forecast and observation data for each dataset. | None | ['2022-12-11 00:00:00', '2022-12-25 00:00:00'] |
+| eval_end_date | list[str] \| NoneType | List of end dates for the evaluation period. This should be a list of the same length as 'dataset_name', where each entry corresponds to the end date for the evaluation period of the dataset with the same index in 'dataset_name'. If not provided, the evaluation will end at the latest available date in the paired forecast and observation data for each dataset. | None | ['2022-12-31 00:00:00', '2023-01-15 00:00:00'] |
+| separate_calibrated | bool \| NoneType | Whether to distinguish calibrated and regionalized locations in the evaluation | None | False |
+| log_level | str | Logging level. Valid options (case insensitive): debug, info, warning, error, critical, severe, fatal | info | debug |
 
-#### `BoxPlotConfig` (inherits from `BasePlotConfig`)
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| show_outliers | bool \| NoneType | Whether to show outliers in box plots. If True, outliers will be shown as individual points. If False, outliers will be omitted. | False | False |
-
-#### `FilePathsConfig`
+#### file_paths
+Class `FilePathsConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 | base_dir | Path | Root directory to store data and outputs for the evaluation. The script will create subdirectories under this base directory for different datasets and types of outputs (e.g., noah_cfes, usgs, joined, metrics, plots). | None | ~/ngen_evaluation/ |
 | location_list_file | Path \| str \| NoneType | Path to a file containing the list of locations to evaluate, only used if 'general.location_list' is not provided. If neither is provided, locations from the crosswalk file will be used, filtered by 'general.location_filter'. | None | ~/location_list.csv |
-| crosswalk_file | Path \| str \| Dict[str, Path] \| Dict[str, str] | Path to a crosswalk file or a dictionary of crosswalk files, corresponding to different nwm versions. The crosswalk file maps location identifiers to other relevant information. | None | ~/crosswalk.csv |
+| crosswalk_file | Path \| str \| dict[str, Path] \| dict[str, str] | Path to a crosswalk file or a dictionary of crosswalk files, corresponding to different nwm versions. The crosswalk file maps location identifiers to other relevant information. | None | ~/crosswalk.csv |
 | fcst_config_file | str \| Path \| NoneType | Path to the forecast configuration file. This file defines the parameters for different NWM configurations. For each forecast configuration, a list that specify the following parameters (in order): cycle_start: start time of forecast cycles in Zulu time or UTC (e.g., 0Z);cycle_end: end time of forecast cycles in Zulu time or UTC (e.g., 23Z);cycle_freq: frequency of forecast cycles in hours (e.g., 1);fcst_win: forecast window in hours (e.g., 18);fcst_timestep: forecast timestep in hours (e.g., 1); | None | data/inputs/nwm_forecast_configuration.yaml |
-| fcst_data_file | Path \| str \| Dict[str, Path] \| Dict[str, str] \| NoneType | Path to the forecast data file or a dictionary of forecast data files. | None | 01123000_output.csv |
-| fcst_data_dir | Path \| str \| Dict[str, Path] \| Dict[str, str] \| NoneType | Path to the directory containing forecast data files or a dictionary of directories. | None | data/inputs/hindcasts/ |
+| fcst_data_file | Path \| str \| dict[str, Path] \| dict[str, str] \| NoneType | Path to the forecast data file or a dictionary of forecast data files. | None | 01123000_output.csv |
+| fcst_data_dir | Path \| str \| dict[str, Path] \| dict[str, str] \| NoneType | Path to the directory containing forecast data files or a dictionary of directories. | None | data/inputs/hindcasts/ |
 | obs_data_file | Path \| str \| NoneType | Path to the observation data file. Both obs_data_file and obs_data_dir can be specified. The run will read all .csv and .parquet files in obs_data_dir and obs_data_file and remove duplicates.If neither obs_data_file nor obs_data_dir is provided, an observation data source must be specified in the 'flow_observation.usgs' section. | None | data/inputs/obs/01123000_hourly_discharge.csv |
 | obs_data_dir | Path \| str \| NoneType | Path to the observation data directory where one or more observation data files are stored. The run will look for all .csv and .parquet files in this directory. Each file can contain observation data for a single location (with the filename starting with the location identifier), or multiple locations with a 'location_id' column specifying the location identifiers. | None | data/inputs/obs/ |
 | calib_param_file | Path \| str \| NoneType | Path to the calibration parameter file. | None | data/inputs/calib_params.csv |
@@ -556,74 +564,15 @@ plots:
 | output_dir | str \| Path | Directory to save outputs such as paired data, computed metrics, and plots.  | None | ngen_evaluation/outputs/usgs_01123000/ |
 | log_file | str \| Path \| NoneType | Path to log file. Default: verification.log in {output_dir} | None | outputs/usgs_01123000/verification.log |
 
-#### `FlowObservationConfig`
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| usgs | USGSConfig \| NoneType | Configuration for USGS flow observations. If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section,  | None |  |
-
-#### `GeneralConfig`
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| steps | Dict[str, bool] | Dictionary specifying which steps to run. Keys are step names (e.g., 'fetch_fcst_data', 'fetch_obs_data', 'pair_data', 'compute_metrics', 'plot_metrics'), and values are booleans indicating whether to run the step.Note that these steps need to run in order, since some steps depend on the output of previous steps (e.g., one cannot compute metrics without first fetching data and pairing it). | {'fetch_fcst_data': True, 'fetch_obs_data': True, 'pair_data': True, 'compute_metrics': True, 'plot_metrics': True} | {'fetch_fcst_data': True, 'fetch_obs_data': True, 'pair_data': True, 'compute_metrics': True, 'plot_metrics': True} |
-| domain | str = conus \| hi \| ak \| prvi \| NoneType | Domain for the evaluation. Valid options are 'conus', 'hi', 'ak', 'prvi' (case insensitive). | None | conus |
-| assemble_domain | bool \| NoneType | Whether to assemble results from different VPUs across domains. This is only applicable when domain is 'conus', since the CONUS domain is currently divided into VPUs while other domains are not. If True, the script will look for metric files from each VPU, concatenate them, and save the assembled metric file for the entire CONUS domain. | None | False |
-| location_set_name | str | User-specified name for the set of locations (e.g., a specific VPU or a cluster from a regionalization). This will be used in naming output files and directories. | usgs_01123000 | vpu_03S |
-| location_list | List[str] \| NoneType | List of specific locations to include in the evaluation. If None, all locations in the crosswalk file will be used. | None | ['01123000', '01123500'] |
-| location_type | str = usgs_gage \| nwm30_link \| nwm22_link | Type of locations to evaluate. Valid options are 'usgs_gage', 'nwm30_link', and 'nwm22_link'. This will determine which columns in the crosswalk file to use for filtering locations and for merging forecast and observation data. | usgs_gage | usgs_gage |
-| location_filter | LocationFilter \| NoneType | Optional configuration for filtering locations based on column values in the crosswalk file. If provided, only locations that match the specified column-value pairs will be included in the evaluation. | None | {'columns': ['vpu_id', 'status'], 'values': ['03S', 'USGS-active']} |
-| location_group_size | int \| NoneType | Number of locations to process in each group when pairing forecast and observation data. This is used to manage memory usage during the pairing step. If None, all locations will be processed in a single group. | 200 | 100 |
-| variable_name | str | Name of the variable to evaluate. Currently only 'streamflow' is supported, but this field is included for future extensibility. | streamflow | streamflow |
-| nwm_configuration | str | Name of the NWM configuration to evaluate. This can be 'ngen' for ngen-based simulations or match one of the configurations defined in the forecast configuration file specified by 'file_paths.fcst_config_file'. | None | ngen |
-| dataset_name | List[str] | User-specified name(s) for the dataset(s) to evaluate (e.g., formulation name or regionalization algorithm). This will be used in naming output files and directories. If evaluating multiple datasets, this should be a list of names with the same length as 'nwm_version', 'forecast_start_date', and 'forecast_end_date'. | None | ['noah_cfes', 'noah_topmodel'] |
-| nwm_version | List[str] | List of NWM versions to evaluate. Valid options include 'ngen', 'nwm30', 'nwm22', etc. This should be a list of the same length as 'dataset_name', where each entry corresponds to the NWM version for the dataset with the same index in 'dataset_name'. | None | ['ngen', 'nwm30'] |
-| forecast_start_date | List[str] | List of start dates for the forecast data to evaluate. This should be a list of the same length as 'dataset_name', where each entry corresponds to the start date for the dataset with the same index in 'dataset_name' | None | ['2022-12-01 00:00:00', '2022-12-15 00:00:00'] |
-| forecast_end_date | List[str] | List of end dates for the forecast data to evaluate. This should be a list of the same length as 'dataset_name', where each entry corresponds to the end date for the dataset with the same index in 'dataset_name' | None | ['2022-12-31 00:00:00', '2023-01-15 00:00:00'] |
-| eval_start_date | List[str] \| NoneType | List of start dates for the evaluation period. This should be a list of the same length as 'dataset_name', where each entry corresponds to the start date for the evaluation period of the dataset with the same index in 'dataset_name'. If not provided, the evaluation will start from the earliest available date in the paired forecast and observation data for each dataset. | None | ['2022-12-11 00:00:00', '2022-12-25 00:00:00'] |
-| eval_end_date | List[str] \| NoneType | List of end dates for the evaluation period. This should be a list of the same length as 'dataset_name', where each entry corresponds to the end date for the evaluation period of the dataset with the same index in 'dataset_name'. If not provided, the evaluation will end at the latest available date in the paired forecast and observation data for each dataset. | None | ['2022-12-31 00:00:00', '2023-01-15 00:00:00'] |
-| separate_calibrated | bool \| NoneType | Whether to distinguish calibrated and regionalized locations in the evaluation | None | False |
-| log_level | str | Logging level. Valid options (case insensitive): debug, info, warning, error, critical, severe, fatal | info | debug |
-
-#### `HistogramConfig` (inherits from `BasePlotConfig`)
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| binning | Dict[str, List[int \| float]] \| NoneType | Dictionary specifying the binning for histogram plots. Keys are metric names, and values are lists of numbers defining the bin edges for the corresponding metric. If a metric is not included in this dictionary, binning is determined by dividing the range of metric values into 8 equal-width bins.  | {'NSE': [-1, -0.5, 0, 0.5, 1], 'KGE': [-1, -0.5, 0, 0.5, 1]} | {'NSE': [-1, -0.5, 0, 0.5, 1], 'KGE': [-1, -0.5, 0, 0.5, 1]} |
-
-#### `LeadTimesMixin`
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| lead_times | List[str] \| NoneType | List of lead times to compute metrics or make plots for. Each lead time can be specified as an integer (e.g., 6), a numeric string (e.g., '6'), or a range string (e.g., '1-6'). `all` represents all available individual lead times for a given nwm configuration. Range strings will be expanded to include all individual lead times within the range. `all_aggregated` represents a range that includes all lead times for a given nwm configuration, (e.g., 1-18 for short_range).Note lead times defined in `plots` must be a subset of those defined in `metrics`. | None | ['all', '1-5', '5-10', '10-15', 'all_aggregated'] |
-
-#### `LocationFilter`
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| columns | str \| List[str] \| NoneType | Column name(s) in the crosswalk file to filter on. Can be a single string or a list of strings. | None | vpu_id |
-| values | str \| List[str] \| NoneType | Value(s) to filter on for the corresponding columns. Can be a single string or a list of strings. | None | 03S |
-
-#### `MetricsConfig` (inherits from `LeadTimesMixin`)
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| overwrite | bool \| NoneType | Whether to overwrite existing metric files.  | True | False |
-| library | str \| NoneType | Library to use for metric computation. Valid options: nwm.eval, teehr.  | nwm.eval | nwm.eval |
-| metric_subset | str \| List[str] | Subset of metrics to compute. Can be 'all' or a list of metric names. If 'all', all available metrics in the specified library will be computed. If a list of metric names is provided, only those metrics will be computed. | None | all |
-| metric_exclude | List[str] \| NoneType | List of metric names to exclude from metric_subset for computation.  | None | ['HSEG_FDC', 'MSEG_FDC', 'LSEG_FDC'] |
-| threshold_categorical | Dict[str, float \| str] \| NoneType | Threshold for categorical metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value. | {'value': 0.9, 'type': 'quantile'} | {'value': 0.9, 'type': 'quantile'} |
-| threshold_event | Dict[str, float \| str] \| NoneType | Threshold for event-based metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value. | {'value': 0.9, 'type': 'quantile'} | {'value': 0.9, 'type': 'quantile'} |
-| file_format | str \| NoneType | File format for output files. Valid options are 'parquet' and 'csv'. | parquet | parquet |
-
-#### `NWMForecastConfig`
+#### nwm_forecast
+Class `NWMForecastConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 | data_source | str = ngenCERF \| ngenSIM \| hindcast \| GCS | Data source for the NWM forecast. This specifies the source from which forecast data will be retrieved.Valid options are: 'ngenCERF' for ngen-based single-location forecasts for a single reference time (T0), 'hindcast' for ngen-based single-location hindcast data for multiple reference times (T0), 'ngenSIM' for large-scale ngen-based simulations (e.g., across a VPU from regionalization), 'GCS' for large-scale operational NWM forecasts on Google Cloud Storage. | None | ngenCERF |
-| fetch_fcst | List[bool] \| NoneType | List of booleans indicating whether to fetch forecast data for each dataset. If False, forecast data will be retrieved regardless of whether it already exists locally. Otherwise, skip fetching if forecast data file already exists locally.  | [True] | [True] |
+| fetch_fcst | list[bool] \| NoneType | List of booleans indicating whether to fetch forecast data for each dataset. If False, forecast data will be retrieved regardless of whether it already exists locally. Otherwise, skip fetching if forecast data file already exists locally.  | [True] | [True] |
 | output_type | str \| NoneType | Type of NWM output to retrieve. Currently only 'channel_rt' is supported. Only applicable when data_source='GCS'.  | channel_rt | channel_rt |
-| t_minus | List[int] \| NoneType | List of integers indicating the T-minus hours for which to retrieve NWM forecasts. Only applicable when data_source='GCS' and nwm_configuration is an AnA run (analysis & assimilation). | [0, 1, 2] | [0] |
+| t_minus | list[int] \| NoneType | List of integers indicating the T-minus hours for which to retrieve NWM forecasts. Only applicable when data_source='GCS' and nwm_configuration is an AnA run (analysis & assimilation). | [0, 1, 2] | [0] |
 | kerchunk_method | str \| NoneType | Specifies the preference in creating Kerchunk reference json files. Only needed for data_source = 'GCS'. 'local' - always create new json files from netcdf files in GCS and save locally, if they do not already exist; 'remote' - read the CIROH pre-generated jsons from s3, ignoring any that are unavailable; 'auto' - read the CIROH pre-generated jsons from s3, and create any that are unavailable, storing locally | local | local |
 | process_by_z_hour | bool \| NoneType | Only applicable when data_source='GCS'. If True, NWM files will be processed by z-hour per day. If False, files will be processed in chunks (defined by STEPSIZE). This can help if you want to read many reaches at once (all ~2.7 million for medium range for example). | True | False |
 | stepsize | int \| NoneType | Only applicable when data_source='GCS' and process_by_z_hour=False. Controls how many files are processed in memory at once. Higher values can increase performance at the expense on memory.  | 100 | 50 |
@@ -631,14 +580,45 @@ plots:
 | overwrite_output | bool \| NoneType | Whether to overwrite existing forecast data files. If False, the script will check if the forecast data file already exists locally before attempting to fetch it. If True, the script will fetch the forecast data and overwrite any existing local file with the same name. | False | False |
 | memory_per_worker_gb | int \| NoneType | Configurable memory (in GB) assigned to each worker or process. | 3 | 1 |
 
-#### `PairDataConfig`
+#### flow_observation
+Class `FlowObservationConfig`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| usgs | USGSConfig \| NoneType | Configuration for USGS flow observations. If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section,  | None |  |
+
+#### flow_observation.usgs
+Class `USGSConfig`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| chunk_by | str = day \| month \| year | How downloaded data are chunked into parquet files. | month | month |
+| overwrite_output | bool \| NoneType | If True, existing output files are overwritten. If False, existing files are retained. | True | True |
+| memory_per_worker_gb | int \| NoneType | Memory assigned to each worker in GB. | 3 | 3 |
+
+#### pair_data
+Class `PairDataConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 | overwrite | bool \| NoneType | Whether to overwrite existing paired data files. If False, the script will check if the paired data file already exists locally before attempting to pair data. If True, the script will pair the data and overwrite any existing local file with the same name. | True | False |
 | group_size | int \| NoneType | Number of locations to process in each group when pairing forecast and observation data. This is used to manage memory usage during the pairing step. If None, all locations will be processed in a single group. | 200 | 100 |
 
-#### `PlotsConfig`
+#### metrics
+Class `MetricsConfig`. Inherits `LeadTimesMixin`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| overwrite | bool \| NoneType | Whether to overwrite existing metric files.  | True | False |
+| library | str \| NoneType | Library to use for metric computation. Valid options: nwm.eval, teehr.  | nwm.eval | nwm.eval |
+| metric_subset | str \| list[str] | Subset of metrics to compute. Can be 'all' or a list of metric names. If 'all', all available metrics in the specified library will be computed. If a list of metric names is provided, only those metrics will be computed. | None | all |
+| metric_exclude | list[str] \| NoneType | List of metric names to exclude from metric_subset for computation.  | None | ['HSEG_FDC', 'MSEG_FDC', 'LSEG_FDC'] |
+| threshold_categorical | dict[str, float \| str] \| NoneType | Threshold for categorical metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value. | {'value': 0.9, 'type': 'quantile'} | {'value': 0.9, 'type': 'quantile'} |
+| threshold_event | dict[str, float \| str] \| NoneType | Threshold for event-based metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value. | {'value': 0.9, 'type': 'quantile'} | {'value': 0.9, 'type': 'quantile'} |
+| file_format | str \| NoneType | File format for output files. Valid options are 'parquet' and 'csv'. | parquet | parquet |
+
+#### plots
+Class `PlotsConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
@@ -649,32 +629,72 @@ plots:
 | metric_table | TablePlotConfig | Configuration for metric table plots. | lead_times=None plot=False metric_subset=None tag='' | lead_times=None plot=False metric_subset=None tag='' |
 | barchart | BarChartConfig | Configuration for bar chart plots. | lead_times=None plot=False metric_subset=None tag='' | lead_times=None plot=False metric_subset=None tag='' |
 
-#### `ReferenceTimesMixin`
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| reference_times | List[datetime] \| NoneType | List of reference times (T0s) to compute metrics or make plots for. Each reference time can be specified as a datetime object or a string in a format recognized by pandas.to_datetime. | None | ['2022-12-01 00:00:00', '2022-12-15 00:00:00'] |
-
-#### `SpatialMapConfig` (inherits from `BasePlotConfig`)
-
-| Field | Type(s) | Description | Default | Example(s) |
-| --- | --- | --- | --- | --- |
-| scaling | Dict[str, List[int \| float]] \| NoneType | Dictionary specifying the scaling for spatial maps. Keys are metric names, and values are lists of numbers defining the scaling range for the corresponding metric. If a metric is not included in this dictionary, metric data will not be scaled and hence the resulting spatial map may be difficult to interpret if there are extreme outliers. | {'NSE': [-0.5, 1.0], 'KGE': [-0.5, 1.0]} | {'NSE': [-0.5, 1.0], 'KGE': [-0.5, 1.0]} |
-
-#### `TablePlotConfig` (inherits from `BasePlotConfig`)
+#### plots.barchart
+Class `BarChartConfig`. Inherits `BasePlotConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 
-#### `TimeSeriesConfig` (inherits from `BasePlotConfig, ReferenceTimesMixin`)
+#### plots.boxplot
+Class `BoxPlotConfig`. Inherits `BasePlotConfig`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| show_outliers | bool \| NoneType | Whether to show outliers in box plots. If True, outliers will be shown as individual points. If False, outliers will be omitted. | False | False |
+
+#### plots.histogram
+Class `HistogramConfig`. Inherits `BasePlotConfig`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| binning | dict[str, list[int \| float]] \| NoneType | Dictionary specifying the binning for histogram plots. Keys are metric names, and values are lists of numbers defining the bin edges for the corresponding metric. If a metric is not included in this dictionary, binning is determined by dividing the range of metric values into 8 equal-width bins.  | {'NSE': [-1, -0.5, 0, 0.5, 1], 'KGE': [-1, -0.5, 0, 0.5, 1]} | {'NSE': [-1, -0.5, 0, 0.5, 1], 'KGE': [-1, -0.5, 0, 0.5, 1]} |
+
+#### plots.table
+Class `TablePlotConfig`. Inherits `BasePlotConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 
-#### `USGSConfig`
+#### plots.time_series
+Class `TimeSeriesConfig`. Inherits `BasePlotConfig, ReferenceTimesMixin`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
-| chunk_by | str = day \| month \| year | How downloaded data are chunked into parquet files. | month | month |
-| overwrite_output | bool \| NoneType | If True, existing output files are overwritten. If False, existing files are retained. | True | True |
-| memory_per_worker_gb | int \| NoneType | Memory assigned to each worker in GB. | 3 | 3 |
+
+#### plots.spatial_map
+Class `SpatialMapConfig`. Inherits `BasePlotConfig`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| scaling | dict[str, list[int \| float]] \| NoneType | Dictionary specifying the scaling for spatial maps. Keys are metric names, and values are lists of numbers defining the scaling range for the corresponding metric. If a metric is not included in this dictionary, metric data will not be scaled and hence the resulting spatial map may be difficult to interpret if there are extreme outliers. | {'NSE': [-0.5, 1.0], 'KGE': [-0.5, 1.0]} | {'NSE': [-0.5, 1.0], 'KGE': [-0.5, 1.0]} |
+
+#### Class: BasePlotConfig
+Class `BasePlotConfig`. Inherits `LeadTimesMixin`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| plot | bool \| NoneType | Whether to generate this type of plot. If False, the script will skip generating this type of plot. If True, the script will generate this type of plot for the specified lead times. | False | False |
+| metric_subset | str \| list[str] \| NoneType | List of metric names to include in the plots. If not defined, all available metrics will be included in the plots.  | None | ['NSE', 'KGE'] |
+| tag | str \| NoneType | Optional tag to include in the plot titles and filenames. This can be used to distinguish different configurations in the plot outputs. |  |  |
+
+#### Class: LeadTimesMixin
+Class `LeadTimesMixin`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| lead_times | list[str] \| NoneType | List of lead times to compute metrics or make plots for. Each lead time can be specified as an integer (e.g., 6), a numeric string (e.g., '6'), or a range string (e.g., '1-6'). `all` represents all available individual lead times for a given nwm configuration. Range strings will be expanded to include all individual lead times within the range. `all_aggregated` represents a range that includes all lead times for a given nwm configuration, (e.g., 1-18 for short_range).Note lead times defined in `plots` must be a subset of those defined in `metrics`. | None | ['all', '1-5', '5-10', '10-15', 'all_aggregated'] |
+
+#### Class: LocationFilter
+Class `LocationFilter`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| columns | str \| list[str] \| NoneType | Column name(s) in the crosswalk file to filter on. Can be a single string or a list of strings. | None | vpu_id |
+| values | str \| list[str] \| NoneType | Value(s) to filter on for the corresponding columns. Can be a single string or a list of strings. | None | 03S |
+
+#### Class: ReferenceTimesMixin
+Class `ReferenceTimesMixin`.
+
+| Field | Type(s) | Description | Default | Example(s) |
+| --- | --- | --- | --- | --- |
+| reference_times | list[datetime] \| NoneType | List of reference times (T0s) to compute metrics or make plots for. Each reference time can be specified as a datetime object or a string in a format recognized by pandas.to_datetime. | None | ['2022-12-01 00:00:00', '2022-12-15 00:00:00'] |

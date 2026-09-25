@@ -2,8 +2,8 @@
 Configuration file for the Sphinx documentation builder.
 """
 
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # ---------------------------------------------------------------------
 # Ensure both packages are importable from src/ layout
@@ -16,7 +16,8 @@ sys.path.insert(0, str(ROOT / "nwm_metrics" / "src"))
 # ---------------------------------------------------------------------
 # Import version safely (do NOT rely on __version__)
 # ---------------------------------------------------------------------
-from importlib.metadata import version as get_version, PackageNotFoundError
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as get_version
 
 try:
     version = get_version("nwm_eval")
@@ -89,6 +90,7 @@ html_theme_options = {
     "navbar_persistent": ["search-button"],
     "navbar_align": "content",
     "header_links_before_dropdown": 5,
+    "show_toc_level": 3,
 }
 
 html_sidebars = {
