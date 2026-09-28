@@ -471,6 +471,8 @@ def main(docs_to_create: dict) -> None:
     # Generate sections for each config file
     lines = []
     for i in docs_to_create:
+        # add MyST anchor for the sample files section
+        lines.append("(sample-files)=\n")
         lines.append("## Sample Files\n")
 
         # Insert sample config files for different use cases
@@ -507,6 +509,9 @@ def main(docs_to_create: dict) -> None:
 
         lines.append("")
 
+        # add MyST anchor for the schemas section
+        lines.append("(schemas)=\n")
+
         lines.append("## Schemas\n")
         lines.append(
             "Schemas are organized by section in the YAML configuration file. For fields that use non-standard types, the schema of the corresponding class is also provided."
@@ -520,6 +525,11 @@ def main(docs_to_create: dict) -> None:
             ]
 
             lines.append("")  # blank line before heading
+
+            # add MyST anchor for the individual schema section
+            lines.append(
+                f"({j.replace('_', '-').replace('.', '-').replace(': ', '-').lower()})=\n"
+            )
 
             lines.append(f"### {j}")
 

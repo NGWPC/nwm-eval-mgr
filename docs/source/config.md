@@ -40,6 +40,8 @@ Template files, sample configuration files, and schemas for all configuration fi
   - [Class: LocationFilter](#class-locationfilter)
   - [Class: ReferenceTimesMixin](#class-referencetimesmixin)
 
+(sample-files)=
+
 ## Sample Files
 
 
@@ -518,9 +520,13 @@ plots:
     lead_times: [1, 3, 5, 10, 15, 18, 1-5, 6-10, 11-18]
 ```
 
+(schemas)=
+
 ## Schemas
 
 Schemas are organized by section in the YAML configuration file. For fields that use non-standard types, the schema of the corresponding class is also provided.
+
+(general)=
 
 ### general
 Class `GeneralConfig`.
@@ -546,6 +552,8 @@ Class `GeneralConfig`.
 | separate_calibrated | bool \| NoneType | Whether to distinguish calibrated and regionalized locations in the evaluation | None | False |
 | log_level | str | Logging level. Valid options (case insensitive): debug, info, warning, error, critical, severe, fatal | info | debug |
 
+(file-paths)=
+
 ### file_paths
 Class `FilePathsConfig`.
 
@@ -564,6 +572,8 @@ Class `FilePathsConfig`.
 | output_dir | str \| Path | Directory to save outputs such as paired data, computed metrics, and plots.  | None | ngen_evaluation/outputs/usgs_01123000/ |
 | log_file | str \| Path \| NoneType | Path to log file. Default: verification.log in {output_dir} | None | outputs/usgs_01123000/verification.log |
 
+(nwm-forecast)=
+
 ### nwm_forecast
 Class `NWMForecastConfig`.
 
@@ -580,12 +590,16 @@ Class `NWMForecastConfig`.
 | overwrite_output | bool \| NoneType | Whether to overwrite existing forecast data files. If False, the script will check if the forecast data file already exists locally before attempting to fetch it. If True, the script will fetch the forecast data and overwrite any existing local file with the same name. | False | False |
 | memory_per_worker_gb | int \| NoneType | Configurable memory (in GB) assigned to each worker or process. | 3 | 1 |
 
+(flow-observation)=
+
 ### flow_observation
 Class `FlowObservationConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 | usgs | USGSConfig \| NoneType | Configuration for USGS flow observations. If omitted, obs_data_file and/or obs_data_dir must be provided in file_paths section,  | None |  |
+
+(flow-observation-usgs)=
 
 ### flow_observation.usgs
 Class `USGSConfig`.
@@ -596,6 +610,8 @@ Class `USGSConfig`.
 | overwrite_output | bool \| NoneType | If True, existing output files are overwritten. If False, existing files are retained. | True | True |
 | memory_per_worker_gb | int \| NoneType | Memory assigned to each worker in GB. | 3 | 3 |
 
+(pair-data)=
+
 ### pair_data
 Class `PairDataConfig`.
 
@@ -603,6 +619,8 @@ Class `PairDataConfig`.
 | --- | --- | --- | --- | --- |
 | overwrite | bool \| NoneType | Whether to overwrite existing paired data files. If False, the script will check if the paired data file already exists locally before attempting to pair data. If True, the script will pair the data and overwrite any existing local file with the same name. | True | False |
 | group_size | int \| NoneType | Number of locations to process in each group when pairing forecast and observation data. This is used to manage memory usage during the pairing step. If None, all locations will be processed in a single group. | 200 | 100 |
+
+(metrics)=
 
 ### metrics
 Class `MetricsConfig`. Inherits `LeadTimesMixin`.
@@ -617,6 +635,8 @@ Class `MetricsConfig`. Inherits `LeadTimesMixin`.
 | threshold_event | dict[str, float \| str] \| NoneType | Threshold for event-based metrics. Valid options for type are 'quantile' and 'absolute'. If 'quantile', the threshold will be determined as the specified quantile of the observed flow values. If 'absolute', the threshold will be the specified absolute flow value. | {'value': 0.9, 'type': 'quantile'} | {'value': 0.9, 'type': 'quantile'} |
 | file_format | str \| NoneType | File format for output files. Valid options are 'parquet' and 'csv'. | parquet | parquet |
 
+(plots)=
+
 ### plots
 Class `PlotsConfig`.
 
@@ -629,11 +649,15 @@ Class `PlotsConfig`.
 | metric_table | TablePlotConfig | Configuration for metric table plots. | lead_times=None plot=False metric_subset=None tag='' | lead_times=None plot=False metric_subset=None tag='' |
 | barchart | BarChartConfig | Configuration for bar chart plots. | lead_times=None plot=False metric_subset=None tag='' | lead_times=None plot=False metric_subset=None tag='' |
 
+(plots-barchart)=
+
 ### plots.barchart
 Class `BarChartConfig`. Inherits `BasePlotConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
+
+(plots-boxplot)=
 
 ### plots.boxplot
 Class `BoxPlotConfig`. Inherits `BasePlotConfig`.
@@ -642,6 +666,8 @@ Class `BoxPlotConfig`. Inherits `BasePlotConfig`.
 | --- | --- | --- | --- | --- |
 | show_outliers | bool \| NoneType | Whether to show outliers in box plots. If True, outliers will be shown as individual points. If False, outliers will be omitted. | False | False |
 
+(plots-histogram)=
+
 ### plots.histogram
 Class `HistogramConfig`. Inherits `BasePlotConfig`.
 
@@ -649,11 +675,15 @@ Class `HistogramConfig`. Inherits `BasePlotConfig`.
 | --- | --- | --- | --- | --- |
 | binning | dict[str, list[int \| float]] \| NoneType | Dictionary specifying the binning for histogram plots. Keys are metric names, and values are lists of numbers defining the bin edges for the corresponding metric. If a metric is not included in this dictionary, binning is determined by dividing the range of metric values into 8 equal-width bins.  | {'NSE': [-1, -0.5, 0, 0.5, 1], 'KGE': [-1, -0.5, 0, 0.5, 1]} | {'NSE': [-1, -0.5, 0, 0.5, 1], 'KGE': [-1, -0.5, 0, 0.5, 1]} |
 
+(plots-table)=
+
 ### plots.table
 Class `TablePlotConfig`. Inherits `BasePlotConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
+
+(plots-time-series)=
 
 ### plots.time_series
 Class `TimeSeriesConfig`. Inherits `BasePlotConfig, ReferenceTimesMixin`.
@@ -661,12 +691,16 @@ Class `TimeSeriesConfig`. Inherits `BasePlotConfig, ReferenceTimesMixin`.
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 
+(plots-spatial-map)=
+
 ### plots.spatial_map
 Class `SpatialMapConfig`. Inherits `BasePlotConfig`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 | scaling | dict[str, list[int \| float]] \| NoneType | Dictionary specifying the scaling for spatial maps. Keys are metric names, and values are lists of numbers defining the scaling range for the corresponding metric. If a metric is not included in this dictionary, metric data will not be scaled and hence the resulting spatial map may be difficult to interpret if there are extreme outliers. | {'NSE': [-0.5, 1.0], 'KGE': [-0.5, 1.0]} | {'NSE': [-0.5, 1.0], 'KGE': [-0.5, 1.0]} |
+
+(class-baseplotconfig)=
 
 ### Class: BasePlotConfig
 Class `BasePlotConfig`. Inherits `LeadTimesMixin`.
@@ -677,12 +711,16 @@ Class `BasePlotConfig`. Inherits `LeadTimesMixin`.
 | metric_subset | str \| list[str] \| NoneType | List of metric names to include in the plots. If not defined, all available metrics will be included in the plots.  | None | ['NSE', 'KGE'] |
 | tag | str \| NoneType | Optional tag to include in the plot titles and filenames. This can be used to distinguish different configurations in the plot outputs. |  |  |
 
+(class-leadtimesmixin)=
+
 ### Class: LeadTimesMixin
 Class `LeadTimesMixin`.
 
 | Field | Type(s) | Description | Default | Example(s) |
 | --- | --- | --- | --- | --- |
 | lead_times | list[str] \| NoneType | List of lead times to compute metrics or make plots for. Each lead time can be specified as an integer (e.g., 6), a numeric string (e.g., '6'), or a range string (e.g., '1-6'). `all` represents all available individual lead times for a given nwm configuration. Range strings will be expanded to include all individual lead times within the range. `all_aggregated` represents a range that includes all lead times for a given nwm configuration, (e.g., 1-18 for short_range).Note lead times defined in `plots` must be a subset of those defined in `metrics`. | None | ['all', '1-5', '5-10', '10-15', 'all_aggregated'] |
+
+(class-locationfilter)=
 
 ### Class: LocationFilter
 Class `LocationFilter`.
@@ -691,6 +729,8 @@ Class `LocationFilter`.
 | --- | --- | --- | --- | --- |
 | columns | str \| list[str] \| NoneType | Column name(s) in the crosswalk file to filter on. Can be a single string or a list of strings. | None | vpu_id |
 | values | str \| list[str] \| NoneType | Value(s) to filter on for the corresponding columns. Can be a single string or a list of strings. | None | 03S |
+
+(class-referencetimesmixin)=
 
 ### Class: ReferenceTimesMixin
 Class `ReferenceTimesMixin`.

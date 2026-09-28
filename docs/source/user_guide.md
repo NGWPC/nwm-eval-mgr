@@ -324,7 +324,3 @@ Optionally redirect output to a file:
 
 
 ---
-
-## License
-
-License information to be added.
